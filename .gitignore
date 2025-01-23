@@ -1,5 +1,9 @@
 .streamlit/secrets.toml
 .env
+.test_azure.py
+.test_bloom.py
+.test_neo4j.py
+.test_vector_store.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
