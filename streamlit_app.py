@@ -5,6 +5,8 @@ import pandas as pd
 import traceback
 import logging
 import numpy as np
+import time
+import traceback
 from graph_visualization import display_graph_visualization
 
 # LangChain imports
@@ -26,18 +28,18 @@ class AzureOpenAIClient:
         )
 
     @staticmethod
-    def get_embedding(text):
-        try:
-            embeddings = AzureOpenAIEmbeddings(
-                deployment=st.secrets["AZURE_OPENAI_EMBEDDING_DEPLOYMENT"],
-                azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"].rstrip('/'),
-                api_key=st.secrets["AZURE_OPENAI_API_KEY"],
-                api_version="2024-05-01-preview"
-            )
-            return embeddings.embed_query(text)
-        except Exception as e:
-            logger.error(f"Embedding Error: {str(e)}")
-            raise
+    def get_embeddings_batch(texts, batch_size=20):
+        embeddings = AzureOpenAIEmbeddings(
+            deployment=st.secrets["AZURE_OPENAI_EMBEDDING_DEPLOYMENT"],
+            azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"].rstrip('/'),
+            api_key=st.secrets["AZURE_OPENAI_API_KEY"],
+            api_version="2024-05-01-preview"
+        )
+        results = []
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i:i + batch_size]
+            results.extend(embeddings.embed_documents(batch))
+        return results
 
 class Neo4jManager:
     @staticmethod
@@ -55,6 +57,7 @@ class Neo4jManager:
             logger.error(f"Failed to create Neo4j driver: {str(e)}")
             raise
 
+    # Update Neo4jVector initialization
     @staticmethod
     def init_vector_store():
         try:
@@ -64,7 +67,7 @@ class Neo4jManager:
                 api_key=st.secrets["AZURE_OPENAI_API_KEY"],
                 api_version="2024-05-01-preview"
             )
-
+            
             vector_store = Neo4jVector.from_existing_graph(
                 embedding=embedding_model,
                 url=st.secrets["NEO4J_URI"],
@@ -73,87 +76,157 @@ class Neo4jManager:
                 index_name="form_10k_chunks",
                 node_label="Document",
                 embedding_node_property="embedding",
-                text_node_properties=["text"]
+                text_node_properties=["text"],
+            #    retrieval_query="""
+            #    CALL db.index.vector.queryNodes($index_name, $k, $vector) 
+            #    YIELD node, similarityScore 
+            #    WHERE node.text IS NOT NULL 
+            #    RETURN node.text AS text, node.embedding AS embedding, similarityScore as score
+            #    """
             )
-            
             return vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 5})
         except Exception as e:
-            logger.error(f"Error initializing vector store: {str(e)}")
+            logger.error(f"Vector store initialization error: {str(e)}")
             raise
+
+    # Update visualization queries
+    def get_nodes():
+        return """
+        MATCH (d:Document)
+        RETURN 
+            elementId(d) as id,
+            d.text as text,
+            datetime().epochMillis - d.timestamp.epochMillis as age
+        LIMIT 100
+        """
+
+    def get_relationships():
+        return """
+        MATCH (d1:Document)-[r]->(d2:Document)
+        RETURN 
+            elementId(d1) as source,
+            elementId(d2) as target,
+            type(r) as type
+        LIMIT 200
+        """
+
+    def create_similarity_relationships(session, similarities):
+        for rel in similarities:
+            session.run("""
+            MATCH (d1:Document)
+            WHERE elementId(d1) = $id1
+            MATCH (d2:Document) 
+            WHERE elementId(d2) = $id2
+            MERGE (d1)-[r:SIMILAR_TO]->(d2)
+            ON CREATE SET r.similarity = $sim
+            ON MATCH SET r.similarity = $sim
+            """, id1=rel['id1'], id2=rel['id2'], sim=rel['sim'])
+
+    # Update deprecated Neo4j queries
+    @staticmethod
+    def upload_file(driver, file):
+        start = time.time()
+        df = pd.read_csv(file)
+        texts = df['text'].tolist()
+        
+        logger.info(f"Starting embeddings batch: {time.time() - start:.2f}s")
+        embeddings = AzureOpenAIClient.get_embeddings_batch(texts)
+        logger.info(f"Embeddings complete: {time.time() - start:.2f}s")
+    
+        with driver.session() as session:
+            # Update duplicate removal query
+            session.run("""
+            MATCH (n:Document)
+            WITH n.text as text, collect(n) as duplicates, count(*) as count
+            WHERE count > 1
+            WITH duplicates[0] as keep, duplicates[1..] as removals
+            WITH removals
+            UNWIND removals as removal
+            DETACH DELETE removal
+            RETURN count(keep)
+            """)
+            
+            # Update node creation
+            result = session.run("""
+            UNWIND $nodes AS node
+            MERGE (n:Document {text: node.text})
+            ON CREATE SET n.embedding = node.embedding,
+                        n.timestamp = datetime()
+            ON MATCH SET n.embedding = node.embedding,
+                        n.timestamp = datetime()
+            RETURN collect(elementId(n)) as ids
+            """, nodes=[{'text': t, 'embedding': e} for t, e in zip(texts, embeddings)])
+
+            # Update similarity relationships
+            if similarities:
+                session.run("""
+                UNWIND $rels AS rel
+                MATCH (d1:Document)
+                MATCH (d2:Document)
+                WHERE elementId(d1) = rel.id1 AND elementId(d2) = rel.id2
+                MERGE (d1)-[r:SIMILAR_TO]->(d2)
+                ON CREATE SET r.similarity = rel.sim
+                ON MATCH SET r.similarity = rel.sim
+                """, rels=similarities)
 
     @staticmethod
     def upload_file(driver, file):
-        try:
-            df = pd.read_csv(file)
-            total_records = len(df)
-            progress_bar = st.progress(0)
+        start = time.time()
+        df = pd.read_csv(file)
+        texts = df['text'].tolist()
+        
+        logger.info(f"Starting embeddings batch: {time.time() - start:.2f}s")
+        embeddings = AzureOpenAIClient.get_embeddings_batch(texts)
+        logger.info(f"Embeddings complete: {time.time() - start:.2f}s")
+        
+        with driver.session() as session:
+            # First, remove duplicates in existing data
+            session.run("""
+            MATCH (n:Document)
+            WITH n.text as text, collect(n) as duplicates, count(*) as count
+            WHERE count > 1
+            WITH duplicates[0] as keep, duplicates[1..] as removals
+            CALL {
+                WITH removals
+                UNWIND removals as removal
+                DETACH DELETE removal
+            }
+            RETURN count(keep)
+            """)
             
-            with driver.session() as session:
-                # First create all nodes
-                node_ids = []  # Store node IDs for creating relationships
-                for index, record in df.iterrows():
-                    embedding = AzureOpenAIClient.get_embedding(record['text'])
-                    
-                    # Create node and get its ID
-                    result = session.run("""
-                    CREATE (n:Document {
-                        text: $text,
-                        embedding: $embedding,
-                        timestamp: datetime()
-                    })
-                    RETURN id(n) as node_id
-                    """, text=record['text'], embedding=embedding)
-                    
-                    node_ids.append(result.single()["node_id"])
-                    
-                    # Update progress
-                    progress = (index + 1) / (total_records * 2)  # Divide by 2 since we have two phases
-                    progress_bar.progress(progress)
-                
-                # Now create relationships between similar documents
-                for i, id1 in enumerate(node_ids):
-                    # Get the embedding for this document
-                    result = session.run("""
-                    MATCH (d:Document)
-                    WHERE id(d) = $id
-                    RETURN d.embedding as embedding
-                    """, id=id1)
-                    embedding1 = result.single()["embedding"]
-                    
-                    # Find similar documents and create relationships
-                    for j, id2 in enumerate(node_ids[i+1:], i+1):
-                        result = session.run("""
-                        MATCH (d:Document)
-                        WHERE id(d) = $id
-                        RETURN d.embedding as embedding
-                        """, id=id2)
-                        embedding2 = result.single()["embedding"]
-                        
-                        # Calculate cosine similarity
-                        similarity = np.dot(embedding1, embedding2) / (
-                            np.linalg.norm(embedding1) * np.linalg.norm(embedding2)
-                        )
-                        
-                        # If documents are similar enough, create a relationship
-                        if similarity > 0.8:  # Threshold for similarity
-                            session.run("""
-                            MATCH (d1:Document), (d2:Document)
-                            WHERE id(d1) = $id1 AND id(d2) = $id2
-                            CREATE (d1)-[:SIMILAR_TO {similarity: $similarity}]->(d2)
-                            """, id1=id1, id2=id2, similarity=float(similarity))
-                    
-                    # Update progress for second phase
-                    progress = 0.5 + ((i + 1) / total_records * 0.5)
-                    progress_bar.progress(progress)
-                
-            st.success(f"Successfully uploaded {total_records} records and created relationships!")
-            return True
+            # Then proceed with merge operation
+            result = session.run("""
+            UNWIND $nodes AS node
+            MERGE (n:Document {text: node.text})
+            ON CREATE SET n.embedding = node.embedding,
+                        n.timestamp = datetime()
+            ON MATCH SET n.embedding = node.embedding,
+                        n.timestamp = datetime()
+            RETURN collect(elementId(n)) as ids
+            """, nodes=[{'text': t, 'embedding': e} for t, e in zip(texts, embeddings)])
+            
+            node_ids = result.single()["ids"]
+            
+            # Update similarities
+            similarities = []
+            for i, (id1, emb1) in enumerate(zip(node_ids, embeddings)):
+                for j, (id2, emb2) in enumerate(zip(node_ids[i+1:], embeddings[i+1:]), i+1):
+                    sim = np.dot(emb1, emb2) / (np.linalg.norm(emb1) * np.linalg.norm(emb2))
+                    if sim > 0.8:
+                        similarities.append({'id1': id1, 'id2': id2, 'sim': float(sim)})
+            
+            if similarities:
+                session.run("""
+                UNWIND $rels AS rel
+                MATCH (d1:Document), (d2:Document)
+                WHERE elementId(d1) = rel.id1 AND elementId(d2) = rel.id2
+                MERGE (d1)-[r:SIMILAR_TO]->(d2)
+                ON CREATE SET r.similarity = rel.sim
+                ON MATCH SET r.similarity = rel.sim
+                """, rels=similarities)
         
-        except Exception as e:
-            logger.error(f"Error uploading file: {str(e)}")
-            st.error(f"Upload failed: {str(e)}")
-            return False
-        
+        return True
+             
     @staticmethod
     def clear_data(driver):
         try:
@@ -171,32 +244,27 @@ class ChatInterface:
 
     def process_query(self, user_input):
         try:
-            # Get context from retriever
+            logger.info("Starting query processing...")
             context_docs = self.retriever.invoke(user_input)
-            context = "\n\n".join([doc.page_content for doc in context_docs])
+            logger.info(f"Retrieved {len(context_docs)} documents")
             
-            # Format messages
-            messages = [{
-                "role": "user", 
-                "content": f"""You are a helpful assistant that answers questions based on the provided context.
-                Please answer the following question based on this context:
+            if not context_docs:
+                logger.warning("No documents retrieved")
+                return "No relevant documents found to answer your question."
                 
-                Context: {context}
-                Question: {user_input}
-                Answer: """
-            }]
-
-            # Get completion
-            with st.spinner('Processing your question...'):
-                response = self.client.chat.completions.create(
-                    model=st.secrets["AZURE_OPENAI_DEPLOYMENT_NAME"],
-                    messages=messages,
-                    temperature=1
-                )
-                return response.choices[0].message.content
-                
+            context = "\n\n".join([doc.page_content for doc in context_docs])
+            logger.info(f"Built context of length: {len(context)}")
+            
+            messages = [{"role": "user", "content": f"Context: {context}\nQuestion: {user_input}\nAnswer:"}]
+            response = self.client.chat.completions.create(
+                model=st.secrets["AZURE_OPENAI_DEPLOYMENT_NAME"],
+                messages=messages,
+                temperature=1
+            )
+            return response.choices[0].message.content
+            
         except Exception as e:
-            logger.error(f"Error processing query: {str(e)}")
+            logger.error(f"Query processing error: {str(e)}\n{traceback.format_exc()}")
             raise
 
 def main():
