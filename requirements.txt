@@ -1,1 +1,6 @@
 streamlit
+langchain
+openai
+neo4j
+pandas
+numpy
