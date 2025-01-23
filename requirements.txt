@@ -4,4 +4,4 @@ openai
 neo4j
 pandas
 numpy
->>>>>>> 2f4ff58 (Update dependencies)
+python-dotenv
