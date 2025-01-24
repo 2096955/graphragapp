@@ -5,8 +5,8 @@ import json
 def test_vector_storage():
     # Azure OpenAI setup
     client = AzureOpenAI(
-        azure_endpoint="https://anthonylui.openai.azure.com",
-        api_key="3707d10eab2b4368b73998b8802838de",
+        azure_endpoint=st.secrets["AZURE_OPENAI_ENDPOINT"],
+        api_key=st.secrets["AZURE_OPENAI_API_KEY"],
         api_version="2024-05-01-preview"
     )
 
