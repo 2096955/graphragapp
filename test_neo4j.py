@@ -3,9 +3,9 @@ import sys
 
 def test_neo4j_connection():
     # Neo4j connection details
-    uri = "neo4j+s://5a50d911.databases.neo4j.io"
-    username = "neo4j"
-    password = "izmc4aXhUOjjrm2-6HC3VT09HkadNA-nwAmZVqZzvAE"
+        uri = st.secrets["NEO4J_URI"]
+        username = st.secrets["NEO4J_USERNAME"]
+        password = st.secrets["NEO4J_PASSWORD"]
 
     try:
         print("Testing Neo4j connection...")
