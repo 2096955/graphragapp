@@ -309,7 +309,7 @@ footer p{max-width:90ch}
 <section id="small-world">
   <div class="sec-head">
     <h2>Why two hops are enough</h2>
-    <p>Rewiring a locally clustered ring collapses average path length while clustering stays high. Two hops reach most of a real knowledge graph, so retrieval should be bounded by tokens or rank, not by hop count. The compliance filter only expands a short neighbourhood from the matched pattern for the same reason.</p>
+    <p>The Watts–Strogatz figures are a synthetic N=500 visual, not a measurement of this catalogue graph. Token-bounded retrieval is the design claim, not a measured p95. The compliance filter only expands a short neighbourhood from the matched pattern for that reason.</p>
   </div>
   <div class="ws-grid">
     <div class="panel">
@@ -331,7 +331,7 @@ footer p{max-width:90ch}
 <section id="compliance">
   <div class="sec-head">
     <h2>Worked example: compliance filter</h2>
-    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. <b>Kuzu</b> records the decision and increments the pattern node when the same email is injected again. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. Space name on the signed-in account is <b>AzureDev</b>. Send traces with <code>register(space_id, api_key, project_name=...)</code> or OTLP (<code>https://otlp.arize.com/v1</code> gRPC, <code>https://otlp.arize.com/v1/traces</code> HTTP). A key named <code>graph-demo</code> must not be committed. When <code>ARIZE_SPACE_ID</code>, <code>ARIZE_API_KEY</code> and <code>ARIZE_PROJECT_NAME</code> are unset, this example still runs and shows sample eval and cost.</p>
+    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. If the decision backend errors, the filter fails closed and blocks. <b>Kuzu</b> stores a hashed pattern identity, the decision, and the attempt count — not raw PII. The same pattern identity is a repeat; recording the same payload is idempotent. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. Space name on the signed-in account is <b>AzureDev</b>. Send traces with <code>register(space_id, api_key, project_name=...)</code> or OTLP (<code>https://otlp.arize.com/v1</code> gRPC, <code>https://otlp.arize.com/v1/traces</code> HTTP). A key named <code>graph-demo</code> must not be committed. There is no live Arize export unless the env vars are set. This example has no measured redaction precision and no retention policy.</p>
   </div>
   <div class="controls">
     <button class="btn" id="compExampleBtn" type="button">Run the example (no keys)</button>
