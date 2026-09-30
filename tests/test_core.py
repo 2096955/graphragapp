@@ -32,7 +32,7 @@ def test_items_are_well_formed():
 def test_task_sizes_and_balance():
     items = build()
     count = lambda task, gold=None: sum(1 for i in items if i["task"] == task and (gold is None or i["gold"] == gold))  # noqa: E731
-    assert count("gate") == 61 and count("gate", "answer") == 30 and count("gate", "clarify") == 17 and count("gate", "reject") == 14
+    assert count("gate") == 61 and count("gate", "answer") == 31 and count("gate", "clarify") == 16 and count("gate", "reject") == 14
     assert count("level") == 93 and count("relevance") == 132 and count("entity") == 82 and count("mapping") == 80
     assert count("relevance", "yes") == 53 and count("entity", "yes") == 49
 
@@ -94,16 +94,16 @@ def test_pipeline_recovers_every_labelled_query(graph):
     pipe, oracle = Pipeline(graph), OracleBackend()
     for r in REQUESTS:
         out = pipe.run(oracle, r[1], "European countries, recent years")
-        if r[0] == "P15":
-            assert out["outcome"] == "clarify"
-            continue
         if r[2] != "answer":
             assert out["outcome"] == r[2], r[0]
             continue
         gq = gold_query(r[0])
         assert out["query"]["pollutants"] == gq["pollutants"], r[0]
         assert out["query"]["levels"] == gq["levels"], r[0]
-        assert out["outcome"] in ("answer", "no_data")
+        # A perfect model is only sent to review for words the checks cannot place (typos here).
+        assert out["outcome"] in ("answer", "no_data", "review"), r[0]
+        if out["outcome"] == "review":
+            assert all(x.startswith("Words the catalogue checks could not place") for x in out["review"]), r[0]
 
 
 def test_pipeline_explains_ranked_solutions(graph):

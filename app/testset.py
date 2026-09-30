@@ -4,8 +4,7 @@ The 22 requests marked "paper" are the test requests of Table 1 in Diamantini et
 as reproduced in Syntran-Labs/paper-rag-graph-4-datasets (MIT). Their labels follow the rules
 in LABELLING.md, which agree with the paper's outcome for every case except 18 and 20: the
 paper returned "Not sure" for both, and the rules here say "reject" because they need city-level
-data the catalogue does not hold. Version 1.1 also clarifies P15 rather than ignoring its unheld
-NO2 component; its relevance/level items remain independently labelable.
+data the catalogue does not hold.
 """
 from __future__ import annotations
 
@@ -169,7 +168,7 @@ TASKS = {
     "level": {"label": "Breakdown level", "stage": "query", "type": "choice"},
     "mapping": {"label": "Column mapping", "stage": "build", "type": "choice"},
     "entity": {"label": "Entity match", "stage": "build", "type": "noul"},
-    "group": {"label": "Whole-group relevance", "stage": "query", "type": "noul"},
+    "group": {"label": "Whole-group selection", "stage": "query", "type": "noul"},
     "fit": {"label": "Preference fit", "stage": "rank", "type": "score"},
 }
 
@@ -187,9 +186,7 @@ def build() -> list[dict]:
     for rid, text, gate, pols, geo, time_, sector, pos, neg in REQUESTS:
         src = "paper" if rid.startswith("P") else "added"
         state, qs = t.gate(text)
-        # P15 names unheld NO2; the legacy label silently ignored it.
-        gate_gold = "clarify" if rid == "P15" else gate
-        items.append(_item(f"gate-{rid}", "gate", state, qs, "gate", gate_gold, request=rid, source=src))
+        items.append(_item(f"gate-{rid}", "gate", state, qs, "gate", gate, request=rid, source=src))
         if gate != "answer":
             continue
         requested = GROUP_GOLD.get(rid, ())

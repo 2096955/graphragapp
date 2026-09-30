@@ -2,6 +2,7 @@
  "backend": "anyjev",
  "label": "AnyJev",
  "model": "Qwen/Qwen3-1.7B (L0)",
+ "pipeline_version": "1.2.0",
  "runs": [
   {
    "request": "I want to analyse particulate matter (PM2.5 and PM10) by country and year",
@@ -14,7 +15,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 4955.063878000146,
+     "latency_ms": 8201.791334000063,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -38,7 +39,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 8110.148492999997,
+     "latency_ms": 6738.618089999818,
      "threshold": 0.5,
      "graph_candidates": [
       "PM2_5",
@@ -49,80 +50,64 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.9999810748540163,
-       "selected": true
+       "p": 0.8933094055217755,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.0031726822046414956,
+       "p": 0.11920290607128357,
+       "model": false,
        "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.999999694097682,
+       "p": 0.9998766054324262,
+       "model": true,
        "selected": true
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.04208772583877124,
+       "p": 0.09534945790001254,
+       "model": false,
        "selected": false
       },
       {
        "node": "pollutant:PM2_5",
        "label": "PM2.5",
        "kind": "pollutant",
-       "p": 0.9999997897566464,
+       "p": 0.9999996940977366,
+       "model": true,
        "selected": true
       },
       {
        "node": "pollutant:PM10",
        "label": "PM10",
        "kind": "pollutant",
-       "p": 0.9999998362623235,
+       "p": 0.9999998555020049,
+       "model": true,
        "selected": true
       }
      ],
      "groups_expanded": [
-      "all",
       "pm"
      ],
      "pollutants": [
-      "CO2",
-      "CO2e100",
-      "CO2e20",
-      "CH4",
-      "N2O",
       "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
+      "PM10"
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 5518.550780000169,
+     "latency_ms": 5187.975842000014,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -156,181 +141,245 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
-       "CO2",
-       "CO2e100",
-       "CO2e20",
-       "CH4",
-       "N2O",
        "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
+       "PM10"
       ],
       "levels": {
        "GEO": "country",
        "TIME": "year"
-      }
+      },
+      "filters": {}
      }
     },
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 81.36036299993066,
-     "solutions": 1
+     "latency_ms": 57.502964999912365,
+     "solutions": 3
     },
     {
      "stage": "rank",
      "title": "Ranking",
      "by": "preference fit",
      "order": [
-      "A"
+      "A",
+      "B",
+      "C"
      ]
     },
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.037943999814160634,
+     "latency_ms": 0.05178199990041321,
      "by": "template"
     }
    ],
-   "query": {
-    "pollutants": [
-     "CO2",
-     "CO2e100",
-     "CO2e20",
-     "CH4",
-     "N2O",
+   "review": [
+    "Pollutants: the model added CO2, CO2e (100-year), CO2e (20-year), CH4, N2O and 17 more. The pollutants named in the request are used."
+   ],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
+   },
+   "checks": {
+    "named": [
      "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
+     "PM10"
+    ],
+    "groups": [
+     "pm"
     ],
     "levels": {
      "GEO": "country",
      "TIME": "year"
-    }
+    },
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
+   "query": {
+    "pollutants": [
+     "PM2_5",
+     "PM10"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year"
+    },
+    "filters": {}
    },
    "solutions": [
     {
      "sources": [
-      {
-       "id": "S1",
-       "name": "Global Facility Emissions Inventory",
-       "publisher": "research",
-       "updated": 2025,
-       "provides": [
-        "CH4",
-        "CO2",
-        "CO2e100",
-        "CO2e20",
-        "N2O"
-       ]
-      },
-      {
-       "id": "S2",
-       "name": "National Emissions Compendium",
-       "publisher": "official",
-       "updated": 2024,
-       "provides": [
-        "BC",
-        "CH4",
-        "CO",
-        "CO2",
-        "N2O",
-        "NH3",
-        "NMVOCs",
-        "NOx",
-        "OC",
-        "SO2"
-       ]
-      },
       {
        "id": "S3",
        "name": "European Air Emissions Reporting",
        "publisher": "official",
        "updated": 2025,
        "provides": [
-        "AS",
-        "CD",
-        "CO",
-        "CR",
-        "CU",
-        "HG",
-        "NH3",
-        "NI",
-        "NMVOCs",
-        "NOx",
-        "PB",
         "PM10",
-        "PM2_5",
-        "SE",
-        "SOx",
-        "ZN"
+        "PM2_5"
        ]
       }
      ],
      "profiles": {
       "GEO.country": {
-       "Italy": 46,
-       "Spain": 32,
-       "Poland": 25
+       "Italy": 57,
+       "France": 24,
+       "Germany": 58,
+       "Spain": 39,
+       "Portugal": 51,
+       "Poland": 26,
+       "United Kingdom": 20
       },
       "TIME.year": {
+       "2015": 13,
+       "2016": 26,
+       "2018": 29,
+       "2019": 36,
+       "2020": 23,
        "2021": 20,
-       "2022": 20,
-       "2023": 20
+       "2022": 28,
+       "2023": 26,
+       "2024": 38
       }
      },
-     "cells": 9,
+     "cells": 63,
      "notes": [
-      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors",
       "European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors"
      ],
      "id": "A",
-     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025); National Emissions Compendium (official, updated 2024); European Air Emissions Reporting (official, updated 2025). 3 countries: Italy, Spain, Poland. Years: 2021 to 2023 (3 covered). Pollutants: CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5, PM10, NOx and 16 more. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
+     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). Pollutants: PM2.5, PM10. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
      "fit": {
       "type": "score",
       "probabilities": {
        "0": 0.0,
-       "1": 0.0002,
-       "2": 0.9998,
+       "1": 0.0,
+       "2": 1.0,
        "3": 0.0
       },
       "top": "2",
-      "confidence": 0.9998,
-      "score": 1.9998,
+      "confidence": 1.0,
+      "score": 2.0,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S4",
+       "name": "Regional Air Monitoring Network",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "PM10",
+        "PM2_5"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 170,
+       "France": 61,
+       "Germany": 116,
+       "Spain": 54
+      },
+      "TIME.year": {
+       "2019": 288,
+       "2020": 295,
+       "2021": 239,
+       "2022": 284,
+       "2023": 253,
+       "2024": 343,
+       "2025": 243
+      }
+     },
+     "cells": 28,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 4 countries: Italy, France, Germany, Spain. Years: 2019 to 2025 (7 covered). Pollutants: PM2.5, PM10.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0,
+       "1": 1e-05,
+       "2": 0.99999,
+       "3": 0.0
+      },
+      "top": "2",
+      "confidence": 0.99999,
+      "score": 2.0,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S6",
+       "name": "Asia-Pacific Particulate Survey",
+       "publisher": "research",
+       "updated": 2023,
+       "provides": [
+        "PM10",
+        "PM2_5"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "China": 26,
+       "India": 61,
+       "Japan": 43,
+       "Australia": 40
+      },
+      "TIME.year": {
+       "2017": 16,
+       "2018": 18,
+       "2019": 25,
+       "2020": 24,
+       "2021": 21,
+       "2022": 30
+      }
+     },
+     "cells": 24,
+     "notes": [
+      "Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors"
+     ],
+     "id": "C",
+     "summary": "Sources: Asia-Pacific Particulate Survey (research, updated 2023). 4 countries: China, India, Japan, Australia. Years: 2017 to 2022 (6 covered). Pollutants: PM2.5, PM10. Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0,
+       "1": 1e-05,
+       "2": 0.99999,
+       "3": 0.0
+      },
+      "top": "2",
+      "confidence": 0.99999,
+      "score": 2.0,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -343,31 +392,6 @@
    "subgraph": {
     "nodes": [
      {
-      "id": "P:CO2",
-      "kind": "pollutant",
-      "label": "CO2"
-     },
-     {
-      "id": "P:CO2e100",
-      "kind": "pollutant",
-      "label": "CO2e (100-year)"
-     },
-     {
-      "id": "P:CO2e20",
-      "kind": "pollutant",
-      "label": "CO2e (20-year)"
-     },
-     {
-      "id": "P:CH4",
-      "kind": "pollutant",
-      "label": "CH4"
-     },
-     {
-      "id": "P:N2O",
-      "kind": "pollutant",
-      "label": "N2O"
-     },
-     {
       "id": "P:PM2_5",
       "kind": "pollutant",
       "label": "PM2.5"
@@ -376,91 +400,6 @@
       "id": "P:PM10",
       "kind": "pollutant",
       "label": "PM10"
-     },
-     {
-      "id": "P:NOx",
-      "kind": "pollutant",
-      "label": "NOx"
-     },
-     {
-      "id": "P:SO2",
-      "kind": "pollutant",
-      "label": "SO2"
-     },
-     {
-      "id": "P:SOx",
-      "kind": "pollutant",
-      "label": "SOx"
-     },
-     {
-      "id": "P:NH3",
-      "kind": "pollutant",
-      "label": "NH3"
-     },
-     {
-      "id": "P:CO",
-      "kind": "pollutant",
-      "label": "CO"
-     },
-     {
-      "id": "P:NMVOCs",
-      "kind": "pollutant",
-      "label": "NMVOCs"
-     },
-     {
-      "id": "P:BC",
-      "kind": "pollutant",
-      "label": "BC"
-     },
-     {
-      "id": "P:OC",
-      "kind": "pollutant",
-      "label": "OC"
-     },
-     {
-      "id": "P:AS",
-      "kind": "pollutant",
-      "label": "As"
-     },
-     {
-      "id": "P:CD",
-      "kind": "pollutant",
-      "label": "Cd"
-     },
-     {
-      "id": "P:CR",
-      "kind": "pollutant",
-      "label": "Cr"
-     },
-     {
-      "id": "P:CU",
-      "kind": "pollutant",
-      "label": "Cu"
-     },
-     {
-      "id": "P:HG",
-      "kind": "pollutant",
-      "label": "Hg"
-     },
-     {
-      "id": "P:NI",
-      "kind": "pollutant",
-      "label": "Ni"
-     },
-     {
-      "id": "P:PB",
-      "kind": "pollutant",
-      "label": "Pb"
-     },
-     {
-      "id": "P:SE",
-      "kind": "pollutant",
-      "label": "Se"
-     },
-     {
-      "id": "P:ZN",
-      "kind": "pollutant",
-      "label": "Zn"
      },
      {
       "id": "L:GEO.region",
@@ -512,19 +451,19 @@
       "selected": false
      },
      {
-      "id": "S:S1",
-      "kind": "source",
-      "label": "Global Facility Emissions Inventory"
-     },
-     {
-      "id": "S:S2",
-      "kind": "source",
-      "label": "National Emissions Compendium"
-     },
-     {
       "id": "S:S3",
       "kind": "source",
       "label": "European Air Emissions Reporting"
+     },
+     {
+      "id": "S:S4",
+      "kind": "source",
+      "label": "Regional Air Monitoring Network"
+     },
+     {
+      "id": "S:S6",
+      "kind": "source",
+      "label": "Asia-Pacific Particulate Survey"
      }
     ],
     "edges": [
@@ -549,106 +488,6 @@
       "kind": "rolls_up"
      },
      {
-      "from": "S:S1",
-      "to": "P:CO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CH4",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e100",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e20",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "L:GEO.country",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S1",
-      "to": "L:TIME.month",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S1",
-      "to": "L:SECTOR.subsector",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CH4",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:SO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:BC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:OC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "L:GEO.country",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S2",
-      "to": "L:TIME.year",
-      "kind": "at_level"
-     },
-     {
       "from": "S:S3",
       "to": "P:PM2_5",
       "kind": "provides"
@@ -660,76 +499,6 @@
      },
      {
       "from": "S:S3",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:AS",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CD",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CR",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CU",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:HG",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NI",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:PB",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SE",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:ZN",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
       "to": "L:GEO.country",
       "kind": "at_level"
      },
@@ -742,21 +511,66 @@
       "from": "S:S3",
       "to": "L:SECTOR.subsector",
       "kind": "at_level"
+     },
+     {
+      "from": "S:S4",
+      "to": "P:PM2_5",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S4",
+      "to": "P:PM10",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:GEO.region",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:TIME.month",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "P:PM2_5",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S6",
+      "to": "P:PM10",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:SECTOR.macrosector",
+      "kind": "at_level"
      }
     ]
    },
    "explanation": {
     "by": "template",
-    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5 and 18 more by country and year.\nFirst: A, Global Facility Emissions Inventory + National Emissions Compendium + European Air Emissions Reporting, covering 3 countries, 2021 to 2023. Preference fit 2.0 of 3 (100% confident in its most likely level). Caution: Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors; European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors."
+    "text": "3 solutions hold PM2.5, PM10 by country and year.\nFirst: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024. Preference fit 2.0 of 3 (100% confident in its most likely level). Caution: European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.\nThen: B, Regional Air Monitoring Network, covering 4 countries, 2019 to 2025. Preference fit 2.0 of 3 (100% confident in its most likely level).\nThen: C, Asia-Pacific Particulate Survey, covering 4 countries, 2017 to 2022. Preference fit 2.0 of 3 (100% confident in its most likely level). Caution: Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors."
    },
-   "outcome": "answer",
-   "message": null,
+   "outcome": "review",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
-    "decisions": 11,
-    "calls": 4,
-    "latency_ms": 20494.0,
+    "decisions": 13,
+    "calls": 6,
+    "latency_ms": 24839.0,
     "cost_usd": 0.0,
-    "wall_ms": 20584.7
+    "wall_ms": 24924.4
    }
   },
   {
@@ -770,7 +584,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3048.157971999899,
+     "latency_ms": 3095.8217630000036,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -794,7 +608,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 5037.535418000061,
+     "latency_ms": 4595.695705000026,
      "threshold": 0.5,
      "graph_candidates": [
       "CO2"
@@ -804,74 +618,59 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.9994472213184691,
-       "selected": true
+       "p": 0.7772998483579875,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.9984988179257227,
+       "p": 0.9984988177890689,
+       "model": true,
        "selected": true
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.6791787105395024,
-       "selected": true
+       "p": 0.46879062662624377,
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.05340332461223299,
+       "p": 0.14804719826662344,
+       "model": false,
        "selected": false
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.9999339478356102,
+       "p": 0.9999485577924602,
+       "model": true,
        "selected": true
       }
      ],
      "groups_expanded": [
-      "all",
-      "ghg",
-      "pm"
+      "ghg"
      ],
      "pollutants": [
       "CO2",
       "CO2e100",
       "CO2e20",
       "CH4",
-      "N2O",
-      "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
+      "N2O"
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 4431.980129000294,
+     "latency_ms": 5166.785816999891,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -905,76 +704,223 @@
        "confidence": 0.99988
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "request"
+     },
      "query": {
       "pollutants": [
        "CO2",
        "CO2e100",
        "CO2e20",
        "CH4",
-       "N2O",
-       "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
+       "N2O"
       ],
       "levels": {
-       "TIME": "month"
+       "GEO": "country",
+       "TIME": "month",
+       "SECTOR": "subsector"
+      },
+      "filters": {
+       "SECTOR": {
+        "level": "subsector",
+        "members": [
+         "Road transport"
+        ]
+       }
       }
      }
     },
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 31.700862999969104,
-     "solutions": 0
+     "latency_ms": 61.525203000201145,
+     "solutions": 1
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "A"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.09663800005910161,
+     "by": "template"
     }
    ],
+   "review": [
+    "Pollutants: the model added PM2.5, PM10, NOx, SO2, SOx and 14 more. The pollutants named in the request are used.",
+    "Geography: the model chose none, the request says country. The request is used.",
+    "Sector: the model chose none, the request says subsector. The request is used."
+   ],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
+   },
+   "checks": {
+    "named": [],
+    "groups": [
+     "ghg"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "month",
+     "SECTOR": "subsector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "subsector",
+      "members": [
+       "Road transport"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
    "query": {
     "pollutants": [
      "CO2",
      "CO2e100",
      "CO2e20",
      "CH4",
-     "N2O",
-     "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
+     "N2O"
     ],
     "levels": {
-     "TIME": "month"
+     "GEO": "country",
+     "TIME": "month",
+     "SECTOR": "subsector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "subsector",
+      "members": [
+       "Road transport"
+      ]
+     }
     }
    },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S1",
+       "name": "Global Facility Emissions Inventory",
+       "publisher": "research",
+       "updated": 2025,
+       "provides": [
+        "CH4",
+        "CO2",
+        "CO2e100",
+        "CO2e20",
+        "N2O"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 46,
+       "France": 30,
+       "Germany": 61,
+       "Spain": 55,
+       "Poland": 63,
+       "United Kingdom": 57,
+       "United States": 17,
+       "China": 24,
+       "India": 19,
+       "Japan": 31,
+       "Australia": 53,
+       "South Africa": 59,
+       "Nigeria": 16
+      },
+      "TIME.month": {
+       "2021-01": 39,
+       "2021-02": 26,
+       "2021-03": 33,
+       "2021-04": 14,
+       "2021-05": 20,
+       "2021-06": 25,
+       "2021-07": 15,
+       "2021-09": 24,
+       "2021-10": 25,
+       "2021-11": 10,
+       "2021-12": 32,
+       "2022-01": 17,
+       "2022-02": 12,
+       "2022-03": 28,
+       "2022-04": 35,
+       "2022-05": 19,
+       "2022-06": 38,
+       "2022-07": 18,
+       "2022-08": 36,
+       "2022-09": 11,
+       "2022-10": 18,
+       "2022-11": 30,
+       "2023-01": 37,
+       "2023-03": 10,
+       "2023-05": 39,
+       "2023-06": 21,
+       "2023-07": 22,
+       "2023-08": 20,
+       "2023-09": 34,
+       "2023-10": 11,
+       "2023-11": 21,
+       "2023-12": 20,
+       "2024-02": 11,
+       "2024-03": 27,
+       "2024-04": 26,
+       "2024-05": 21,
+       "2024-06": 36,
+       "2024-07": 35,
+       "2024-08": 25,
+       "2024-09": 33,
+       "2024-10": 24,
+       "2024-11": 20,
+       "2024-12": 34,
+       "2025-01": 31,
+       "2025-02": 10,
+       "2025-03": 20,
+       "2025-04": 32,
+       "2025-06": 34
+      },
+      "SECTOR.subsector": {
+       "Road transport": 41
+      }
+     },
+     "cells": 624,
+     "notes": [],
+     "id": "A",
+     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025). 13 countries: Italy, France, Germany, Spain, Poland, United Kingdom, United States, China and 5 more. Months: 2021-01 to 2025-06 (48 covered). 1 subsector: Road transport. Pollutants: CO2, CO2e (100-year), CO2e (20-year), CH4, N2O.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.00247,
+       "2": 0.9975,
+       "3": 2e-05
+      },
+      "top": "2",
+      "confidence": 0.9975,
+      "score": 1.9975,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
    "subgraph": {
     "nodes": [
      {
@@ -1003,101 +949,6 @@
       "label": "N2O"
      },
      {
-      "id": "P:PM2_5",
-      "kind": "pollutant",
-      "label": "PM2.5"
-     },
-     {
-      "id": "P:PM10",
-      "kind": "pollutant",
-      "label": "PM10"
-     },
-     {
-      "id": "P:NOx",
-      "kind": "pollutant",
-      "label": "NOx"
-     },
-     {
-      "id": "P:SO2",
-      "kind": "pollutant",
-      "label": "SO2"
-     },
-     {
-      "id": "P:SOx",
-      "kind": "pollutant",
-      "label": "SOx"
-     },
-     {
-      "id": "P:NH3",
-      "kind": "pollutant",
-      "label": "NH3"
-     },
-     {
-      "id": "P:CO",
-      "kind": "pollutant",
-      "label": "CO"
-     },
-     {
-      "id": "P:NMVOCs",
-      "kind": "pollutant",
-      "label": "NMVOCs"
-     },
-     {
-      "id": "P:BC",
-      "kind": "pollutant",
-      "label": "BC"
-     },
-     {
-      "id": "P:OC",
-      "kind": "pollutant",
-      "label": "OC"
-     },
-     {
-      "id": "P:AS",
-      "kind": "pollutant",
-      "label": "As"
-     },
-     {
-      "id": "P:CD",
-      "kind": "pollutant",
-      "label": "Cd"
-     },
-     {
-      "id": "P:CR",
-      "kind": "pollutant",
-      "label": "Cr"
-     },
-     {
-      "id": "P:CU",
-      "kind": "pollutant",
-      "label": "Cu"
-     },
-     {
-      "id": "P:HG",
-      "kind": "pollutant",
-      "label": "Hg"
-     },
-     {
-      "id": "P:NI",
-      "kind": "pollutant",
-      "label": "Ni"
-     },
-     {
-      "id": "P:PB",
-      "kind": "pollutant",
-      "label": "Pb"
-     },
-     {
-      "id": "P:SE",
-      "kind": "pollutant",
-      "label": "Se"
-     },
-     {
-      "id": "P:ZN",
-      "kind": "pollutant",
-      "label": "Zn"
-     },
-     {
       "id": "L:GEO.region",
       "kind": "level",
       "label": "region",
@@ -1109,7 +960,7 @@
       "kind": "level",
       "label": "country",
       "dim": "GEO",
-      "selected": false
+      "selected": true
      },
      {
       "id": "L:GEO.continent",
@@ -1137,7 +988,7 @@
       "kind": "level",
       "label": "subsector",
       "dim": "SECTOR",
-      "selected": false
+      "selected": true
      },
      {
       "id": "L:SECTOR.macrosector",
@@ -1145,6 +996,11 @@
       "label": "macrosector",
       "dim": "SECTOR",
       "selected": false
+     },
+     {
+      "id": "S:S1",
+      "kind": "source",
+      "label": "Global Facility Emissions Inventory"
      }
     ],
     "edges": [
@@ -1167,17 +1023,61 @@
       "from": "L:SECTOR.subsector",
       "to": "L:SECTOR.macrosector",
       "kind": "rolls_up"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:CO2",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:N2O",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:CO2e100",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:CO2e20",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:TIME.month",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
      }
     ]
    },
-   "outcome": "no_data",
-   "message": "No combination of sources holds these pollutants at these levels.",
+   "explanation": {
+    "by": "template",
+    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O by country and month and subsector.\nFirst: A, Global Facility Emissions Inventory, covering 13 countries, 2021-01 to 2025-06, 1 subsector. Preference fit 2.0 of 3 (100% confident in its most likely level)."
+   },
+   "outcome": "review",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
-    "decisions": 9,
-    "calls": 3,
-    "latency_ms": 12517.7,
+    "decisions": 10,
+    "calls": 4,
+    "latency_ms": 17176.2,
     "cost_usd": 0.0,
-    "wall_ms": 12553.5
+    "wall_ms": 17246.0
    }
   },
   {
@@ -1191,7 +1091,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3131.847161999758,
+     "latency_ms": 4114.098925999997,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1215,7 +1115,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 5066.621308999856,
+     "latency_ms": 6567.053981999834,
      "threshold": 0.5,
      "graph_candidates": [
       "NH3"
@@ -1225,72 +1125,53 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.9953904280620621,
-       "selected": true
+       "p": 0.7549149868676284,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.4687906201323854,
+       "p": 0.7057850382801512,
+       "model": true,
        "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.007577240706167521,
+       "p": 0.13296424690828512,
+       "model": false,
        "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.4687906363670313,
+       "p": 0.1066905970467814,
+       "model": false,
        "selected": false
       },
       {
        "node": "pollutant:NH3",
        "label": "NH3",
        "kind": "pollutant",
-       "p": 0.9999997617630758,
+       "p": 0.999999789756684,
+       "model": true,
        "selected": true
       }
      ],
-     "groups_expanded": [
-      "all"
-     ],
+     "groups_expanded": [],
      "pollutants": [
-      "CO2",
-      "CO2e100",
-      "CO2e20",
-      "CH4",
-      "N2O",
-      "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
+      "NH3"
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 4070.7383520002622,
+     "latency_ms": 5449.181818999932,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -1324,201 +1205,241 @@
        "confidence": 0.99999
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "request"
+     },
      "query": {
       "pollutants": [
-       "CO2",
-       "CO2e100",
-       "CO2e20",
-       "CH4",
-       "N2O",
-       "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
+       "NH3"
       ],
       "levels": {
        "GEO": "country",
        "TIME": "year",
        "SECTOR": "macrosector"
+      },
+      "filters": {
+       "SECTOR": {
+        "level": "macrosector",
+        "members": [
+         "Agriculture"
+        ]
+       }
       }
      }
     },
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 95.38468500022645,
-     "solutions": 0
+     "latency_ms": 46.0591309999927,
+     "solutions": 2
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "B",
+      "A"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.04023100018457626,
+     "by": "template"
     }
    ],
+   "review": [
+    "Pollutants: the model added CO2, CO2e (100-year), CO2e (20-year), CH4, N2O and 18 more. The pollutants named in the request are used."
+   ],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
+   },
+   "checks": {
+    "named": [
+     "NH3"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year",
+     "SECTOR": "macrosector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "macrosector",
+      "members": [
+       "Agriculture"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
    "query": {
     "pollutants": [
-     "CO2",
-     "CO2e100",
-     "CO2e20",
-     "CH4",
-     "N2O",
-     "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
+     "NH3"
     ],
     "levels": {
      "GEO": "country",
      "TIME": "year",
      "SECTOR": "macrosector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "macrosector",
+      "members": [
+       "Agriculture"
+      ]
+     }
     }
    },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S8",
+       "name": "Agricultural Emissions Database",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 34,
+       "France": 56,
+       "Germany": 16,
+       "Spain": 23,
+       "Portugal": 25,
+       "Poland": 30,
+       "United Kingdom": 57,
+       "United States": 47,
+       "Brazil": 53,
+       "China": 25,
+       "India": 62,
+       "Japan": 35,
+       "Australia": 19,
+       "South Africa": 38,
+       "Nigeria": 51
+      },
+      "TIME.year": {
+       "2015": 30,
+       "2016": 20,
+       "2017": 36,
+       "2018": 27,
+       "2019": 26,
+       "2020": 37,
+       "2021": 37,
+       "2022": 18,
+       "2023": 21,
+       "2024": 23,
+       "2025": 16
+      },
+      "SECTOR.macrosector": {
+       "Agriculture": 61
+      }
+     },
+     "cells": 165,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: Agricultural Emissions Database (official, updated 2025). 15 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom, United States and 7 more. Years: 2015 to 2025 (11 covered). 1 macrosector: Agriculture. Pollutants: NH3.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.00012,
+       "2": 0.99983,
+       "3": 5e-05
+      },
+      "top": "2",
+      "confidence": 0.99983,
+      "score": 1.9999,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S3",
+       "name": "European Air Emissions Reporting",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 57,
+       "France": 24,
+       "Germany": 58,
+       "Spain": 39,
+       "Portugal": 51,
+       "Poland": 26,
+       "United Kingdom": 20
+      },
+      "TIME.year": {
+       "2015": 13,
+       "2016": 26,
+       "2018": 29,
+       "2019": 36,
+       "2020": 23,
+       "2021": 20,
+       "2022": 28,
+       "2023": 26,
+       "2024": 38
+      },
+      "SECTOR.macrosector": {
+       "Agriculture": 15
+      }
+     },
+     "cells": 63,
+     "notes": [],
+     "id": "A",
+     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). 1 macrosector: Agriculture. Pollutants: NH3.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0,
+       "1": 0.0001,
+       "2": 0.9999,
+       "3": 0.0
+      },
+      "top": "2",
+      "confidence": 0.9999,
+      "score": 1.9999,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
    "subgraph": {
     "nodes": [
-     {
-      "id": "P:CO2",
-      "kind": "pollutant",
-      "label": "CO2"
-     },
-     {
-      "id": "P:CO2e100",
-      "kind": "pollutant",
-      "label": "CO2e (100-year)"
-     },
-     {
-      "id": "P:CO2e20",
-      "kind": "pollutant",
-      "label": "CO2e (20-year)"
-     },
-     {
-      "id": "P:CH4",
-      "kind": "pollutant",
-      "label": "CH4"
-     },
-     {
-      "id": "P:N2O",
-      "kind": "pollutant",
-      "label": "N2O"
-     },
-     {
-      "id": "P:PM2_5",
-      "kind": "pollutant",
-      "label": "PM2.5"
-     },
-     {
-      "id": "P:PM10",
-      "kind": "pollutant",
-      "label": "PM10"
-     },
-     {
-      "id": "P:NOx",
-      "kind": "pollutant",
-      "label": "NOx"
-     },
-     {
-      "id": "P:SO2",
-      "kind": "pollutant",
-      "label": "SO2"
-     },
-     {
-      "id": "P:SOx",
-      "kind": "pollutant",
-      "label": "SOx"
-     },
      {
       "id": "P:NH3",
       "kind": "pollutant",
       "label": "NH3"
-     },
-     {
-      "id": "P:CO",
-      "kind": "pollutant",
-      "label": "CO"
-     },
-     {
-      "id": "P:NMVOCs",
-      "kind": "pollutant",
-      "label": "NMVOCs"
-     },
-     {
-      "id": "P:BC",
-      "kind": "pollutant",
-      "label": "BC"
-     },
-     {
-      "id": "P:OC",
-      "kind": "pollutant",
-      "label": "OC"
-     },
-     {
-      "id": "P:AS",
-      "kind": "pollutant",
-      "label": "As"
-     },
-     {
-      "id": "P:CD",
-      "kind": "pollutant",
-      "label": "Cd"
-     },
-     {
-      "id": "P:CR",
-      "kind": "pollutant",
-      "label": "Cr"
-     },
-     {
-      "id": "P:CU",
-      "kind": "pollutant",
-      "label": "Cu"
-     },
-     {
-      "id": "P:HG",
-      "kind": "pollutant",
-      "label": "Hg"
-     },
-     {
-      "id": "P:NI",
-      "kind": "pollutant",
-      "label": "Ni"
-     },
-     {
-      "id": "P:PB",
-      "kind": "pollutant",
-      "label": "Pb"
-     },
-     {
-      "id": "P:SE",
-      "kind": "pollutant",
-      "label": "Se"
-     },
-     {
-      "id": "P:ZN",
-      "kind": "pollutant",
-      "label": "Zn"
      },
      {
       "id": "L:GEO.region",
@@ -1568,6 +1489,16 @@
       "label": "macrosector",
       "dim": "SECTOR",
       "selected": true
+     },
+     {
+      "id": "S:S3",
+      "kind": "source",
+      "label": "European Air Emissions Reporting"
+     },
+     {
+      "id": "S:S8",
+      "kind": "source",
+      "label": "Agricultural Emissions Database"
      }
     ],
     "edges": [
@@ -1590,17 +1521,61 @@
       "from": "L:SECTOR.subsector",
       "to": "L:SECTOR.macrosector",
       "kind": "rolls_up"
+     },
+     {
+      "from": "S:S3",
+      "to": "P:NH3",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "P:NH3",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
      }
     ]
    },
-   "outcome": "no_data",
-   "message": "No combination of sources holds these pollutants at these levels.",
+   "explanation": {
+    "by": "template",
+    "text": "2 solutions hold NH3 by country and year and macrosector.\nFirst: B, Agricultural Emissions Database, covering 15 countries, 2015 to 2025, 1 macrosector. Preference fit 2.0 of 3 (100% confident in its most likely level).\nThen: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024, 1 macrosector. Preference fit 2.0 of 3 (100% confident in its most likely level)."
+   },
+   "outcome": "review",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
-    "decisions": 9,
-    "calls": 3,
-    "latency_ms": 12269.2,
+    "decisions": 11,
+    "calls": 5,
+    "latency_ms": 24739.3,
     "cost_usd": 0.0,
-    "wall_ms": 12369.3
+    "wall_ms": 24792.5
    }
   },
   {
@@ -1614,7 +1589,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3300.577510000039,
+     "latency_ms": 3177.5208799999746,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1638,7 +1613,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 6589.349150999624,
+     "latency_ms": 5519.205503000194,
      "threshold": 0.5,
      "graph_candidates": [
       "NOx",
@@ -1649,81 +1624,61 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.98201378944572,
-       "selected": true
+       "p": 0.7549149741165574,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.6513548534567857,
-       "selected": true
+       "p": 0.8519528029080465,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.37754068149227277,
+       "p": 0.4073334000459302,
+       "model": false,
        "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.9579122723096664,
-       "selected": true
+       "p": 0.8807970748488297,
+       "model": true,
+       "selected": false
       },
       {
        "node": "pollutant:NOx",
        "label": "NOx",
        "kind": "pollutant",
-       "p": 0.9999945777797373,
+       "p": 0.9999952149055051,
+       "model": true,
        "selected": true
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.00970847559391461,
+       "p": 0.017986208802389384,
+       "model": false,
        "selected": false
       }
      ],
-     "groups_expanded": [
-      "all",
-      "ghg",
-      "metal"
-     ],
+     "groups_expanded": [],
      "pollutants": [
-      "CO2",
-      "CO2e100",
-      "CO2e20",
-      "CH4",
-      "N2O",
-      "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
+      "NOx"
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 4004.045536999911,
+     "latency_ms": 4271.622761999879,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -1757,42 +1712,37 @@
        "confidence": 0.99996
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
-       "CO2",
-       "CO2e100",
-       "CO2e20",
-       "CH4",
-       "N2O",
-       "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
+       "NOx"
       ],
       "levels": {
-       "TIME": "year"
+       "GEO": "region",
+       "TIME": "month"
+      },
+      "filters": {
+       "TIME": {
+        "level": "year",
+        "members": [
+         "2021",
+         "2022",
+         "2023",
+         "2024",
+         "2025"
+        ]
+       }
       }
      }
     },
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 41.64460600031816,
+     "latency_ms": 35.907483000073626,
      "solutions": 1
     },
     {
@@ -1806,126 +1756,167 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.03081700015172828,
+     "latency_ms": 0.034676000041145016,
      "by": "template"
     }
    ],
+   "review": [
+    "Pollutants: the model added CO2, CO2e (100-year), CO2e (20-year), CH4, N2O and 18 more. The pollutants named in the request are used.",
+    "Geography: the model chose none, the request says region. The request is used.",
+    "Time: the model chose year, the request says month. The request is used."
+   ],
+   "notes": [
+    "Relative periods count back from 2025, the latest year in the catalogue."
+   ],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": 2025
+   },
+   "checks": {
+    "named": [
+     "NOx"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "region",
+     "TIME": "month"
+    },
+    "filters": {
+     "TIME": {
+      "level": "year",
+      "members": [
+       "2021",
+       "2022",
+       "2023",
+       "2024",
+       "2025"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
    "query": {
     "pollutants": [
-     "CO2",
-     "CO2e100",
-     "CO2e20",
-     "CH4",
-     "N2O",
-     "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
+     "NOx"
     ],
     "levels": {
-     "TIME": "year"
+     "GEO": "region",
+     "TIME": "month"
+    },
+    "filters": {
+     "TIME": {
+      "level": "year",
+      "members": [
+       "2021",
+       "2022",
+       "2023",
+       "2024",
+       "2025"
+      ]
+     }
     }
    },
    "solutions": [
     {
      "sources": [
       {
-       "id": "S1",
-       "name": "Global Facility Emissions Inventory",
-       "publisher": "research",
-       "updated": 2025,
-       "provides": [
-        "CH4",
-        "CO2",
-        "CO2e100",
-        "CO2e20",
-        "N2O"
-       ]
-      },
-      {
-       "id": "S2",
-       "name": "National Emissions Compendium",
-       "publisher": "official",
-       "updated": 2024,
-       "provides": [
-        "BC",
-        "CH4",
-        "CO",
-        "CO2",
-        "N2O",
-        "NH3",
-        "NMVOCs",
-        "NOx",
-        "OC",
-        "SO2"
-       ]
-      },
-      {
-       "id": "S3",
-       "name": "European Air Emissions Reporting",
+       "id": "S4",
+       "name": "Regional Air Monitoring Network",
        "publisher": "official",
        "updated": 2025,
        "provides": [
-        "AS",
-        "CD",
-        "CO",
-        "CR",
-        "CU",
-        "HG",
-        "NH3",
-        "NI",
-        "NMVOCs",
-        "NOx",
-        "PB",
-        "PM10",
-        "PM2_5",
-        "SE",
-        "SOx",
-        "ZN"
+        "NOx"
        ]
       }
      ],
      "profiles": {
-      "TIME.year": {
-       "2021": 20,
-       "2022": 20,
-       "2023": 20
+      "GEO.region": {
+       "Veneto": 54,
+       "Lazio": 56,
+       "Lombardy": 60,
+       "Ile-de-France": 35,
+       "Auvergne-Rhone-Alpes": 26,
+       "Brandenburg": 58,
+       "Bavaria": 58,
+       "Andalusia": 54
+      },
+      "TIME.month": {
+       "2021-01": 30,
+       "2021-02": 23,
+       "2021-03": 28,
+       "2021-04": 24,
+       "2021-05": 11,
+       "2021-06": 28,
+       "2021-07": 25,
+       "2021-08": 29,
+       "2021-10": 11,
+       "2021-12": 30,
+       "2022-01": 14,
+       "2022-02": 25,
+       "2022-03": 12,
+       "2022-04": 19,
+       "2022-05": 31,
+       "2022-06": 18,
+       "2022-07": 38,
+       "2022-08": 29,
+       "2022-09": 30,
+       "2022-10": 30,
+       "2022-11": 10,
+       "2022-12": 28,
+       "2023-01": 15,
+       "2023-02": 27,
+       "2023-03": 28,
+       "2023-04": 30,
+       "2023-05": 22,
+       "2023-06": 17,
+       "2023-07": 19,
+       "2023-08": 31,
+       "2023-09": 24,
+       "2023-10": 16,
+       "2023-11": 12,
+       "2023-12": 12,
+       "2024-01": 19,
+       "2024-02": 34,
+       "2024-03": 21,
+       "2024-04": 27,
+       "2024-05": 32,
+       "2024-06": 26,
+       "2024-07": 23,
+       "2024-08": 32,
+       "2024-09": 33,
+       "2024-10": 39,
+       "2024-11": 18,
+       "2024-12": 39,
+       "2025-01": 32,
+       "2025-02": 26,
+       "2025-03": 35,
+       "2025-04": 23,
+       "2025-05": 23,
+       "2025-06": 39,
+       "2025-07": 28,
+       "2025-08": 37
       }
      },
-     "cells": 3,
-     "notes": [
-      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors",
-      "European Air Emissions Reporting is summed over geo but covers only 7 of 15 countries",
-      "European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors"
-     ],
+     "cells": 432,
+     "notes": [],
      "id": "A",
-     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025); National Emissions Compendium (official, updated 2024); European Air Emissions Reporting (official, updated 2025). Years: 2021 to 2023 (3 covered). Pollutants: CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5, PM10, NOx and 16 more. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors. European Air Emissions Reporting is summed over geo but covers only 7 of 15 countries. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
+     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 8 regions: Veneto, Lazio, Lombardy, Ile-de-France, Auvergne-Rhone-Alpes, Brandenburg, Bavaria, Andalusia. Months: 2021-01 to 2025-08 (54 covered). Pollutants: NOx.",
      "fit": {
       "type": "score",
       "probabilities": {
        "0": 0.0,
-       "1": 0.00193,
-       "2": 0.99807,
+       "1": 0.0001,
+       "2": 0.9999,
        "3": 0.0
       },
       "top": "2",
-      "confidence": 0.99807,
-      "score": 1.9981,
+      "confidence": 0.9999,
+      "score": 1.9999,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -1938,131 +1929,16 @@
    "subgraph": {
     "nodes": [
      {
-      "id": "P:CO2",
-      "kind": "pollutant",
-      "label": "CO2"
-     },
-     {
-      "id": "P:CO2e100",
-      "kind": "pollutant",
-      "label": "CO2e (100-year)"
-     },
-     {
-      "id": "P:CO2e20",
-      "kind": "pollutant",
-      "label": "CO2e (20-year)"
-     },
-     {
-      "id": "P:CH4",
-      "kind": "pollutant",
-      "label": "CH4"
-     },
-     {
-      "id": "P:N2O",
-      "kind": "pollutant",
-      "label": "N2O"
-     },
-     {
-      "id": "P:PM2_5",
-      "kind": "pollutant",
-      "label": "PM2.5"
-     },
-     {
-      "id": "P:PM10",
-      "kind": "pollutant",
-      "label": "PM10"
-     },
-     {
       "id": "P:NOx",
       "kind": "pollutant",
       "label": "NOx"
-     },
-     {
-      "id": "P:SO2",
-      "kind": "pollutant",
-      "label": "SO2"
-     },
-     {
-      "id": "P:SOx",
-      "kind": "pollutant",
-      "label": "SOx"
-     },
-     {
-      "id": "P:NH3",
-      "kind": "pollutant",
-      "label": "NH3"
-     },
-     {
-      "id": "P:CO",
-      "kind": "pollutant",
-      "label": "CO"
-     },
-     {
-      "id": "P:NMVOCs",
-      "kind": "pollutant",
-      "label": "NMVOCs"
-     },
-     {
-      "id": "P:BC",
-      "kind": "pollutant",
-      "label": "BC"
-     },
-     {
-      "id": "P:OC",
-      "kind": "pollutant",
-      "label": "OC"
-     },
-     {
-      "id": "P:AS",
-      "kind": "pollutant",
-      "label": "As"
-     },
-     {
-      "id": "P:CD",
-      "kind": "pollutant",
-      "label": "Cd"
-     },
-     {
-      "id": "P:CR",
-      "kind": "pollutant",
-      "label": "Cr"
-     },
-     {
-      "id": "P:CU",
-      "kind": "pollutant",
-      "label": "Cu"
-     },
-     {
-      "id": "P:HG",
-      "kind": "pollutant",
-      "label": "Hg"
-     },
-     {
-      "id": "P:NI",
-      "kind": "pollutant",
-      "label": "Ni"
-     },
-     {
-      "id": "P:PB",
-      "kind": "pollutant",
-      "label": "Pb"
-     },
-     {
-      "id": "P:SE",
-      "kind": "pollutant",
-      "label": "Se"
-     },
-     {
-      "id": "P:ZN",
-      "kind": "pollutant",
-      "label": "Zn"
      },
      {
       "id": "L:GEO.region",
       "kind": "level",
       "label": "region",
       "dim": "GEO",
-      "selected": false
+      "selected": true
      },
      {
       "id": "L:GEO.country",
@@ -2083,14 +1959,14 @@
       "kind": "level",
       "label": "month",
       "dim": "TIME",
-      "selected": false
+      "selected": true
      },
      {
       "id": "L:TIME.year",
       "kind": "level",
       "label": "year",
       "dim": "TIME",
-      "selected": true
+      "selected": false
      },
      {
       "id": "L:SECTOR.subsector",
@@ -2107,19 +1983,9 @@
       "selected": false
      },
      {
-      "id": "S:S1",
+      "id": "S:S4",
       "kind": "source",
-      "label": "Global Facility Emissions Inventory"
-     },
-     {
-      "id": "S:S2",
-      "kind": "source",
-      "label": "National Emissions Compendium"
-     },
-     {
-      "id": "S:S3",
-      "kind": "source",
-      "label": "European Air Emissions Reporting"
+      "label": "Regional Air Monitoring Network"
      }
     ],
     "edges": [
@@ -2144,214 +2010,34 @@
       "kind": "rolls_up"
      },
      {
-      "from": "S:S1",
-      "to": "P:CO2",
+      "from": "S:S4",
+      "to": "P:NOx",
       "kind": "provides"
      },
      {
-      "from": "S:S1",
-      "to": "P:CH4",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e100",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e20",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "L:GEO.country",
+      "from": "S:S4",
+      "to": "L:GEO.region",
       "kind": "at_level"
      },
      {
-      "from": "S:S1",
+      "from": "S:S4",
       "to": "L:TIME.month",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S1",
-      "to": "L:SECTOR.subsector",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CH4",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:SO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:BC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:OC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "L:GEO.country",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S2",
-      "to": "L:TIME.year",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:PM2_5",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:PM10",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:AS",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CD",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CR",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CU",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:HG",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NI",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:PB",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SE",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:ZN",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "L:GEO.country",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S3",
-      "to": "L:TIME.year",
-      "kind": "at_level"
-     },
-     {
-      "from": "S:S3",
-      "to": "L:SECTOR.subsector",
       "kind": "at_level"
      }
     ]
    },
    "explanation": {
     "by": "template",
-    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5 and 18 more by year.\nFirst: A, Global Facility Emissions Inventory + National Emissions Compendium + European Air Emissions Reporting, covering 2021 to 2023. Preference fit 2.0 of 3 (100% confident in its most likely level). Caution: Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors; European Air Emissions Reporting is summed over geo but covers only 7 of 15 countries; European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors."
+    "text": "1 solution hold NOx by region and month.\nFirst: A, Regional Air Monitoring Network, covering 8 regions, 2021-01 to 2025-08. Preference fit 2.0 of 3 (100% confident in its most likely level)."
    },
-   "outcome": "answer",
-   "message": null,
+   "outcome": "review",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 11,
     "calls": 4,
-    "latency_ms": 15085.7,
+    "latency_ms": 16098.6,
     "cost_usd": 0.0,
-    "wall_ms": 15130.8
+    "wall_ms": 16141.8
    }
   },
   {
@@ -2365,7 +2051,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3323.3403340000223,
+     "latency_ms": 3026.323460000185,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2389,7 +2075,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 6528.229183999883,
+     "latency_ms": 5169.397477000075,
      "threshold": 0.5,
      "graph_candidates": [
       "CH4",
@@ -2400,80 +2086,61 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.9986749777851489,
-       "selected": true
+       "p": 0.40733337469597763,
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.9998911030652331,
-       "selected": true
+       "p": 0.9999339478710793,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.05340332593487745,
+       "p": 0.0600866485697808,
+       "model": false,
        "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.07585817698529702,
+       "p": 0.020332350407838085,
+       "model": false,
        "selected": false
       },
       {
        "node": "pollutant:CH4",
        "label": "CH4",
        "kind": "pollutant",
-       "p": 0.9999997897566089,
+       "p": 0.999999730042142,
+       "model": true,
        "selected": true
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.43782350667879943,
+       "p": 0.40733341893192626,
+       "model": false,
        "selected": false
       }
      ],
-     "groups_expanded": [
-      "all",
-      "ghg"
-     ],
+     "groups_expanded": [],
      "pollutants": [
-      "CO2",
-      "CO2e100",
-      "CO2e20",
-      "CH4",
-      "N2O",
-      "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
+      "CH4"
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 4365.631629999825,
+     "latency_ms": 4237.004114000001,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -2507,93 +2174,252 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
-       "CO2",
-       "CO2e100",
-       "CO2e20",
-       "CH4",
-       "N2O",
-       "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
+       "CH4"
       ],
       "levels": {
        "GEO": "continent",
        "TIME": "year"
-      }
+      },
+      "filters": {}
      }
     },
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 82.29136899990408,
-     "solutions": 1
+     "latency_ms": 71.07917200005431,
+     "solutions": 4
     },
     {
      "stage": "rank",
      "title": "Ranking",
      "by": "preference fit",
      "order": [
+      "D",
+      "C",
+      "B",
       "A"
      ]
     },
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.046538000333384844,
+     "latency_ms": 0.08050499991441029,
      "by": "template"
     }
    ],
+   "review": [
+    "Pollutants: the model added CO2, CO2e (100-year), CO2e (20-year), N2O. The pollutants named in the request are used."
+   ],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
+   },
+   "checks": {
+    "named": [
+     "CH4"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "continent",
+     "TIME": "year"
+    },
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
    "query": {
     "pollutants": [
-     "CO2",
-     "CO2e100",
-     "CO2e20",
-     "CH4",
-     "N2O",
-     "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
+     "CH4"
     ],
     "levels": {
      "GEO": "continent",
      "TIME": "year"
-    }
+    },
+    "filters": {}
    },
    "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S8",
+       "name": "Agricultural Emissions Database",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 241,
+       "Americas": 100,
+       "Asia": 122,
+       "Africa": 89,
+       "Oceania": 19
+      },
+      "TIME.year": {
+       "2015": 30,
+       "2016": 20,
+       "2017": 36,
+       "2018": 27,
+       "2019": 26,
+       "2020": 37,
+       "2021": 37,
+       "2022": 18,
+       "2023": 21,
+       "2024": 23,
+       "2025": 16
+      }
+     },
+     "cells": 55,
+     "notes": [
+      "Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning"
+     ],
+     "id": "D",
+     "summary": "Sources: Agricultural Emissions Database (official, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2025 (11 covered). Pollutants: CH4. Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.00116,
+       "1": 0.00431,
+       "2": 0.88147,
+       "3": 0.11306
+      },
+      "top": "2",
+      "confidence": 0.88147,
+      "score": 2.1064,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S5",
+       "name": "Continental Climate Summary",
+       "publisher": "research",
+       "updated": 2024,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 26,
+       "Americas": 20,
+       "Asia": 24,
+       "Africa": 45,
+       "Oceania": 30
+      },
+      "TIME.year": {
+       "2015": 38,
+       "2016": 28,
+       "2017": 37,
+       "2018": 28,
+       "2019": 27,
+       "2020": 21,
+       "2021": 22,
+       "2022": 11,
+       "2023": 31,
+       "2024": 29
+      }
+     },
+     "cells": 50,
+     "notes": [],
+     "id": "C",
+     "summary": "Sources: Continental Climate Summary (research, updated 2024). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2024 (10 covered). Pollutants: CH4.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.00191,
+       "1": 0.00908,
+       "2": 0.93967,
+       "3": 0.04934
+      },
+      "top": "2",
+      "confidence": 0.93967,
+      "score": 2.0364,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S2",
+       "name": "National Emissions Compendium",
+       "publisher": "official",
+       "updated": 2024,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 167,
+       "Americas": 71,
+       "Asia": 136,
+       "Africa": 88,
+       "Oceania": 61
+      },
+      "TIME.year": {
+       "2015": 28,
+       "2016": 14,
+       "2017": 32,
+       "2018": 29,
+       "2019": 30,
+       "2020": 18,
+       "2021": 29,
+       "2022": 20,
+       "2023": 20
+      }
+     },
+     "cells": 45,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: National Emissions Compendium (official, updated 2024). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2023 (9 covered). Pollutants: CH4.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.00054,
+       "1": 0.00198,
+       "2": 0.99045,
+       "3": 0.00703
+      },
+      "top": "2",
+      "confidence": 0.99045,
+      "score": 2.004,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
     {
      "sources": [
       {
@@ -2602,84 +2428,43 @@
        "publisher": "research",
        "updated": 2025,
        "provides": [
-        "CH4",
-        "CO2",
-        "CO2e100",
-        "CO2e20",
-        "N2O"
-       ]
-      },
-      {
-       "id": "S2",
-       "name": "National Emissions Compendium",
-       "publisher": "official",
-       "updated": 2024,
-       "provides": [
-        "BC",
-        "CH4",
-        "CO",
-        "CO2",
-        "N2O",
-        "NH3",
-        "NMVOCs",
-        "NOx",
-        "OC",
-        "SO2"
-       ]
-      },
-      {
-       "id": "S3",
-       "name": "European Air Emissions Reporting",
-       "publisher": "official",
-       "updated": 2025,
-       "provides": [
-        "AS",
-        "CD",
-        "CO",
-        "CR",
-        "CU",
-        "HG",
-        "NH3",
-        "NI",
-        "NMVOCs",
-        "NOx",
-        "PB",
-        "PM10",
-        "PM2_5",
-        "SE",
-        "SOx",
-        "ZN"
+        "CH4"
        ]
       }
      ],
      "profiles": {
       "GEO.continent": {
-       "Europe": 167
+       "Europe": 312,
+       "Americas": 17,
+       "Asia": 74,
+       "Africa": 75,
+       "Oceania": 53
       },
       "TIME.year": {
-       "2021": 20,
-       "2022": 20,
-       "2023": 20
+       "2021": 263,
+       "2022": 262,
+       "2023": 235,
+       "2024": 292,
+       "2025": 127
       }
      },
-     "cells": 3,
+     "cells": 25,
      "notes": [
-      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors",
-      "European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors"
+      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors"
      ],
      "id": "A",
-     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025); National Emissions Compendium (official, updated 2024); European Air Emissions Reporting (official, updated 2025). 1 continent: Europe. Years: 2021 to 2023 (3 covered). Pollutants: CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5, PM10, NOx and 16 more. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
+     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2021 to 2025 (5 covered). Pollutants: CH4. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.",
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.0,
-       "1": 0.00034,
-       "2": 0.99966,
-       "3": 0.0
+       "0": 0.00217,
+       "1": 0.0218,
+       "2": 0.97461,
+       "3": 0.00143
       },
       "top": "2",
-      "confidence": 0.99966,
-      "score": 1.9997,
+      "confidence": 0.97461,
+      "score": 1.9753,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -2692,124 +2477,9 @@
    "subgraph": {
     "nodes": [
      {
-      "id": "P:CO2",
-      "kind": "pollutant",
-      "label": "CO2"
-     },
-     {
-      "id": "P:CO2e100",
-      "kind": "pollutant",
-      "label": "CO2e (100-year)"
-     },
-     {
-      "id": "P:CO2e20",
-      "kind": "pollutant",
-      "label": "CO2e (20-year)"
-     },
-     {
       "id": "P:CH4",
       "kind": "pollutant",
       "label": "CH4"
-     },
-     {
-      "id": "P:N2O",
-      "kind": "pollutant",
-      "label": "N2O"
-     },
-     {
-      "id": "P:PM2_5",
-      "kind": "pollutant",
-      "label": "PM2.5"
-     },
-     {
-      "id": "P:PM10",
-      "kind": "pollutant",
-      "label": "PM10"
-     },
-     {
-      "id": "P:NOx",
-      "kind": "pollutant",
-      "label": "NOx"
-     },
-     {
-      "id": "P:SO2",
-      "kind": "pollutant",
-      "label": "SO2"
-     },
-     {
-      "id": "P:SOx",
-      "kind": "pollutant",
-      "label": "SOx"
-     },
-     {
-      "id": "P:NH3",
-      "kind": "pollutant",
-      "label": "NH3"
-     },
-     {
-      "id": "P:CO",
-      "kind": "pollutant",
-      "label": "CO"
-     },
-     {
-      "id": "P:NMVOCs",
-      "kind": "pollutant",
-      "label": "NMVOCs"
-     },
-     {
-      "id": "P:BC",
-      "kind": "pollutant",
-      "label": "BC"
-     },
-     {
-      "id": "P:OC",
-      "kind": "pollutant",
-      "label": "OC"
-     },
-     {
-      "id": "P:AS",
-      "kind": "pollutant",
-      "label": "As"
-     },
-     {
-      "id": "P:CD",
-      "kind": "pollutant",
-      "label": "Cd"
-     },
-     {
-      "id": "P:CR",
-      "kind": "pollutant",
-      "label": "Cr"
-     },
-     {
-      "id": "P:CU",
-      "kind": "pollutant",
-      "label": "Cu"
-     },
-     {
-      "id": "P:HG",
-      "kind": "pollutant",
-      "label": "Hg"
-     },
-     {
-      "id": "P:NI",
-      "kind": "pollutant",
-      "label": "Ni"
-     },
-     {
-      "id": "P:PB",
-      "kind": "pollutant",
-      "label": "Pb"
-     },
-     {
-      "id": "P:SE",
-      "kind": "pollutant",
-      "label": "Se"
-     },
-     {
-      "id": "P:ZN",
-      "kind": "pollutant",
-      "label": "Zn"
      },
      {
       "id": "L:GEO.region",
@@ -2871,9 +2541,14 @@
       "label": "National Emissions Compendium"
      },
      {
-      "id": "S:S3",
+      "id": "S:S5",
       "kind": "source",
-      "label": "European Air Emissions Reporting"
+      "label": "Continental Climate Summary"
+     },
+     {
+      "id": "S:S8",
+      "kind": "source",
+      "label": "Agricultural Emissions Database"
      }
     ],
     "edges": [
@@ -2899,27 +2574,7 @@
      },
      {
       "from": "S:S1",
-      "to": "P:CO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
       "to": "P:CH4",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e100",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S1",
-      "to": "P:CO2e20",
       "kind": "provides"
      },
      {
@@ -2939,56 +2594,11 @@
      },
      {
       "from": "S:S2",
-      "to": "P:CO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
       "to": "P:CH4",
       "kind": "provides"
      },
      {
       "from": "S:S2",
-      "to": "P:N2O",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:SO2",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:BC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:OC",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S2",
       "to": "L:GEO.country",
       "kind": "at_level"
      },
@@ -2998,97 +2608,42 @@
       "kind": "at_level"
      },
      {
-      "from": "S:S3",
-      "to": "P:PM2_5",
+      "from": "S:S5",
+      "to": "P:CH4",
       "kind": "provides"
      },
      {
-      "from": "S:S3",
-      "to": "P:PM10",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SOx",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NH3",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NMVOCs",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CO",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:AS",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CD",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CR",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:CU",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:HG",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:NI",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:PB",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:SE",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "P:ZN",
-      "kind": "provides"
-     },
-     {
-      "from": "S:S3",
-      "to": "L:GEO.country",
+      "from": "S:S5",
+      "to": "L:GEO.continent",
       "kind": "at_level"
      },
      {
-      "from": "S:S3",
+      "from": "S:S5",
       "to": "L:TIME.year",
       "kind": "at_level"
      },
      {
-      "from": "S:S3",
+      "from": "S:S5",
+      "to": "L:SECTOR.macrosector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
       "to": "L:SECTOR.subsector",
       "kind": "at_level"
      }
@@ -3096,16 +2651,16 @@
    },
    "explanation": {
     "by": "template",
-    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O, PM2.5 and 18 more by continent and year.\nFirst: A, Global Facility Emissions Inventory + National Emissions Compendium + European Air Emissions Reporting, covering 1 continent, 2021 to 2023. Preference fit 2.0 of 3 (100% confident in its most likely level). Caution: Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors; European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors."
+    "text": "4 solutions hold CH4 by continent and year.\nFirst: D, Agricultural Emissions Database, covering 5 continents, 2015 to 2025. Preference fit 2.1 of 3 (88% confident in its most likely level). Caution: Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.\nThen: C, Continental Climate Summary, covering 5 continents, 2015 to 2024. Preference fit 2.0 of 3 (94% confident in its most likely level).\nThen: B, National Emissions Compendium, covering 5 continents, 2015 to 2023. Preference fit 2.0 of 3 (99% confident in its most likely level).\n1 more solution rank lower."
    },
-   "outcome": "answer",
-   "message": null,
+   "outcome": "review",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
-    "decisions": 11,
-    "calls": 4,
-    "latency_ms": 15427.7,
+    "decisions": 14,
+    "calls": 7,
+    "latency_ms": 18103.4,
     "cost_usd": 0.0,
-    "wall_ms": 15514.8
+    "wall_ms": 18182.1
    }
   },
   {
@@ -3119,7 +2674,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3258.6286589998963,
+     "latency_ms": 2968.629240000155,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -3143,7 +2698,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 4777.986131000034,
+     "latency_ms": 3923.7238580001303,
      "threshold": 0.5,
      "graph_candidates": [
       "CO2"
@@ -3153,43 +2708,45 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.9669140215219133,
+       "p": 0.9579122716525846,
+       "model": true,
        "selected": true
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.9998766053739861,
-       "selected": true
+       "p": 0.9998601779367368,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.9975273769105558,
-       "selected": true
+       "p": 0.9971990730536892,
+       "model": true,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.9959298623268106,
-       "selected": true
+       "p": 0.9964063972601781,
+       "model": true,
+       "selected": false
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.9997388096898188,
+       "p": 0.9996646498708166,
+       "model": true,
        "selected": true
       }
      ],
      "groups_expanded": [
-      "all",
-      "ghg",
-      "pm",
-      "metal"
+      "all"
      ],
      "pollutants": [
       "CO2",
@@ -3216,12 +2773,13 @@
       "PB",
       "SE",
       "ZN"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 4645.9588479997365,
+     "latency_ms": 3945.890861999942,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -3255,6 +2813,11 @@
        "confidence": 0.99998
       }
      },
+     "by": {
+      "GEO": "model",
+      "TIME": "model",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
        "CO2",
@@ -3282,10 +2845,31 @@
        "SE",
        "ZN"
       ],
-      "levels": {}
+      "levels": {},
+      "filters": {}
      }
     }
    ],
+   "review": [],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
+   },
+   "checks": {
+    "named": [],
+    "groups": [
+     "all"
+    ],
+    "levels": {},
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
+   },
    "query": {
     "pollutants": [
      "CO2",
@@ -3313,16 +2897,17 @@
      "SE",
      "ZN"
     ],
-    "levels": {}
+    "levels": {},
+    "filters": {}
    },
    "outcome": "clarify",
-   "message": "The gate said answer, but no a breakdown passed the threshold. Ask the user for a breakdown.",
+   "message": "No a breakdown could be established. Ask the user for a breakdown.",
    "totals": {
     "decisions": 9,
     "calls": 3,
-    "latency_ms": 12682.6,
+    "latency_ms": 10838.2,
     "cost_usd": 0.0,
-    "wall_ms": 12685.6
+    "wall_ms": 10845.1
    }
   },
   {
@@ -3336,7 +2921,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 3540.85495299978,
+     "latency_ms": 3005.5841399998826,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -3356,189 +2941,41 @@
       "top": "answer",
       "confidence": 0.99424
      }
-    },
-    {
-     "stage": "enrich",
-     "title": "Pollutants",
-     "latency_ms": 5110.464640999908,
-     "threshold": 0.5,
-     "graph_candidates": [
-      "PM2_5"
-     ],
-     "nodes": [
-      {
-       "node": "group:all",
-       "label": "All pollutants",
-       "kind": "group",
-       "p": 0.9971990730536892,
-       "selected": true
-      },
-      {
-       "node": "group:ghg",
-       "label": "Greenhouse gases",
-       "kind": "group",
-       "p": 0.006692851318459966,
-       "selected": false
-      },
-      {
-       "node": "group:pm",
-       "label": "Particulate matter",
-       "kind": "group",
-       "p": 0.9991959138805498,
-       "selected": true
-      },
-      {
-       "node": "group:metal",
-       "label": "Heavy metals",
-       "kind": "group",
-       "p": 0.62245932069637,
-       "selected": true
-      },
-      {
-       "node": "pollutant:PM2_5",
-       "label": "PM2.5",
-       "kind": "pollutant",
-       "p": 0.9999998724809647,
-       "selected": true
-      }
-     ],
-     "groups_expanded": [
-      "all",
-      "pm",
-      "metal"
-     ],
-     "pollutants": [
-      "CO2",
-      "CO2e100",
-      "CO2e20",
-      "CH4",
-      "N2O",
-      "PM2_5",
-      "PM10",
-      "NOx",
-      "SO2",
-      "SOx",
-      "NH3",
-      "CO",
-      "NMVOCs",
-      "BC",
-      "OC",
-      "AS",
-      "CD",
-      "CR",
-      "CU",
-      "HG",
-      "NI",
-      "PB",
-      "SE",
-      "ZN"
-     ]
-    },
-    {
-     "stage": "query",
-     "title": "Breakdown",
-     "latency_ms": 4533.7914690003345,
-     "answers": {
-      "GEO": {
-       "type": "choice",
-       "probabilities": {
-        "region": 0.0,
-        "country": 7e-05,
-        "continent": 0.0,
-        "none": 0.99992
-       },
-       "top": "none",
-       "confidence": 0.99992
-      },
-      "TIME": {
-       "type": "choice",
-       "probabilities": {
-        "month": 0.0,
-        "year": 0.0,
-        "none": 1.0
-       },
-       "top": "none",
-       "confidence": 1.0
-      },
-      "SECTOR": {
-       "type": "choice",
-       "probabilities": {
-        "subsector": 0.0,
-        "macrosector": 0.0,
-        "none": 1.0
-       },
-       "top": "none",
-       "confidence": 1.0
-      }
-     },
-     "query": {
-      "pollutants": [
-       "CO2",
-       "CO2e100",
-       "CO2e20",
-       "CH4",
-       "N2O",
-       "PM2_5",
-       "PM10",
-       "NOx",
-       "SO2",
-       "SOx",
-       "NH3",
-       "CO",
-       "NMVOCs",
-       "BC",
-       "OC",
-       "AS",
-       "CD",
-       "CR",
-       "CU",
-       "HG",
-       "NI",
-       "PB",
-       "SE",
-       "ZN"
-      ],
-      "levels": {}
-     }
     }
    ],
-   "query": {
-    "pollutants": [
-     "CO2",
-     "CO2e100",
-     "CO2e20",
-     "CH4",
-     "N2O",
-     "PM2_5",
-     "PM10",
-     "NOx",
-     "SO2",
-     "SOx",
-     "NH3",
-     "CO",
-     "NMVOCs",
-     "BC",
-     "OC",
-     "AS",
-     "CD",
-     "CR",
-     "CU",
-     "HG",
-     "NI",
-     "PB",
-     "SE",
-     "ZN"
-    ],
-    "levels": {}
+   "review": [],
+   "notes": [],
+   "policy": {
+    "min_confidence": 0.8,
+    "calibration_loaded": false,
+    "validated_risk_guarantee": false,
+    "time_anchor": null
    },
-   "outcome": "clarify",
-   "message": "The gate said answer, but no a breakdown passed the threshold. Ask the user for a breakdown.",
+   "checks": {
+    "named": [
+     "PM2_5"
+    ],
+    "groups": [],
+    "levels": {},
+    "filters": {},
+    "unheld": [],
+    "unknown": [
+     "daily",
+     "milan"
+    ],
+    "issues": [
+     "'milan' is not a place, sector or period in the catalogue."
+    ],
+    "hard_reject": "The catalogue has no data by daily."
+   },
+   "outcome": "reject",
+   "message": "The catalogue has no data by daily.",
    "totals": {
-    "decisions": 9,
-    "calls": 3,
-    "latency_ms": 13185.1,
+    "decisions": 1,
+    "calls": 1,
+    "latency_ms": 3005.6,
     "cost_usd": 0.0,
-    "wall_ms": 13190.1
+    "wall_ms": 3007.5
    }
   }
  ]

@@ -30,10 +30,10 @@ from .config import Settings
 from .decisions import BackendUnavailable, DecisionError, build_backends
 from .explain import Explainer
 from .graph import Graph
-from .pipeline import Pipeline
+from .pipeline import PIPELINE_VERSION, Pipeline
 from .testset import TASKS, build
 
-VERSION = "1.1.0"
+VERSION = PIPELINE_VERSION
 ROOT = Path(__file__).resolve().parents[1]
 
 settings = Settings.from_env()
@@ -237,16 +237,26 @@ def testset():
     return {"tasks": TASKS, "items": ITEMS}
 
 
+_results_cache: dict[str, tuple[int, dict]] = {}
+
+
 @app.get("/api/results")
 def results():
+    """Saved runs, rescored against the current labels. Metrics include bootstrap intervals, so
+    each file is scored once per change rather than on every request."""
     out = {}
     for f in sorted(Path(settings.results_dir).glob("*.json")):
         try:
-            data = json.loads(f.read_text())
-            if "records" not in data or f.name.endswith("-partial.json"):
-                continue
-            data["legacy"] = data.get("pipeline_version") != VERSION
-            data["metrics"] = ev.clean(ev.metrics(data["records"]))
+            stamp = f.stat().st_mtime_ns
+            hit = _results_cache.get(str(f))
+            if hit and hit[0] == stamp:
+                data = hit[1]
+            else:
+                data = json.loads(f.read_text())
+                if "records" not in data or f.name.endswith("-partial.json"):
+                    continue
+                data = ev.clean(ev.refresh(data, ITEMS))
+                _results_cache[str(f)] = (stamp, data)
             out[data["backend"]] = data
         except (OSError, ValueError, KeyError):
             continue

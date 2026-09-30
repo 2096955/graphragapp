@@ -4,235 +4,31 @@
  "model": "none",
  "residency": "local",
  "hardware": "CPU only: 2 vCPU, Intel(R) Xeon(R) Processor @ 2.10GHz",
- "finished": "2026-09-29T22:52:20+00:00",
+ "finished": "2026-09-29T18:59:19+00:00",
  "seconds": 0.0,
  "metrics": {
   "overall": {
-   "n": 584,
+   "n": 448,
    "errors": 0,
-   "accuracy": 0.3202054794520548,
-   "ece": 0.12468719178082203,
-   "brier": 0.5970605022984574,
-   "nll": 0.9731428150732755,
-   "mean_confidence": 0.4029392123287676,
+   "accuracy": 0.38839285714285715,
+   "ece": 0.03530651785714302,
+   "brier": 0.622061011924775,
+   "nll": 1.0457638616119662,
+   "mean_confidence": 0.37793861607143037,
    "coverage_at_5": {
     "risk": 0.05,
     "coverage": 0.0,
-    "threshold": null,
-    "accepted": 0,
-    "errors": 0,
-    "observed_risk": null,
-    "method": "empirical_in_sample",
-    "validated_risk_guarantee": false
+    "threshold": null
    },
-   "heldout_at_5": {
-    "target_risk": 0.05,
-    "threshold": null,
-    "total": 334,
-    "accepted": 0,
-    "errors": 0,
-    "coverage": 0.0,
-    "observed_risk": null,
-    "validated_risk_guarantee": false,
-    "method": "grouped_holdout",
-    "selection_groups": [
-     "A04",
-     "A05",
-     "A08",
-     "A12",
-     "A13",
-     "A14",
-     "C01",
-     "C02",
-     "C07",
-     "C08",
-     "C10",
-     "C11",
-     "GX01",
-     "P01",
-     "P05",
-     "P09",
-     "P10",
-     "P12",
-     "P15",
-     "P16",
-     "P17",
-     "P19",
-     "R01",
-     "R05",
-     "R07",
-     "R08",
-     "R10",
-     "S4",
-     "S5",
-     "S7",
-     "ent-01",
-     "ent-02",
-     "ent-03",
-     "ent-08",
-     "ent-09",
-     "ent-11",
-     "ent-14",
-     "ent-15",
-     "ent-17",
-     "ent-19",
-     "ent-22",
-     "ent-24",
-     "ent-25",
-     "ent-27",
-     "ent-30",
-     "ent-31",
-     "ent-33",
-     "ent-37",
-     "ent-38",
-     "ent-39",
-     "ent-43",
-     "ent-44",
-     "ent-45",
-     "ent-46",
-     "ent-47",
-     "ent-50",
-     "ent-52",
-     "ent-54",
-     "ent-55",
-     "ent-57",
-     "ent-58",
-     "ent-60",
-     "ent-62",
-     "ent-63",
-     "ent-67",
-     "ent-71",
-     "ent-72",
-     "ent-73",
-     "ent-74",
-     "ent-75",
-     "ent-77",
-     "ent-78",
-     "ent-79",
-     "ent-80",
-     "ent-81",
-     "ent-82"
-    ],
-    "evaluation_groups": [
-     "A01",
-     "A02",
-     "A03",
-     "A06",
-     "A07",
-     "A09",
-     "A10",
-     "A11",
-     "A15",
-     "C03",
-     "C04",
-     "C05",
-     "C06",
-     "C09",
-     "C12",
-     "P02",
-     "P03",
-     "P04",
-     "P06",
-     "P07",
-     "P08",
-     "P11",
-     "P13",
-     "P14",
-     "P18",
-     "P20",
-     "P21",
-     "P22",
-     "R02",
-     "R03",
-     "R04",
-     "R06",
-     "R09",
-     "R11",
-     "R12",
-     "S1",
-     "S2",
-     "S3",
-     "S6",
-     "S8",
-     "ent-04",
-     "ent-05",
-     "ent-06",
-     "ent-07",
-     "ent-10",
-     "ent-12",
-     "ent-13",
-     "ent-16",
-     "ent-18",
-     "ent-20",
-     "ent-21",
-     "ent-23",
-     "ent-26",
-     "ent-28",
-     "ent-29",
-     "ent-32",
-     "ent-34",
-     "ent-35",
-     "ent-36",
-     "ent-40",
-     "ent-41",
-     "ent-42",
-     "ent-48",
-     "ent-49",
-     "ent-51",
-     "ent-53",
-     "ent-56",
-     "ent-59",
-     "ent-61",
-     "ent-64",
-     "ent-65",
-     "ent-66",
-     "ent-68",
-     "ent-69",
-     "ent-70",
-     "ent-76"
-    ]
-   },
-   "attempted_accuracy": 0.3202054794520548,
-   "ece_recalibrated": 0.12468607305936068,
-   "temperatures": {
-    "gate": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "relevance": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "level": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "mapping": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "entity": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "group": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "fit": [
-     0.049787068367863944,
-     0.049787068367863944
-    ]
-   },
+   "ece_recalibrated": 0.03530505952380947,
+   "temperatures": [
+    0.049787068367863944,
+    0.049787068367863944
+   ],
    "coverage_at_5_recalibrated": {
     "risk": 0.05,
     "coverage": 0.0,
-    "threshold": null,
-    "accepted": 0,
-    "errors": 0,
-    "observed_risk": null,
-    "method": "empirical_in_sample",
-    "validated_risk_guarantee": false
+    "threshold": null
    },
    "reliability": [
     {
@@ -252,9 +48,9 @@
     {
      "lo": 0.2,
      "hi": 0.3,
-     "n": 39,
+     "n": 31,
      "confidence": 0.25,
-     "accuracy": 0.3333333333333333
+     "accuracy": 0.2903225806451613
     },
     {
      "lo": 0.3,
@@ -266,9 +62,9 @@
     {
      "lo": 0.4,
      "hi": 0.5,
-     "n": 342,
+     "n": 214,
      "confidence": 0.5,
-     "accuracy": 0.32456140350877194
+     "accuracy": 0.4766355140186916
     },
     {
      "lo": 0.5,
@@ -324,9 +120,9 @@
     {
      "lo": 0.2,
      "hi": 0.3,
-     "n": 39,
+     "n": 31,
      "confidence": 0.25,
-     "accuracy": 0.3333333333333333
+     "accuracy": 0.2903225806451613
     },
     {
      "lo": 0.3,
@@ -338,9 +134,9 @@
     {
      "lo": 0.4,
      "hi": 0.5,
-     "n": 342,
+     "n": 214,
      "confidence": 0.5,
-     "accuracy": 0.32456140350877194
+     "accuracy": 0.4766355140186916
     },
     {
      "lo": 0.5,
@@ -381,8 +177,7 @@
    "latency_ms_p50": 0.0,
    "latency_ms_p95": 0.0,
    "cost_usd": 0.0,
-   "cost_usd_per_1k": 0.0,
-   "calibration_method": "grouped_cross_fit_per_task"
+   "cost_usd_per_1k": 0.0
   },
   "tasks": {
    "gate": {
@@ -396,90 +191,8 @@
     "coverage_at_5": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 30,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "A01",
-      "A07",
-      "A08",
-      "A10",
-      "A11",
-      "A12",
-      "A13",
-      "A15",
-      "C02",
-      "C03",
-      "C04",
-      "C06",
-      "C07",
-      "C09",
-      "C12",
-      "P02",
-      "P03",
-      "P04",
-      "P05",
-      "P11",
-      "P14",
-      "P15",
-      "P18",
-      "P21",
-      "P22",
-      "R02",
-      "R04",
-      "R05",
-      "R06",
-      "R09",
-      "R12"
-     ],
-     "evaluation_groups": [
-      "A02",
-      "A03",
-      "A04",
-      "A05",
-      "A06",
-      "A09",
-      "A14",
-      "C01",
-      "C05",
-      "C08",
-      "C10",
-      "C11",
-      "P01",
-      "P06",
-      "P07",
-      "P08",
-      "P09",
-      "P10",
-      "P12",
-      "P13",
-      "P16",
-      "P17",
-      "P19",
-      "P20",
-      "R01",
-      "R03",
-      "R07",
-      "R08",
-      "R10",
-      "R11"
-     ]
-    },
-    "attempted_accuracy": 0.5081967213114754,
     "ece_recalibrated": 0.17486338797814216,
     "temperatures": [
      0.049787068367863944,
@@ -488,12 +201,7 @@
     "coverage_at_5_recalibrated": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
     "reliability": [
      {
@@ -655,60 +363,8 @@
     "coverage_at_5": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 59,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "A02",
-      "A04",
-      "A06",
-      "A08",
-      "P02",
-      "P04",
-      "P05",
-      "P06",
-      "P07",
-      "P08",
-      "P09",
-      "P10",
-      "P11",
-      "P13",
-      "P14",
-      "P15"
-     ],
-     "evaluation_groups": [
-      "A01",
-      "A03",
-      "A05",
-      "A07",
-      "A09",
-      "A10",
-      "A11",
-      "A12",
-      "A13",
-      "A14",
-      "A15",
-      "P01",
-      "P03",
-      "P12",
-      "P17"
-     ]
-    },
-    "attempted_accuracy": 0.4015151515151515,
     "ece_recalibrated": 0.09848484848484851,
     "temperatures": [
      0.049787068367863944,
@@ -717,12 +373,7 @@
     "coverage_at_5_recalibrated": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
     "reliability": [
      {
@@ -884,60 +535,8 @@
     "coverage_at_5": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 45,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "A02",
-      "A04",
-      "A06",
-      "A08",
-      "P02",
-      "P04",
-      "P05",
-      "P06",
-      "P07",
-      "P08",
-      "P09",
-      "P10",
-      "P11",
-      "P13",
-      "P14",
-      "P15"
-     ],
-     "evaluation_groups": [
-      "A01",
-      "A03",
-      "A05",
-      "A07",
-      "A09",
-      "A10",
-      "A11",
-      "A12",
-      "A13",
-      "A14",
-      "A15",
-      "P01",
-      "P03",
-      "P12",
-      "P17"
-     ]
-    },
-    "attempted_accuracy": 0.3010752688172043,
     "ece_recalibrated": 0.03136200716845874,
     "temperatures": [
      0.049787068367863944,
@@ -946,12 +545,7 @@
     "coverage_at_5_recalibrated": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
     "reliability": [
      {
@@ -1113,37 +707,8 @@
     "coverage_at_5": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 49,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "S1",
-      "S5",
-      "S6",
-      "S8"
-     ],
-     "evaluation_groups": [
-      "S2",
-      "S3",
-      "S4",
-      "S7"
-     ]
-    },
-    "attempted_accuracy": 0.1625,
     "ece_recalibrated": 0.007083333333333136,
     "temperatures": [
      0.049787068367863944,
@@ -1152,12 +717,7 @@
     "coverage_at_5_recalibrated": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
     "reliability": [
      {
@@ -1319,111 +879,8 @@
     "coverage_at_5": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 41,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "ent-05",
-      "ent-07",
-      "ent-09",
-      "ent-12",
-      "ent-13",
-      "ent-15",
-      "ent-17",
-      "ent-19",
-      "ent-20",
-      "ent-21",
-      "ent-22",
-      "ent-23",
-      "ent-24",
-      "ent-27",
-      "ent-29",
-      "ent-34",
-      "ent-35",
-      "ent-36",
-      "ent-37",
-      "ent-39",
-      "ent-41",
-      "ent-42",
-      "ent-43",
-      "ent-46",
-      "ent-49",
-      "ent-51",
-      "ent-53",
-      "ent-54",
-      "ent-55",
-      "ent-57",
-      "ent-59",
-      "ent-63",
-      "ent-65",
-      "ent-67",
-      "ent-71",
-      "ent-73",
-      "ent-74",
-      "ent-76",
-      "ent-80",
-      "ent-81",
-      "ent-82"
-     ],
-     "evaluation_groups": [
-      "ent-01",
-      "ent-02",
-      "ent-03",
-      "ent-04",
-      "ent-06",
-      "ent-08",
-      "ent-10",
-      "ent-11",
-      "ent-14",
-      "ent-16",
-      "ent-18",
-      "ent-25",
-      "ent-26",
-      "ent-28",
-      "ent-30",
-      "ent-31",
-      "ent-32",
-      "ent-33",
-      "ent-38",
-      "ent-40",
-      "ent-44",
-      "ent-45",
-      "ent-47",
-      "ent-48",
-      "ent-50",
-      "ent-52",
-      "ent-56",
-      "ent-58",
-      "ent-60",
-      "ent-61",
-      "ent-62",
-      "ent-64",
-      "ent-66",
-      "ent-68",
-      "ent-69",
-      "ent-70",
-      "ent-72",
-      "ent-75",
-      "ent-77",
-      "ent-78",
-      "ent-79"
-     ]
-    },
-    "attempted_accuracy": 0.5975609756097561,
     "ece_recalibrated": 0.09756097560975607,
     "temperatures": [
      0.049787068367863944,
@@ -1432,12 +889,7 @@
     "coverage_at_5_recalibrated": {
      "risk": 0.05,
      "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
+     "threshold": null
     },
     "reliability": [
      {
@@ -1546,442 +998,6 @@
       "n": 82,
       "confidence": 0.5,
       "accuracy": 0.5975609756097561
-     },
-     {
-      "lo": 0.5,
-      "hi": 0.6,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.6,
-      "hi": 0.7,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.7,
-      "hi": 0.8,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.8,
-      "hi": 0.9,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.9,
-      "hi": 1.0,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     }
-    ],
-    "latency_ms_p50": 0.0,
-    "latency_ms_p95": 0.0,
-    "cost_usd": 0.0,
-    "cost_usd_per_1k": 0.0
-   },
-   "group": {
-    "n": 128,
-    "errors": 0,
-    "accuracy": 0.0703125,
-    "ece": 0.4296875,
-    "brier": 0.5,
-    "nll": 0.6931471805599462,
-    "mean_confidence": 0.5,
-    "coverage_at_5": {
-     "risk": 0.05,
-     "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
-    },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 64,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "A01",
-      "A03",
-      "A04",
-      "A05",
-      "A07",
-      "A09",
-      "A10",
-      "A12",
-      "A14",
-      "A15",
-      "GX01",
-      "P02",
-      "P04",
-      "P12",
-      "P14",
-      "P17"
-     ],
-     "evaluation_groups": [
-      "A02",
-      "A06",
-      "A08",
-      "A11",
-      "A13",
-      "P01",
-      "P03",
-      "P05",
-      "P06",
-      "P07",
-      "P08",
-      "P09",
-      "P10",
-      "P11",
-      "P13",
-      "P15"
-     ]
-    },
-    "attempted_accuracy": 0.0703125,
-    "ece_recalibrated": 0.4296875,
-    "temperatures": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "coverage_at_5_recalibrated": {
-     "risk": 0.05,
-     "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
-    },
-    "reliability": [
-     {
-      "lo": 0.0,
-      "hi": 0.1,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.1,
-      "hi": 0.2,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.2,
-      "hi": 0.3,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.3,
-      "hi": 0.4,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.4,
-      "hi": 0.5,
-      "n": 128,
-      "confidence": 0.5,
-      "accuracy": 0.0703125
-     },
-     {
-      "lo": 0.5,
-      "hi": 0.6,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.6,
-      "hi": 0.7,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.7,
-      "hi": 0.8,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.8,
-      "hi": 0.9,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.9,
-      "hi": 1.0,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     }
-    ],
-    "reliability_recalibrated": [
-     {
-      "lo": 0.0,
-      "hi": 0.1,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.1,
-      "hi": 0.2,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.2,
-      "hi": 0.3,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.3,
-      "hi": 0.4,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.4,
-      "hi": 0.5,
-      "n": 128,
-      "confidence": 0.5,
-      "accuracy": 0.0703125
-     },
-     {
-      "lo": 0.5,
-      "hi": 0.6,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.6,
-      "hi": 0.7,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.7,
-      "hi": 0.8,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.8,
-      "hi": 0.9,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.9,
-      "hi": 1.0,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     }
-    ],
-    "latency_ms_p50": 0.0,
-    "latency_ms_p95": 0.0,
-    "cost_usd": 0.0,
-    "cost_usd_per_1k": 0.0
-   },
-   "fit": {
-    "n": 8,
-    "errors": 0,
-    "accuracy": 0.5,
-    "ece": 0.25,
-    "brier": 0.75,
-    "nll": 1.3862943611198906,
-    "mean_confidence": 0.25,
-    "coverage_at_5": {
-     "risk": 0.05,
-     "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
-    },
-    "heldout_at_5": {
-     "target_risk": 0.05,
-     "threshold": null,
-     "total": 4,
-     "accepted": 0,
-     "errors": 0,
-     "coverage": 0.0,
-     "observed_risk": null,
-     "validated_risk_guarantee": false,
-     "method": "grouped_holdout",
-     "selection_groups": [
-      "S1",
-      "S5",
-      "S6",
-      "S8"
-     ],
-     "evaluation_groups": [
-      "S2",
-      "S3",
-      "S4",
-      "S7"
-     ]
-    },
-    "attempted_accuracy": 0.5,
-    "ece_recalibrated": 0.25,
-    "temperatures": [
-     0.049787068367863944,
-     0.049787068367863944
-    ],
-    "coverage_at_5_recalibrated": {
-     "risk": 0.05,
-     "coverage": 0.0,
-     "threshold": null,
-     "accepted": 0,
-     "errors": 0,
-     "observed_risk": null,
-     "method": "empirical_in_sample",
-     "validated_risk_guarantee": false
-    },
-    "reliability": [
-     {
-      "lo": 0.0,
-      "hi": 0.1,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.1,
-      "hi": 0.2,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.2,
-      "hi": 0.3,
-      "n": 8,
-      "confidence": 0.25,
-      "accuracy": 0.5
-     },
-     {
-      "lo": 0.3,
-      "hi": 0.4,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.4,
-      "hi": 0.5,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.5,
-      "hi": 0.6,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.6,
-      "hi": 0.7,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.7,
-      "hi": 0.8,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.8,
-      "hi": 0.9,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.9,
-      "hi": 1.0,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     }
-    ],
-    "reliability_recalibrated": [
-     {
-      "lo": 0.0,
-      "hi": 0.1,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.1,
-      "hi": 0.2,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.2,
-      "hi": 0.3,
-      "n": 8,
-      "confidence": 0.25,
-      "accuracy": 0.5
-     },
-     {
-      "lo": 0.3,
-      "hi": 0.4,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
-     },
-     {
-      "lo": 0.4,
-      "hi": 0.5,
-      "n": 0,
-      "confidence": null,
-      "accuracy": null
      },
      {
       "lo": 0.5,
@@ -2031,8 +1047,6 @@
    "id": "gate-P01",
    "task": "gate",
    "gold": "answer",
-   "group": "P01",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -2046,79 +1060,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P01-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P01",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P01-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P01",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P01-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P01",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P01-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P01",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P01-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "P01",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2134,8 +1078,6 @@
    "id": "rel-P01-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P01",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2151,8 +1093,6 @@
    "id": "rel-P01-PM10",
    "task": "relevance",
    "gold": "no",
-   "group": "P01",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2168,8 +1108,6 @@
    "id": "rel-P01-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "P01",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2185,8 +1123,6 @@
    "id": "rel-P01-CO2e100",
    "task": "relevance",
    "gold": "no",
-   "group": "P01",
-   "question_key": "5cb453ccd7ecbd8c723ee31b04a7fe63ffd8a666a8d0e0fd0d9100605d6e9c85",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2202,8 +1138,6 @@
    "id": "lvl-P01-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P01",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -2221,8 +1155,6 @@
    "id": "lvl-P01-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P01",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -2239,8 +1171,6 @@
    "id": "lvl-P01-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "P01",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -2257,8 +1187,6 @@
    "id": "gate-P02",
    "task": "gate",
    "gold": "answer",
-   "group": "P02",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -2272,79 +1200,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P02-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P02",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P02-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P02",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P02-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P02",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P02-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P02",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P02-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "P02",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2360,8 +1218,6 @@
    "id": "rel-P02-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P02",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2377,8 +1233,6 @@
    "id": "rel-P02-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "P02",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2394,8 +1248,6 @@
    "id": "rel-P02-NMVOCs",
    "task": "relevance",
    "gold": "no",
-   "group": "P02",
-   "question_key": "8e1d91bf6c40476630b06a55df54a77a08672a5b4d15c9d1970ce13faa9432e0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2411,8 +1263,6 @@
    "id": "lvl-P02-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P02",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -2430,8 +1280,6 @@
    "id": "lvl-P02-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P02",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -2448,8 +1296,6 @@
    "id": "lvl-P02-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "P02",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -2466,8 +1312,6 @@
    "id": "gate-P03",
    "task": "gate",
    "gold": "answer",
-   "group": "P03",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -2481,79 +1325,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P03-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P03",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P03-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P03",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P03-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P03",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P03-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P03",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P03-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "P03",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2569,8 +1343,6 @@
    "id": "rel-P03-PM10",
    "task": "relevance",
    "gold": "no",
-   "group": "P03",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2586,8 +1358,6 @@
    "id": "rel-P03-BC",
    "task": "relevance",
    "gold": "no",
-   "group": "P03",
-   "question_key": "7bd18b6706fdaf768ff5d19e22ebda3d89c791692b49e01bd8a55a66e7322f6f",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2603,8 +1373,6 @@
    "id": "rel-P03-OC",
    "task": "relevance",
    "gold": "no",
-   "group": "P03",
-   "question_key": "4dc6d56d6350bd575a737383017f533479c43f670b805944a5115c7b6512ee69",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2620,8 +1388,6 @@
    "id": "lvl-P03-GEO",
    "task": "level",
    "gold": "region",
-   "group": "P03",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -2639,8 +1405,6 @@
    "id": "lvl-P03-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P03",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -2657,8 +1421,6 @@
    "id": "lvl-P03-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P03",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -2675,8 +1437,6 @@
    "id": "gate-P04",
    "task": "gate",
    "gold": "answer",
-   "group": "P04",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -2690,79 +1450,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P04-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P04",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P04-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P04",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P04-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P04",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P04-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P04",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P04-NH3",
    "task": "relevance",
    "gold": "yes",
-   "group": "P04",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2778,8 +1468,6 @@
    "id": "rel-P04-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P04",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2795,8 +1483,6 @@
    "id": "rel-P04-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "P04",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2812,8 +1498,6 @@
    "id": "rel-P04-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "P04",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2829,8 +1513,6 @@
    "id": "rel-P04-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "P04",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -2846,8 +1528,6 @@
    "id": "lvl-P04-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P04",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -2865,8 +1545,6 @@
    "id": "lvl-P04-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P04",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -2883,8 +1561,6 @@
    "id": "lvl-P04-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P04",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -2901,8 +1577,6 @@
    "id": "gate-P05",
    "task": "gate",
    "gold": "answer",
-   "group": "P05",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -2916,79 +1590,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P05-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P05",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P05-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P05",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P05-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P05",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P05-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P05",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P05-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "P05",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3004,8 +1608,6 @@
    "id": "rel-P05-CO",
    "task": "relevance",
    "gold": "yes",
-   "group": "P05",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3021,8 +1623,6 @@
    "id": "rel-P05-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P05",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3038,8 +1638,6 @@
    "id": "rel-P05-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P05",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3055,8 +1653,6 @@
    "id": "rel-P05-PM2_5",
    "task": "relevance",
    "gold": "no",
-   "group": "P05",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3072,8 +1668,6 @@
    "id": "rel-P05-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "P05",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3089,8 +1683,6 @@
    "id": "lvl-P05-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P05",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -3108,8 +1700,6 @@
    "id": "lvl-P05-TIME",
    "task": "level",
    "gold": "month",
-   "group": "P05",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -3126,8 +1716,6 @@
    "id": "lvl-P05-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P05",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -3144,8 +1732,6 @@
    "id": "gate-P06",
    "task": "gate",
    "gold": "answer",
-   "group": "P06",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -3159,79 +1745,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P06-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P06",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P06-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P06",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P06-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P06",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P06-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P06",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P06-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P06",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3247,8 +1763,6 @@
    "id": "rel-P06-PM2_5",
    "task": "relevance",
    "gold": "no",
-   "group": "P06",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3264,8 +1778,6 @@
    "id": "rel-P06-SO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P06",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3281,8 +1793,6 @@
    "id": "rel-P06-BC",
    "task": "relevance",
    "gold": "no",
-   "group": "P06",
-   "question_key": "7bd18b6706fdaf768ff5d19e22ebda3d89c791692b49e01bd8a55a66e7322f6f",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3298,8 +1808,6 @@
    "id": "lvl-P06-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P06",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -3317,8 +1825,6 @@
    "id": "lvl-P06-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P06",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -3335,8 +1841,6 @@
    "id": "lvl-P06-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "P06",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -3353,8 +1857,6 @@
    "id": "gate-P07",
    "task": "gate",
    "gold": "answer",
-   "group": "P07",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -3368,79 +1870,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P07-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P07",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P07-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P07",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P07-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P07",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P07-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P07",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P07-NOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "P07",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3456,8 +1888,6 @@
    "id": "rel-P07-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "P07",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3473,8 +1903,6 @@
    "id": "rel-P07-SOx",
    "task": "relevance",
    "gold": "no",
-   "group": "P07",
-   "question_key": "143c26ebdd42fdb8616e29cd8c3bb50b5c51119ae1f8b8d03d34717842502f0b",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3490,8 +1918,6 @@
    "id": "rel-P07-NH3",
    "task": "relevance",
    "gold": "no",
-   "group": "P07",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3507,8 +1933,6 @@
    "id": "lvl-P07-GEO",
    "task": "level",
    "gold": "region",
-   "group": "P07",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -3526,8 +1950,6 @@
    "id": "lvl-P07-TIME",
    "task": "level",
    "gold": "month",
-   "group": "P07",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -3544,8 +1966,6 @@
    "id": "lvl-P07-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P07",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -3562,8 +1982,6 @@
    "id": "gate-P08",
    "task": "gate",
    "gold": "answer",
-   "group": "P08",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -3577,79 +1995,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P08-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P08",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P08-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P08",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P08-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P08",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P08-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P08",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P08-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P08",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3665,8 +2013,6 @@
    "id": "rel-P08-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "P08",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3682,8 +2028,6 @@
    "id": "rel-P08-CO2e100",
    "task": "relevance",
    "gold": "no",
-   "group": "P08",
-   "question_key": "5cb453ccd7ecbd8c723ee31b04a7fe63ffd8a666a8d0e0fd0d9100605d6e9c85",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3699,8 +2043,6 @@
    "id": "rel-P08-CH4",
    "task": "relevance",
    "gold": "no",
-   "group": "P08",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3716,8 +2058,6 @@
    "id": "lvl-P08-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P08",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -3735,8 +2075,6 @@
    "id": "lvl-P08-TIME",
    "task": "level",
    "gold": "none",
-   "group": "P08",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -3753,8 +2091,6 @@
    "id": "lvl-P08-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "P08",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -3771,8 +2107,6 @@
    "id": "gate-P09",
    "task": "gate",
    "gold": "answer",
-   "group": "P09",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -3786,79 +2120,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P09-all",
-   "task": "group",
-   "gold": "yes",
-   "group": "P09",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P09-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P09",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P09-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P09",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P09-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P09",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P09-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P09",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3874,8 +2138,6 @@
    "id": "rel-P09-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "P09",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3891,8 +2153,6 @@
    "id": "rel-P09-PB",
    "task": "relevance",
    "gold": "yes",
-   "group": "P09",
-   "question_key": "ece05a3782bcaf0b387d7adc52ec444fb629bb9a835833caccb2418e6a62f232",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -3908,8 +2168,6 @@
    "id": "lvl-P09-GEO",
    "task": "level",
    "gold": "region",
-   "group": "P09",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -3927,8 +2185,6 @@
    "id": "lvl-P09-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P09",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -3945,8 +2201,6 @@
    "id": "lvl-P09-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P09",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -3963,8 +2217,6 @@
    "id": "gate-P10",
    "task": "gate",
    "gold": "answer",
-   "group": "P10",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -3978,79 +2230,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P10-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P10",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P10-ghg",
-   "task": "group",
-   "gold": "yes",
-   "group": "P10",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P10-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P10",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P10-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P10",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P10-CO2e20",
    "task": "relevance",
    "gold": "yes",
-   "group": "P10",
-   "question_key": "084463d4534d22080601c1315da22c02f1d5eae065e754c1950f94de8c9fa307",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4066,8 +2248,6 @@
    "id": "rel-P10-N2O",
    "task": "relevance",
    "gold": "yes",
-   "group": "P10",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4083,8 +2263,6 @@
    "id": "rel-P10-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "P10",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4100,8 +2278,6 @@
    "id": "rel-P10-PM2_5",
    "task": "relevance",
    "gold": "no",
-   "group": "P10",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4117,8 +2293,6 @@
    "id": "rel-P10-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "P10",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4134,8 +2308,6 @@
    "id": "rel-P10-SO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P10",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4151,8 +2323,6 @@
    "id": "lvl-P10-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P10",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -4170,8 +2340,6 @@
    "id": "lvl-P10-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P10",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -4188,8 +2356,6 @@
    "id": "lvl-P10-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P10",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -4206,8 +2372,6 @@
    "id": "gate-P11",
    "task": "gate",
    "gold": "answer",
-   "group": "P11",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -4221,79 +2385,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P11-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P11",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P11-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P11",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P11-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P11",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P11-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P11",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P11-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P11",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4309,8 +2403,6 @@
    "id": "rel-P11-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "P11",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4326,8 +2418,6 @@
    "id": "rel-P11-CH4",
    "task": "relevance",
    "gold": "no",
-   "group": "P11",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4343,8 +2433,6 @@
    "id": "rel-P11-CO2e20",
    "task": "relevance",
    "gold": "no",
-   "group": "P11",
-   "question_key": "084463d4534d22080601c1315da22c02f1d5eae065e754c1950f94de8c9fa307",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4360,8 +2448,6 @@
    "id": "lvl-P11-GEO",
    "task": "level",
    "gold": "country",
-   "group": "P11",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -4379,8 +2465,6 @@
    "id": "lvl-P11-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P11",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -4397,8 +2481,6 @@
    "id": "lvl-P11-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "P11",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -4415,8 +2497,6 @@
    "id": "gate-P12",
    "task": "gate",
    "gold": "answer",
-   "group": "P12",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -4430,79 +2510,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P12-all",
-   "task": "group",
-   "gold": "yes",
-   "group": "P12",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P12-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P12",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P12-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P12",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P12-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P12",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P12-NOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "P12",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4518,8 +2528,6 @@
    "id": "rel-P12-SO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P12",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4535,8 +2543,6 @@
    "id": "rel-P12-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P12",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4552,8 +2558,6 @@
    "id": "lvl-P12-GEO",
    "task": "level",
    "gold": "region",
-   "group": "P12",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -4571,8 +2575,6 @@
    "id": "lvl-P12-TIME",
    "task": "level",
    "gold": "month",
-   "group": "P12",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -4589,8 +2591,6 @@
    "id": "lvl-P12-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "P12",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -4607,8 +2607,6 @@
    "id": "gate-P13",
    "task": "gate",
    "gold": "answer",
-   "group": "P13",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -4622,79 +2620,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P13-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P13",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P13-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P13",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P13-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P13",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P13-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P13",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P13-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P13",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4710,8 +2638,6 @@
    "id": "rel-P13-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "P13",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4727,8 +2653,6 @@
    "id": "rel-P13-BC",
    "task": "relevance",
    "gold": "no",
-   "group": "P13",
-   "question_key": "7bd18b6706fdaf768ff5d19e22ebda3d89c791692b49e01bd8a55a66e7322f6f",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4744,8 +2668,6 @@
    "id": "rel-P13-OC",
    "task": "relevance",
    "gold": "no",
-   "group": "P13",
-   "question_key": "4dc6d56d6350bd575a737383017f533479c43f670b805944a5115c7b6512ee69",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4761,8 +2683,6 @@
    "id": "rel-P13-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "P13",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4778,8 +2698,6 @@
    "id": "lvl-P13-GEO",
    "task": "level",
    "gold": "none",
-   "group": "P13",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -4797,8 +2715,6 @@
    "id": "lvl-P13-TIME",
    "task": "level",
    "gold": "none",
-   "group": "P13",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -4815,8 +2731,6 @@
    "id": "lvl-P13-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "P13",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -4833,8 +2747,6 @@
    "id": "gate-P14",
    "task": "gate",
    "gold": "answer",
-   "group": "P14",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -4848,79 +2760,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P14-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P14",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P14-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P14",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P14-pm",
-   "task": "group",
-   "gold": "yes",
-   "group": "P14",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P14-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P14",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P14-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "P14",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4936,8 +2778,6 @@
    "id": "rel-P14-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P14",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4953,8 +2793,6 @@
    "id": "rel-P14-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P14",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4970,8 +2808,6 @@
    "id": "rel-P14-NH3",
    "task": "relevance",
    "gold": "no",
-   "group": "P14",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -4987,8 +2823,6 @@
    "id": "lvl-P14-GEO",
    "task": "level",
    "gold": "continent",
-   "group": "P14",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -5006,8 +2840,6 @@
    "id": "lvl-P14-TIME",
    "task": "level",
    "gold": "year",
-   "group": "P14",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -5024,8 +2856,6 @@
    "id": "lvl-P14-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "P14",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -5042,8 +2872,6 @@
    "id": "gate-P15",
    "task": "gate",
    "gold": "answer",
-   "group": "P15",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5057,79 +2885,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P15-all",
-   "task": "group",
-   "gold": "no",
-   "group": "P15",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P15-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P15",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P15-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P15",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P15-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P15",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P15-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "P15",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5145,8 +2903,6 @@
    "id": "rel-P15-NOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "P15",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5162,8 +2918,6 @@
    "id": "rel-P15-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "P15",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5179,8 +2933,6 @@
    "id": "rel-P15-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "P15",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5196,8 +2948,6 @@
    "id": "rel-P15-SO2",
    "task": "relevance",
    "gold": "no",
-   "group": "P15",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5213,8 +2963,6 @@
    "id": "lvl-P15-GEO",
    "task": "level",
    "gold": "region",
-   "group": "P15",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -5232,8 +2980,6 @@
    "id": "lvl-P15-TIME",
    "task": "level",
    "gold": "month",
-   "group": "P15",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -5250,8 +2996,6 @@
    "id": "lvl-P15-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "P15",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -5268,8 +3012,6 @@
    "id": "gate-P16",
    "task": "gate",
    "gold": "clarify",
-   "group": "P16",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5286,8 +3028,6 @@
    "id": "gate-P17",
    "task": "gate",
    "gold": "answer",
-   "group": "P17",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5301,79 +3041,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-P17-all",
-   "task": "group",
-   "gold": "yes",
-   "group": "P17",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P17-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "P17",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P17-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "P17",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-P17-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "P17",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-P17-NOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "P17",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5389,8 +3059,6 @@
    "id": "rel-P17-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "P17",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5406,8 +3074,6 @@
    "id": "rel-P17-CO",
    "task": "relevance",
    "gold": "yes",
-   "group": "P17",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5423,8 +3089,6 @@
    "id": "lvl-P17-GEO",
    "task": "level",
    "gold": "none",
-   "group": "P17",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -5442,8 +3106,6 @@
    "id": "lvl-P17-TIME",
    "task": "level",
    "gold": "none",
-   "group": "P17",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -5460,8 +3122,6 @@
    "id": "lvl-P17-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "P17",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -5478,8 +3138,6 @@
    "id": "gate-P18",
    "task": "gate",
    "gold": "reject",
-   "group": "P18",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5496,8 +3154,6 @@
    "id": "gate-P19",
    "task": "gate",
    "gold": "clarify",
-   "group": "P19",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5514,8 +3170,6 @@
    "id": "gate-P20",
    "task": "gate",
    "gold": "reject",
-   "group": "P20",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5532,8 +3186,6 @@
    "id": "gate-P21",
    "task": "gate",
    "gold": "clarify",
-   "group": "P21",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5550,8 +3202,6 @@
    "id": "gate-P22",
    "task": "gate",
    "gold": "clarify",
-   "group": "P22",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5568,8 +3218,6 @@
    "id": "gate-A01",
    "task": "gate",
    "gold": "answer",
-   "group": "A01",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5583,79 +3231,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A01-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A01",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A01-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A01",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A01-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A01",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A01-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A01",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A01-NOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "A01",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5671,8 +3249,6 @@
    "id": "rel-A01-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "A01",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5688,8 +3264,6 @@
    "id": "rel-A01-SOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A01",
-   "question_key": "143c26ebdd42fdb8616e29cd8c3bb50b5c51119ae1f8b8d03d34717842502f0b",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5705,8 +3279,6 @@
    "id": "rel-A01-NH3",
    "task": "relevance",
    "gold": "no",
-   "group": "A01",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5722,8 +3294,6 @@
    "id": "lvl-A01-GEO",
    "task": "level",
    "gold": "region",
-   "group": "A01",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -5741,8 +3311,6 @@
    "id": "lvl-A01-TIME",
    "task": "level",
    "gold": "month",
-   "group": "A01",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -5759,8 +3327,6 @@
    "id": "lvl-A01-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A01",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -5777,8 +3343,6 @@
    "id": "gate-A02",
    "task": "gate",
    "gold": "answer",
-   "group": "A02",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -5792,79 +3356,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A02-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A02",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A02-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A02",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A02-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A02",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A02-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A02",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A02-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "A02",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5880,8 +3374,6 @@
    "id": "rel-A02-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A02",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5897,8 +3389,6 @@
    "id": "rel-A02-NMVOCs",
    "task": "relevance",
    "gold": "no",
-   "group": "A02",
-   "question_key": "8e1d91bf6c40476630b06a55df54a77a08672a5b4d15c9d1970ce13faa9432e0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5914,8 +3404,6 @@
    "id": "rel-A02-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "A02",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -5931,8 +3419,6 @@
    "id": "lvl-A02-GEO",
    "task": "level",
    "gold": "continent",
-   "group": "A02",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -5950,8 +3436,6 @@
    "id": "lvl-A02-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A02",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -5968,8 +3452,6 @@
    "id": "lvl-A02-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A02",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -5986,8 +3468,6 @@
    "id": "gate-A03",
    "task": "gate",
    "gold": "answer",
-   "group": "A03",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -6001,79 +3481,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A03-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A03",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A03-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A03",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A03-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A03",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A03-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A03",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A03-NH3",
    "task": "relevance",
    "gold": "yes",
-   "group": "A03",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6089,8 +3499,6 @@
    "id": "rel-A03-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "A03",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6106,8 +3514,6 @@
    "id": "rel-A03-CH4",
    "task": "relevance",
    "gold": "no",
-   "group": "A03",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6123,8 +3529,6 @@
    "id": "rel-A03-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A03",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6140,8 +3544,6 @@
    "id": "lvl-A03-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A03",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -6159,8 +3561,6 @@
    "id": "lvl-A03-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A03",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -6177,8 +3577,6 @@
    "id": "lvl-A03-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "A03",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -6195,8 +3593,6 @@
    "id": "gate-A04",
    "task": "gate",
    "gold": "answer",
-   "group": "A04",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -6210,79 +3606,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A04-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A04",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A04-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A04",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A04-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A04",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A04-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A04",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A04-BC",
    "task": "relevance",
    "gold": "yes",
-   "group": "A04",
-   "question_key": "7bd18b6706fdaf768ff5d19e22ebda3d89c791692b49e01bd8a55a66e7322f6f",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6298,8 +3624,6 @@
    "id": "rel-A04-OC",
    "task": "relevance",
    "gold": "yes",
-   "group": "A04",
-   "question_key": "4dc6d56d6350bd575a737383017f533479c43f670b805944a5115c7b6512ee69",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6315,8 +3639,6 @@
    "id": "rel-A04-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A04",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6332,8 +3654,6 @@
    "id": "rel-A04-PM2_5",
    "task": "relevance",
    "gold": "no",
-   "group": "A04",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6349,8 +3669,6 @@
    "id": "rel-A04-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "A04",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6366,8 +3684,6 @@
    "id": "lvl-A04-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A04",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -6385,8 +3701,6 @@
    "id": "lvl-A04-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A04",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -6403,8 +3717,6 @@
    "id": "lvl-A04-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A04",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -6421,8 +3733,6 @@
    "id": "gate-A05",
    "task": "gate",
    "gold": "answer",
-   "group": "A05",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -6436,79 +3746,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A05-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A05",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A05-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A05",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A05-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A05",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A05-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A05",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A05-SO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "A05",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6524,8 +3764,6 @@
    "id": "rel-A05-SOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A05",
-   "question_key": "143c26ebdd42fdb8616e29cd8c3bb50b5c51119ae1f8b8d03d34717842502f0b",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6541,8 +3779,6 @@
    "id": "rel-A05-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A05",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6558,8 +3794,6 @@
    "id": "rel-A05-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "A05",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6575,8 +3809,6 @@
    "id": "lvl-A05-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A05",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -6594,8 +3826,6 @@
    "id": "lvl-A05-TIME",
    "task": "level",
    "gold": "none",
-   "group": "A05",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -6612,8 +3842,6 @@
    "id": "lvl-A05-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "A05",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -6630,8 +3858,6 @@
    "id": "gate-A06",
    "task": "gate",
    "gold": "answer",
-   "group": "A06",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -6645,79 +3871,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A06-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A06",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A06-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A06",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A06-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A06",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A06-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A06",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A06-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "A06",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6733,8 +3889,6 @@
    "id": "rel-A06-PM2_5",
    "task": "relevance",
    "gold": "no",
-   "group": "A06",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6750,8 +3904,6 @@
    "id": "rel-A06-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A06",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6767,8 +3919,6 @@
    "id": "rel-A06-BC",
    "task": "relevance",
    "gold": "no",
-   "group": "A06",
-   "question_key": "7bd18b6706fdaf768ff5d19e22ebda3d89c791692b49e01bd8a55a66e7322f6f",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6784,8 +3934,6 @@
    "id": "lvl-A06-GEO",
    "task": "level",
    "gold": "region",
-   "group": "A06",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -6803,8 +3951,6 @@
    "id": "lvl-A06-TIME",
    "task": "level",
    "gold": "month",
-   "group": "A06",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -6821,8 +3967,6 @@
    "id": "lvl-A06-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A06",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -6839,8 +3983,6 @@
    "id": "gate-A07",
    "task": "gate",
    "gold": "answer",
-   "group": "A07",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -6854,79 +3996,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A07-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A07",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A07-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A07",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A07-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A07",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A07-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A07",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A07-HG",
    "task": "relevance",
    "gold": "yes",
-   "group": "A07",
-   "question_key": "a85c97b09fa5c70acea6a9094316f66c191dd67c39fdb79d71f24705ad2bdeb1",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6942,8 +4014,6 @@
    "id": "rel-A07-PB",
    "task": "relevance",
    "gold": "yes",
-   "group": "A07",
-   "question_key": "ece05a3782bcaf0b387d7adc52ec444fb629bb9a835833caccb2418e6a62f232",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6959,8 +4029,6 @@
    "id": "rel-A07-NI",
    "task": "relevance",
    "gold": "no",
-   "group": "A07",
-   "question_key": "73cf5ad15c925e2fd9b7ffa5c837846c19f0bc9ad843d9304e13ecd9f8f118e0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6976,8 +4044,6 @@
    "id": "rel-A07-CD",
    "task": "relevance",
    "gold": "no",
-   "group": "A07",
-   "question_key": "01688574486487512c8b90eea5ba648f6e9f62a267571487692271336251154a",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -6993,8 +4059,6 @@
    "id": "rel-A07-ZN",
    "task": "relevance",
    "gold": "no",
-   "group": "A07",
-   "question_key": "6e756bced3bcf142b5613586e82c206268da669f933e505e4afd4e2b4cee4932",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7010,8 +4074,6 @@
    "id": "lvl-A07-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A07",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -7029,8 +4091,6 @@
    "id": "lvl-A07-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A07",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -7047,8 +4107,6 @@
    "id": "lvl-A07-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A07",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -7065,8 +4123,6 @@
    "id": "gate-A08",
    "task": "gate",
    "gold": "answer",
-   "group": "A08",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -7080,79 +4136,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A08-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A08",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A08-ghg",
-   "task": "group",
-   "gold": "yes",
-   "group": "A08",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A08-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A08",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A08-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A08",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A08-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "A08",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7168,8 +4154,6 @@
    "id": "rel-A08-CH4",
    "task": "relevance",
    "gold": "yes",
-   "group": "A08",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7185,8 +4169,6 @@
    "id": "rel-A08-CO2e100",
    "task": "relevance",
    "gold": "yes",
-   "group": "A08",
-   "question_key": "5cb453ccd7ecbd8c723ee31b04a7fe63ffd8a666a8d0e0fd0d9100605d6e9c85",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7202,8 +4184,6 @@
    "id": "rel-A08-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A08",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7219,8 +4199,6 @@
    "id": "rel-A08-PM10",
    "task": "relevance",
    "gold": "no",
-   "group": "A08",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7236,8 +4214,6 @@
    "id": "rel-A08-NH3",
    "task": "relevance",
    "gold": "no",
-   "group": "A08",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7253,8 +4229,6 @@
    "id": "lvl-A08-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A08",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -7272,8 +4246,6 @@
    "id": "lvl-A08-TIME",
    "task": "level",
    "gold": "month",
-   "group": "A08",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -7290,8 +4262,6 @@
    "id": "lvl-A08-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "A08",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -7308,8 +4278,6 @@
    "id": "gate-A09",
    "task": "gate",
    "gold": "answer",
-   "group": "A09",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -7323,79 +4291,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A09-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A09",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A09-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A09",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A09-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A09",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A09-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A09",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A09-CO",
    "task": "relevance",
    "gold": "yes",
-   "group": "A09",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7411,8 +4309,6 @@
    "id": "rel-A09-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A09",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7428,8 +4324,6 @@
    "id": "rel-A09-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A09",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7445,8 +4339,6 @@
    "id": "rel-A09-NMVOCs",
    "task": "relevance",
    "gold": "no",
-   "group": "A09",
-   "question_key": "8e1d91bf6c40476630b06a55df54a77a08672a5b4d15c9d1970ce13faa9432e0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7462,8 +4354,6 @@
    "id": "lvl-A09-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A09",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -7481,8 +4371,6 @@
    "id": "lvl-A09-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A09",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -7499,8 +4387,6 @@
    "id": "lvl-A09-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A09",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -7517,8 +4403,6 @@
    "id": "gate-A10",
    "task": "gate",
    "gold": "answer",
-   "group": "A10",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -7532,79 +4416,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A10-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A10",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A10-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A10",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A10-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A10",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A10-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A10",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A10-CO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "A10",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7620,8 +4434,6 @@
    "id": "rel-A10-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "A10",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7637,8 +4449,6 @@
    "id": "rel-A10-CO2e100",
    "task": "relevance",
    "gold": "no",
-   "group": "A10",
-   "question_key": "5cb453ccd7ecbd8c723ee31b04a7fe63ffd8a666a8d0e0fd0d9100605d6e9c85",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7654,8 +4464,6 @@
    "id": "rel-A10-N2O",
    "task": "relevance",
    "gold": "no",
-   "group": "A10",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7671,8 +4479,6 @@
    "id": "lvl-A10-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A10",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -7690,8 +4496,6 @@
    "id": "lvl-A10-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A10",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -7708,8 +4512,6 @@
    "id": "lvl-A10-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A10",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -7726,8 +4528,6 @@
    "id": "gate-A11",
    "task": "gate",
    "gold": "answer",
-   "group": "A11",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -7741,79 +4541,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A11-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A11",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A11-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A11",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A11-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A11",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A11-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A11",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A11-NMVOCs",
    "task": "relevance",
    "gold": "yes",
-   "group": "A11",
-   "question_key": "8e1d91bf6c40476630b06a55df54a77a08672a5b4d15c9d1970ce13faa9432e0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7829,8 +4559,6 @@
    "id": "rel-A11-CH4",
    "task": "relevance",
    "gold": "no",
-   "group": "A11",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7846,8 +4574,6 @@
    "id": "rel-A11-CO",
    "task": "relevance",
    "gold": "no",
-   "group": "A11",
-   "question_key": "bdccde9b59985fcb37b19db72ceb81ba2ff7459944ff79178d87bc8a528636b0",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7863,8 +4589,6 @@
    "id": "rel-A11-OC",
    "task": "relevance",
    "gold": "no",
-   "group": "A11",
-   "question_key": "4dc6d56d6350bd575a737383017f533479c43f670b805944a5115c7b6512ee69",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -7880,8 +4604,6 @@
    "id": "lvl-A11-GEO",
    "task": "level",
    "gold": "none",
-   "group": "A11",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -7899,8 +4621,6 @@
    "id": "lvl-A11-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A11",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -7917,8 +4637,6 @@
    "id": "lvl-A11-SECTOR",
    "task": "level",
    "gold": "macrosector",
-   "group": "A11",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -7935,8 +4653,6 @@
    "id": "gate-A12",
    "task": "gate",
    "gold": "answer",
-   "group": "A12",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -7950,79 +4666,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A12-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A12",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A12-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A12",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A12-pm",
-   "task": "group",
-   "gold": "yes",
-   "group": "A12",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A12-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A12",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A12-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "A12",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8038,8 +4684,6 @@
    "id": "rel-A12-PM10",
    "task": "relevance",
    "gold": "yes",
-   "group": "A12",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8055,8 +4699,6 @@
    "id": "rel-A12-SO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A12",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8072,8 +4714,6 @@
    "id": "rel-A12-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A12",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8089,8 +4729,6 @@
    "id": "lvl-A12-GEO",
    "task": "level",
    "gold": "region",
-   "group": "A12",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -8108,8 +4746,6 @@
    "id": "lvl-A12-TIME",
    "task": "level",
    "gold": "none",
-   "group": "A12",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -8126,8 +4762,6 @@
    "id": "lvl-A12-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A12",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -8144,8 +4778,6 @@
    "id": "gate-A13",
    "task": "gate",
    "gold": "answer",
-   "group": "A13",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8159,79 +4791,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A13-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A13",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A13-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A13",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A13-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A13",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A13-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A13",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A13-N2O",
    "task": "relevance",
    "gold": "yes",
-   "group": "A13",
-   "question_key": "6c5770dc8e7cac1e92d37d67d4d51f933260419ca40cbb095d137d3f353574a8",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8247,8 +4809,6 @@
    "id": "rel-A13-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A13",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8264,8 +4824,6 @@
    "id": "rel-A13-NH3",
    "task": "relevance",
    "gold": "no",
-   "group": "A13",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8281,8 +4839,6 @@
    "id": "rel-A13-CH4",
    "task": "relevance",
    "gold": "no",
-   "group": "A13",
-   "question_key": "95f9863512c0aebb4e22e011722ff583e71842368b4141bc6049f911fbb908ca",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8298,8 +4854,6 @@
    "id": "lvl-A13-GEO",
    "task": "level",
    "gold": "continent",
-   "group": "A13",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -8317,8 +4871,6 @@
    "id": "lvl-A13-TIME",
    "task": "level",
    "gold": "year",
-   "group": "A13",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -8335,8 +4887,6 @@
    "id": "lvl-A13-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A13",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -8353,8 +4903,6 @@
    "id": "gate-A14",
    "task": "gate",
    "gold": "answer",
-   "group": "A14",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8368,79 +4916,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A14-all",
-   "task": "group",
-   "gold": "no",
-   "group": "A14",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A14-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A14",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A14-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A14",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A14-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A14",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A14-SOx",
    "task": "relevance",
    "gold": "yes",
-   "group": "A14",
-   "question_key": "143c26ebdd42fdb8616e29cd8c3bb50b5c51119ae1f8b8d03d34717842502f0b",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8456,8 +4934,6 @@
    "id": "rel-A14-NOx",
    "task": "relevance",
    "gold": "no",
-   "group": "A14",
-   "question_key": "7957aa532bb52e93abb7b99a11475c1cba315c57b7229ee51014433bfe4a94db",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8473,8 +4949,6 @@
    "id": "rel-A14-CO2",
    "task": "relevance",
    "gold": "no",
-   "group": "A14",
-   "question_key": "8e4d6d81c13215c393761416ed6f4324ef6697c2c7f182566999337bf37a2c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8490,8 +4964,6 @@
    "id": "rel-A14-PM10",
    "task": "relevance",
    "gold": "no",
-   "group": "A14",
-   "question_key": "313802ef10e07b7a5dbb60a22f1e1ad9e4c0783a033e069b0e2eee5353723d65",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8507,8 +4979,6 @@
    "id": "lvl-A14-GEO",
    "task": "level",
    "gold": "country",
-   "group": "A14",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -8526,8 +4996,6 @@
    "id": "lvl-A14-TIME",
    "task": "level",
    "gold": "month",
-   "group": "A14",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -8544,8 +5012,6 @@
    "id": "lvl-A14-SECTOR",
    "task": "level",
    "gold": "subsector",
-   "group": "A14",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -8562,8 +5028,6 @@
    "id": "gate-A15",
    "task": "gate",
    "gold": "answer",
-   "group": "A15",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8577,79 +5041,9 @@
    "cost_usd": 0.0
   },
   {
-   "id": "grp-A15-all",
-   "task": "group",
-   "gold": "yes",
-   "group": "A15",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A15-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "A15",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A15-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "A15",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-A15-metal",
-   "task": "group",
-   "gold": "no",
-   "group": "A15",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
    "id": "rel-A15-SO2",
    "task": "relevance",
    "gold": "yes",
-   "group": "A15",
-   "question_key": "cae52fd8b6a7d3e6a640005a9c073e3adf5fb63f3e2afd89a144dc157c186c25",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8665,8 +5059,6 @@
    "id": "rel-A15-NH3",
    "task": "relevance",
    "gold": "yes",
-   "group": "A15",
-   "question_key": "729ca4ef02002b43e62e5f3af6e5cd44eccbbd464332c63d2d620ca7e6043b61",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8682,8 +5074,6 @@
    "id": "rel-A15-PM2_5",
    "task": "relevance",
    "gold": "yes",
-   "group": "A15",
-   "question_key": "5e5ac6a6ade760ad4bb3f3d4f333e9aefbd73dbf3e42276307e7c33551b66e33",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -8699,8 +5089,6 @@
    "id": "lvl-A15-GEO",
    "task": "level",
    "gold": "region",
-   "group": "A15",
-   "question_key": "114b58de24031c74ef7e2585ccbb7998a7372555e05b77689b056bf3a3a3b914",
    "probs": {
     "region": 0.25,
     "country": 0.25,
@@ -8718,8 +5106,6 @@
    "id": "lvl-A15-TIME",
    "task": "level",
    "gold": "month",
-   "group": "A15",
-   "question_key": "37ebaad2193aeea211b146a732cf7cb1ec0f1ad06e02c4ba5f509f155a217176",
    "probs": {
     "month": 0.33333,
     "year": 0.33333,
@@ -8736,8 +5122,6 @@
    "id": "lvl-A15-SECTOR",
    "task": "level",
    "gold": "none",
-   "group": "A15",
-   "question_key": "7bfc106caf76a80bfdaf5f66c896dba7eae0b1b4c49d3ca475818ffab42d8f65",
    "probs": {
     "subsector": 0.33333,
     "macrosector": 0.33333,
@@ -8754,8 +5138,6 @@
    "id": "gate-C01",
    "task": "gate",
    "gold": "clarify",
-   "group": "C01",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8772,8 +5154,6 @@
    "id": "gate-C02",
    "task": "gate",
    "gold": "clarify",
-   "group": "C02",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8790,8 +5170,6 @@
    "id": "gate-C03",
    "task": "gate",
    "gold": "clarify",
-   "group": "C03",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8808,8 +5186,6 @@
    "id": "gate-C04",
    "task": "gate",
    "gold": "clarify",
-   "group": "C04",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8826,8 +5202,6 @@
    "id": "gate-C05",
    "task": "gate",
    "gold": "clarify",
-   "group": "C05",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8844,8 +5218,6 @@
    "id": "gate-C06",
    "task": "gate",
    "gold": "clarify",
-   "group": "C06",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8862,8 +5234,6 @@
    "id": "gate-C07",
    "task": "gate",
    "gold": "clarify",
-   "group": "C07",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8880,8 +5250,6 @@
    "id": "gate-C08",
    "task": "gate",
    "gold": "clarify",
-   "group": "C08",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8898,8 +5266,6 @@
    "id": "gate-C09",
    "task": "gate",
    "gold": "clarify",
-   "group": "C09",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8916,8 +5282,6 @@
    "id": "gate-C10",
    "task": "gate",
    "gold": "clarify",
-   "group": "C10",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8934,8 +5298,6 @@
    "id": "gate-C11",
    "task": "gate",
    "gold": "clarify",
-   "group": "C11",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8952,8 +5314,6 @@
    "id": "gate-C12",
    "task": "gate",
    "gold": "clarify",
-   "group": "C12",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8970,8 +5330,6 @@
    "id": "gate-R01",
    "task": "gate",
    "gold": "reject",
-   "group": "R01",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -8988,8 +5346,6 @@
    "id": "gate-R02",
    "task": "gate",
    "gold": "reject",
-   "group": "R02",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9006,8 +5362,6 @@
    "id": "gate-R03",
    "task": "gate",
    "gold": "reject",
-   "group": "R03",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9024,8 +5378,6 @@
    "id": "gate-R04",
    "task": "gate",
    "gold": "reject",
-   "group": "R04",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9042,8 +5394,6 @@
    "id": "gate-R05",
    "task": "gate",
    "gold": "reject",
-   "group": "R05",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9060,8 +5410,6 @@
    "id": "gate-R06",
    "task": "gate",
    "gold": "reject",
-   "group": "R06",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9078,8 +5426,6 @@
    "id": "gate-R07",
    "task": "gate",
    "gold": "reject",
-   "group": "R07",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9096,8 +5442,6 @@
    "id": "gate-R08",
    "task": "gate",
    "gold": "reject",
-   "group": "R08",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9114,8 +5458,6 @@
    "id": "gate-R09",
    "task": "gate",
    "gold": "reject",
-   "group": "R09",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9132,8 +5474,6 @@
    "id": "gate-R10",
    "task": "gate",
    "gold": "reject",
-   "group": "R10",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9150,8 +5490,6 @@
    "id": "gate-R11",
    "task": "gate",
    "gold": "reject",
-   "group": "R11",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9168,8 +5506,6 @@
    "id": "gate-R12",
    "task": "gate",
    "gold": "reject",
-   "group": "R12",
-   "question_key": "fb0244c15827e519817b5ee8c092c61b563e6dd927cfb4dfb79da97cdde4666b",
    "probs": {
     "answer": 0.33333,
     "clarify": 0.33333,
@@ -9186,8 +5522,6 @@
    "id": "ent-01",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-01",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9203,8 +5537,6 @@
    "id": "ent-02",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-02",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9220,8 +5552,6 @@
    "id": "ent-03",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-03",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9237,8 +5567,6 @@
    "id": "ent-04",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-04",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9254,8 +5582,6 @@
    "id": "ent-05",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-05",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9271,8 +5597,6 @@
    "id": "ent-06",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-06",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9288,8 +5612,6 @@
    "id": "ent-07",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-07",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9305,8 +5627,6 @@
    "id": "ent-08",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-08",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9322,8 +5642,6 @@
    "id": "ent-09",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-09",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9339,8 +5657,6 @@
    "id": "ent-10",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-10",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9356,8 +5672,6 @@
    "id": "ent-11",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-11",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9373,8 +5687,6 @@
    "id": "ent-12",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-12",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9390,8 +5702,6 @@
    "id": "ent-13",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-13",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9407,8 +5717,6 @@
    "id": "ent-14",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-14",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9424,8 +5732,6 @@
    "id": "ent-15",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-15",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9441,8 +5747,6 @@
    "id": "ent-16",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-16",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9458,8 +5762,6 @@
    "id": "ent-17",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-17",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9475,8 +5777,6 @@
    "id": "ent-18",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-18",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9492,8 +5792,6 @@
    "id": "ent-19",
    "task": "entity",
    "gold": "no",
-   "group": "ent-19",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9509,8 +5807,6 @@
    "id": "ent-20",
    "task": "entity",
    "gold": "no",
-   "group": "ent-20",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9526,8 +5822,6 @@
    "id": "ent-21",
    "task": "entity",
    "gold": "no",
-   "group": "ent-21",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9543,8 +5837,6 @@
    "id": "ent-22",
    "task": "entity",
    "gold": "no",
-   "group": "ent-22",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9560,8 +5852,6 @@
    "id": "ent-23",
    "task": "entity",
    "gold": "no",
-   "group": "ent-23",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9577,8 +5867,6 @@
    "id": "ent-24",
    "task": "entity",
    "gold": "no",
-   "group": "ent-24",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9594,8 +5882,6 @@
    "id": "ent-25",
    "task": "entity",
    "gold": "no",
-   "group": "ent-25",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9611,8 +5897,6 @@
    "id": "ent-26",
    "task": "entity",
    "gold": "no",
-   "group": "ent-26",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9628,8 +5912,6 @@
    "id": "ent-27",
    "task": "entity",
    "gold": "no",
-   "group": "ent-27",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9645,8 +5927,6 @@
    "id": "ent-28",
    "task": "entity",
    "gold": "no",
-   "group": "ent-28",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9662,8 +5942,6 @@
    "id": "ent-29",
    "task": "entity",
    "gold": "no",
-   "group": "ent-29",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9679,8 +5957,6 @@
    "id": "ent-30",
    "task": "entity",
    "gold": "no",
-   "group": "ent-30",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9696,8 +5972,6 @@
    "id": "ent-31",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-31",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9713,8 +5987,6 @@
    "id": "ent-32",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-32",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9730,8 +6002,6 @@
    "id": "ent-33",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-33",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9747,8 +6017,6 @@
    "id": "ent-34",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-34",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9764,8 +6032,6 @@
    "id": "ent-35",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-35",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9781,8 +6047,6 @@
    "id": "ent-36",
    "task": "entity",
    "gold": "no",
-   "group": "ent-36",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9798,8 +6062,6 @@
    "id": "ent-37",
    "task": "entity",
    "gold": "no",
-   "group": "ent-37",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9815,8 +6077,6 @@
    "id": "ent-38",
    "task": "entity",
    "gold": "no",
-   "group": "ent-38",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9832,8 +6092,6 @@
    "id": "ent-39",
    "task": "entity",
    "gold": "no",
-   "group": "ent-39",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9849,8 +6107,6 @@
    "id": "ent-40",
    "task": "entity",
    "gold": "no",
-   "group": "ent-40",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9866,8 +6122,6 @@
    "id": "ent-41",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-41",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9883,8 +6137,6 @@
    "id": "ent-42",
    "task": "entity",
    "gold": "no",
-   "group": "ent-42",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9900,8 +6152,6 @@
    "id": "ent-43",
    "task": "entity",
    "gold": "no",
-   "group": "ent-43",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9917,8 +6167,6 @@
    "id": "ent-44",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-44",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9934,8 +6182,6 @@
    "id": "ent-45",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-45",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9951,8 +6197,6 @@
    "id": "ent-46",
    "task": "entity",
    "gold": "no",
-   "group": "ent-46",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9968,8 +6212,6 @@
    "id": "ent-47",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-47",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -9985,8 +6227,6 @@
    "id": "ent-48",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-48",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10002,8 +6242,6 @@
    "id": "ent-49",
    "task": "entity",
    "gold": "no",
-   "group": "ent-49",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10019,8 +6257,6 @@
    "id": "ent-50",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-50",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10036,8 +6272,6 @@
    "id": "ent-51",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-51",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10053,8 +6287,6 @@
    "id": "ent-52",
    "task": "entity",
    "gold": "no",
-   "group": "ent-52",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10070,8 +6302,6 @@
    "id": "ent-53",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-53",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10087,8 +6317,6 @@
    "id": "ent-54",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-54",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10104,8 +6332,6 @@
    "id": "ent-55",
    "task": "entity",
    "gold": "no",
-   "group": "ent-55",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10121,8 +6347,6 @@
    "id": "ent-56",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-56",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10138,8 +6362,6 @@
    "id": "ent-57",
    "task": "entity",
    "gold": "no",
-   "group": "ent-57",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10155,8 +6377,6 @@
    "id": "ent-58",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-58",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10172,8 +6392,6 @@
    "id": "ent-59",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-59",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10189,8 +6407,6 @@
    "id": "ent-60",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-60",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10206,8 +6422,6 @@
    "id": "ent-61",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-61",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10223,8 +6437,6 @@
    "id": "ent-62",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-62",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10240,8 +6452,6 @@
    "id": "ent-63",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-63",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10257,8 +6467,6 @@
    "id": "ent-64",
    "task": "entity",
    "gold": "no",
-   "group": "ent-64",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10274,8 +6482,6 @@
    "id": "ent-65",
    "task": "entity",
    "gold": "no",
-   "group": "ent-65",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10291,8 +6497,6 @@
    "id": "ent-66",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-66",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10308,8 +6512,6 @@
    "id": "ent-67",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-67",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10325,8 +6527,6 @@
    "id": "ent-68",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-68",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10342,8 +6542,6 @@
    "id": "ent-69",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-69",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10359,8 +6557,6 @@
    "id": "ent-70",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-70",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10376,8 +6572,6 @@
    "id": "ent-71",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-71",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10393,8 +6587,6 @@
    "id": "ent-72",
    "task": "entity",
    "gold": "no",
-   "group": "ent-72",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10410,8 +6602,6 @@
    "id": "ent-73",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-73",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10427,8 +6617,6 @@
    "id": "ent-74",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-74",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10444,8 +6632,6 @@
    "id": "ent-75",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-75",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10461,8 +6647,6 @@
    "id": "ent-76",
    "task": "entity",
    "gold": "no",
-   "group": "ent-76",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10478,8 +6662,6 @@
    "id": "ent-77",
    "task": "entity",
    "gold": "no",
-   "group": "ent-77",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10495,8 +6677,6 @@
    "id": "ent-78",
    "task": "entity",
    "gold": "no",
-   "group": "ent-78",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10512,8 +6692,6 @@
    "id": "ent-79",
    "task": "entity",
    "gold": "yes",
-   "group": "ent-79",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10529,8 +6707,6 @@
    "id": "ent-80",
    "task": "entity",
    "gold": "no",
-   "group": "ent-80",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10546,8 +6722,6 @@
    "id": "ent-81",
    "task": "entity",
    "gold": "no",
-   "group": "ent-81",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10563,8 +6737,6 @@
    "id": "ent-82",
    "task": "entity",
    "gold": "no",
-   "group": "ent-82",
-   "question_key": "e9f942ab2ae584f680b275560593278211e27c20b30c7ab0e828d8a7b3689b2c",
    "probs": {
     "yes": 0.5,
     "no": 0.5
@@ -10580,8 +6752,6 @@
    "id": "map-S1-iso3_country",
    "task": "mapping",
    "gold": "country",
-   "group": "S1",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "country": 0.16667,
     "continent": 0.16667,
@@ -10601,8 +6771,6 @@
    "id": "map-S1-start_time",
    "task": "mapping",
    "gold": "month",
-   "group": "S1",
-   "question_key": "e870f1e24bcc6fb487dfc9a139dd8322f36dabc8b35a80c3206915d1cd298321",
    "probs": {
     "year": 0.16667,
     "subsector": 0.16667,
@@ -10622,8 +6790,6 @@
    "id": "map-S1-sector_subtype",
    "task": "mapping",
    "gold": "subsector",
-   "group": "S1",
-   "question_key": "62a7d656c1f31503057f9f3df92c99ee5a3840fcb8258078b27dfdd18dc66f9d",
    "probs": {
     "month": 0.16667,
     "subsector": 0.16667,
@@ -10643,8 +6809,6 @@
    "id": "map-S1-co2_t",
    "task": "mapping",
    "gold": "CO2",
-   "group": "S1",
-   "question_key": "5afaecc35dd7bf5ac110333752ae0b5722d2dbc785d135e36016ccc26b55da49",
    "probs": {
     "N2O": 0.16667,
     "CO2e (100-year)": 0.16667,
@@ -10664,8 +6828,6 @@
    "id": "map-S1-ch4_t",
    "task": "mapping",
    "gold": "CH4",
-   "group": "S1",
-   "question_key": "1a59e2df0c6996c1e5a9c0564396aa6be27fd270cde1d03e6825414b16b3b971",
    "probs": {
     "CH4": 0.16667,
     "N2O": 0.16667,
@@ -10685,8 +6847,6 @@
    "id": "map-S1-n2o_t",
    "task": "mapping",
    "gold": "N2O",
-   "group": "S1",
-   "question_key": "85b9cf49da2906b776418e3639e8106484b2d704111570a31e70ce49d4e642f5",
    "probs": {
     "NOx": 0.16667,
     "NH3": 0.16667,
@@ -10706,8 +6866,6 @@
    "id": "map-S1-co2e_100yr",
    "task": "mapping",
    "gold": "CO2e (100-year)",
-   "group": "S1",
-   "question_key": "9963ab42c0446f6ef93aa406a5763f9f06c4c466c0d07fd79bf953424251a3d0",
    "probs": {
     "N2O": 0.16667,
     "CH4": 0.16667,
@@ -10727,8 +6885,6 @@
    "id": "map-S1-co2e_20yr",
    "task": "mapping",
    "gold": "CO2e (20-year)",
-   "group": "S1",
-   "question_key": "9963ab42c0446f6ef93aa406a5763f9f06c4c466c0d07fd79bf953424251a3d0",
    "probs": {
     "CO2e (20-year)": 0.16667,
     "N2O": 0.16667,
@@ -10748,8 +6904,6 @@
    "id": "map-S1-facility_id",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S1",
-   "question_key": "bfa914e7257c67c3840e57add24114d05765437a4458d6f3f292ebec51cf95f4",
    "probs": {
     "year": 0.2,
     "region": 0.2,
@@ -10768,8 +6922,6 @@
    "id": "map-S1-lat",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S1",
-   "question_key": "3472e4a1f61cde99640cd1e1ea3682cc207c0e8f5388385e31b2888d6604c64c",
    "probs": {
     "PM10": 0.2,
     "region": 0.2,
@@ -10788,8 +6940,6 @@
    "id": "map-S1-lon",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S1",
-   "question_key": "1cf53a68837ae028a90b2d0b243a2fbe76c8cd8c8e48a1c11f1838be1cb62709",
    "probs": {
     "continent": 0.2,
     "region": 0.2,
@@ -10808,8 +6958,6 @@
    "id": "map-S2-country",
    "task": "mapping",
    "gold": "country",
-   "group": "S2",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "region": 0.16667,
     "country": 0.16667,
@@ -10829,8 +6977,6 @@
    "id": "map-S2-iso_code",
    "task": "mapping",
    "gold": "country",
-   "group": "S2",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "region": 0.16667,
     "continent": 0.16667,
@@ -10850,8 +6996,6 @@
    "id": "map-S2-year",
    "task": "mapping",
    "gold": "year",
-   "group": "S2",
-   "question_key": "2652558ef01e6f9a6d3ccb58698d72ad1b6cd4ee2f839d68147b528775cdb862",
    "probs": {
     "country": 0.16667,
     "macrosector": 0.16667,
@@ -10871,8 +7015,6 @@
    "id": "map-S2-co2",
    "task": "mapping",
    "gold": "CO2",
-   "group": "S2",
-   "question_key": "5afaecc35dd7bf5ac110333752ae0b5722d2dbc785d135e36016ccc26b55da49",
    "probs": {
     "CO": 0.16667,
     "CH4": 0.16667,
@@ -10892,8 +7034,6 @@
    "id": "map-S2-methane",
    "task": "mapping",
    "gold": "CH4",
-   "group": "S2",
-   "question_key": "1a59e2df0c6996c1e5a9c0564396aa6be27fd270cde1d03e6825414b16b3b971",
    "probs": {
     "CO2": 0.16667,
     "CH4": 0.16667,
@@ -10913,8 +7053,6 @@
    "id": "map-S2-nitrous_oxide",
    "task": "mapping",
    "gold": "N2O",
-   "group": "S2",
-   "question_key": "85b9cf49da2906b776418e3639e8106484b2d704111570a31e70ce49d4e642f5",
    "probs": {
     "NH3": 0.16667,
     "N2O": 0.16667,
@@ -10934,8 +7072,6 @@
    "id": "map-S2-nox_emissions",
    "task": "mapping",
    "gold": "NOx",
-   "group": "S2",
-   "question_key": "1ecc094c1dca8dd4609338db891cb5cc6149a1106a61f919443d62fb6e01876c",
    "probs": {
     "NOx": 0.16667,
     "N2O": 0.16667,
@@ -10955,8 +7091,6 @@
    "id": "map-S2-so2_emissions",
    "task": "mapping",
    "gold": "SO2",
-   "group": "S2",
-   "question_key": "5762ee5cd6a5555e0842b2f31d17bec4eaa91b5b6d68bce5f963fa6ff9641ae9",
    "probs": {
     "SOx": 0.16667,
     "NOx": 0.16667,
@@ -10976,8 +7110,6 @@
    "id": "map-S2-co_emissions",
    "task": "mapping",
    "gold": "CO",
-   "group": "S2",
-   "question_key": "9af1e7cf6645dcafb75c7c0abd3df27886ac90c2af79ae11c9363db14a31ccba",
    "probs": {
     "SO2": 0.16667,
     "NMVOCs": 0.16667,
@@ -10997,8 +7129,6 @@
    "id": "map-S2-bc_emissions",
    "task": "mapping",
    "gold": "BC",
-   "group": "S2",
-   "question_key": "daeb5141a4efa51c983ea089b4314727a751b43461fbc7f168bc3d9e5d1f3f7a",
    "probs": {
     "OC": 0.16667,
     "PM2.5": 0.16667,
@@ -11018,8 +7148,6 @@
    "id": "map-S2-oc_emissions",
    "task": "mapping",
    "gold": "OC",
-   "group": "S2",
-   "question_key": "a9f51c4001603b00f2eade58dba40fc1960ba4e351eaa3cb94baeb33255acbba",
    "probs": {
     "BC": 0.16667,
     "OC": 0.16667,
@@ -11039,8 +7167,6 @@
    "id": "map-S2-nh3_emissions",
    "task": "mapping",
    "gold": "NH3",
-   "group": "S2",
-   "question_key": "ac73687f4dabd8aac9e92c39a989061a0465436fdd32d7095ce90346b0b9d57b",
    "probs": {
     "N2O": 0.16667,
     "NH3": 0.16667,
@@ -11060,8 +7186,6 @@
    "id": "map-S2-nmvoc_emissions",
    "task": "mapping",
    "gold": "NMVOCs",
-   "group": "S2",
-   "question_key": "d5b5ef0ac81184871c53671df400424b642f5a8b9183e3c93b517486ac460d44",
    "probs": {
     "CH4": 0.16667,
     "NMVOCs": 0.16667,
@@ -11081,8 +7205,6 @@
    "id": "map-S2-population",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S2",
-   "question_key": "98a00e7e3edc7592275e2c1542c0b6610e08b650d13450d82414d130bb2610b7",
    "probs": {
     "year": 0.2,
     "CO2": 0.2,
@@ -11101,8 +7223,6 @@
    "id": "map-S3-country_code",
    "task": "mapping",
    "gold": "country",
-   "group": "S3",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "continent": 0.16667,
     "year": 0.16667,
@@ -11122,8 +7242,6 @@
    "id": "map-S3-reporting_year",
    "task": "mapping",
    "gold": "year",
-   "group": "S3",
-   "question_key": "2652558ef01e6f9a6d3ccb58698d72ad1b6cd4ee2f839d68147b528775cdb862",
    "probs": {
     "country": 0.16667,
     "month": 0.16667,
@@ -11143,8 +7261,6 @@
    "id": "map-S3-nfr_sector",
    "task": "mapping",
    "gold": "subsector",
-   "group": "S3",
-   "question_key": "62a7d656c1f31503057f9f3df92c99ee5a3840fcb8258078b27dfdd18dc66f9d",
    "probs": {
     "macrosector": 0.16667,
     "region": 0.16667,
@@ -11164,8 +7280,6 @@
    "id": "map-S3-pm25_kt",
    "task": "mapping",
    "gold": "PM2.5",
-   "group": "S3",
-   "question_key": "11b1408a2d4f30e944f25d49df1e72b76836f5c6fb73df26c8c02b10de98e7da",
    "probs": {
     "PM10": 0.16667,
     "PM2.5": 0.16667,
@@ -11185,8 +7299,6 @@
    "id": "map-S3-pm10_kt",
    "task": "mapping",
    "gold": "PM10",
-   "group": "S3",
-   "question_key": "dafa4a66e5bed6a6ba76962f94b176805e64090bc26eba961e6413a8d692fb26",
    "probs": {
     "NOx": 0.16667,
     "PM2.5": 0.16667,
@@ -11206,8 +7318,6 @@
    "id": "map-S3-nox_kt",
    "task": "mapping",
    "gold": "NOx",
-   "group": "S3",
-   "question_key": "1ecc094c1dca8dd4609338db891cb5cc6149a1106a61f919443d62fb6e01876c",
    "probs": {
     "NOx": 0.16667,
     "SOx": 0.16667,
@@ -11227,8 +7337,6 @@
    "id": "map-S3-sox_kt",
    "task": "mapping",
    "gold": "SOx",
-   "group": "S3",
-   "question_key": "5762ee5cd6a5555e0842b2f31d17bec4eaa91b5b6d68bce5f963fa6ff9641ae9",
    "probs": {
     "SO2": 0.16667,
     "SOx": 0.16667,
@@ -11248,8 +7356,6 @@
    "id": "map-S3-nh3_kt",
    "task": "mapping",
    "gold": "NH3",
-   "group": "S3",
-   "question_key": "ac73687f4dabd8aac9e92c39a989061a0465436fdd32d7095ce90346b0b9d57b",
    "probs": {
     "CH4": 0.16667,
     "NH3": 0.16667,
@@ -11269,8 +7375,6 @@
    "id": "map-S3-nmvoc_kt",
    "task": "mapping",
    "gold": "NMVOCs",
-   "group": "S3",
-   "question_key": "d5b5ef0ac81184871c53671df400424b642f5a8b9183e3c93b517486ac460d44",
    "probs": {
     "NMVOCs": 0.16667,
     "OC": 0.16667,
@@ -11290,8 +7394,6 @@
    "id": "map-S3-co_kt",
    "task": "mapping",
    "gold": "CO",
-   "group": "S3",
-   "question_key": "9af1e7cf6645dcafb75c7c0abd3df27886ac90c2af79ae11c9363db14a31ccba",
    "probs": {
     "SO2": 0.16667,
     "NMVOCs": 0.16667,
@@ -11311,8 +7413,6 @@
    "id": "map-S3-as_t",
    "task": "mapping",
    "gold": "As",
-   "group": "S3",
-   "question_key": "a1b1338aaab1b8712fabcb16e731aeafccf81dff56e78cde7e9b101c54a04692",
    "probs": {
     "Pb": 0.16667,
     "Hg": 0.16667,
@@ -11332,8 +7432,6 @@
    "id": "map-S3-cd_t",
    "task": "mapping",
    "gold": "Cd",
-   "group": "S3",
-   "question_key": "304adfe6bd1f78e7bd1d33bbe07d04ee3e97d12decf219642cfee78176611ebd",
    "probs": {
     "Hg": 0.16667,
     "As": 0.16667,
@@ -11353,8 +7451,6 @@
    "id": "map-S3-cr_t",
    "task": "mapping",
    "gold": "Cr",
-   "group": "S3",
-   "question_key": "672f3b6c8c3eacb02a2492685608892c8ed9b1602b6d89080d1ed3b24f73d832",
    "probs": {
     "Cu": 0.16667,
     "Ni": 0.16667,
@@ -11374,8 +7470,6 @@
    "id": "map-S3-cu_t",
    "task": "mapping",
    "gold": "Cu",
-   "group": "S3",
-   "question_key": "672f3b6c8c3eacb02a2492685608892c8ed9b1602b6d89080d1ed3b24f73d832",
    "probs": {
     "Cr": 0.16667,
     "Cd": 0.16667,
@@ -11395,8 +7489,6 @@
    "id": "map-S3-hg_t",
    "task": "mapping",
    "gold": "Hg",
-   "group": "S3",
-   "question_key": "5cb4973964f83fbad524a74edbbe136d432ffe7f0eba3c2a91c3d76dd89d505a",
    "probs": {
     "As": 0.16667,
     "Pb": 0.16667,
@@ -11416,8 +7508,6 @@
    "id": "map-S3-ni_t",
    "task": "mapping",
    "gold": "Ni",
-   "group": "S3",
-   "question_key": "04cda50cb94d63f7b79e34a12d1ee196fdf113b88123146efe3d828c5e9e67d6",
    "probs": {
     "Pb": 0.16667,
     "Zn": 0.16667,
@@ -11437,8 +7527,6 @@
    "id": "map-S3-pb_t",
    "task": "mapping",
    "gold": "Pb",
-   "group": "S3",
-   "question_key": "ab1f7cab88db5560b00c7c75bb093fe9b067653c3e9b155d5913aaa18553c9f0",
    "probs": {
     "Zn": 0.16667,
     "Pb": 0.16667,
@@ -11458,8 +7546,6 @@
    "id": "map-S3-se_t",
    "task": "mapping",
    "gold": "Se",
-   "group": "S3",
-   "question_key": "fa18937cfdf2357d0740c3c49ca4beafd341928247f15e78131341e5545729d7",
    "probs": {
     "As": 0.16667,
     "Zn": 0.16667,
@@ -11479,8 +7565,6 @@
    "id": "map-S3-zn_t",
    "task": "mapping",
    "gold": "Zn",
-   "group": "S3",
-   "question_key": "04cda50cb94d63f7b79e34a12d1ee196fdf113b88123146efe3d828c5e9e67d6",
    "probs": {
     "Cu": 0.16667,
     "Cr": 0.16667,
@@ -11500,8 +7584,6 @@
    "id": "map-S3-notation_key",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S3",
-   "question_key": "9b37d198a06365c40b034a64e4ff22c66b943e003a417b6f08343b04aa4c3742",
    "probs": {
     "year": 0.2,
     "country": 0.2,
@@ -11520,8 +7602,6 @@
    "id": "map-S4-nuts2_region",
    "task": "mapping",
    "gold": "region",
-   "group": "S4",
-   "question_key": "2188b508e4cea619b4da0cfc41bd41add44a73b0f128b7a6469dc8494fa294b4",
    "probs": {
     "region": 0.16667,
     "continent": 0.16667,
@@ -11541,8 +7621,6 @@
    "id": "map-S4-date_month",
    "task": "mapping",
    "gold": "month",
-   "group": "S4",
-   "question_key": "e870f1e24bcc6fb487dfc9a139dd8322f36dabc8b35a80c3206915d1cd298321",
    "probs": {
     "month": 0.16667,
     "country": 0.16667,
@@ -11562,8 +7640,6 @@
    "id": "map-S4-pm25_ugm3",
    "task": "mapping",
    "gold": "PM2.5",
-   "group": "S4",
-   "question_key": "11b1408a2d4f30e944f25d49df1e72b76836f5c6fb73df26c8c02b10de98e7da",
    "probs": {
     "PM10": 0.16667,
     "OC": 0.16667,
@@ -11583,8 +7659,6 @@
    "id": "map-S4-pm10_ugm3",
    "task": "mapping",
    "gold": "PM10",
-   "group": "S4",
-   "question_key": "dafa4a66e5bed6a6ba76962f94b176805e64090bc26eba961e6413a8d692fb26",
    "probs": {
     "BC": 0.16667,
     "NOx": 0.16667,
@@ -11604,8 +7678,6 @@
    "id": "map-S4-nox_ugm3",
    "task": "mapping",
    "gold": "NOx",
-   "group": "S4",
-   "question_key": "1ecc094c1dca8dd4609338db891cb5cc6149a1106a61f919443d62fb6e01876c",
    "probs": {
     "SOx": 0.16667,
     "N2O": 0.16667,
@@ -11625,8 +7697,6 @@
    "id": "map-S4-so2_ugm3",
    "task": "mapping",
    "gold": "SO2",
-   "group": "S4",
-   "question_key": "5762ee5cd6a5555e0842b2f31d17bec4eaa91b5b6d68bce5f963fa6ff9641ae9",
    "probs": {
     "SO2": 0.16667,
     "NOx": 0.16667,
@@ -11646,8 +7716,6 @@
    "id": "map-S4-co_mgm3",
    "task": "mapping",
    "gold": "CO",
-   "group": "S4",
-   "question_key": "9af1e7cf6645dcafb75c7c0abd3df27886ac90c2af79ae11c9363db14a31ccba",
    "probs": {
     "SO2": 0.16667,
     "CO": 0.16667,
@@ -11667,8 +7735,6 @@
    "id": "map-S4-station_count",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S4",
-   "question_key": "e01062774ad6eb71e306274a97d0f163639a51a21857d46855ca991a0eca8d33",
    "probs": {
     "PM10": 0.2,
     "region": 0.2,
@@ -11687,8 +7753,6 @@
    "id": "map-S5-continent",
    "task": "mapping",
    "gold": "continent",
-   "group": "S5",
-   "question_key": "74b459372162b85c7ba52c18e32c69808a53d359a44aedde202f5152210b2392",
    "probs": {
     "year": 0.16667,
     "country": 0.16667,
@@ -11708,8 +7772,6 @@
    "id": "map-S5-year",
    "task": "mapping",
    "gold": "year",
-   "group": "S5",
-   "question_key": "2652558ef01e6f9a6d3ccb58698d72ad1b6cd4ee2f839d68147b528775cdb862",
    "probs": {
     "region": 0.16667,
     "month": 0.16667,
@@ -11729,8 +7791,6 @@
    "id": "map-S5-sector_group",
    "task": "mapping",
    "gold": "macrosector",
-   "group": "S5",
-   "question_key": "3b7465da51fd8fa861b01b143d85e50e1c3020f3c365dacf4fb8bf08d692e0a4",
    "probs": {
     "country": 0.16667,
     "subsector": 0.16667,
@@ -11750,8 +7810,6 @@
    "id": "map-S5-co2_mt",
    "task": "mapping",
    "gold": "CO2",
-   "group": "S5",
-   "question_key": "5afaecc35dd7bf5ac110333752ae0b5722d2dbc785d135e36016ccc26b55da49",
    "probs": {
     "CO2e (100-year)": 0.16667,
     "CO": 0.16667,
@@ -11771,8 +7829,6 @@
    "id": "map-S5-ch4_mt",
    "task": "mapping",
    "gold": "CH4",
-   "group": "S5",
-   "question_key": "1a59e2df0c6996c1e5a9c0564396aa6be27fd270cde1d03e6825414b16b3b971",
    "probs": {
     "CO2e (100-year)": 0.16667,
     "N2O": 0.16667,
@@ -11792,8 +7848,6 @@
    "id": "map-S5-n2o_mt",
    "task": "mapping",
    "gold": "N2O",
-   "group": "S5",
-   "question_key": "85b9cf49da2906b776418e3639e8106484b2d704111570a31e70ce49d4e642f5",
    "probs": {
     "CH4": 0.16667,
     "NH3": 0.16667,
@@ -11813,8 +7867,6 @@
    "id": "map-S5-ghg_co2e_100",
    "task": "mapping",
    "gold": "CO2e (100-year)",
-   "group": "S5",
-   "question_key": "9963ab42c0446f6ef93aa406a5763f9f06c4c466c0d07fd79bf953424251a3d0",
    "probs": {
     "CO2e (20-year)": 0.16667,
     "CO2": 0.16667,
@@ -11834,8 +7886,6 @@
    "id": "map-S6-nation",
    "task": "mapping",
    "gold": "country",
-   "group": "S6",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "region": 0.16667,
     "continent": 0.16667,
@@ -11855,8 +7905,6 @@
    "id": "map-S6-survey_year",
    "task": "mapping",
    "gold": "year",
-   "group": "S6",
-   "question_key": "2652558ef01e6f9a6d3ccb58698d72ad1b6cd4ee2f839d68147b528775cdb862",
    "probs": {
     "country": 0.16667,
     "year": 0.16667,
@@ -11876,8 +7924,6 @@
    "id": "map-S6-sector",
    "task": "mapping",
    "gold": "macrosector",
-   "group": "S6",
-   "question_key": "3b7465da51fd8fa861b01b143d85e50e1c3020f3c365dacf4fb8bf08d692e0a4",
    "probs": {
     "subsector": 0.16667,
     "year": 0.16667,
@@ -11897,8 +7943,6 @@
    "id": "map-S6-pm2_5",
    "task": "mapping",
    "gold": "PM2.5",
-   "group": "S6",
-   "question_key": "11b1408a2d4f30e944f25d49df1e72b76836f5c6fb73df26c8c02b10de98e7da",
    "probs": {
     "OC": 0.16667,
     "BC": 0.16667,
@@ -11918,8 +7962,6 @@
    "id": "map-S6-pm_10",
    "task": "mapping",
    "gold": "PM10",
-   "group": "S6",
-   "question_key": "dafa4a66e5bed6a6ba76962f94b176805e64090bc26eba961e6413a8d692fb26",
    "probs": {
     "NOx": 0.16667,
     "SO2": 0.16667,
@@ -11939,8 +7981,6 @@
    "id": "map-S6-black_carbon",
    "task": "mapping",
    "gold": "BC",
-   "group": "S6",
-   "question_key": "daeb5141a4efa51c983ea089b4314727a751b43461fbc7f168bc3d9e5d1f3f7a",
    "probs": {
     "CO2": 0.16667,
     "PM2.5": 0.16667,
@@ -11960,8 +8000,6 @@
    "id": "map-S7-country_iso",
    "task": "mapping",
    "gold": "country",
-   "group": "S7",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "country": 0.16667,
     "subsector": 0.16667,
@@ -11981,8 +8019,6 @@
    "id": "map-S7-month",
    "task": "mapping",
    "gold": "month",
-   "group": "S7",
-   "question_key": "e870f1e24bcc6fb487dfc9a139dd8322f36dabc8b35a80c3206915d1cd298321",
    "probs": {
     "year": 0.16667,
     "region": 0.16667,
@@ -12002,8 +8038,6 @@
    "id": "map-S7-transport_mode",
    "task": "mapping",
    "gold": "subsector",
-   "group": "S7",
-   "question_key": "62a7d656c1f31503057f9f3df92c99ee5a3840fcb8258078b27dfdd18dc66f9d",
    "probs": {
     "macrosector": 0.16667,
     "country": 0.16667,
@@ -12023,8 +8057,6 @@
    "id": "map-S7-co2_tonnes",
    "task": "mapping",
    "gold": "CO2",
-   "group": "S7",
-   "question_key": "5afaecc35dd7bf5ac110333752ae0b5722d2dbc785d135e36016ccc26b55da49",
    "probs": {
     "CO": 0.16667,
     "N2O": 0.16667,
@@ -12044,8 +8076,6 @@
    "id": "map-S7-nox_tonnes",
    "task": "mapping",
    "gold": "NOx",
-   "group": "S7",
-   "question_key": "1ecc094c1dca8dd4609338db891cb5cc6149a1106a61f919443d62fb6e01876c",
    "probs": {
     "SOx": 0.16667,
     "NOx": 0.16667,
@@ -12065,8 +8095,6 @@
    "id": "map-S7-so2_tonnes",
    "task": "mapping",
    "gold": "SO2",
-   "group": "S7",
-   "question_key": "5762ee5cd6a5555e0842b2f31d17bec4eaa91b5b6d68bce5f963fa6ff9641ae9",
    "probs": {
     "NH3": 0.16667,
     "SOx": 0.16667,
@@ -12086,8 +8114,6 @@
    "id": "map-S7-pm25_tonnes",
    "task": "mapping",
    "gold": "PM2.5",
-   "group": "S7",
-   "question_key": "11b1408a2d4f30e944f25d49df1e72b76836f5c6fb73df26c8c02b10de98e7da",
    "probs": {
     "BC": 0.16667,
     "PM10": 0.16667,
@@ -12107,8 +8133,6 @@
    "id": "map-S8-area",
    "task": "mapping",
    "gold": "country",
-   "group": "S8",
-   "question_key": "8cc32c9a66dc534a39c44325e0346d601b63750632aba53e004e4db7e60d2b07",
    "probs": {
     "year": 0.16667,
     "region": 0.16667,
@@ -12128,8 +8152,6 @@
    "id": "map-S8-year",
    "task": "mapping",
    "gold": "year",
-   "group": "S8",
-   "question_key": "2652558ef01e6f9a6d3ccb58698d72ad1b6cd4ee2f839d68147b528775cdb862",
    "probs": {
     "year": 0.16667,
     "month": 0.16667,
@@ -12149,8 +8171,6 @@
    "id": "map-S8-item",
    "task": "mapping",
    "gold": "subsector",
-   "group": "S8",
-   "question_key": "62a7d656c1f31503057f9f3df92c99ee5a3840fcb8258078b27dfdd18dc66f9d",
    "probs": {
     "subsector": 0.16667,
     "country": 0.16667,
@@ -12170,8 +8190,6 @@
    "id": "map-S8-ch4_kt",
    "task": "mapping",
    "gold": "CH4",
-   "group": "S8",
-   "question_key": "1a59e2df0c6996c1e5a9c0564396aa6be27fd270cde1d03e6825414b16b3b971",
    "probs": {
     "NMVOCs": 0.16667,
     "N2O": 0.16667,
@@ -12191,8 +8209,6 @@
    "id": "map-S8-n2o_kt",
    "task": "mapping",
    "gold": "N2O",
-   "group": "S8",
-   "question_key": "85b9cf49da2906b776418e3639e8106484b2d704111570a31e70ce49d4e642f5",
    "probs": {
     "CO2": 0.16667,
     "CH4": 0.16667,
@@ -12212,8 +8228,6 @@
    "id": "map-S8-nh3_kt",
    "task": "mapping",
    "gold": "NH3",
-   "group": "S8",
-   "question_key": "ac73687f4dabd8aac9e92c39a989061a0465436fdd32d7095ce90346b0b9d57b",
    "probs": {
     "NH3": 0.16667,
     "CH4": 0.16667,
@@ -12233,8 +8247,6 @@
    "id": "map-S8-element_code",
    "task": "mapping",
    "gold": "none of these",
-   "group": "S8",
-   "question_key": "c01f3ee73b9757feaf532002a94e4f0fde6d1af65028981aca4f93b7b0814631",
    "probs": {
     "year": 0.2,
     "macrosector": 0.2,
@@ -12248,227 +8260,6 @@
    "latency_ms": 0.0,
    "tokens": null,
    "cost_usd": 0.0
-  },
-  {
-   "id": "grp-GX01-all",
-   "task": "group",
-   "gold": "no",
-   "group": "GX01",
-   "question_key": "18e737ca1ec50373560dd2f983b5a5b692081fc454e8ad0cbd56714e58491fa2",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-GX01-ghg",
-   "task": "group",
-   "gold": "no",
-   "group": "GX01",
-   "question_key": "0e24489792f130490bd6b77619b1bfe1f45db432971758fa1cccb30056b53470",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-GX01-pm",
-   "task": "group",
-   "gold": "no",
-   "group": "GX01",
-   "question_key": "7f2a1b9b0b065318191e70d90e3f4b6c7dca0efb2c353b16bd90db2b527152f9",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "grp-GX01-metal",
-   "task": "group",
-   "gold": "yes",
-   "group": "GX01",
-   "question_key": "4b5d9c46763d776d1c2e824d20043ab6b26d9f6334523d63e073d7a93d335428",
-   "probs": {
-    "yes": 0.5,
-    "no": 0.5
-   },
-   "top": "yes",
-   "confidence": 0.5,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S1-official",
-   "task": "fit",
-   "gold": "0",
-   "group": "S1",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S2-official",
-   "task": "fit",
-   "gold": "3",
-   "group": "S2",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S3-official",
-   "task": "fit",
-   "gold": "3",
-   "group": "S3",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S4-official",
-   "task": "fit",
-   "gold": "3",
-   "group": "S4",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S5-official",
-   "task": "fit",
-   "gold": "0",
-   "group": "S5",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S6-official",
-   "task": "fit",
-   "gold": "0",
-   "group": "S6",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S7-official",
-   "task": "fit",
-   "gold": "0",
-   "group": "S7",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": true,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
-  },
-  {
-   "id": "fit-S8-official",
-   "task": "fit",
-   "gold": "3",
-   "group": "S8",
-   "question_key": "f5a27ccc6c6e8085ae8f89d7fa0858533ae4144b81f28b48b3b054939a099f1e",
-   "probs": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
-   },
-   "top": "0",
-   "confidence": 0.25,
-   "correct": false,
-   "latency_ms": 0.0,
-   "tokens": null,
-   "cost_usd": 0.0
   }
- ],
- "benchmark_scope": "typed decisions, not end-to-end request success"
+ ]
 }

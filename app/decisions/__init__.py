@@ -11,6 +11,8 @@ def build_backends(settings) -> dict[str, Backend]:
         "jev": lambda: JevBackend(settings.typesafe_api_key, settings.typesafe_base_url, settings.jev_model,
                                   settings.jev_price_per_mtok),
         "laya": lambda: LayaBackend(settings.laya_checkpoint, settings.device),
+        "laya-typed": lambda: LayaBackend("typed-decisions", settings.device, name="laya-typed",
+                                          label="Laya typed-decisions"),
         "anyjev": lambda: AnyJevBackend(settings.anyjev_model, settings.device, settings.anyjev_dtype, settings.anyjev_level),
         "uniform": UniformBackend,
         "catalogue": CatalogueBackend,

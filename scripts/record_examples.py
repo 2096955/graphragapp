@@ -17,7 +17,7 @@ from app.config import Settings  # noqa: E402
 from app.decisions import build_backends  # noqa: E402
 from app.evaluation import clean  # noqa: E402
 from app.graph import Graph  # noqa: E402
-from app.pipeline import Pipeline  # noqa: E402
+from app.pipeline import PIPELINE_VERSION, Pipeline  # noqa: E402
 
 EXAMPLES = [
     ("I want to analyse particulate matter (PM2.5 and PM10) by country and year", "European countries, last 3 years"),
@@ -50,7 +50,7 @@ def main() -> None:
         path = Path(settings.results_dir) / f"examples-{name}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(clean({"backend": name, "label": backend.label, "model": backend.model,
-                                         "pipeline_version": "1.1.0", "runs": runs}), indent=1))
+                                         "pipeline_version": PIPELINE_VERSION, "runs": runs}), indent=1))
         print("saved", path)
 
 

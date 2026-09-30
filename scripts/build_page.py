@@ -20,10 +20,11 @@ from app.arize_eval import ArizeEval  # noqa: E402
 from app.compliance import run_example  # noqa: E402
 from app.compliance_graph import ComplianceGraph  # noqa: E402
 from app.decisions import CatalogueBackend  # noqa: E402
+from app.pipeline import PIPELINE_VERSION  # noqa: E402
 from app.testset import REQUESTS, TASKS, build, gold_query  # noqa: E402
 from app.watts_strogatz import example as watts_example  # noqa: E402
 
-ORDER = ["catalogue", "laya", "anyjev", "jev", "uniform"]
+ORDER = ["catalogue", "laya", "laya-typed", "anyjev", "jev", "uniform"]
 
 
 def compact_items(items: list[dict]) -> tuple[list, dict]:
@@ -49,16 +50,19 @@ def main() -> None:
         if f.name.startswith("compliance") or f.name.startswith("watts"):
             continue
         if f.name.startswith("examples-"):
-            data["legacy"] = data.get("pipeline_version") != "1.1.0"
+            if data.get("pipeline_version") != PIPELINE_VERSION:
+                print(f"skipped {f.name}: recorded with pipeline {data.get('pipeline_version')}, not {PIPELINE_VERSION}")
+                continue
             examples[data["backend"]] = data
             continue
-        if f.name.endswith("-partial.json"):
+        if f.name.endswith("-partial.json") or "records" not in data:
             continue
-        recs = data["records"]
-        data["metrics"] = ev.clean(ev.metrics(recs))
-        data["legacy"] = data.get("pipeline_version") != "1.1.0"
-        data["records"] = [{k: r.get(k) for k in ("id", "task", "gold", "top", "confidence", "probs", "latency_ms", "error") if k in r}
-                           for r in recs]
+        data = ev.refresh(data, current_items)
+        if not data["current"]:
+            print(f"skipped {f.name}: {data['stale']} decisions asked a different question, {data['missing']} missing")
+            continue
+        data["records"] = [{k: r.get(k) for k in ("id", "top", "confidence", "probs", "latency_ms", "error") if k in r}
+                           for r in data["records"]]
         results[data["backend"]] = data
     catalogue = {
         "pollutants": [{"id": p.id, "label": p.label, "name": p.name} for p in d.POLLUTANTS],

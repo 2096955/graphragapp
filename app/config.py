@@ -47,7 +47,7 @@ class Settings:
         e = os.environ.get
         token = (e("API_TOKEN") or "").strip() or None
         return cls(
-            backends=_list(e("BACKENDS"), "catalogue,laya,anyjev,jev,uniform"),
+            backends=_list(e("BACKENDS"), "laya,laya-typed,anyjev,jev,catalogue,uniform"),
             api_token=token,
             allowed_origins=_list(e("ALLOWED_ORIGINS"), ""),
             typesafe_api_key=(e("TYPESAFE_API_KEY") or "").strip() or None,
@@ -55,7 +55,7 @@ class Settings:
             jev_model=e("JEV_MODEL", "jev-latest"),
             jev_price_per_mtok=float(e("JEV_PRICE_PER_MTOK", "0.042")),
             device=e("DEVICE", "cpu"),
-            laya_checkpoint=e("LAYA_CHECKPOINT", "typed-decisions"),
+            laya_checkpoint=e("LAYA_CHECKPOINT", "english"),
             anyjev_model=e("ANYJEV_MODEL", "Qwen/Qwen3-1.7B"),
             anyjev_dtype=e("ANYJEV_DTYPE", "bfloat16"),
             anyjev_level=e("ANYJEV_LEVEL", "L0"),

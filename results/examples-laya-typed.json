@@ -1,21 +1,21 @@
 {
- "backend": "laya",
- "label": "Laya",
- "model": "convaiinnovations/laya (english)",
+ "backend": "laya-typed",
+ "label": "Laya typed-decisions",
+ "model": "convaiinnovations/laya (typed-decisions)",
  "pipeline_version": "1.2.0",
  "runs": [
   {
    "request": "I want to analyse particulate matter (PM2.5 and PM10) by country and year",
    "preference": "European countries, last 3 years",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1103.4034060000977,
+     "latency_ms": 1210.2861260000282,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -28,18 +28,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.4987,
-       "clarify": 0.2503,
-       "reject": 0.251
+       "answer": 0.5169,
+       "clarify": 0.3099,
+       "reject": 0.1732
       },
       "top": "answer",
-      "confidence": 0.4987
+      "confidence": 0.5169
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2839.791914999978,
+     "latency_ms": 3221.060589999979,
      "threshold": 0.5,
      "graph_candidates": [
       "PM2_5",
@@ -50,7 +50,7 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.2278,
+       "p": 0.3559,
        "model": false,
        "selected": false
       },
@@ -58,7 +58,7 @@
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.1284,
+       "p": 0.2785,
        "model": false,
        "selected": false
       },
@@ -66,7 +66,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.1956,
+       "p": 0.4533,
        "model": false,
        "selected": true
       },
@@ -74,7 +74,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.1757,
+       "p": 0.3083,
        "model": false,
        "selected": false
       },
@@ -82,7 +82,7 @@
        "node": "pollutant:PM2_5",
        "label": "PM2.5",
        "kind": "pollutant",
-       "p": 0.444,
+       "p": 0.4021,
        "model": false,
        "selected": true
       },
@@ -90,7 +90,7 @@
        "node": "pollutant:PM10",
        "label": "PM10",
        "kind": "pollutant",
-       "p": 0.6971,
+       "p": 0.5204,
        "model": true,
        "selected": true
       }
@@ -107,38 +107,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1204.1864850000366,
+     "latency_ms": 1117.702349999945,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.0406,
-        "country": 0.5297,
-        "continent": 0.0231,
-        "none": 0.4066
+        "region": 0.1239,
+        "country": 0.5849,
+        "continent": 0.066,
+        "none": 0.2252
        },
        "top": "country",
-       "confidence": 0.5297
+       "confidence": 0.5849
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.0426,
-        "year": 0.5938,
-        "none": 0.3636
+        "month": 0.1685,
+        "year": 0.6077,
+        "none": 0.2238
        },
        "top": "year",
-       "confidence": 0.5938
+       "confidence": 0.6077
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.1122,
-        "macrosector": 0.1511,
-        "none": 0.7367
+        "subsector": 0.2774,
+        "macrosector": 0.2845,
+        "none": 0.4381
        },
        "top": "none",
-       "confidence": 0.7367
+       "confidence": 0.4381
       }
      },
      "by": {
@@ -161,7 +161,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 71.27851099994587,
+     "latency_ms": 64.19104399992648,
      "solutions": 3
     },
     {
@@ -169,22 +169,22 @@
      "title": "Ranking",
      "by": "preference fit",
      "order": [
-      "B",
       "A",
+      "B",
       "C"
      ]
     },
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.0531159998899966,
+     "latency_ms": 0.052334999963932205,
      "by": "template"
     }
    ],
    "review": [
-    "Gate: answer at 0.50, below the acceptance threshold.",
+    "Gate: answer at 0.52, below the acceptance threshold.",
     "Pollutants: the model left out PM2.5. The pollutants named in the request are used.",
-    "Sector: none at 0.74, below the acceptance threshold.",
+    "Sector: none at 0.44, below the acceptance threshold.",
     "Ranking: 3 of 3 preference scores are below the acceptance threshold."
    ],
    "notes": [],
@@ -224,59 +224,6 @@
     "filters": {}
    },
    "solutions": [
-    {
-     "sources": [
-      {
-       "id": "S4",
-       "name": "Regional Air Monitoring Network",
-       "publisher": "official",
-       "updated": 2025,
-       "provides": [
-        "PM10",
-        "PM2_5"
-       ]
-      }
-     ],
-     "profiles": {
-      "GEO.country": {
-       "Italy": 170,
-       "France": 61,
-       "Germany": 116,
-       "Spain": 54
-      },
-      "TIME.year": {
-       "2019": 288,
-       "2020": 295,
-       "2021": 239,
-       "2022": 284,
-       "2023": 253,
-       "2024": 343,
-       "2025": 243
-      }
-     },
-     "cells": 28,
-     "notes": [],
-     "id": "B",
-     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 4 countries: Italy, France, Germany, Spain. Years: 2019 to 2025 (7 covered). Pollutants: PM2.5, PM10.",
-     "fit": {
-      "type": "score",
-      "probabilities": {
-       "0": 0.0506,
-       "1": 0.1308,
-       "2": 0.3899,
-       "3": 0.4287
-      },
-      "top": "3",
-      "confidence": 0.4287,
-      "score": 2.1967,
-      "legend": {
-       "0": "It does not match the preference.",
-       "1": "It partly matches the preference.",
-       "2": "It mostly matches the preference.",
-       "3": "It fully matches the preference."
-      }
-     }
-    },
     {
      "sources": [
       {
@@ -321,14 +268,67 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.15212,
-       "1": 0.23992,
-       "2": 0.29653,
-       "3": 0.31143
+       "0": 0.143,
+       "1": 0.2411,
+       "2": 0.3137,
+       "3": 0.3022
       },
-      "top": "3",
-      "confidence": 0.31143,
-      "score": 1.7673,
+      "top": "2",
+      "confidence": 0.3137,
+      "score": 1.7751,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S4",
+       "name": "Regional Air Monitoring Network",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "PM10",
+        "PM2_5"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 170,
+       "France": 61,
+       "Germany": 116,
+       "Spain": 54
+      },
+      "TIME.year": {
+       "2019": 288,
+       "2020": 295,
+       "2021": 239,
+       "2022": 284,
+       "2023": 253,
+       "2024": 343,
+       "2025": 243
+      }
+     },
+     "cells": 28,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 4 countries: Italy, France, Germany, Spain. Years: 2019 to 2025 (7 covered). Pollutants: PM2.5, PM10.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.1539,
+       "1": 0.2389,
+       "2": 0.3299,
+       "3": 0.2773
+      },
+      "top": "2",
+      "confidence": 0.3299,
+      "score": 1.7306,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -375,14 +375,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.22908,
-       "1": 0.30337,
-       "2": 0.22268,
-       "3": 0.24488
+       "0": 0.1941,
+       "1": 0.2497,
+       "2": 0.2618,
+       "3": 0.2944
       },
-      "top": "1",
-      "confidence": 0.30337,
-      "score": 1.4834,
+      "top": "3",
+      "confidence": 0.2944,
+      "score": 1.6565,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -564,30 +564,30 @@
    },
    "explanation": {
     "by": "template",
-    "text": "3 solutions hold PM2.5, PM10 by country and year.\nFirst: B, Regional Air Monitoring Network, covering 4 countries, 2019 to 2025. Preference fit 2.2 of 3 (43% confident in its most likely level).\nThen: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024. Preference fit 1.8 of 3 (31% confident in its most likely level). Caution: European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.\nThen: C, Asia-Pacific Particulate Survey, covering 4 countries, 2017 to 2022. Preference fit 1.5 of 3 (30% confident in its most likely level). Caution: Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors."
+    "text": "3 solutions hold PM2.5, PM10 by country and year.\nFirst: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024. Preference fit 1.8 of 3 (31% confident in its most likely level). Caution: European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.\nThen: B, Regional Air Monitoring Network, covering 4 countries, 2019 to 2025. Preference fit 1.7 of 3 (33% confident in its most likely level).\nThen: C, Asia-Pacific Particulate Survey, covering 4 countries, 2017 to 2022. Preference fit 1.7 of 3 (29% confident in its most likely level). Caution: Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors."
    },
    "outcome": "review",
    "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 13,
     "calls": 6,
-    "latency_ms": 8528.5,
+    "latency_ms": 8990.8,
     "cost_usd": 0.0,
-    "wall_ms": 8612.5
+    "wall_ms": 9066.8
    }
   },
   {
    "request": "Greenhouse gas emissions from road transport by country and month",
    "preference": "The most recent data available",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1092.0502339999985,
+     "latency_ms": 1126.8075509999562,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -600,18 +600,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.4532,
-       "clarify": 0.2997,
-       "reject": 0.2471
+       "answer": 0.5275,
+       "clarify": 0.2868,
+       "reject": 0.1857
       },
       "top": "answer",
-      "confidence": 0.4532
+      "confidence": 0.5275
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 1917.8089789998012,
+     "latency_ms": 1625.9708360000786,
      "threshold": 0.5,
      "graph_candidates": [
       "CO2"
@@ -621,15 +621,15 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.3707,
-       "model": false,
+       "p": 0.5542,
+       "model": true,
        "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.7081,
+       "p": 0.5748,
        "model": true,
        "selected": true
       },
@@ -637,7 +637,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.1729,
+       "p": 0.3954,
        "model": false,
        "selected": false
       },
@@ -645,7 +645,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.1538,
+       "p": 0.3273,
        "model": false,
        "selected": false
       },
@@ -653,7 +653,7 @@
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.3283,
+       "p": 0.4824,
        "model": false,
        "selected": true
       }
@@ -673,38 +673,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1094.5604640000965,
+     "latency_ms": 931.8730109998796,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.0152,
-        "country": 0.8898,
-        "continent": 0.0173,
-        "none": 0.0777
+        "region": 0.07999,
+        "country": 0.67103,
+        "continent": 0.08639,
+        "none": 0.16258
        },
        "top": "country",
-       "confidence": 0.8898
+       "confidence": 0.67103
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.9294,
-        "year": 0.0317,
-        "none": 0.0389
+        "month": 0.7516,
+        "year": 0.1574,
+        "none": 0.091
        },
        "top": "month",
-       "confidence": 0.9294
+       "confidence": 0.7516
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.2907,
-        "macrosector": 0.2534,
-        "none": 0.4559
+        "subsector": 0.42836,
+        "macrosector": 0.29237,
+        "none": 0.27927
        },
-       "top": "none",
-       "confidence": 0.4559
+       "top": "subsector",
+       "confidence": 0.42836
       }
      },
      "by": {
@@ -738,7 +738,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 61.63489899995511,
+     "latency_ms": 55.5048710000392,
      "solutions": 1
     },
     {
@@ -752,13 +752,13 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.037813000062669744,
+     "latency_ms": 0.04003999993074103,
      "by": "template"
     }
    ],
    "review": [
-    "Gate: answer at 0.45, below the acceptance threshold.",
-    "Sector: the model chose none, the request says subsector. The request is used.",
+    "Gate: answer at 0.53, below the acceptance threshold.",
+    "Pollutants: the model added PM2.5, PM10, NOx, SO2, SOx and 14 more. The pollutants named in the request are used.",
     "Ranking: 1 of 1 preference scores are below the acceptance threshold."
    ],
    "notes": [],
@@ -907,14 +907,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.11289,
-       "1": 0.14249,
-       "2": 0.31067,
-       "3": 0.43396
+       "0": 0.15672,
+       "1": 0.23742,
+       "2": 0.32023,
+       "3": 0.28563
       },
-      "top": "3",
-      "confidence": 0.43396,
-      "score": 2.0657,
+      "top": "2",
+      "confidence": 0.32023,
+      "score": 1.7348,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -1071,30 +1071,30 @@
    },
    "explanation": {
     "by": "template",
-    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O by country and month and subsector.\nFirst: A, Global Facility Emissions Inventory, covering 13 countries, 2021-01 to 2025-06, 1 subsector. Preference fit 2.1 of 3 (43% confident in its most likely level)."
+    "text": "1 solution hold CO2, CO2e (100-year), CO2e (20-year), CH4, N2O by country and month and subsector.\nFirst: A, Global Facility Emissions Inventory, covering 13 countries, 2021-01 to 2025-06, 1 subsector. Preference fit 1.7 of 3 (32% confident in its most likely level)."
    },
    "outcome": "review",
    "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 10,
     "calls": 4,
-    "latency_ms": 6274.5,
+    "latency_ms": 7067.7,
     "cost_usd": 0.0,
-    "wall_ms": 6344.1
+    "wall_ms": 7130.8
    }
   },
   {
    "request": "Ammonia from agriculture by country and year",
    "preference": "As many countries as possible",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 998.3697309999116,
+     "latency_ms": 1056.104305999952,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1107,18 +1107,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.4225,
-       "clarify": 0.303,
-       "reject": 0.2745
+       "answer": 0.4593,
+       "clarify": 0.3273,
+       "reject": 0.2134
       },
       "top": "answer",
-      "confidence": 0.4225
+      "confidence": 0.4593
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 1707.1296020001228,
+     "latency_ms": 1749.0297459999056,
      "threshold": 0.5,
      "graph_candidates": [
       "NH3"
@@ -1128,7 +1128,7 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.2511,
+       "p": 0.4263,
        "model": false,
        "selected": false
       },
@@ -1136,7 +1136,7 @@
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.1133,
+       "p": 0.2711,
        "model": false,
        "selected": false
       },
@@ -1144,7 +1144,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.1698,
+       "p": 0.3006,
        "model": false,
        "selected": false
       },
@@ -1152,7 +1152,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.1913,
+       "p": 0.3697,
        "model": false,
        "selected": false
       },
@@ -1160,7 +1160,7 @@
        "node": "pollutant:NH3",
        "label": "NH3",
        "kind": "pollutant",
-       "p": 0.7045,
+       "p": 0.5261,
        "model": true,
        "selected": true
       }
@@ -1174,38 +1174,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1128.1823760000407,
+     "latency_ms": 1184.4162709999182,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.05421,
-        "country": 0.52225,
-        "continent": 0.0355,
-        "none": 0.38804
+        "region": 0.14659,
+        "country": 0.51835,
+        "continent": 0.07319,
+        "none": 0.26187
        },
        "top": "country",
-       "confidence": 0.52225
+       "confidence": 0.51835
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.07281,
-        "year": 0.56486,
-        "none": 0.36234
+        "month": 0.20408,
+        "year": 0.52095,
+        "none": 0.27497
        },
        "top": "year",
-       "confidence": 0.56486
+       "confidence": 0.52095
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.0878,
-        "macrosector": 0.3923,
-        "none": 0.5199
+        "subsector": 0.17618,
+        "macrosector": 0.47015,
+        "none": 0.35366
        },
-       "top": "none",
-       "confidence": 0.5199
+       "top": "macrosector",
+       "confidence": 0.47015
       }
      },
      "by": {
@@ -1235,7 +1235,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 52.90398700003607,
+     "latency_ms": 56.07325999994828,
      "solutions": 2
     },
     {
@@ -1243,20 +1243,19 @@
      "title": "Ranking",
      "by": "preference fit",
      "order": [
-      "B",
-      "A"
+      "A",
+      "B"
      ]
     },
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.04415600005813758,
+     "latency_ms": 0.04680999995798629,
      "by": "template"
     }
    ],
    "review": [
-    "Gate: answer at 0.42, below the acceptance threshold.",
-    "Sector: the model chose none, the request says macrosector. The request is used.",
+    "Gate: answer at 0.46, below the acceptance threshold.",
     "Ranking: 2 of 2 preference scores are below the acceptance threshold."
    ],
    "notes": [],
@@ -1311,6 +1310,66 @@
     {
      "sources": [
       {
+       "id": "S3",
+       "name": "European Air Emissions Reporting",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 57,
+       "France": 24,
+       "Germany": 58,
+       "Spain": 39,
+       "Portugal": 51,
+       "Poland": 26,
+       "United Kingdom": 20
+      },
+      "TIME.year": {
+       "2015": 13,
+       "2016": 26,
+       "2018": 29,
+       "2019": 36,
+       "2020": 23,
+       "2021": 20,
+       "2022": 28,
+       "2023": 26,
+       "2024": 38
+      },
+      "SECTOR.macrosector": {
+       "Agriculture": 15
+      }
+     },
+     "cells": 63,
+     "notes": [],
+     "id": "A",
+     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). 1 macrosector: Agriculture. Pollutants: NH3.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.10491,
+       "1": 0.22822,
+       "2": 0.33063,
+       "3": 0.33623
+      },
+      "top": "3",
+      "confidence": 0.33623,
+      "score": 1.8982,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
        "id": "S8",
        "name": "Agricultural Emissions Database",
        "publisher": "official",
@@ -1362,74 +1421,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.1187,
-       "1": 0.2001,
-       "2": 0.3064,
-       "3": 0.3748
+       "0": 0.11781,
+       "1": 0.24222,
+       "2": 0.33143,
+       "3": 0.30853
       },
-      "top": "3",
-      "confidence": 0.3748,
-      "score": 1.9373,
-      "legend": {
-       "0": "It does not match the preference.",
-       "1": "It partly matches the preference.",
-       "2": "It mostly matches the preference.",
-       "3": "It fully matches the preference."
-      }
-     }
-    },
-    {
-     "sources": [
-      {
-       "id": "S3",
-       "name": "European Air Emissions Reporting",
-       "publisher": "official",
-       "updated": 2025,
-       "provides": [
-        "NH3"
-       ]
-      }
-     ],
-     "profiles": {
-      "GEO.country": {
-       "Italy": 57,
-       "France": 24,
-       "Germany": 58,
-       "Spain": 39,
-       "Portugal": 51,
-       "Poland": 26,
-       "United Kingdom": 20
-      },
-      "TIME.year": {
-       "2015": 13,
-       "2016": 26,
-       "2018": 29,
-       "2019": 36,
-       "2020": 23,
-       "2021": 20,
-       "2022": 28,
-       "2023": 26,
-       "2024": 38
-      },
-      "SECTOR.macrosector": {
-       "Agriculture": 15
-      }
-     },
-     "cells": 63,
-     "notes": [],
-     "id": "A",
-     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). 1 macrosector: Agriculture. Pollutants: NH3.",
-     "fit": {
-      "type": "score",
-      "probabilities": {
-       "0": 0.1983,
-       "1": 0.2607,
-       "2": 0.2476,
-       "3": 0.2934
-      },
-      "top": "3",
-      "confidence": 0.2934,
-      "score": 1.6361,
+      "top": "2",
+      "confidence": 0.33143,
+      "score": 1.8307,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -1571,30 +1570,30 @@
    },
    "explanation": {
     "by": "template",
-    "text": "2 solutions hold NH3 by country and year and macrosector.\nFirst: B, Agricultural Emissions Database, covering 15 countries, 2015 to 2025, 1 macrosector. Preference fit 1.9 of 3 (37% confident in its most likely level).\nThen: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024, 1 macrosector. Preference fit 1.6 of 3 (29% confident in its most likely level)."
+    "text": "2 solutions hold NH3 by country and year and macrosector.\nFirst: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024, 1 macrosector. Preference fit 1.9 of 3 (34% confident in its most likely level).\nThen: B, Agricultural Emissions Database, covering 15 countries, 2015 to 2025, 1 macrosector. Preference fit 1.8 of 3 (33% confident in its most likely level)."
    },
    "outcome": "review",
    "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 11,
     "calls": 5,
-    "latency_ms": 6655.8,
+    "latency_ms": 7572.6,
     "cost_usd": 0.0,
-    "wall_ms": 6712.1
+    "wall_ms": 7632.5
    }
   },
   {
    "request": "Monthly NOx emissions by region for the last five years",
    "preference": "Italian regions",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1331.9154839998646,
+     "latency_ms": 1243.0656439998984,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1607,18 +1606,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.4116,
-       "clarify": 0.3647,
-       "reject": 0.2237
+       "answer": 0.51695,
+       "clarify": 0.31487,
+       "reject": 0.16818
       },
       "top": "answer",
-      "confidence": 0.4116
+      "confidence": 0.51695
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2150.504786000056,
+     "latency_ms": 2313.597069000025,
      "threshold": 0.5,
      "graph_candidates": [
       "NOx",
@@ -1629,15 +1628,15 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.2609,
-       "model": false,
+       "p": 0.5248,
+       "model": true,
        "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.1526,
+       "p": 0.4147,
        "model": false,
        "selected": false
       },
@@ -1645,7 +1644,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.0963,
+       "p": 0.2783,
        "model": false,
        "selected": false
       },
@@ -1653,7 +1652,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.0847,
+       "p": 0.2316,
        "model": false,
        "selected": false
       },
@@ -1661,7 +1660,7 @@
        "node": "pollutant:NOx",
        "label": "NOx",
        "kind": "pollutant",
-       "p": 0.7548,
+       "p": 0.5446,
        "model": true,
        "selected": true
       },
@@ -1669,7 +1668,7 @@
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.0272,
+       "p": 0.1388,
        "model": false,
        "selected": false
       }
@@ -1683,38 +1682,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1120.2883900000415,
+     "latency_ms": 1213.872259000027,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.85521,
-        "country": 0.0107,
-        "continent": 0.0107,
-        "none": 0.12339
+        "region": 0.65443,
+        "country": 0.07179,
+        "continent": 0.07089,
+        "none": 0.20288
        },
        "top": "region",
-       "confidence": 0.85521
+       "confidence": 0.65443
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.975,
-        "year": 0.0195,
-        "none": 0.0055
+        "month": 0.7349,
+        "year": 0.2087,
+        "none": 0.0564
        },
        "top": "month",
-       "confidence": 0.975
+       "confidence": 0.7349
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.1196,
-        "macrosector": 0.1219,
-        "none": 0.7585
+        "subsector": 0.2424,
+        "macrosector": 0.2371,
+        "none": 0.5205
        },
        "top": "none",
-       "confidence": 0.7585
+       "confidence": 0.5205
       }
      },
      "by": {
@@ -1747,7 +1746,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 29.924262999884377,
+     "latency_ms": 30.817218000038338,
      "solutions": 1
     },
     {
@@ -1761,13 +1760,14 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.03142599985039851,
+     "latency_ms": 0.029709000045841094,
      "by": "template"
     }
    ],
    "review": [
-    "Gate: answer at 0.41, below the acceptance threshold.",
-    "Sector: none at 0.76, below the acceptance threshold.",
+    "Gate: answer at 0.52, below the acceptance threshold.",
+    "Pollutants: the model added CO2, CO2e (100-year), CO2e (20-year), CH4, N2O and 18 more. The pollutants named in the request are used.",
+    "Sector: none at 0.52, below the acceptance threshold.",
     "Ranking: 1 of 1 preference scores are below the acceptance threshold."
    ],
    "notes": [
@@ -1914,14 +1914,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.1143,
-       "1": 0.1961,
-       "2": 0.3377,
-       "3": 0.3519
+       "0": 0.21022,
+       "1": 0.31273,
+       "2": 0.27323,
+       "3": 0.20382
       },
-      "top": "3",
-      "confidence": 0.3519,
-      "score": 1.9272,
+      "top": "1",
+      "confidence": 0.31273,
+      "score": 1.4706,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -2033,30 +2033,30 @@
    },
    "explanation": {
     "by": "template",
-    "text": "1 solution hold NOx by region and month.\nFirst: A, Regional Air Monitoring Network, covering 8 regions, 2021-01 to 2025-08. Preference fit 1.9 of 3 (35% confident in its most likely level)."
+    "text": "1 solution hold NOx by region and month.\nFirst: A, Regional Air Monitoring Network, covering 8 regions, 2021-01 to 2025-08. Preference fit 1.5 of 3 (31% confident in its most likely level)."
    },
    "outcome": "review",
    "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 11,
     "calls": 4,
-    "latency_ms": 6731.6,
+    "latency_ms": 8695.5,
     "cost_usd": 0.0,
-    "wall_ms": 6764.8
+    "wall_ms": 8733.2
    }
   },
   {
    "request": "Compare methane emissions across continents by year",
    "preference": "Official sources only",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1093.299381999941,
+     "latency_ms": 1246.087530000068,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2069,18 +2069,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.5574,
-       "clarify": 0.2112,
-       "reject": 0.2314
+       "answer": 0.50615,
+       "clarify": 0.26453,
+       "reject": 0.22932
       },
       "top": "answer",
-      "confidence": 0.5574
+      "confidence": 0.50615
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 1913.0674749999343,
+     "latency_ms": 2555.3510180000103,
      "threshold": 0.5,
      "graph_candidates": [
       "CH4",
@@ -2091,7 +2091,7 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.2449,
+       "p": 0.4644,
        "model": false,
        "selected": false
       },
@@ -2099,7 +2099,7 @@
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.1864,
+       "p": 0.4179,
        "model": false,
        "selected": false
       },
@@ -2107,7 +2107,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.0566,
+       "p": 0.1432,
        "model": false,
        "selected": false
       },
@@ -2115,7 +2115,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.0503,
+       "p": 0.1252,
        "model": false,
        "selected": false
       },
@@ -2123,15 +2123,15 @@
        "node": "pollutant:CH4",
        "label": "CH4",
        "kind": "pollutant",
-       "p": 0.5557,
-       "model": true,
+       "p": 0.4914,
+       "model": false,
        "selected": true
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.0463,
+       "p": 0.1597,
        "model": false,
        "selected": false
       }
@@ -2145,38 +2145,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1057.628677999901,
+     "latency_ms": 1102.8184500000862,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.0294,
-        "country": 0.0228,
-        "continent": 0.6889,
-        "none": 0.2589
+        "region": 0.08589,
+        "country": 0.06469,
+        "continent": 0.64534,
+        "none": 0.20408
        },
        "top": "continent",
-       "confidence": 0.6889
+       "confidence": 0.64534
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.0227,
-        "year": 0.6758,
-        "none": 0.3015
+        "month": 0.093,
+        "year": 0.6997,
+        "none": 0.2073
        },
        "top": "year",
-       "confidence": 0.6758
+       "confidence": 0.6997
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.051,
-        "macrosector": 0.0979,
-        "none": 0.8511
+        "subsector": 0.14431,
+        "macrosector": 0.21042,
+        "none": 0.64526
        },
        "top": "none",
-       "confidence": 0.8511
+       "confidence": 0.64526
       }
      },
      "by": {
@@ -2198,7 +2198,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 63.02061099995626,
+     "latency_ms": 56.491836000077456,
      "solutions": 4
     },
     {
@@ -2208,19 +2208,21 @@
      "order": [
       "D",
       "B",
-      "C",
-      "A"
+      "A",
+      "C"
      ]
     },
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.03766800000448711,
+     "latency_ms": 0.04675200011661218,
      "by": "template"
     }
    ],
    "review": [
-    "Gate: answer at 0.56, below the acceptance threshold.",
+    "Gate: answer at 0.51, below the acceptance threshold.",
+    "Pollutants: the model left out CH4. The pollutants named in the request are used.",
+    "Sector: none at 0.65, below the acceptance threshold.",
     "Ranking: 4 of 4 preference scores are below the acceptance threshold."
    ],
    "notes": [],
@@ -2299,14 +2301,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.0479,
-       "1": 0.11291,
-       "2": 0.38634,
-       "3": 0.45285
+       "0": 0.0678,
+       "1": 0.1338,
+       "2": 0.391,
+       "3": 0.4074
       },
       "top": "3",
-      "confidence": 0.45285,
-      "score": 2.2441,
+      "confidence": 0.4074,
+      "score": 2.138,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -2354,14 +2356,67 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.0512,
-       "1": 0.1178,
-       "2": 0.4554,
-       "3": 0.3756
+       "0": 0.13991,
+       "1": 0.18932,
+       "2": 0.41064,
+       "3": 0.26013
       },
       "top": "2",
-      "confidence": 0.4554,
-      "score": 2.1554,
+      "confidence": 0.41064,
+      "score": 1.791,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S1",
+       "name": "Global Facility Emissions Inventory",
+       "publisher": "research",
+       "updated": 2025,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 312,
+       "Americas": 17,
+       "Asia": 74,
+       "Africa": 75,
+       "Oceania": 53
+      },
+      "TIME.year": {
+       "2021": 263,
+       "2022": 262,
+       "2023": 235,
+       "2024": 292,
+       "2025": 127
+      }
+     },
+     "cells": 25,
+     "notes": [
+      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors"
+     ],
+     "id": "A",
+     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2021 to 2025 (5 covered). Pollutants: CH4. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.16808,
+       "1": 0.22478,
+       "2": 0.30747,
+       "3": 0.29967
+      },
+      "top": "2",
+      "confidence": 0.30747,
+      "score": 1.7387,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -2410,67 +2465,14 @@
      "fit": {
       "type": "score",
       "probabilities": {
-       "0": 0.1132,
-       "1": 0.1638,
-       "2": 0.3435,
-       "3": 0.3795
+       "0": 0.2337,
+       "1": 0.228,
+       "2": 0.3047,
+       "3": 0.2336
       },
-      "top": "3",
-      "confidence": 0.3795,
-      "score": 1.9893,
-      "legend": {
-       "0": "It does not match the preference.",
-       "1": "It partly matches the preference.",
-       "2": "It mostly matches the preference.",
-       "3": "It fully matches the preference."
-      }
-     }
-    },
-    {
-     "sources": [
-      {
-       "id": "S1",
-       "name": "Global Facility Emissions Inventory",
-       "publisher": "research",
-       "updated": 2025,
-       "provides": [
-        "CH4"
-       ]
-      }
-     ],
-     "profiles": {
-      "GEO.continent": {
-       "Europe": 312,
-       "Americas": 17,
-       "Asia": 74,
-       "Africa": 75,
-       "Oceania": 53
-      },
-      "TIME.year": {
-       "2021": 263,
-       "2022": 262,
-       "2023": 235,
-       "2024": 292,
-       "2025": 127
-      }
-     },
-     "cells": 25,
-     "notes": [
-      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors"
-     ],
-     "id": "A",
-     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2021 to 2025 (5 covered). Pollutants: CH4. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.",
-     "fit": {
-      "type": "score",
-      "probabilities": {
-       "0": 0.12891,
-       "1": 0.22262,
-       "2": 0.27903,
-       "3": 0.36944
-      },
-      "top": "3",
-      "confidence": 0.36944,
-      "score": 1.889,
+      "top": "2",
+      "confidence": 0.3047,
+      "score": 1.5382,
       "legend": {
        "0": "It does not match the preference.",
        "1": "It partly matches the preference.",
@@ -2657,30 +2659,30 @@
    },
    "explanation": {
     "by": "template",
-    "text": "4 solutions hold CH4 by continent and year.\nFirst: D, Agricultural Emissions Database, covering 5 continents, 2015 to 2025. Preference fit 2.2 of 3 (45% confident in its most likely level). Caution: Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.\nThen: B, National Emissions Compendium, covering 5 continents, 2015 to 2023. Preference fit 2.2 of 3 (46% confident in its most likely level).\nThen: C, Continental Climate Summary, covering 5 continents, 2015 to 2024. Preference fit 2.0 of 3 (38% confident in its most likely level).\n1 more solution rank lower."
+    "text": "4 solutions hold CH4 by continent and year.\nFirst: D, Agricultural Emissions Database, covering 5 continents, 2015 to 2025. Preference fit 2.1 of 3 (41% confident in its most likely level). Caution: Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.\nThen: B, National Emissions Compendium, covering 5 continents, 2015 to 2023. Preference fit 1.8 of 3 (41% confident in its most likely level).\nThen: A, Global Facility Emissions Inventory, covering 5 continents, 2021 to 2025. Preference fit 1.7 of 3 (31% confident in its most likely level). Caution: Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.\n1 more solution rank lower."
    },
    "outcome": "review",
    "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 14,
     "calls": 7,
-    "latency_ms": 8622.7,
+    "latency_ms": 10778.7,
     "cost_usd": 0.0,
-    "wall_ms": 8689.4
+    "wall_ms": 10839.8
    }
   },
   {
    "request": "Emissions data please",
    "preference": "",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1166.7410499999278,
+     "latency_ms": 1200.645614999985,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2693,18 +2695,18 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.5167,
-       "clarify": 0.2443,
-       "reject": 0.239
+       "answer": 0.494,
+       "clarify": 0.3206,
+       "reject": 0.1854
       },
       "top": "answer",
-      "confidence": 0.5167
+      "confidence": 0.494
      }
     },
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 1693.376242999875,
+     "latency_ms": 1927.69489300008,
      "threshold": 0.5,
      "graph_candidates": [
       "CO2"
@@ -2714,7 +2716,7 @@
        "node": "group:all",
        "label": "All pollutants",
        "kind": "group",
-       "p": 0.5817,
+       "p": 0.5628,
        "model": true,
        "selected": true
       },
@@ -2722,7 +2724,7 @@
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
-       "p": 0.2745,
+       "p": 0.4657,
        "model": false,
        "selected": false
       },
@@ -2730,7 +2732,7 @@
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
-       "p": 0.3513,
+       "p": 0.4643,
        "model": false,
        "selected": false
       },
@@ -2738,7 +2740,7 @@
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
-       "p": 0.148,
+       "p": 0.3547,
        "model": false,
        "selected": false
       },
@@ -2746,7 +2748,7 @@
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
-       "p": 0.1718,
+       "p": 0.3493,
        "model": false,
        "selected": true
       }
@@ -2785,38 +2787,38 @@
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 1086.9676949998848,
+     "latency_ms": 1316.7815319998226,
      "answers": {
       "GEO": {
        "type": "choice",
        "probabilities": {
-        "region": 0.0409,
-        "country": 0.0353,
-        "continent": 0.0367,
-        "none": 0.8871
+        "region": 0.1197,
+        "country": 0.0824,
+        "continent": 0.0886,
+        "none": 0.7093
        },
        "top": "none",
-       "confidence": 0.8871
+       "confidence": 0.7093
       },
       "TIME": {
        "type": "choice",
        "probabilities": {
-        "month": 0.1244,
-        "year": 0.086,
-        "none": 0.7896
+        "month": 0.2523,
+        "year": 0.1599,
+        "none": 0.5878
        },
        "top": "none",
-       "confidence": 0.7896
+       "confidence": 0.5878
       },
       "SECTOR": {
        "type": "choice",
        "probabilities": {
-        "subsector": 0.0506,
-        "macrosector": 0.1016,
-        "none": 0.8478
+        "subsector": 0.1504,
+        "macrosector": 0.2094,
+        "none": 0.6402
        },
        "top": "none",
-       "confidence": 0.8478
+       "confidence": 0.6402
       }
      },
      "by": {
@@ -2857,8 +2859,10 @@
     }
    ],
    "review": [
-    "Gate: answer at 0.52, below the acceptance threshold.",
-    "Time: none at 0.79, below the acceptance threshold."
+    "Gate: answer at 0.49, below the acceptance threshold.",
+    "Geography: none at 0.71, below the acceptance threshold.",
+    "Time: none at 0.59, below the acceptance threshold.",
+    "Sector: none at 0.64, below the acceptance threshold."
    ],
    "notes": [],
    "policy": {
@@ -2914,23 +2918,23 @@
    "totals": {
     "decisions": 9,
     "calls": 3,
-    "latency_ms": 3947.1,
+    "latency_ms": 4445.1,
     "cost_usd": 0.0,
-    "wall_ms": 3952.8
+    "wall_ms": 4450.9
    }
   },
   {
    "request": "Daily PM2.5 for Milan",
    "preference": "",
-   "backend": "laya",
-   "backend_label": "Laya",
-   "model": "convaiinnovations/laya (english)",
+   "backend": "laya-typed",
+   "backend_label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
    "residency": "local",
    "stages": [
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 1114.4021599998268,
+     "latency_ms": 2068.666351000047,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2943,12 +2947,12 @@
      "answer": {
       "type": "choice",
       "probabilities": {
-       "answer": 0.5078,
-       "clarify": 0.2297,
-       "reject": 0.2625
+       "answer": 0.51235,
+       "clarify": 0.30087,
+       "reject": 0.18678
       },
       "top": "answer",
-      "confidence": 0.5078
+      "confidence": 0.51235
      }
     }
    ],
@@ -2982,9 +2986,9 @@
    "totals": {
     "decisions": 1,
     "calls": 1,
-    "latency_ms": 1114.4,
+    "latency_ms": 2068.7,
     "cost_usd": 0.0,
-    "wall_ms": 1116.9
+    "wall_ms": 2070.9
    }
   }
  ]

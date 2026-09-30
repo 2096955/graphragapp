@@ -13,7 +13,7 @@
 :root{
   --bg:#edf1f4; --paper:#ffffff; --ink:#16202b; --ink-2:#39475a; --muted:#5a6878; --line:#cfd8e1;
   --grid:#e4e9ee; --axis:#b6c1cc; --code:#f4f6f9; --wash:#e6edf4; --wash-2:#f6f8fa;
-  --laya:#2a78d6; --anyjev:#eb6834; --jev:#1baf7a; --uniform:#8a96a3;
+  --laya:#2a78d6; --anyjev:#eb6834; --jev:#1baf7a; --typed:#eda100; --uniform:#8a96a3; --warn:#fab219;
   --good:#0ca30c; --bad:#d03b3b; --good-ink:#006300; --bad-ink:#b3261e; --hold:#aab5c1;
   --font:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -24,12 +24,12 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#10151c; --paper:#182029; --ink:#e6edf3; --ink-2:#c3cdd8; --muted:#9aa8b6; --line:#2c3845;
   --grid:#222c38; --axis:#3d4a59; --code:#121920; --wash:#223040; --wash-2:#1c2530;
-  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --uniform:#6b7785;
+  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --typed:#c98500; --uniform:#6b7785; --warn:#fab219;
   --good-ink:#4cc76a; --bad-ink:#ff8a80; --hold:#4a5766; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#10151c; --paper:#182029; --ink:#e6edf3; --ink-2:#c3cdd8; --muted:#9aa8b6; --line:#2c3845;
   --grid:#222c38; --axis:#3d4a59; --code:#121920; --wash:#223040; --wash-2:#1c2530;
-  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --uniform:#6b7785;
+  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --typed:#c98500; --uniform:#6b7785; --warn:#fab219;
   --good-ink:#4cc76a; --bad-ink:#ff8a80; --hold:#4a5766; color-scheme:dark;}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
@@ -122,6 +122,19 @@ section{padding-block:36px}
 .dims h4{font-size:.85rem;font-weight:600;margin:0 0 4px;color:var(--ink-2)}
 .query{font-family:var(--mono);font-size:.84rem;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-x:auto;white-space:nowrap}
 .stopnote{border-left:3px solid var(--ink);padding:6px 0 6px 12px;color:var(--ink-2)}
+.review{border-left:4px solid var(--warn);margin-bottom:14px}
+.review h3{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.review ul,.notes ul{margin:0;padding-left:1.2em}
+.review li,.notes li{margin:2px 0}
+.notes{margin-bottom:14px;color:var(--ink-2);font-size:.92rem}
+.by{font-size:.74rem;color:var(--muted);font-weight:400;margin-left:6px}
+table.sel{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+table.sel th,table.sel td{padding:6px 10px;border-bottom:1px solid var(--grid);text-align:right;white-space:nowrap}
+table.sel th:first-child,table.sel td:first-child{text-align:left}
+table.sel thead th{font-weight:600;color:var(--ink-2)}
+table.sel .sw{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+table.sel .over{color:var(--bad-ink);font-weight:600}
+.ci{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
 .side{display:grid;gap:18px;min-width:0;align-content:start}
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
 .graph svg{width:100%;height:auto;display:block}
@@ -166,7 +179,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .rec.ref{background:transparent}
 .rec-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .rec-h h3{margin-right:auto}
-.rec .model{font-size:.84rem;color:var(--muted)}
+.rec .model{font-size:.84rem;color:var(--muted);min-height:3.1em}
 .hero{display:grid;gap:0}
 .hero b{font-size:2.3rem;line-height:1;font-weight:700;letter-spacing:-.02em}
 .hero span{font-size:.84rem;color:var(--muted)}
@@ -187,7 +200,8 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .legend i{display:inline-block;width:12px;height:10px;border-radius:3px;background:var(--c)}
 .legend i.line{height:2px;width:16px;border-radius:2px}
 .legend i.tick{width:2px;height:12px;border-radius:0;background:var(--ink)}
-.mults{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(250px,340px))}
+.mults{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.mults>*{max-width:440px;min-width:0}
 .mult h4{margin:0 0 2px;font-size:.95rem;display:flex;gap:8px;align-items:center}
 .mult p{font-size:.84rem;color:var(--muted);margin-bottom:6px}
 .filterrow{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:22px 0 12px}
@@ -364,7 +378,7 @@ footer p{max-width:90ch}
 <section id="pipeline">
   <div class="sec-head">
     <h2>The pipeline</h2>
-    <p>The discovery method from Diamantini et al. (2026), with a decision model making each call. The graph proposes candidates and finds datasets; the model never writes text, and the explanation never makes a decision.</p>
+    <p>The discovery method from Diamantini et al. (2026). A decision model makes each call the request leaves open; where the request names something in catalogue terms, that is used and the model is checked against it. Low confidence or a disagreement sends the result to review. The graph proposes candidates and finds datasets; the model never writes text, and the explanation never makes a decision.</p>
   </div>
   <div class="controls">
     <div class="field" id="reqField">
@@ -384,9 +398,10 @@ footer p{max-width:90ch}
 <section id="bench">
   <div class="sec-head">
     <h2>Can the probabilities be trusted?</h2>
-    <p>Recorded model runs are legacy experiments on 448 decisions. The current test set also covers whole-group selection and preference scoring. Empirical coverage searches a threshold on the same labels; it is not a deployment error guarantee. Grouped holdout results keep threshold selection separate from evaluation.</p>
+    <p>Each model answered the same <span id="benchN">584</span> labelled decisions. A threshold such as "act above 0.9" only works if a stated 0.9 is right about 90 times in 100, so three things are measured: how often the model is right, how far its confidence is from its accuracy, and how much it could decide without a person at a target error. Decisions from one request are not independent, so intervals resample whole requests, and every held-out figure uses thresholds chosen on other requests than the ones it is scored on.</p>
   </div>
   <div class="records" id="records"></div>
+  <p class="small muted" id="recNote" style="margin:10px 0 0"></p>
 
   <div class="panel chart" style="margin-top:14px">
     <h3>Accuracy by task</h3>
@@ -400,12 +415,19 @@ footer p{max-width:90ch}
     <div class="seg" id="scopeSeg" role="group" aria-labelledby="scopeLabel"></div>
   </div>
 
+  <div class="panel" style="margin-bottom:14px">
+    <h3>Decided without a person, by target error</h3>
+    <p class="small muted" style="margin:2px 0 10px">Per task, a confidence threshold is chosen on half of the requests so that the error above it stays within the target. It is then applied to the other half, and the other way round. This is repeated over 50 random splits. The table shows the average share of decisions above the threshold, the error found among them, and under it the range of that error across splits (10th to 90th percentile).</p>
+    <div class="tbl-wrap"><table class="sel" id="selTable"></table></div>
+    <p class="small muted" id="selNote" style="margin:8px 0 0"></p>
+  </div>
+
   <div class="panel chart">
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
       <h3>Stated confidence against actual accuracy</h3>
       <div class="seg" id="calSeg" role="group" aria-label="Calibration">
         <button type="button" data-v="raw" aria-pressed="true">As measured</button>
-        <button type="button" data-v="scaled" aria-pressed="false">After calibrating on labels</button>
+        <button type="button" data-v="scaled" aria-pressed="false">After calibrating on other requests</button>
       </div>
     </div>
     <p class="small muted" style="margin:6px 0 12px" id="calNote"></p>
@@ -414,19 +436,19 @@ footer p{max-width:90ch}
 
   <div class="thr-grid" style="margin-top:14px">
     <div class="panel chart">
-      <h3>Empirical Selective Coverage</h3>
-      <p class="small muted" style="margin:2px 0 6px">Observed error among the most confident recorded decisions. Thresholds and errors use the same labels; this is not a production guarantee.</p>
+      <h3>Error against share decided, on the same labels</h3>
+      <p class="small muted" style="margin:2px 0 6px">The most confident decisions first. Threshold and error come from the same labels, so this is the optimistic view; the table above is the held-out one.</p>
       <div class="legend" id="covLegend"></div>
       <div id="covChart"></div>
     </div>
     <div class="panel">
       <h3>Pick a threshold</h3>
-      <p class="small muted" style="margin:2px 0 12px">Decisions at or above the threshold are acted on; the rest go to a person.</p>
+      <p class="small muted" style="margin:2px 0 12px">Decisions at or above the threshold are acted on; the rest go to a person. Measured on the same labels.</p>
       <div class="seg" id="thrSeg" role="group" aria-label="Model" style="margin-bottom:12px"></div>
       <label class="small muted" for="thrRange">Confidence threshold <b id="thrVal" class="num" style="color:var(--ink)"></b></label>
       <input id="thrRange" type="range" min="0.30" max="0.99" step="0.01" value="0.80">
       <div class="readouts" style="margin-top:12px">
-        <div><b id="roAuto" class="num"></b><span>selected in sample</span></div>
+        <div><b id="roAuto" class="num"></b><span>decided without a person</span></div>
         <div><b id="roErr" class="num"></b><span>wrong among those</span></div>
         <div><b id="roHuman" class="num"></b><span>sent to a person</span></div>
       </div>
@@ -484,8 +506,8 @@ footer p{max-width:90ch}
 </section>
 
 <footer>
-  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API) &mdash; the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Small-world claim: D. J. Watts and S. H. Strogatz, <i>Collective dynamics of small-world networks</i>, Nature 393, 440–442 (1998), <a href="https://doi.org/10.1038/30918">doi:10.1038/30918</a>; MathWorks, <a href="https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts–Strogatz Small World Graph Model</a>. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
-  <p><b style="color:var(--ink)">Read the numbers with care.</b> The catalogue and its eight sources are synthetic. Labels are hand-written against LABELLING.md in the repository and should be reviewed before anyone relies on them. Recorded runs are on CPU; latency on a GPU will be far lower. Each model's own published benchmarks are self-reported.</p>
+  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0; its typed-decisions checkpoint is fine-tuned on four other workflows: invoices, security incidents, customer service and agent traces), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API): the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Small-world figures: D. J. Watts and S. H. Strogatz, <i>Collective dynamics of small-world networks</i>, Nature 393, 440 to 442 (1998), <a href="https://doi.org/10.1038/30918">doi:10.1038/30918</a>; MathWorks, <a href="https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts-Strogatz Small World Graph Model</a>. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
+  <p><b style="color:var(--ink)">Read the numbers with care.</b> The catalogue and its eight sources are synthetic. Labels are hand-written against LABELLING.md in the repository and should be reviewed before anyone relies on them. The 584 decisions come from 62 requests, 8 sources and 82 name pairs, so the effective sample is far smaller than 584; the intervals reflect that. Preference fit has only eight items. The pipeline's catalogue checks were written with these requests in view, so pipeline runs on them flatter the checks; the benchmark itself scores the models alone. Recorded runs are on CPU; latency on a GPU will be far lower. Each model's own published benchmarks are self-reported.</p>
 </footer>
 </main>
 
@@ -495,13 +517,14 @@ footer p{max-width:90ch}
 "use strict";
 const DATA = JSON.parse(document.getElementById("data").textContent);
 const META = {
-  catalogue: {label: "Catalogue rules", color: "var(--uniform)"},
-  laya:    {label: "Laya", color: "var(--laya)"},
-  anyjev:  {label: "AnyJev", color: "var(--anyjev)"},
-  jev:     {label: "TypeSafe Jev", color: "var(--jev)"},
+  catalogue: {label: "Catalogue rules", short: "Rules", color: "var(--uniform)"},
+  laya:    {label: "Laya", short: "Laya", color: "var(--laya)"},
+  "laya-typed": {label: "Laya typed-decisions", short: "Typed", color: "var(--typed)"},
+  anyjev:  {label: "AnyJev", short: "AnyJev", color: "var(--anyjev)"},
+  jev:     {label: "TypeSafe Jev", short: "Jev", color: "var(--jev)"},
   uniform: {label: "Equal odds", color: "var(--uniform)"},
 };
-const MODELS = ["laya", "anyjev", "jev"];                // compared models; "uniform" is a reference only
+const MODELS = ["laya", "laya-typed", "anyjev", "jev"];                // compared models; "uniform" is a reference only
 const TASK_ORDER = ["gate", "group", "relevance", "level", "fit", "mapping", "entity"];
 const TASK_SHORT = {gate: "Answer, clarify or reject", relevance: "Pollutant relevance", level: "Breakdown level",
                     mapping: "Column mapping", entity: "Entity match", group: "Whole-group selection", fit: "Preference fit"};
@@ -553,6 +576,8 @@ function moveTip(ev) {
   tip.style.top = Math.min(y, innerHeight - r.height - 8) + "px";
 }
 function hideTip() { tip.hidden = true; }
+// A saved run counts only if it asked every current question (the server marks this).
+function usable(res) { return Object.fromEntries(Object.entries(res || {}).filter(([, r]) => r && r.current !== false && r.records)); }
 function hasResults(b) { return !!(DATA.results[b] && DATA.results[b].records && DATA.results[b].records.length); }
 
 /* ------------------------------------------------------------------ connection */
@@ -576,7 +601,7 @@ async function tryConnect(base, token, quiet) {
     const hl = await api("api/health", {timeout: quiet ? 2500 : 10000});
     if (!hl.ok) throw new Error("The server did not report ok.");
     S.health = hl; S.live = true;
-    try { const res = await api("api/results"); if (res && Object.keys(res).length) DATA.results = {...DATA.results, ...res}; } catch (e) { /* keep recorded */ }
+    try { const res = usable(await api("api/results")); if (Object.keys(res).length) DATA.results = {...DATA.results, ...res}; } catch (e) { /* keep recorded */ }
     if (base) store("gd.api", base);        // the address only; the token is never stored
     setMode(); renderAll();
     return true;
@@ -641,7 +666,7 @@ function renderFacts() {
 function pipelineModels() {
   if (S.live) return (S.health.backends || []).filter(b => b.name !== "uniform").map(b => ({value: b.name, label: META[b.name] ? META[b.name].label : b.label,
     color: META[b.name] && META[b.name].color, disabled: !b.available, title: b.available ? b.description : b.reason}));
-  return ["catalogue", ...MODELS].map(b => ({value: b, label: META[b].label, color: META[b].color, disabled: !DATA.examples[b],
+  return [...MODELS, "catalogue"].map(b => ({value: b, label: META[b].label, color: META[b].color, disabled: !DATA.examples[b],
     title: DATA.examples[b] ? "" : "No recorded run. Connect a backend with this model to try it."}));
 }
 function renderPipelineControls() {
@@ -656,7 +681,7 @@ function renderPipelineControls() {
     $("#reqSel").replaceChildren(...ex.map((r, i) => h("option", {value: i, selected: i === S.example}, r.request)));
     const run = ex[S.example];
     $("#prefText").value = run ? run.preference : "";
-    $("#pipeMsg").textContent = ex.length ? (DATA.examples[S.backend].legacy ? "Legacy pipeline traces, before corrections. Connect for current behaviour." : "Corrected catalogue-rules runs. Connect to ask your own request.") : "";
+    $("#pipeMsg").textContent = ex.length ? "Recorded runs. Connect a backend to ask your own request." : "";
   } else {
     $("#reqList").replaceChildren(...allExampleRequests().map(r => h("option", {value: r})));
     if (!$("#reqText").value) $("#reqText").value = allExampleRequests()[0] || "";
@@ -710,7 +735,8 @@ function renderTrace() {
     h("p", {class: "why"}, "Can the catalogue answer this request as written?"),
     probRows(g.answer.probabilities, g.answer.top, color),
     labelNote(t, "gate"),
-    t.outcome !== "answer" && !byStage.enrich ? h("p", {class: "stopnote", style: "margin-top:10px"}, t.message) : null));
+    t.outcome !== "answer" && !byStage.enrich ? h("p", {class: "stopnote", style: "margin-top:10px"},
+      checkStopped(t) ? h("b", {}, "Stopped by a catalogue check, not the model. ") : null, t.message) : null));
   if (byStage.enrich) {
     const e = byStage.enrich;
     const nodes = [...e.nodes].sort((a, b) => b.p - a.p);
@@ -719,9 +745,11 @@ function renderTrace() {
     const probs = Object.fromEntries(nodes.map(n => [n.node, n.p]));
     rail.append(h("li", {class: "stage"},
       h("h3", {}, "Pollutants"),
-      h("p", {class: "why"}, `The graph proposed ${e.graph_candidates.length} pollutant${e.graph_candidates.length === 1 ? "" : "s"}. Explicit group names are validated against the catalogue; model decisions below the acceptance threshold require review.`),
+      h("p", {class: "why"}, `The graph proposed ${e.graph_candidates.length} pollutant${e.graph_candidates.length === 1 ? "" : "s"} named in the request, plus the four groups. ` +
+        (e.by === "request" ? "The request names its pollutants in catalogue terms, so those are used and the model is checked against them."
+                            : `The request names none in catalogue terms, so the model decides: each candidate at or above ${e.threshold}.`)),
       h("div", {class: "probs"}, nodes.map(n => h("div", {class: "prow" + (n.selected ? " top" : "")},
-        h("span", {class: "lab"}, labelOf[n.node]),
+        h("span", {class: "lab"}, labelOf[n.node], n.model !== undefined && n.model !== n.selected ? h("span", {class: "by"}, n.model ? "model: yes" : "model: no") : null),
         h("span", {class: "bar", style: `--c:${color}`}, h("i", {style: `width:${clamp(n.p * 100, 0, 100)}%`}), h("span", {class: "thr", style: `left:${e.threshold * 100}%`})),
         h("span", {class: "v"}, n.p.toFixed(2))))),
       e.groups_expanded.length ? h("p", {class: "small muted", style: "margin-top:8px"},
@@ -733,7 +761,8 @@ function renderTrace() {
       h("h3", {}, "Breakdown"),
       h("p", {class: "why"}, "One choice per dimension, including none."),
       h("div", {class: "dims"}, Object.entries(q.answers).map(([dim, a]) => h("div", {},
-        h("h4", {}, DIM_NAME[dim] || dim), probRows(a.probabilities, a.top, color)))),
+        h("h4", {}, DIM_NAME[dim] || dim, q.by && q.by[dim] === "request" ? h("span", {class: "by"}, "stated in the request") : null),
+        probRows(a.probabilities, a.top, color)))),
       h("p", {class: "small muted", style: "margin:12px 0 6px"}, "The structured query, in the paper's notation (Definition 5):"),
       h("div", {class: "query"}, queryText(t.query)),
       t.query && t.query.filters && Object.keys(t.query.filters).length ? h("pre", {class: "small", style: "white-space:pre-wrap;overflow-wrap:anywhere"}, JSON.stringify(t.query.filters, null, 2)) : null,
@@ -745,9 +774,9 @@ function renderTrace() {
       h("h3", {}, "Discovery"),
       h("p", {class: "why"}, "Graph only, no model. Minimal sets of sources that together hold every requested pollutant at levels that roll up to the query's."),
       h("p", {}, d.solutions ? `${d.solutions} solution${d.solutions === 1 ? "" : "s"} found; the join size of each is estimated by histogram intersection.` : ""),
-      t.outcome === "no_data" ? h("p", {class: "stopnote", style: "margin-top:10px"}, t.message) : null));
+      t.outcome === "no_data" || (t.outcome === "review" && !t.solutions) ? h("p", {class: "stopnote", style: "margin-top:10px"}, t.message) : null));
   }
-  if ((t.outcome === "clarify" || t.outcome === "review") && byStage.enrich) rail.append(h("li", {class: "stage stop"}, h("h3", {}, "Review Required"), h("p", {class: "stopnote"}, t.message)));
+  if (t.outcome === "clarify" && byStage.enrich) rail.append(h("li", {class: "stage stop"}, h("h3", {}, "Stopped"), h("p", {class: "stopnote"}, t.message)));
 
   const side = h("div", {class: "side"});
   if (t.subgraph) side.append(graphPanel(t, color));
@@ -755,17 +784,27 @@ function renderTrace() {
   if (t.explanation) side.append(h("div", {class: "panel"}, h("h3", {style: "margin-bottom:6px"}, "Explanation ", h("span", {class: "tag"}, "written by " + t.explanation.by)),
     h("p", {class: "explain"}, t.explanation.text)));
   if (!side.children.length) side.append(h("div", {class: "panel empty"},
-    t.outcome === "review" ? "The request stopped at an uncertain decision. No automatic answer was approved." :
+    t.outcome === "review" ? "The gate was not confident enough to stop the request on its own, so a person decides. The graph was not queried." :
     t.outcome === "reject" ? "The gate rejected the request, so the graph was never queried. A rejection costs one decision." :
     "The gate asked for clarification, so the graph was never queried. The user would be asked for a pollutant and a breakdown."));
 
   const tt = t.totals;
   const res = t.residency === "hosted" ? h("span", {class: "pill hosted"}, "Request text sent to TypeSafe") : h("span", {class: "pill"}, "Stays on the backend's server");
-  box.replaceChildren(h("div", {class: "trace"}, rail, side),
+  const head = [];
+  if (t.outcome === "review") head.push(h("div", {class: "panel review", role: "status"},
+    h("h3", {}, h("span", {"aria-hidden": "true"}, "\u26A0"), "Needs review"),
+    h("p", {class: "small", style: "margin:0 0 6px"}, t.message),
+    h("ul", {class: "small"}, (t.review || []).map(r => h("li", {}, r)))));
+  if (t.notes && t.notes.length) head.push(h("div", {class: "notes"}, h("ul", {}, t.notes.map(n => h("li", {}, n)))));
+  box.replaceChildren(...head, h("div", {class: "trace"}, rail, side),
     h("p", {class: "totals"}, h("span", {}, h("b", {}, tt.decisions), " decisions in ", h("b", {}, tt.calls), " model calls"),
       h("span", {}, h("b", {}, ms(tt.latency_ms)), " of model time on ", S.live ? "the connected backend" : "CPU"),
       h("span", {}, "API cost ", h("b", {}, usd(tt.cost_usd))), res,
       h("span", {}, t.backend_label + ": " + t.model)));
+}
+function checkStopped(t) {
+  const c = t.checks || {};
+  return (t.outcome === "reject" && c.hard_reject) || (t.outcome === "clarify" && c.issues && c.issues.length);
 }
 function labelNote(t, what) {
   const g = DATA.gold && DATA.gold[t.request];
@@ -902,45 +941,47 @@ function majorityBaseline(task) {
   for (const it of DATA.items) if (it.task === task) { c[it.gold] = (c[it.gold] || 0) + 1; n++; }
   return n ? Math.max(...Object.values(c)) / n : null;
 }
+function rangeText(r) { return r && r[0] != null ? `${pct(r[0], 0)} to ${pct(r[1], 0)}` : "no range"; }
+function mostlyFrom(sel) {
+  const tasks = Object.entries(sel.tasks || {}).filter(([, v]) => v.held_out.accepted).sort((a, b) => b[1].held_out.accepted - a[1].held_out.accepted);
+  const top = tasks.slice(0, 2).map(([t]) => TASK_SHORT[t].toLowerCase());
+  return top.length ? "mostly " + top.join(" and ") : "";
+}
 function renderRecords() {
   const cards = [];
-  const liveNames = S.live ? new Set((S.health.backends || []).map(b => b.name)) : null;
-  for (const b of [...MODELS, "uniform"]) {
+  const ref = DATA.results.uniform && DATA.results.uniform.metrics && DATA.results.uniform.metrics.overall;
+  $("#recNote").textContent = ref ? `Reference: giving every option equal odds decides nothing at any target, and its calibration error is ${fix(ref.ece)} because its top answer is a tie-break. Calibration error on its own says nothing about usefulness.` : "";
+  for (const b of MODELS) {
     const res = DATA.results[b], m = res && res.metrics && res.metrics.overall;
     const liveB = S.live ? (S.health.backends || []).find(x => x.name === b) : null;
-    const runBtn = S.live && liveB && liveB.available && S.health.eval_enabled && b !== "uniform"
+    const runBtn = S.live && liveB && liveB.available && S.health.eval_enabled
       ? h("button", {class: "btn ghost", type: "button", onclick: e => startEval(b, e.currentTarget)}, res ? "Run again on this server" : "Run the benchmark on this server") : null;
+    const head = h("div", {class: "rec-h"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("h3", {}, META[b].label));
+    const where = b === "jev" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local");
     if (!m) {
-      if (b === "uniform") continue;
-      cards.push(h("article", {class: "rec"},
-        h("div", {class: "rec-h"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("h3", {}, META[b].label),
-          b === "jev" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local")),
+      cards.push(h("article", {class: "rec"}, head,
+        h("div", {class: "model"}, b === "jev" ? "TypeSafe API " : "Local model ", where),
         h("p", {class: "empty"}, b === "jev"
-          ? "Not measured yet. Jev is a paid hosted API: set TYPESAFE_API_KEY on the backend, then run the current benchmark."
+          ? "Not measured yet. Jev is a paid hosted API: set TYPESAFE_API_KEY on the backend, then run the benchmark."
           : "Not measured yet. Run the benchmark on a backend that has this model installed."),
         runBtn, h("div", {class: "evalprog", hidden: true})));
       continue;
     }
-    const isRef = b === "uniform";
-    cards.push(h("article", {class: "rec" + (isRef ? " ref" : "")},
-      h("div", {class: "rec-h"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("h3", {}, isRef ? "Equal odds (reference)" : META[b].label),
-        res.residency === "hosted" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local")),
-      h("div", {class: "model"}, isRef ? "Equal probability reference, not a deployment policy." : res.model,
-        res.legacy ? h("span", {class: "pill", style: "margin-left:6px"}, "Legacy run") : null),
-      isRef ? h("div", {class: "hero"}, h("b", {}, fix(m.ece)), h("span", {}, "calibration error, lower than either model"))
-            : h("div", {class: "hero"}, h("b", {}, pct(m.accuracy, 1)), h("span", {}, "right on the labelled set")),
+    const sel5 = m.selective && m.selective["0.05"];
+    cards.push(h("article", {class: "rec"}, head,
+      h("div", {class: "model"}, res.model, " ", where),
+      h("div", {class: "hero"}, h("b", {}, pct(sel5 && sel5.held_out.coverage)),
+        h("span", {}, "decided without a person at a 5% target, held out", h("span", {class: "ci"},
+          sel5 && sel5.held_out.accepted ? `${pct(sel5.held_out.error, 1)} wrong among those (${rangeText(sel5.held_out.error_range)} across splits); ${mostlyFrom(sel5)}` : "no threshold met the target"))),
       h("dl", {class: "kv"},
-        isRef ? null : h("dt", {}, "Calibration error"), isRef ? null : h("dd", {}, fix(m.ece)),
-        isRef ? null : h("dt", {}, "After calibrating on labels"), isRef ? null : h("dd", {}, fix(m.ece_recalibrated)),
-        h("dt", {}, "In-sample coverage at 5% error"), h("dd", {}, pct(m.coverage_at_5.coverage)),
-        h("dt", {}, "Grouped holdout coverage"), h("dd", {}, pct(m.heldout_at_5 && m.heldout_at_5.coverage)),
-        h("dt", {}, "Grouped holdout error"), h("dd", {}, pct(m.heldout_at_5 && m.heldout_at_5.observed_risk)),
-        isRef ? null : h("dt", {}, "Median time per decision"), isRef ? null : h("dd", {}, ms(m.latency_ms_p50)),
-        isRef ? null : h("dt", {}, "API cost per 1,000"), isRef ? null : h("dd", {}, usd(m.cost_usd_per_1k))),
+        h("dt", {}, "Right on the labelled set"),
+        h("dd", {}, pct(m.accuracy, 1), m.accuracy_ci ? h("span", {class: "ci"}, `${pct(m.accuracy_ci[0], 1)} to ${pct(m.accuracy_ci[1], 1)}`) : null),
+        h("dt", {}, "Calibration error, per task"), h("dd", {}, fix(m.ece)),
+        h("dt", {}, "After calibrating on other requests"), h("dd", {}, fix(m.ece_recalibrated)),
+        h("dt", {}, "Median time per decision"), h("dd", {}, ms(m.latency_ms_p50)),
+        h("dt", {}, "API cost per 1,000"), h("dd", {}, usd(m.cost_usd_per_1k))),
       runBtn, h("div", {class: "evalprog", hidden: true}),
-      h("p", {class: "foot"}, `${m.n} decisions${m.errors ? `, ${m.errors} failed` : ""}. ${res.hardware}. ${res.finished ? new Date(res.finished).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"}) : ""}`,
-        ...(res.reruns || []).map(rr => h("span", {style: "display:block;margin-top:4px"}, `${rr.tasks.map(t => TASK_SHORT[t]).join(", ")} rerun: ${rr.reason}` +
-          (rr.before && rr.tasks.length === 1 && rr.before[rr.tasks[0]] ? ` Before: ${pct(rr.before[rr.tasks[0]].accuracy)} right.` : ""))))));
+      h("p", {class: "foot"}, `${m.n} decisions from ${m.groups} independent requests, sources and name pairs. The range under accuracy is a 95% interval; the error range spans the middle 80% of 50 random splits. ${res.hardware}. ${res.finished ? new Date(res.finished).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"}) : ""}`)));
   }
   $("#records").replaceChildren(...cards);
 }
@@ -957,7 +998,7 @@ async function startEval(b, btn) {
       prog.querySelector("p").textContent = `${st.done} of ${st.total} decisions`;
       if (st.state !== "running") {
         if (st.state !== "finished") throw new Error(st.error || st.state);
-        const res = await api("api/results"); DATA.results = {...DATA.results, ...res};
+        const res = usable(await api("api/results")); DATA.results = {...DATA.results, ...res};
         renderBench(); renderFacts(); renderTestset();
         return;
       }
@@ -968,7 +1009,8 @@ function measured() { return MODELS.filter(hasResults); }
 function renderAccuracy() {
   const bs = measured();
   $("#accLegend").replaceChildren(...bs.map(b => h("span", {}, h("i", {style: `--c:${META[b].color}`}), META[b].label)),
-    h("span", {}, h("i", {class: "tick"}), "Always giving the task's most common answer"));
+    h("span", {}, h("i", {class: "tick"}), "Always giving the task's most common answer"),
+    h("span", {}, "Whiskers: 95% interval, resampling whole requests"));
   if (!bs.length) { $("#accChart").replaceChildren(h("p", {class: "empty"}, "No results yet.")); return; }
   const cw = $("#accChart").clientWidth || 720, narrow = cw < 560;
   const W = Math.round(clamp(cw, 300, 900)), L = narrow ? 4 : 170, R = 48, barH = 12, gap = 4, head = narrow ? 18 : 0, groupGap = narrow ? 16 : 18;
@@ -986,12 +1028,20 @@ function renderAccuracy() {
       const m = DATA.results[b].metrics.tasks[task], y = gy + bi * (barH + gap), w = m.n ? Math.max(5, x(m.accuracy) - L) : 0;
       const bar = sv("path", {d: `M${L} ${y} h${w - 4} a4 4 0 0 1 4 4 v${barH - 8} a4 4 0 0 1 -4 4 h${-(w - 4)} z`, fill: META[b].color, tabindex: 0,
         "aria-label": `${META[b].label}, ${TASK_SHORT[task]}: ${pct(m.accuracy, 1)}`});
-      const tipNode = () => h("div", {}, h("div", {}, h("b", {}, pct(m.accuracy, 1)), " right"), h("div", {class: "k", style: `--c:${META[b].color}`}, h("i", {}), `${META[b].label}, ${TASK_SHORT[task]}`),
-        h("div", {class: "small muted"}, `${m.n} decisions, calibration error ${fix(m.ece)}`));
+      const tipNode = () => h("div", {}, h("div", {}, h("b", {}, pct(m.accuracy, 1)), " right",
+          m.accuracy_ci ? h("span", {class: "small muted"}, ` (${pct(m.accuracy_ci[0])} to ${pct(m.accuracy_ci[1])})`) : null),
+        h("div", {class: "k", style: `--c:${META[b].color}`}, h("i", {}), `${META[b].label}, ${TASK_SHORT[task]}`),
+        h("div", {class: "small muted"}, `${m.n} decisions from ${m.groups} groups, calibration error ${fix(m.ece)}`));
       bar.addEventListener("pointermove", ev => showTip(ev, tipNode())); bar.addEventListener("pointerleave", hideTip);
       bar.addEventListener("focus", ev => { const r = ev.target.getBoundingClientRect(); showTip({clientX: r.right, clientY: r.top}, tipNode()); });
       bar.addEventListener("blur", hideTip);
-      svg.append(bar, sv("text", {x: x(m.accuracy) + 6, y: y + barH - 2, "font-size": 11.5, fill: "var(--ink-2)", class: "num"}, pct(m.accuracy)));
+      svg.append(bar);
+      if (m.accuracy_ci) {
+        const [lo, hi] = m.accuracy_ci, cy = y + barH / 2;
+        svg.append(sv("path", {d: `M${x(lo)} ${cy} H${x(hi)} M${x(lo)} ${cy - 3} v6 M${x(hi)} ${cy - 3} v6`, stroke: "var(--ink-2)", "stroke-width": 1.25, fill: "none"}));
+      }
+      const labelX = Math.max(x(m.accuracy), m.accuracy_ci ? x(m.accuracy_ci[1]) : 0) + 6;
+      svg.append(sv("text", {x: labelX, y: y + barH - 2, "font-size": 11.5, fill: "var(--ink-2)", class: "num"}, pct(m.accuracy)));
     });
     const base = majorityBaseline(task);
     if (base != null) svg.append(sv("line", {x1: x(base), x2: x(base), y1: gy - 4, y2: gy + groupH + 4, stroke: "var(--ink)", "stroke-width": 2}));
@@ -1000,22 +1050,41 @@ function renderAccuracy() {
 }
 function renderScope() {
   seg($("#scopeSeg"), [{value: "all", label: "All tasks"}, ...TASK_ORDER.map(t => ({value: t, label: TASK_SHORT[t]}))], S.scope,
-    v => { S.scope = v; renderScope(); renderReliability(); renderCoverage(); renderThreshold(); });
+    v => { S.scope = v; renderScope(); renderSelective(); renderReliability(); renderCoverage(); renderThreshold(); });
 }
 document.querySelectorAll("#calSeg button").forEach(b => b.addEventListener("click", () => {
   S.calib = b.dataset.v; document.querySelectorAll("#calSeg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); renderReliability();
 }));
+const RISKS = [0.01, 0.02, 0.05, 0.1];
+function renderSelective() {
+  const bs = measured();
+  if (!bs.length) { $("#selTable").replaceChildren(); $("#selNote").textContent = "No results yet."; return; }
+  const row = (risk, b) => {
+    const m = mScope(b, S.scope), s = m && m.selective && m.selective[String(risk)];
+    if (!s) return [h("td", {}, "n/a"), h("td", {}, "")];
+    const ho = s.held_out, err = ho.error;
+    return [h("td", {}, pct(ho.coverage)), h("td", {class: err != null && err > risk ? "over" : ""}, err == null ? "none" : pct(err, 1),
+      ho.error_range && ho.error_range[0] != null ? h("span", {class: "ci"}, rangeText(ho.error_range)) : null)];
+  };
+  $("#selTable").replaceChildren(
+    h("thead", {}, h("tr", {}, h("th", {rowspan: 2}, "Target error"), ...bs.map(b => h("th", {colspan: 2, style: "text-align:center"},
+      h("span", {class: "sw", style: `--c:${META[b].color}`}), META[b].label))),
+      h("tr", {}, ...bs.flatMap(() => [h("th", {}, "Decided"), h("th", {}, "Wrong")]))),
+    h("tbody", {}, RISKS.map(risk => h("tr", {}, h("td", {}, pct(risk)), ...bs.flatMap(b => row(risk, b))))));
+  $("#selNote").textContent = (S.scope === "all" ? "All tasks, with a threshold per task. " : TASK_SHORT[S.scope] + " only. ") +
+    "Errors above their target are marked: a threshold chosen on some requests does not hold its error on others.";
+}
 function renderReliability() {
   const bs = measured();
   $("#calNote").textContent = S.calib === "raw"
     ? "Each dot is a group of decisions with similar stated confidence. On the diagonal, confidence matches accuracy; below it, the model is overconfident. Dot area shows how many decisions fall in the group."
-    : "Temperature scaling fitted on disjoint request/source groups, per task. It changes uncertainty, not task accuracy. Legacy runs omit the new group and preference tasks; deployable artifacts require a fresh benchmark with current question signatures.";
+    : "Temperature scaling per task, fitted on half of the requests and applied to the other half. It changes how confident the model says it is, not which answer it gives, so accuracy is unchanged. With a few dozen labels per task it can make a well-calibrated task worse.";
   $("#relMults").replaceChildren(...(bs.length ? bs.map(b => relChart(b)) : [h("p", {class: "empty"}, "No results yet.")]));
 }
 function relChart(b) {
   const m = mScope(b, S.scope);
   const bins = (S.calib === "raw" ? m.reliability : m.reliability_recalibrated) || [];
-  const e = S.calib === "raw" ? m.ece : m.ece_recalibrated;
+  const e = S.calib === "raw" ? m.ece : m.ece_recalibrated;   // overall: weighted per task
   const W = 300, H = 300, L = 36, T = 10, R = 12, B = 64;
   const pw = W - L - R, ph = H - T - B - 36;
   const x = v => L + v * pw, y = v => T + (1 - v) * ph;
@@ -1045,8 +1114,11 @@ function relChart(b) {
   svg.append(sv("text", {x: L - 6, y: hy + hh - 4, "text-anchor": "end", class: "axis-t", "font-size": 10}, "n"));
   bins.forEach((bn, i) => { if (bn.n) { const hgt = Math.max(2, hh * bn.n / maxN); svg.append(sv("rect", {x: L + i * bw + 1, y: hy + hh - hgt, width: bw - 2, height: hgt, rx: 2, fill: "var(--hold)"})); } });
   svg.append(sv("line", {x1: L, x2: L + pw, y1: hy + hh, y2: hy + hh, class: "base"}));
+  const nb = filled.reduce((a, bn) => a + bn.n, 0);
+  const eDrawn = nb ? filled.reduce((a, bn) => a + bn.n * Math.abs(bn.accuracy - bn.confidence), 0) / nb : null;
   return h("div", {class: "mult"}, h("h4", {}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), META[b].label),
-    h("p", {}, `Calibration error ${fix(e)} over ${m.n} decisions`), svg);
+    h("p", {}, S.scope === "all" ? `Pooled across tasks: calibration error ${fix(eDrawn)}. Per task, weighted: ${fix(e)}.`
+                                 : `Calibration error ${fix(eDrawn)} over ${m.n} decisions`), svg);
 }
 function riskCurve(recs) {
   const sorted = recs.filter(r => !r.error).sort((a, b) => b.confidence - a.confidence);
@@ -1070,17 +1142,21 @@ function renderCoverage() {
   for (let v = 0; v <= maxRisk + 1e-9; v += step) svg.append(sv("line", {x1: L, x2: W - R, y1: y(v), y2: y(v), class: v ? "gridl" : "base"}),
     sv("text", {x: L - 6, y: y(v) + 4, "text-anchor": "end", class: "axis-t"}, pct(v)));
   for (const v of [0, .25, .5, .75, 1]) svg.append(sv("text", {x: x(v), y: H - B + 16, "text-anchor": "middle", class: "axis-t"}, pct(v)));
-  svg.append(sv("text", {x: L + (W - L - R) / 2, y: H - 6, "text-anchor": "middle", class: "axis-t"}, W < 420 ? "In-sample share selected" : "In-sample share selected, most confident first"));
+  svg.append(sv("text", {x: L + (W - L - R) / 2, y: H - 6, "text-anchor": "middle", class: "axis-t"}, W < 420 ? "Share decided, same labels" : "Share decided, most confident first, same labels"));
   svg.append(sv("line", {x1: L, x2: W - R, y1: y(0.05), y2: y(0.05), stroke: "var(--ink)", "stroke-width": 1.5}),
     sv("text", {x: W - R + 6, y: y(0.05) + 4, class: "axis-t", "font-size": 11}, "5%"));
+  const ends = [];
   for (const b of bs) {
     const pts = curves[b].filter(p => p.cov > 0);
     if (!pts.length) continue;
     const clip = pts.map(p => `${x(p.cov)},${y(Math.min(p.risk, maxRisk))}`).join(" ");
     svg.append(sv("polyline", {points: clip, fill: "none", stroke: META[b].color, "stroke-width": 2, "stroke-linejoin": "round"}));
     const last = pts[pts.length - 1];
-    svg.append(sv("text", {x: x(last.cov) + 6, y: y(Math.min(last.risk, maxRisk)) + 4, "font-size": 11.5, fill: "var(--ink-2)"}, META[b].label));
+    ends.push({b, x: x(last.cov) + 6, y: y(Math.min(last.risk, maxRisk)) + 4});
   }
+  ends.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+  for (const e of ends) svg.append(sv("text", {x: e.x, y: e.y, "font-size": 11.5, fill: "var(--ink-2)"}, META[e.b].short));
   const tb = S.thrModel;
   if (tb && curves[tb]) {
     const p = pointAt(curves[tb], S.thr);
@@ -1120,7 +1196,7 @@ function renderThreshold() {
   $("#thrStack").replaceChildren(...parts.filter(p => p[0]).map(([n, c]) => h("i", {style: `flex:${n};background:${c}`, title: String(n)})));
 }
 $("#thrRange").addEventListener("input", e => { S.thr = Number(e.target.value); renderThreshold(); renderCoverage(); });
-function renderBench() { renderRecords(); renderAccuracy(); renderScope(); renderReliability(); renderThreshold(); renderCoverage(); }
+function renderBench() { $("#benchN").textContent = DATA.items.length; renderRecords(); renderAccuracy(); renderScope(); renderSelective(); renderReliability(); renderThreshold(); renderCoverage(); }
 let lastW = innerWidth, rsz = 0;
 addEventListener("resize", () => { clearTimeout(rsz); rsz = setTimeout(() => { if (Math.abs(innerWidth - lastW) > 40) { lastW = innerWidth; renderAccuracy(); renderCoverage(); } }, 150); });
 
@@ -1368,12 +1444,14 @@ let framed = true;
 try { framed = window.top !== window; } catch (e) { /* cross-origin frame */ }
 const ORIGIN_HINT = location.protocol.startsWith("http") && !framed ? location.origin : "https://your-team.github.io";
 const STEPS = [
-  ["Start the service", "Catalogue rules work without model weights. Laya and AnyJev are optional and need additional memory and model downloads.",
-   "docker build --build-arg LOCAL_MODELS=false -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token graphrag-decisions"],
+  ["Start the service", "Laya and AnyJev run on the same machine and load on first use. On CPU the service needs about 3 GB with one Laya checkpoint and 6 GB with Laya and AnyJev. A GPU makes them much faster.",
+   "docker build -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token \\\n  -v hf-cache:/cache graphrag-decisions"],
+  ["Or start small", "Catalogue rules need no model weights. They answer requests written in catalogue terms, reject what the catalogue cannot hold, ask for clarification when they cannot read a request, and send preferences they cannot score to review.",
+   "docker build --build-arg LOCAL_MODELS=false -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token \\\n  -e BACKENDS=catalogue,jev,uniform graphrag-decisions"],
   ["Add the hosted model, if you want it", "Jev is optional. The key stays on the server and is never sent to the page.",
-   "-e TYPESAFE_API_KEY=... -e BACKENDS=catalogue,jev,uniform"],
-  ["Open the page from the server", "The Decisions Lab, the compliance example and the field guide share this address. Catalogue rules run the filter with no keys.",
-   "open http://localhost:8000/\nopen http://localhost:8000/#small-world\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/field-guide"],
+   "-e TYPESAFE_API_KEY=..."],
+  ["Open the pages from the server", "The Decisions Lab, the compliance example, the small-world lab and the field guide share this address, so the pages and the API connect by themselves. Catalogue rules need no keys.",
+   "open http://localhost:8000/\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/small-world\nopen http://localhost:8000/field-guide"],
   ["Run the benchmark", "From the page (the Run button on each card), or on the command line. Results land in results/ and appear on the page.",
    "python -m scripts.run_benchmark --backend laya\npython -m scripts.run_benchmark --backend jev"],
   ["Host the page elsewhere, if you prefer", "Put web/index.html on GitHub Pages or an intranet site and allow that origin on the server. Then use the connect button at the top.",

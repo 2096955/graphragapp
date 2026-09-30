@@ -2,7 +2,7 @@
  "backend": "catalogue",
  "label": "Catalogue rules",
  "model": "catalogue-rules-v1",
- "pipeline_version": "1.1.0",
+ "pipeline_version": "1.2.0",
  "runs": [
   {
    "request": "I want to analyse particulate matter (PM2.5 and PM10) by country and year",
@@ -15,7 +15,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 2.522938000765862,
+     "latency_ms": 2.109231000076761,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -39,7 +39,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2.411041000414116,
+     "latency_ms": 2.1450909998748102,
      "threshold": 0.5,
      "graph_candidates": [
       "PM2_5",
@@ -51,48 +51,48 @@
        "label": "All pollutants",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
        "p": 1.0,
-       "selected": true,
-       "by": "explicit catalogue group"
+       "model": true,
+       "selected": true
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "pollutant:PM2_5",
        "label": "PM2.5",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       },
       {
        "node": "pollutant:PM10",
        "label": "PM10",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       }
      ],
      "groups_expanded": [
@@ -101,12 +101,13 @@
      "pollutants": [
       "PM2_5",
       "PM10"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 2.528619999793591,
+     "latency_ms": 2.3147049998897273,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -140,6 +141,11 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
        "PM2_5",
@@ -155,7 +161,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 81.66914600042219,
+     "latency_ms": 47.34954000014113,
      "solutions": 3
     },
     {
@@ -171,15 +177,35 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.037153000448597595,
+     "latency_ms": 0.07834799998818198,
      "by": "template"
     }
    ],
+   "review": [],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
+   },
+   "checks": {
+    "named": [
+     "PM2_5",
+     "PM10"
+    ],
+    "groups": [
+     "pm"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year"
+    },
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "query": {
     "pollutants": [
@@ -540,9 +566,9 @@
    "totals": {
     "decisions": 13,
     "calls": 6,
-    "latency_ms": 22.0,
+    "latency_ms": 20.2,
     "cost_usd": 0.0,
-    "wall_ms": 127.5
+    "wall_ms": 89.4
    }
   },
   {
@@ -556,7 +582,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 2.2760669999115635,
+     "latency_ms": 2.234868999948958,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -580,7 +606,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2.298456999596965,
+     "latency_ms": 2.3880470000676723,
      "threshold": 0.5,
      "graph_candidates": [
       "CO2"
@@ -591,40 +617,40 @@
        "label": "All pollutants",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
        "p": 1.0,
-       "selected": true,
-       "by": "explicit catalogue group"
+       "model": true,
+       "selected": true
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       }
      ],
      "groups_expanded": [
@@ -636,12 +662,13 @@
       "CO2e20",
       "CH4",
       "N2O"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 2.48038399968209,
+     "latency_ms": 2.236898000091969,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -675,6 +702,11 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "request"
+     },
      "query": {
       "pollutants": [
        "CO2",
@@ -701,7 +733,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 72.5079090007057,
+     "latency_ms": 50.62667800007148,
      "solutions": 1
     },
     {
@@ -715,15 +747,40 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.046504999772878364,
+     "latency_ms": 0.027695999960997142,
      "by": "template"
     }
    ],
+   "review": [],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
+   },
+   "checks": {
+    "named": [],
+    "groups": [
+     "ghg"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "month",
+     "SECTOR": "subsector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "subsector",
+      "members": [
+       "Road transport"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "query": {
     "pollutants": [
@@ -1012,9 +1069,9 @@
    "totals": {
     "decisions": 10,
     "calls": 4,
-    "latency_ms": 12.2,
+    "latency_ms": 12.5,
     "cost_usd": 0.0,
-    "wall_ms": 90.2
+    "wall_ms": 67.8
    }
   },
   {
@@ -1028,7 +1085,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 2.071934000014153,
+     "latency_ms": 2.156603000003088,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1052,7 +1109,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2.149890000509913,
+     "latency_ms": 1.9896109999990585,
      "threshold": 0.5,
      "graph_candidates": [
       "NH3"
@@ -1063,51 +1120,52 @@
        "label": "All pollutants",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "pollutant:NH3",
        "label": "NH3",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       }
      ],
      "groups_expanded": [],
      "pollutants": [
       "NH3"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 2.5071500003832625,
+     "latency_ms": 1.9919230001050892,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -1141,6 +1199,11 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "request"
+     },
      "query": {
       "pollutants": [
        "NH3"
@@ -1163,7 +1226,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 126.05938899923785,
+     "latency_ms": 59.78612600006272,
      "solutions": 2
     },
     {
@@ -1174,13 +1237,46 @@
       "B",
       "A"
      ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.07909500004643633,
+     "by": "template"
     }
    ],
+   "review": [
+    "Ranking: 2 of 2 preference scores are below the acceptance threshold."
+   ],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
+   },
+   "checks": {
+    "named": [
+     "NH3"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year",
+     "SECTOR": "macrosector"
+    },
+    "filters": {
+     "SECTOR": {
+      "level": "macrosector",
+      "members": [
+       "Agriculture"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "query": {
     "pollutants": [
@@ -1462,14 +1558,18 @@
      }
     ]
    },
+   "explanation": {
+    "by": "template",
+    "text": "2 solutions hold NH3 by country and year and macrosector.\nFirst: B, Agricultural Emissions Database, covering 15 countries, 2015 to 2025, 1 macrosector. Preference fit 1.5 of 3 (25% confident in its most likely level).\nThen: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024, 1 macrosector. Preference fit 1.5 of 3 (25% confident in its most likely level)."
+   },
    "outcome": "review",
-   "message": "Preference scores are uncertain. Candidate datasets are returned for review, not approved automatically.",
+   "message": "Provisional: a person should check the points below before this is used.",
    "totals": {
     "decisions": 11,
     "calls": 5,
-    "latency_ms": 12.2,
+    "latency_ms": 9.5,
     "cost_usd": 0.0,
-    "wall_ms": 141.4
+    "wall_ms": 72.1
    }
   },
   {
@@ -1483,7 +1583,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 2.940254000350251,
+     "latency_ms": 2.309367999941969,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1507,7 +1607,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2.2981829997661407,
+     "latency_ms": 2.0789980001154618,
      "threshold": 0.5,
      "graph_candidates": [
       "NOx",
@@ -1519,59 +1619,60 @@
        "label": "All pollutants",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "pollutant:NOx",
        "label": "NOx",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
        "p": 0.0,
-       "selected": false,
-       "by": "model"
+       "model": false,
+       "selected": false
       }
      ],
      "groups_expanded": [],
      "pollutants": [
       "NOx"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 2.375252999627264,
+     "latency_ms": 2.0568610000282206,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -1605,6 +1706,11 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
        "NOx"
@@ -1630,7 +1736,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 44.186959999933606,
+     "latency_ms": 26.510954000059428,
      "solutions": 1
     },
     {
@@ -1644,15 +1750,45 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.021548000404436607,
+     "latency_ms": 0.018090000139636686,
      "by": "template"
     }
    ],
+   "review": [],
+   "notes": [
+    "Relative periods count back from 2025, the latest year in the catalogue."
+   ],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": 2025
+   },
+   "checks": {
+    "named": [
+     "NOx"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "region",
+     "TIME": "month"
+    },
+    "filters": {
+     "TIME": {
+      "level": "year",
+      "members": [
+       "2021",
+       "2022",
+       "2023",
+       "2024",
+       "2025"
+      ]
+     }
+    },
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "query": {
     "pollutants": [
@@ -1889,9 +2025,9 @@
    "totals": {
     "decisions": 11,
     "calls": 4,
-    "latency_ms": 12.5,
+    "latency_ms": 10.4,
     "cost_usd": 0.0,
-    "wall_ms": 60.9
+    "wall_ms": 39.9
    }
   },
   {
@@ -1905,7 +2041,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 2.8145539999968605,
+     "latency_ms": 1.942657000199688,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -1929,7 +2065,7 @@
     {
      "stage": "enrich",
      "title": "Pollutants",
-     "latency_ms": 2.874791000067489,
+     "latency_ms": 1.98134599986588,
      "threshold": 0.5,
      "graph_candidates": [
       "CH4",
@@ -1941,59 +2077,60 @@
        "label": "All pollutants",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:ghg",
        "label": "Greenhouse gases",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:pm",
        "label": "Particulate matter",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "group:metal",
        "label": "Heavy metals",
        "kind": "group",
        "p": 0.0,
-       "selected": false,
-       "by": "explicit catalogue group"
+       "model": false,
+       "selected": false
       },
       {
        "node": "pollutant:CH4",
        "label": "CH4",
        "kind": "pollutant",
        "p": 1.0,
-       "selected": true,
-       "by": "model"
+       "model": true,
+       "selected": true
       },
       {
        "node": "pollutant:CO2",
        "label": "CO2",
        "kind": "pollutant",
        "p": 0.0,
-       "selected": false,
-       "by": "model"
+       "model": false,
+       "selected": false
       }
      ],
      "groups_expanded": [],
      "pollutants": [
       "CH4"
-     ]
+     ],
+     "by": "request"
     },
     {
      "stage": "query",
      "title": "Breakdown",
-     "latency_ms": 2.641592000145465,
+     "latency_ms": 2.0066769998265954,
      "answers": {
       "GEO": {
        "type": "choice",
@@ -2027,6 +2164,11 @@
        "confidence": 1.0
       }
      },
+     "by": {
+      "GEO": "request",
+      "TIME": "request",
+      "SECTOR": "model"
+     },
      "query": {
       "pollutants": [
        "CH4"
@@ -2041,7 +2183,7 @@
     {
      "stage": "discover",
      "title": "Discovery",
-     "latency_ms": 71.33859299938194,
+     "latency_ms": 50.55612799992559,
      "solutions": 4
     },
     {
@@ -2058,15 +2200,32 @@
     {
      "stage": "explain",
      "title": "Explanation",
-     "latency_ms": 0.04432799960341072,
+     "latency_ms": 0.038131000110297464,
      "by": "template"
     }
    ],
+   "review": [],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
+   },
+   "checks": {
+    "named": [
+     "CH4"
+    ],
+    "groups": [],
+    "levels": {
+     "GEO": "continent",
+     "TIME": "year"
+    },
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "query": {
     "pollutants": [
@@ -2487,9 +2646,9 @@
    "totals": {
     "decisions": 14,
     "calls": 7,
-    "latency_ms": 31.2,
+    "latency_ms": 22.0,
     "cost_usd": 0.0,
-    "wall_ms": 107.0
+    "wall_ms": 75.5
    }
   },
   {
@@ -2503,7 +2662,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 6.88854799955152,
+     "latency_ms": 1.7627820000143402,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2525,20 +2684,34 @@
      }
     }
    ],
+   "review": [],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
+   },
+   "checks": {
+    "named": [],
+    "groups": [
+     "all"
+    ],
+    "levels": {},
+    "filters": {},
+    "unheld": [],
+    "unknown": [],
+    "issues": [],
+    "hard_reject": null
    },
    "outcome": "clarify",
    "message": "The request needs more detail: name a pollutant (or ask for emissions in general) and a breakdown such as country and year.",
    "totals": {
     "decisions": 1,
     "calls": 1,
-    "latency_ms": 6.9,
+    "latency_ms": 1.8,
     "cost_usd": 0.0,
-    "wall_ms": 12.0
+    "wall_ms": 3.8
    }
   },
   {
@@ -2552,7 +2725,7 @@
     {
      "stage": "gate",
      "title": "Answer, clarify or reject",
-     "latency_ms": 5.024200999287132,
+     "latency_ms": 1.758645000109027,
      "question": {
       "type": "choice",
       "instructions": "Can the data catalogue answer this request as written?",
@@ -2574,20 +2747,39 @@
      }
     }
    ],
+   "review": [],
+   "notes": [],
    "policy": {
     "min_confidence": 0.8,
-    "validated_risk_guarantee": false,
     "calibration_loaded": false,
+    "validated_risk_guarantee": false,
     "time_anchor": null
    },
+   "checks": {
+    "named": [
+     "PM2_5"
+    ],
+    "groups": [],
+    "levels": {},
+    "filters": {},
+    "unheld": [],
+    "unknown": [
+     "daily",
+     "milan"
+    ],
+    "issues": [
+     "'milan' is not a place, sector or period in the catalogue."
+    ],
+    "hard_reject": "The catalogue has no data by daily."
+   },
    "outcome": "reject",
-   "message": "The request requires unsupported data, granularity or years outside 2015-2025.",
+   "message": "The catalogue has no data by daily.",
    "totals": {
     "decisions": 1,
     "calls": 1,
-    "latency_ms": 5.0,
+    "latency_ms": 1.8,
     "cost_usd": 0.0,
-    "wall_ms": 7.6
+    "wall_ms": 3.7
    }
   }
  ]

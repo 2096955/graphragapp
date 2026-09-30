@@ -38,8 +38,7 @@ class OracleBackend(Backend):
         for name, q in questions.items():
             if q is t.GATE or q.get("instructions") == t.GATE["instructions"]:
                 r = BY_TEXT[state["request"]]
-                gold = "clarify" if r[0] == "P15" else r[2]
-                out[name] = {k: float(k == gold) for k in q["criteria"]}
+                out[name] = {k: float(k == r[2]) for k in q["criteria"]}
             elif q["type"] == "noul" and q["instructions"].startswith("Does the request ask for data on "):
                 r = BY_TEXT[state["request"]]
                 cand = q["instructions"][len("Does the request ask for data on "):-1]

@@ -79,10 +79,11 @@ def test_relative_window_has_explicit_catalogue_anchor():
     assert not parsed["issues"]
 
 
-def test_low_confidence_stops_before_discovery(graph):
+def test_low_confidence_is_never_reported_as_an_answer(graph):
     out = Pipeline(graph).run(UniformBackend(), "CO2 by country and year")
     assert out["outcome"] == "review"
-    assert not any(s["stage"] == "discover" for s in out["stages"])
+    assert any(reason.startswith("Gate:") for reason in out["review"])
+    assert out["query"]["pollutants"] == ["CO2"]      # named in the request, so not left to the model
 
 
 class OverexpandedBackend(CatalogueBackend):
@@ -96,8 +97,9 @@ class OverexpandedBackend(CatalogueBackend):
 
 def test_wrong_group_model_cannot_broaden_request(graph):
     out = Pipeline(graph).run(OverexpandedBackend(), "Ammonia from agriculture by country and year")
-    assert out["outcome"] == "answer"
+    assert out["outcome"] == "review"
     assert out["query"]["pollutants"] == ["NH3"]
+    assert any("added" in reason for reason in out["review"])
 
 
 class MissingPollutantBackend(CatalogueBackend):
@@ -111,7 +113,8 @@ class MissingPollutantBackend(CatalogueBackend):
 def test_confident_model_cannot_omit_named_pollutant(graph):
     out = Pipeline(graph).run(MissingPollutantBackend(), "CO2 and CH4 emissions by country and year")
     assert out["outcome"] == "review"
-    assert not any(s["stage"] == "discover" for s in out["stages"])
+    assert out["query"]["pollutants"] == ["CO2", "CH4"]
+    assert any("left out" in reason for reason in out["review"])
 
 
 @pytest.mark.parametrize("text", ["CO2 for Paris by year", "CO2 for norway by year", "CO2 for Italy and Norway by year"])
@@ -135,10 +138,43 @@ def test_known_unheld_pollutant_is_rejected(graph):
     assert not any(s["stage"] == "discover" for s in out["stages"])
 
 
-def test_current_gate_labels_match_catalogue_rules():
+def test_catalogue_checks_agree_with_labels_and_never_block_an_answerable_request():
+    # The checks stop requests outright, so they must never stop one the labels answer.
     for item in build():
-        if item["task"] == "gate":
-            assert resolve(item["state"]["request"])["gate"] == item["gold"], item["id"]
+        if item["task"] != "gate":
+            continue
+        parsed = resolve(item["state"]["request"])
+        if parsed["hard_reject"]:
+            assert item["gold"] == "reject", item["id"]            # a hard reject must be right
+        if parsed["issues"]:
+            # Clarify is safe for anything the labels do not answer; a confident model reject
+            # takes precedence over it in the pipeline.
+            assert item["gold"] in ("clarify", "reject"), item["id"]
+
+
+@pytest.mark.parametrize("text", [
+    "Could you pull together CO2 figures by country and year for me?",
+    "I need nitrogen oxides by region and month",
+    "Give me a breakdown of CO2 by country and year",
+    "I'd like CH4 and N2O by continent and year",
+    "Compare sulphur dioxide across countries over time",
+])
+def test_ordinary_wording_is_not_stopped_by_the_checks(text):
+    parsed = resolve(text)
+    assert not parsed["hard_reject"] and not parsed["issues"], parsed
+
+
+def test_unknown_words_do_not_widen_a_general_request():
+    assert resolve("Benzene emissions by country and year")["pollutants"] == []
+    assert resolve("Air emissions by country and year")["groups"] == ["all"]
+
+
+def test_held_and_unheld_pollutants_are_answered_with_a_note(graph):
+    text = "I would like to obtain data about CO2, NOx and NO2 for each region, month and subsector"
+    out = Pipeline(graph).run(CatalogueBackend(), text)
+    assert out["outcome"] in ("answer", "no_data")     # the synthetic catalogue has no source for this breakdown
+    assert out["query"]["pollutants"] == ["CO2", "NOx"]
+    assert any("NO2" in note for note in out["notes"])
 
 
 def test_distinct_years_are_not_expanded_by_sector_preposition():
@@ -188,7 +224,7 @@ def test_loaded_calibration_missing_question_requires_review(graph, tmp_path):
     backend.calibration = Calibration(path, backend.model)
     out = Pipeline(graph).run(backend, "CO2 by country and year")
     assert out["outcome"] == "review"
-    assert not any(s["stage"] == "discover" for s in out["stages"])
+    assert any(reason.startswith("Gate:") for reason in out["review"])
 
 
 def test_serving_calibration_and_model_guard(tmp_path):
@@ -260,3 +296,37 @@ def test_laya_source_only_install_is_unavailable(monkeypatch):
     assert backend.available()[0] is False
     with pytest.raises(BackendUnavailable):
         backend.decide({}, {"q": {"type": "noul"}})
+
+
+class ConfidentGate(CatalogueBackend):
+    """Catalogue rules, except the gate always answers with full confidence, as a model might."""
+    def _decide(self, state, questions):
+        if "gate" in questions:
+            return {"gate": {"answer": 1.0, "clarify": 0.0, "reject": 0.0}}, None, 0.0, {}
+        return super()._decide(state, questions)
+
+
+def test_words_the_checks_cannot_place_go_to_review(graph):
+    out = Pipeline(graph).run(ConfidentGate(), "Benzene and CO2 by country and year")
+    assert out["outcome"] == "review"
+    assert out["query"]["pollutants"] == ["CO2"]
+    assert any("benzene" in reason for reason in out["review"])
+
+
+def test_no_data_is_only_reported_when_the_query_was_confident(graph):
+    text = "I would like to obtain data about CO2, NOx and NO2 for each region, month and subsector"
+    assert Pipeline(graph).run(CatalogueBackend(), text)["outcome"] == "no_data"
+    out = Pipeline(graph).run(UniformBackend(), text)
+    assert out["outcome"] == "review" and not out.get("solutions")
+    assert "no combination" in out["message"].lower()
+
+
+@pytest.mark.parametrize("text", ["N2O emissions from soil management by country and year",
+                                  "CO2 by country and year to check our forecasts"])
+def test_judgements_are_left_to_the_model(text):
+    # Neither is a fact about the catalogue, so the checks must not reject it outright.
+    assert resolve(text)["hard_reject"] is None
+
+
+def test_rules_backend_still_rejects_forecasts_for_itself():
+    assert resolve("CO2 forecast by country and year")["gate"] == "reject"

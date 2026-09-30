@@ -67,9 +67,16 @@ class LayaBackend(Backend):
     residency = "local"
     description = "Open 421M-parameter decision model (Apache 2.0). Runs on CPU or GPU where the backend runs."
 
-    def __init__(self, checkpoint: str = "typed-decisions", device: str = "cpu", max_len: int | None = None):
+    def __init__(self, checkpoint: str = "english", device: str = "cpu", max_len: int | None = None,
+                 name: str | None = None, label: str | None = None):
+        # "english" is Laya's own default. "typed-decisions" is fine-tuned on four unrelated workflows
+        # (invoice, security, customer service, agent traces); Laya advises against using it silently.
         super().__init__(f"convaiinnovations/laya ({checkpoint})")
         self.checkpoint, self.device, self.max_len = checkpoint, device, max_len
+        if name:
+            self.name = name
+        if label:
+            self.label = label
         self._router = None
         self._lock = threading.Lock()
 
