@@ -25,6 +25,7 @@ from . import evaluation as ev
 from .arize_eval import ArizeEval
 from .compliance import filter_payload, run_example
 from .compliance_graph import ComplianceGraph
+from .watts_strogatz import example as watts_example
 from .config import Settings
 from .decisions import BackendUnavailable, DecisionError, build_backends
 from .explain import Explainer
@@ -154,7 +155,7 @@ def health():
             "llm_explainer": explainer.llm_available, "items": len(ITEMS),
             "compliance": compliance_graph.counts(),
             "arize": {"configured": arize.configured, "source": "live" if arize.configured else "sample",
-                      "project": arize.project}}
+                      **arize.wiring()}}
 
 
 @app.get("/api/catalogue")
@@ -223,6 +224,12 @@ def compliance_graph_view():
 @app.get("/api/compliance/eval")
 def compliance_eval():
     return arize.view()
+
+
+@app.get("/api/watts-strogatz")
+def watts_strogatz_example():
+    """Cited small-world visual. No keys. Same numbers as the on-screen example."""
+    return watts_example()
 
 
 @app.get("/api/testset")

@@ -197,9 +197,10 @@ def run_example(backend: Backend, store: ComplianceGraph, exporter=None) -> dict
             "is graph state. Arize is the eval and cost view."
         ),
         "watts_strogatz": (
-            "In a Watts–Strogatz small-world graph, two hops reach most nodes. That is why a "
-            "short expansion from the matched pattern is enough context: prior attempts, the "
-            "filter decision, and the downstream agent."
+            "Rewiring a locally clustered ring collapses path length while clustering stays "
+            "high, so two hops reach most of a real knowledge graph. Retrieval should be "
+            "bounded by tokens or rank, not by hop count. The on-screen example is N=500, "
+            "K=25, p=0.15, seed 1: 373 of 500 nodes (75%) sit within two hops of node 0."
         ),
         "backend": backend.name,
         "steps": [

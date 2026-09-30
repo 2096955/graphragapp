@@ -5,7 +5,7 @@
     "decisions": 2,
     "filter_correct": 1.0,
     "cost_usd": 0.0,
-    "note": "Sample fixture. Catalogue mode costs $0. TypeSafe Jev, when TYPESAFE_API_KEY is set, reports cost from the hosted call. Set ARIZE_SPACE_ID and ARIZE_API_KEY to export live traces."
+    "note": "Sample fixture. Catalogue mode costs $0. TypeSafe Jev, when TYPESAFE_API_KEY is set, reports cost from the hosted call. Set ARIZE_SPACE_ID, ARIZE_API_KEY and ARIZE_PROJECT_NAME to export live traces to space AzureDev. A key named graph-demo must not be committed."
   },
   "traces": [
     {

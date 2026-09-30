@@ -21,6 +21,7 @@ from app.compliance import run_example  # noqa: E402
 from app.compliance_graph import ComplianceGraph  # noqa: E402
 from app.decisions import CatalogueBackend  # noqa: E402
 from app.testset import REQUESTS, TASKS, build, gold_query  # noqa: E402
+from app.watts_strogatz import example as watts_example  # noqa: E402
 
 ORDER = ["catalogue", "laya", "anyjev", "jev", "uniform"]
 
@@ -45,7 +46,7 @@ def main() -> None:
     results, examples = {}, {}
     for f in sorted((ROOT / "results").glob("*.json")):
         data = json.loads(f.read_text())
-        if f.name.startswith("compliance"):
+        if f.name.startswith("compliance") or f.name.startswith("watts"):
             continue
         if f.name.startswith("examples-"):
             data["legacy"] = data.get("pipeline_version") != "1.1.0"
@@ -75,7 +76,8 @@ def main() -> None:
     finally:
         store.close()
     payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
-               "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance}
+               "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance,
+               "watts_strogatz": watts_example()}
     blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "web" / "template.html").read_text()
     marker = "/*__DATA__*/"

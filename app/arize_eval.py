@@ -1,8 +1,15 @@
 """Arize eval and cost view for the compliance filter.
 
-When ARIZE_SPACE_ID and ARIZE_API_KEY are set, traces are POSTed to Arize.
-When they are not, the example still runs and this module returns the sample
-eval fixture plus the traces just recorded locally. No key is invented.
+Send traces with register(space_id, api_key, project_name=...) or OTLP:
+gRPC https://otlp.arize.com/v1 and HTTP https://otlp.arize.com/v1/traces.
+
+Environment variables: ARIZE_SPACE_ID, ARIZE_API_KEY, ARIZE_PROJECT_NAME.
+The signed-in space is named AzureDev. A key named graph-demo exists there
+and must not be committed. This module never invents a key.
+
+When those env vars are unset, the compliance example still runs and this
+module returns the sample eval fixture plus locally recorded traces.
+When they are set, traces go to Arize.
 """
 from __future__ import annotations
 
@@ -14,6 +21,10 @@ import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLE_PATH = ROOT / "results" / "compliance-arize-sample.json"
+OTLP_HTTP = "https://otlp.arize.com/v1/traces"
+OTLP_GRPC = "https://otlp.arize.com/v1"
+SPACE_NAME = "AzureDev"
+REGISTER = "register(space_id, api_key, project_name=...)"
 
 
 def load_sample() -> dict[str, Any]:
@@ -26,7 +37,10 @@ def load_sample() -> dict[str, Any]:
             "decisions": 2,
             "filter_correct": 1.0,
             "cost_usd": 0.0,
-            "note": "Sample fixture. Catalogue mode costs $0. Set ARIZE_SPACE_ID and ARIZE_API_KEY to export live traces.",
+            "note": (
+                "Sample fixture. Catalogue mode costs $0. Set ARIZE_SPACE_ID, "
+                "ARIZE_API_KEY and ARIZE_PROJECT_NAME to export live traces to space AzureDev."
+            ),
         },
         "traces": [],
     }
@@ -36,7 +50,7 @@ class ArizeEval:
     """Collects filter traces. Exports to Arize only when both credentials are present."""
 
     def __init__(self, space_id: str | None, api_key: str | None, project: str = "graphrag-compliance",
-                 endpoint: str = "https://otlp.arize.com/v1/traces", transport: httpx.BaseTransport | None = None):
+                 endpoint: str = OTLP_HTTP, transport: httpx.BaseTransport | None = None):
         self.space_id = (space_id or "").strip() or None
         self.api_key = (api_key or "").strip() or None
         self.project = project
@@ -55,8 +69,21 @@ class ArizeEval:
             self.last_export = self._export(trace)
         return self.view()
 
+    def wiring(self) -> dict[str, Any]:
+        return {
+            "space_name": SPACE_NAME,
+            "project": self.project,
+            "register": REGISTER,
+            "otlp_http": OTLP_HTTP,
+            "otlp_grpc": OTLP_GRPC,
+            "env": ["ARIZE_SPACE_ID", "ARIZE_API_KEY", "ARIZE_PROJECT_NAME"],
+            "key_name": "graph-demo",
+            "key_committed": False,
+        }
+
     def view(self) -> dict[str, Any]:
         local = self._summarise(self.traces)
+        meta = self.wiring()
         if self.configured:
             return {
                 "source": "live",
@@ -66,6 +93,7 @@ class ArizeEval:
                 "export": self.last_export,
                 "summary": local,
                 "traces": list(self.traces),
+                **meta,
             }
         sample = load_sample()
         return {
@@ -77,6 +105,7 @@ class ArizeEval:
                         "note": sample.get("summary", {}).get("note") or local.get("note")},
             "traces": list(self.traces) or sample.get("traces", []),
             "sample": sample,
+            **meta,
         }
 
     def _summarise(self, traces: list[dict[str, Any]]) -> dict[str, Any]:

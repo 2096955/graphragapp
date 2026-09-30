@@ -14,7 +14,37 @@ A legal and compliance agent sits in front of a research agent. It filters PII a
 | **Kuzu** | Records each decision. The same pattern repeating updates the pattern node, so a second attempt to inject PII is graph state, not a one-off score |
 | **Arize** | Eval and cost view: traces, whether the filter was right, and what the decision cost |
 
-In a Watts–Strogatz small-world graph, two hops reach most nodes. That is why a short expansion from the matched pattern is enough context: prior attempts, the filter decision, and the downstream agent.
+### Watts–Strogatz: two hops are enough
+
+Rewiring a locally clustered ring collapses average path length while clustering stays high. Two hops reach most of a real knowledge graph, so retrieval should be bounded by tokens or rank, not by hop count. The compliance filter uses that fact: a short expansion from the matched pattern is enough context (prior attempts, the filter decision, the downstream agent).
+
+The on-screen example is the visual from the lab notes. It is baked into the page and served at `GET /api/watts-strogatz`. No keys.
+
+| Parameter | Value |
+|---|---|
+| *N* | 500 |
+| *K* | 25 |
+| Rewiring probability | 0.15 |
+| Seed | 1 |
+| Rewires | 1,912 |
+| Average path length | 2.06 |
+| Clustering | 0.464 |
+
+From node 0: **47** nodes (9%) in 1 hop, **373** (75%) in 2 hops, **499** (100%) in 3 hops. Two hops were about **22,380 tokens**, 70% of the budget.
+
+MathWorks check (average path length):
+
+| β | MATLAB | This visual |
+|---|---|---|
+| 0 | 5.48 | 5.48 |
+| 0.15 | 2.0715 | 2.0617 |
+| 0.5 | 1.9101 | 1.9091 |
+| 1 | 1.9008 | — |
+
+NetworkX uses `k=2K`, so the equivalent call is `watts_strogatz_graph(n=500, k=50, p=0.15)`.
+
+- D. J. Watts and S. H. Strogatz, *Collective dynamics of small-world networks*, Nature 393, 440–442 (1998), [doi:10.1038/30918](https://doi.org/10.1038/30918)
+- MathWorks, [Build Watts–Strogatz Small World Graph Model](https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html)
 
 ### What you should see (no keys)
 
@@ -29,7 +59,20 @@ Open http://localhost:8000/#compliance and press **Run the example (no keys)**.
 
 1. First payload contains `alex.rivera@example.test`. Catalogue rules **redact** the email. The graph creates a pattern node with **1 attempt**.
 2. The second payload tries to circumvent the filter with the same email. Catalogue rules **block** it. The same pattern node now shows **2 attempts**. That is the graph update.
-3. The Arize panel shows two traces, filter correctness, and **$0** cost. Credentials are unset, so this is the sample eval fixture plus the traces just recorded. Set `ARIZE_SPACE_ID` and `ARIZE_API_KEY` on the server (never in the repo) if you want live export. Do not commit a `.env`.
+3. The Arize panel shows two traces, filter correctness, and **$0** cost. Credentials are unset, so this is the sample eval fixture plus the traces just recorded.
+4. Open http://localhost:8000/#small-world. You should see the N=500 ring: 75% of nodes in two hops, path length 2.06, clustering 0.464, and the MathWorks check table.
+
+### Arize (eval and cost)
+
+Arize is the eval and cost view: traces, whether the filter was right, and what the decision cost. The signed-in space is named **AzureDev**. Send traces with `register(space_id, api_key, project_name=...)` or OTLP: gRPC `https://otlp.arize.com/v1` and HTTP `https://otlp.arize.com/v1/traces`.
+
+| Variable | Purpose |
+|---|---|
+| `ARIZE_SPACE_ID` | Space id for AzureDev. Leave empty for the sample fixture. |
+| `ARIZE_API_KEY` | Server-side key. A key named **graph-demo** exists on that space; do not commit it. |
+| `ARIZE_PROJECT_NAME` | Project name passed to `register(..., project_name=...)`. Defaults to `graphrag-compliance`. |
+
+When those env vars are unset, the compliance example still runs and shows sample eval and cost output. When they are set, traces go to Arize. Do not invent a key. Do not commit a `.env`.
 
 TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`. A live call against `https://api.typesafe.ai/v1/systemone` with `jev-latest` (served as `jev-1.13.0`) already succeeded elsewhere. This clone does not invent a key and does not need one.
 
@@ -139,8 +182,8 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 | `MIN_CONFIDENCE` | `0.8` | Heuristic fallback acceptance threshold |
 | `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` | none | Optional OpenAI-compatible endpoint for explanations |
 | `PRELOAD` | `false` | Load local models at start-up |
-| `ARIZE_SPACE_ID`, `ARIZE_API_KEY` | none | Optional. When both are set, compliance traces export to Arize. Unset: the example still runs and shows the sample eval fixture. |
-| `ARIZE_PROJECT` | `graphrag-compliance` | Arize project name for those traces |
+| `ARIZE_SPACE_ID`, `ARIZE_API_KEY` | none | Optional. When set with `ARIZE_PROJECT_NAME`, compliance traces export to Arize space AzureDev. Unset: sample eval fixture. A key named graph-demo must not be committed. |
+| `ARIZE_PROJECT_NAME` | `graphrag-compliance` | `project_name` for `register(space_id, api_key, project_name=...)` |
 
 ### API
 
@@ -157,6 +200,7 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 | POST | `/api/compliance/filter` | One payload through the compliance agent |
 | GET | `/api/compliance/eval` | Arize eval and cost view (sample fixture if no Arize key) |
 | GET | `/api/compliance/graph` | Pattern, attempt and decision nodes after the filter |
+| GET | `/api/watts-strogatz` | Cited small-world visual (N=500, K=25, p=0.15). No keys |
 | GET | `/api/docs` | Interactive documentation |
 
 The field guide is not this API. It is the `/field-guide` page.
@@ -192,6 +236,7 @@ app/                 HTTP API, Kuzu graph, pipeline, decision backends
   graph.py           two-layer catalogue graph in Kuzu (read-only after build)
   compliance.py      worked example: legal/compliance agent in front of another agent
   compliance_graph.py writable Kuzu store for filter decisions and repeated patterns
+  watts_strogatz.py  cited N=500 small-world visual (no keys)
   arize_eval.py      Arize eval/cost export, or the sample fixture when no key is set
   main.py            serves the lab, the field guide, and the API
 scripts/             run_benchmark, record_examples, merge_results, build_page
@@ -208,5 +253,7 @@ tests/               regression tests; no model weights or vendor calls
 - [AnyJev](https://github.com/nokia-applied-research/AnyJev), Nokia applied research, Apache 2.0; [Qwen3-1.7B](https://huggingface.co/Qwen/Qwen3-1.7B), Apache 2.0.
 - [TypeSafe Jev](https://docs.typesafe.ai/), commercial API. Its request format is used here; this project is not affiliated with TypeSafe.
 - [Kuzu](https://kuzudb.github.io/), MIT, archived upstream.
+- D. J. Watts and S. H. Strogatz, *Collective dynamics of small-world networks*, Nature 393, 440–442 (1998), doi:10.1038/30918.
+- MathWorks, [Build Watts–Strogatz Small World Graph Model](https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html).
 
 The catalogue, its sources and all numbers in it are synthetic.

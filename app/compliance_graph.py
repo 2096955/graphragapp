@@ -162,8 +162,9 @@ class ComplianceGraph:
         hops = two_hop(nodes, edges, focus) if focus else []
         return {"nodes": nodes, "edges": edges, "hops": hops, "focus": focus,
                 "note": ("Two hops from the matched pattern reach prior attempts, the filter "
-                         "decision, and the downstream agent. In a Watts–Strogatz small-world "
-                         "graph that short expansion covers most of the neighbourhood.")}
+                         "decision, and the downstream agent. Rewiring a clustered ring collapses "
+                         "path length while clustering stays high, so retrieval should be bounded "
+                         "by tokens or rank, not by hop count.")}
 
 
 def two_hop(nodes: list[dict], edges: list[dict], start: str, hops: int = 2) -> list[dict]:

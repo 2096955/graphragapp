@@ -7,10 +7,15 @@
 - The knowledge graph records each decision. A repeated email or circumvention
   increments the pattern node, so the repeat is graph state, not a one-off score.
 - Two hops from the matched pattern reach prior attempts, the filter decision, and
-  both agents (Watts–Strogatz: in a small-world graph that short expansion is enough).
-- Arize is the eval and cost view. Live export runs only when `ARIZE_SPACE_ID` and
-  `ARIZE_API_KEY` are set. Without them the example still runs and shows the sample
-  fixture plus locally recorded traces. Catalogue mode costs $0.
+  both agents. The lab shows the cited Watts–Strogatz visual (N=500, K=25, p=0.15,
+  seed 1): path 2.06, clustering 0.464, 75% of nodes in two hops. Retrieval is
+  bounded by tokens or rank, not hop count. Watts & Strogatz (1998) and the
+  MathWorks small-world demo are cited.
+- Arize is the eval and cost view. Space name AzureDev. Send traces with
+  `register(space_id, api_key, project_name=...)` or OTLP. Live export runs only
+  when `ARIZE_SPACE_ID`, `ARIZE_API_KEY` and `ARIZE_PROJECT_NAME` are set. A key
+  named graph-demo must not be committed. Without credentials the example still
+  runs and shows the sample fixture. Catalogue mode costs $0.
 - TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`. No secrets or `.env` files
   are in the repository.
 

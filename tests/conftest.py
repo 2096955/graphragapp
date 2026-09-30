@@ -11,6 +11,7 @@ os.environ.pop("API_TOKEN", None)
 os.environ.pop("ARIZE_API_KEY", None)
 os.environ.pop("ARIZE_SPACE_ID", None)
 os.environ.pop("ARIZE_SPACE_KEY", None)
+os.environ.pop("ARIZE_PROJECT_NAME", None)
 os.environ["RESULTS_DIR"] = str(Path(__file__).parent / "_results")
 
 from app import domain as d  # noqa: E402

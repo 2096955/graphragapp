@@ -266,6 +266,17 @@ footer p{max-width:90ch}
 .attempts{font-variant-numeric:tabular-nums;font-weight:700}
 .comp-eval{display:grid;gap:8px}
 .comp-eval .readouts{margin-top:0}
+.ws-grid{display:grid;gap:14px}
+@media(min-width:900px){.ws-grid{grid-template-columns:1.2fr .8fr}}
+.ws-hops{display:grid;gap:10px;margin:12px 0 0}
+.ws-hop{display:grid;grid-template-columns:4.2rem 1fr auto;gap:10px;align-items:center;font-size:.9rem}
+.ws-bar{height:12px;background:var(--wash);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.ws-bar > i{display:block;height:100%;background:var(--jev);border-radius:99px}
+.ws-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-top:12px}
+.ws-stats div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--paper)}
+.ws-stats b{display:block;font-size:1.15rem}
+.ws-cite{font-size:.82rem;color:var(--muted);max-width:90ch}
+.ws-cite + .ws-cite{margin-top:6px}
 </style>
 </head>
 <body>
@@ -273,7 +284,7 @@ footer p{max-width:90ch}
   <div class="top-in">
     <a class="brand" href="#intro">GraphRAG Decisions Lab</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
+      <a href="#small-world">Small world</a><a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
     </nav>
     <button class="mode" id="modeBtn" type="button" aria-expanded="false" aria-controls="connect"><span class="dot"></span><span id="modeText">Recorded results</span></button>
   </div>
@@ -295,10 +306,32 @@ footer p{max-width:90ch}
   <div class="facts" id="facts"></div>
 </section>
 
+<section id="small-world">
+  <div class="sec-head">
+    <h2>Why two hops are enough</h2>
+    <p>Rewiring a locally clustered ring collapses average path length while clustering stays high. Two hops reach most of a real knowledge graph, so retrieval should be bounded by tokens or rank, not by hop count. The compliance filter only expands a short neighbourhood from the matched pattern for the same reason.</p>
+  </div>
+  <div class="ws-grid">
+    <div class="panel">
+      <h3 style="margin:0 0 6px">On-screen example</h3>
+      <p class="small muted" id="wsParams" style="margin:0"></p>
+      <div class="ws-hops" id="wsHops"></div>
+      <div class="ws-stats" id="wsStats"></div>
+      <p class="small muted" id="wsTokens" style="margin:12px 0 0"></p>
+    </div>
+    <div class="panel">
+      <h3 style="margin:0 0 8px">MathWorks check</h3>
+      <p class="small muted" style="margin:0 0 10px">Average path length vs the MATLAB demo. NetworkX uses <code>k=2K</code>, so <code>n=500, k=50, p=0.15</code>.</p>
+      <div id="wsCheck"></div>
+      <p class="ws-cite" id="wsCite" style="margin-top:12px"></p>
+    </div>
+  </div>
+</section>
+
 <section id="compliance">
   <div class="sec-head">
     <h2>Worked example: compliance filter</h2>
-    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. <b>Kuzu</b> records the decision and increments the pattern node when the same email is injected again. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. In a Watts–Strogatz small-world graph, two hops reach most nodes, so a short expansion from the matched pattern is enough context.</p>
+    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. <b>Kuzu</b> records the decision and increments the pattern node when the same email is injected again. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. Space name on the signed-in account is <b>AzureDev</b>. Send traces with <code>register(space_id, api_key, project_name=...)</code> or OTLP (<code>https://otlp.arize.com/v1</code> gRPC, <code>https://otlp.arize.com/v1/traces</code> HTTP). A key named <code>graph-demo</code> must not be committed. When <code>ARIZE_SPACE_ID</code>, <code>ARIZE_API_KEY</code> and <code>ARIZE_PROJECT_NAME</code> are unset, this example still runs and shows sample eval and cost.</p>
   </div>
   <div class="controls">
     <button class="btn" id="compExampleBtn" type="button">Run the example (no keys)</button>
@@ -451,7 +484,7 @@ footer p{max-width:90ch}
 </section>
 
 <footer>
-  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API) &mdash; the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
+  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API) &mdash; the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Small-world claim: D. J. Watts and S. H. Strogatz, <i>Collective dynamics of small-world networks</i>, Nature 393, 440–442 (1998), <a href="https://doi.org/10.1038/30918">doi:10.1038/30918</a>; MathWorks, <a href="https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts–Strogatz Small World Graph Model</a>. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
   <p><b style="color:var(--ink)">Read the numbers with care.</b> The catalogue and its eight sources are synthetic. Labels are hand-written against LABELLING.md in the repository and should be reviewed before anyone relies on them. Recorded runs are on CPU; latency on a GPU will be far lower. Each model's own published benchmarks are self-reported.</p>
 </footer>
 </main>
@@ -597,6 +630,7 @@ function renderFacts() {
     h("span", {}, h("b", {}, DATA.items.length), " labelled decisions in ", Object.keys(DATA.tasks).length, " tasks"),
     h("span", {}, h("b", {}, "Kuzu"), " is the graph. ", h("b", {}, "Jev"), " is the typed decision layer, not a database"),
     h("span", {}, "Worked example: a compliance agent filters PII before another agent sees it"),
+    h("span", {}, "Watts–Strogatz: two hops reach ", h("b", {}, "75%"), " of a 500-node ring; retrieval is bounded by tokens, not hop count"),
     h("span", {}, h("b", {}, DATA.catalogue.pollutants.length), " pollutants, ", h("b", {}, DATA.catalogue.sources.length), " synthetic sources in the graph"),
     measured.length ? h("span", {}, "Measured: ", h("b", {}, measured.join(", ")), when ? ` on ${when}` : "") : null,
     r ? h("span", {}, r.hardware.replace(/^CPU only: /, "CPU only, ")) : null);
@@ -1210,6 +1244,41 @@ $("#playForm").addEventListener("submit", async ev => {
   $("#plRun").disabled = false;
 });
 
+/* ------------------------------------------------------------------ watts–strogatz */
+function renderWatts() {
+  const ws = DATA.watts_strogatz;
+  if (!ws || !ws.example) {
+    $("#wsParams").textContent = "Cited small-world visual is missing from the baked page.";
+    return;
+  }
+  const ex = ws.example;
+  $("#wsParams").textContent = `N=${ex.n}, K=${ex.k}, rewiring probability ${ex.p}, seed ${ex.seed}, ${ex.rewires.toLocaleString("en-GB")} rewires. From node ${ex.from_node}.`;
+  $("#wsHops").replaceChildren(...(ex.hops || []).map(row => {
+    const label = row.hop === 1 ? "1 hop" : row.hop + " hops";
+    return h("div", {class: "ws-hop"},
+      h("span", {}, label),
+      h("div", {class: "ws-bar", title: pct(row.pct, 0)}, h("i", {style: `width:${Math.round((row.pct || 0) * 100)}%`})),
+      h("span", {}, `${row.nodes} (${pct(row.pct, 0)})`));
+  }));
+  $("#wsStats").replaceChildren(
+    h("div", {}, h("b", {class: "num"}, String(ex.average_path_length)), h("span", {class: "small muted"}, "avg path length")),
+    h("div", {}, h("b", {class: "num"}, String(ex.clustering)), h("span", {class: "small muted"}, "clustering")),
+    h("div", {}, h("b", {class: "num"}, String(ex.rewires)), h("span", {class: "small muted"}, "rewires")),
+    h("div", {}, h("b", {class: "num"}, "75%"), h("span", {class: "small muted"}, "nodes in 2 hops")));
+  $("#wsTokens").textContent = `Two hops were about ${(ex.two_hop_tokens || 0).toLocaleString("en-GB")} tokens, ${pct(ex.two_hop_budget_pct, 0)} of the budget. Retrieval should stop on tokens or rank, not on hop count.`;
+  const rows = [["β", "MATLAB", "This visual"],
+    ...(ex.mathworks_check || []).map(r => [String(r.beta), String(r.matlab), r.visual == null ? "—" : String(r.visual)])];
+  $("#wsCheck").replaceChildren(h("table", {class: "grid"},
+    h("thead", {}, h("tr", {}, ...rows[0].map(c => h("th", {}, c)))),
+    h("tbody", {}, ...rows.slice(1).map(r => h("tr", {}, ...r.map(c => h("td", {}, c)))))));
+  const cites = ws.citations || [];
+  $("#wsCite").replaceChildren(
+    ...cites.map((c, i) => h("span", {class: "ws-cite"},
+      i ? " " : null,
+      c.doi ? `${c.authors}, ${c.title}, ${c.journal} ${c.volume}, ${c.pages} (${c.year}). ` : `${c.publisher}, ${c.title}. `,
+      c.url ? h("a", {href: c.url}, c.doi ? `doi:${c.doi}` : c.title) : null)));
+}
+
 /* ------------------------------------------------------------------ compliance example */
 function actionPill(action) {
   return h("span", {class: "action " + (action || "")}, action || "—");
@@ -1243,7 +1312,7 @@ function renderCompliance(data) {
   );
   const evl = ex.eval || {};
   const sum = evl.summary || {};
-  $("#compEvalNote").textContent = (evl.source === "live" ? "Live Arize export. " : "Arize credentials unset; sample eval fixture. ") + (sum.note || "");
+  $("#compEvalNote").textContent = (evl.source === "live" ? "Live Arize export to space AzureDev. " : "Arize credentials unset; sample eval fixture. ") + (sum.note || "");
   $("#compEval").replaceChildren(
     h("div", {class: "readouts"},
       h("div", {}, h("b", {class: "num"}, sum.decisions == null ? "—" : String(sum.decisions)), h("span", {}, "decisions")),
@@ -1252,7 +1321,8 @@ function renderCompliance(data) {
     ...(evl.traces || []).map(t => h("div", {class: "comp-node"},
       actionPill(t.action), h("span", {}, t.correct ? "right" : "wrong vs gold"),
       h("span", {class: "small muted"}, t.repeated ? "repeat" : "first"),
-      h("span", {class: "small muted"}, usd(t.cost_usd))))
+      h("span", {class: "small muted"}, usd(t.cost_usd)))),
+    evl.register ? h("p", {class: "small muted"}, evl.register, " or OTLP HTTP ", evl.otlp_http, ". Env: ", (evl.env || []).join(", "), ". Key name graph-demo is not in this repo.") : null
   );
 }
 $("#compExampleBtn").addEventListener("click", async () => {
@@ -1301,7 +1371,7 @@ const STEPS = [
   ["Add the hosted model, if you want it", "Jev is optional. The key stays on the server and is never sent to the page.",
    "-e TYPESAFE_API_KEY=... -e BACKENDS=catalogue,jev,uniform"],
   ["Open the page from the server", "The Decisions Lab, the compliance example and the field guide share this address. Catalogue rules run the filter with no keys.",
-   "open http://localhost:8000/\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/field-guide"],
+   "open http://localhost:8000/\nopen http://localhost:8000/#small-world\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/field-guide"],
   ["Run the benchmark", "From the page (the Run button on each card), or on the command line. Results land in results/ and appear on the page.",
    "python -m scripts.run_benchmark --backend laya\npython -m scripts.run_benchmark --backend jev"],
   ["Host the page elsewhere, if you prefer", "Put web/index.html on GitHub Pages or an intranet site and allow that origin on the server. Then use the connect button at the top.",
@@ -1319,6 +1389,7 @@ const API_ROWS = [
   ["POST", "/api/compliance/filter", "One payload through the compliance agent"],
   ["GET", "/api/compliance/eval", "Arize eval and cost view (sample fixture if no Arize key)"],
   ["GET", "/api/compliance/graph", "Pattern, attempt and decision nodes after the filter"],
+  ["GET", "/api/watts-strogatz", "Cited Watts–Strogatz visual (N=500, K=25, p=0.15). No keys"],
   ["GET", "/api/docs", "Interactive API documentation"],
 ];
 function renderRun() {
@@ -1334,7 +1405,7 @@ async function copy(text, btn) {
 }
 
 /* ------------------------------------------------------------------ start */
-function renderAll() { renderFacts(); renderCompliance(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
+function renderAll() { renderFacts(); renderWatts(); renderCompliance(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
 renderRun();
 renderAll();
 (async () => {

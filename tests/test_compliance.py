@@ -9,6 +9,7 @@ from app.arize_eval import ArizeEval
 from app.compliance import CLEAN_PAYLOAD, FIRST_PAYLOAD, REPEAT_PAYLOAD, classify, filter_payload, run_example
 from app.compliance_graph import ComplianceGraph, two_hop
 from app.decisions import CatalogueBackend, UniformBackend
+from app.watts_strogatz import EXAMPLE, example, generate, hop_coverage
 
 
 @pytest.fixture
@@ -105,6 +106,13 @@ def test_readme_explains_no_key_example():
     assert "TYPESAFE_API_KEY" in text
     assert "Do not commit a `.env`" in text or "do not commit `.env`" in text
     assert "uvicorn app.main:app" in text
+    assert "Collective dynamics of small-world networks" in text
+    assert "Build Watts–Strogatz Small World Graph Model" in text
+    assert "ARIZE_PROJECT_NAME" in text
+    assert "AzureDev" in text
+    assert "register(space_id, api_key, project_name=" in text
+    assert "graph-demo" in text and ("must not be committed" in text or "do not commit it" in text)
+    assert "22,380" in text and "373" in text
 
 
 def test_pages_include_compliance_example():
@@ -114,6 +122,57 @@ def test_pages_include_compliance_example():
         assert "Arize" in lab and "Watts" in lab
         assert "alex.rivera@example.test" in lab
         assert '"attempts":2' in lab and '"repeated":true' in lab
+        assert "Why two hops are enough" in lab
+        assert "AzureDev" in lab and "graph-demo" in lab
+        assert "ARIZE_PROJECT_NAME" in lab
+        assert '"n":500' in lab and '"rewires":1912' in lab and '"nodes":373' in lab
+
+
+def test_watts_strogatz_example_is_the_cited_visual():
+    body = example()
+    ex = body["example"]
+    assert ex == EXAMPLE
+    assert ex["n"] == 500 and ex["k"] == 25 and ex["p"] == 0.15 and ex["seed"] == 1
+    assert ex["rewires"] == 1912
+    assert ex["average_path_length"] == 2.06 and ex["clustering"] == 0.464
+    assert ex["hops"][1] == {"hop": 2, "nodes": 373, "pct": 0.75}
+    assert ex["two_hop_tokens"] == 22380
+    assert ex["networkx"] == {"n": 500, "k": 50, "p": 0.15, "note": "NetworkX uses k=2K"}
+    assert any(c.get("doi") == "10.1038/30918" for c in body["citations"])
+    assert any("MathWorks" in (c.get("publisher") or "") for c in body["citations"])
+
+
+def test_generated_small_world_two_hops_cover_most_nodes():
+    adj = generate(n=500, k=25, p=0.15, seed=1)
+    reached = hop_coverage(adj, start=0, hops=2)[2]
+    assert reached / 499 >= 0.7
+
+
+def test_api_watts_strogatz_needs_no_key():
+    with TestClient(main.app) as client:
+        r = client.get("/api/watts-strogatz")
+        assert r.status_code == 200
+        body = r.json()
+        assert body["example"]["rewires"] == 1912
+        health = client.get("/api/health").json()
+        assert health["arize"]["configured"] is False
+        assert health["arize"]["space_name"] == "AzureDev"
+        assert health["arize"]["key_committed"] is False
+        ev = client.get("/api/compliance/eval").json()
+        assert ev["source"] == "sample" and ev["register"].startswith("register(")
+        assert ev["otlp_http"].endswith("/v1/traces") and ev["otlp_grpc"].endswith("/v1")
+
+
+def test_env_example_has_empty_arize_keys():
+    text = (Path(__file__).resolve().parents[1] / ".env.example").read_text()
+    assert "ARIZE_SPACE_ID=\n" in text
+    assert "ARIZE_API_KEY=\n" in text
+    assert "ARIZE_PROJECT_NAME=" in text
+    assert "graph-demo" in text
+    assert "AzureDev" in text
+    for line in text.splitlines():
+        if line.startswith("ARIZE_API_KEY="):
+            assert line.strip() == "ARIZE_API_KEY="
 
 
 def test_uniform_still_records_graph(store):

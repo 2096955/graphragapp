@@ -72,6 +72,6 @@ class Settings:
             min_confidence=float(e("MIN_CONFIDENCE", "0.8")),
             arize_space_id=(e("ARIZE_SPACE_ID") or e("ARIZE_SPACE_KEY") or "").strip() or None,
             arize_api_key=(e("ARIZE_API_KEY") or "").strip() or None,
-            arize_project=e("ARIZE_PROJECT", "graphrag-compliance"),
+            arize_project=(e("ARIZE_PROJECT_NAME") or e("ARIZE_PROJECT") or "graphrag-compliance").strip(),
             arize_endpoint=e("ARIZE_OTLP_ENDPOINT", "https://otlp.arize.com/v1/traces"),
         )
