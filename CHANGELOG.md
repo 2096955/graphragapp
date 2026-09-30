@@ -1,8 +1,56 @@
+# Version 1.3.0
+
+Reworked as a knowledge-repository piece: a field guide to graph databases for agent context,
+and a lab that pairs a knowledge graph with typed decision models.
+
+## README and pages
+
+- New README: the argument, where to start (read, run with no keys, adapt), the field guide in
+  brief with its charts, a table of built-in graph algorithms per engine, the findings, the
+  compliance example, the pages, and how to adapt the lab to another graph. Screenshots and
+  short recordings of each page are in `docs/images/`.
+- `BENCHMARK.md` holds the full results tables, the method and the compliance check.
+- The field guide is the standalone page, with no saved third-party assets; `web/field-guide_files/`
+  is gone. The small-world lab is served at `/small-world`. The three pages link to each other with
+  relative links, so they also work opened from the folder or on a static host.
+- Credit to Tivadar Danka's The Palindrome. Licence status stated: none chosen yet.
+- The Codespaces dev container also installs the test requirements.
+- `labs/text2cypher-grpo`: train a small model to write Cypher with the graph as the reward. The
+  CPU parts are tested; the GPU training has not been run.
+
+## Compliance example
+
+- Pattern identities are keyed hashes (HMAC-SHA256, key in `COMPLIANCE_HASH_KEY`) instead of
+  plain SHA-256, which anyone could check against a guessed address. They are described as
+  pseudonymised, not anonymous.
+- Whether a decision was right comes from 30 hand-labelled payloads (`app/compliance_labels.py`,
+  policy in LABELLING.md section 8), not from the rules that make the catalogue decision. Payloads
+  outside the set have no label and are not counted as right.
+- A "redact" decision with nothing the redactor can remove now blocks, and phone numbers are
+  redacted.
+- `POST /api/compliance/check` and `python -m scripts.compliance_check` score a backend on the
+  labelled payloads. Recorded for the catalogue rules, both Laya checkpoints and AnyJev; the page
+  shows all four.
+- The Arize export sends a valid OTLP span (trace and span ids, start and end times) and reports
+  correctness only for labelled payloads. Account details are gone from the code and docs.
+
+## Small-world example
+
+- The claim is now "hop count does not bound context", with the token arithmetic stated: 60
+  tokens a node, a 32,000-token budget. The page no longer says three hops would not fit: at 60
+  tokens a node they do, with almost nothing to spare. The compliance graph is described as what
+  it is, a star around each pattern, not a small-world graph.
+
+## Housekeeping
+
+- Tests rewritten for the above; the README tests check content, not old wording. Added tests for
+  the GRPO lab's graph, split and reward, and a check that no account details or `.env` files are
+  tracked.
+
 # Version 1.2.0
 
-Reviewed the 1.1.0 patch, kept most of it, fixed what it got wrong, ran the benchmark again, and
-had the write-up checked against the data by a separate reviewer, which led to the statistics
-changes below.
+Corrections to 1.1.0, a fresh benchmark run, and statistics that hold on requests the thresholds
+were not chosen on.
 
 ## Kept from 1.1.0
 
@@ -85,15 +133,15 @@ changes below.
   seed 1): path 2.06, clustering 0.464, 75% of nodes in two hops. Retrieval is
   bounded by tokens or rank, not hop count. Watts & Strogatz (1998) and the
   MathWorks small-world demo are cited.
-- Arize is the eval and cost view. Space name AzureDev. Send traces with
+- Arize is the eval and cost view. Send traces with
   `register(space_id, api_key, project_name=...)` or OTLP. Live export runs only
-  when `ARIZE_SPACE_ID`, `ARIZE_API_KEY` and `ARIZE_PROJECT_NAME` are set. A key
-  named graph-demo must not be committed. Without credentials the example still
-  runs and shows the sample fixture. Catalogue mode costs $0.
+  when `ARIZE_SPACE_ID`, `ARIZE_API_KEY` and `ARIZE_PROJECT_NAME` are set. Keys stay
+  on the server. Without credentials the example still runs and shows the sample
+  fixture. Catalogue mode costs $0.
 - TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`. No secrets or `.env` files
   are in the repository.
 
-## Application Corrections
+## Application corrections
 
 - Added a working Catalogue rules backend that needs no model weights or API key.
 - Restricted group expansion to explicitly requested groups; model outputs cannot silently
@@ -117,23 +165,9 @@ changes below.
 
 ## Verification
 
-- 72 automated tests passed, independently rerun by GPT-6 Sol.
+- 72 automated tests passed.
 - Chromium checks passed at 1280x900 and 390x844: live constrained answers, clarification,
   review, new task scopes and the typed-question playground. No JavaScript errors or
   horizontal overflow were observed.
 - Fresh Laya/AnyJev inference, the paid Jev API, GPU execution and Docker builds were not run.
   Docker is not installed in the validation environment.
-
-## Start Without Model Weights
-
-From this directory, with Python 3.11 or newer:
-
-```bash
-python -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --host 127.0.0.1 --port 8000
-```
-
-Open http://localhost:8000/ and choose Catalogue rules. Try `Annual CO2 for Australia in 2024`.
-See README.md for optional models, authentication and calibration setup.

@@ -1,7 +1,8 @@
 """HTTP API. Run with:  uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-Serves the Decisions Lab at / and the graph-database field guide at /field-guide.
-The page and API share an origin. /api/compare is decision backends, not databases.
+Serves the Decisions Lab at /, the graph-database field guide at /field-guide and the
+small-world lab at /small-world. The pages and the API share an origin. /api/compare compares
+decision backends, not databases.
 """
 from __future__ import annotations
 
@@ -17,12 +18,12 @@ from typing import Any
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import domain as d
 from . import evaluation as ev
 from .arize_eval import ArizeEval
+from .compliance import check as compliance_check
 from .compliance import filter_payload, run_example
 from .compliance_graph import ComplianceGraph
 from .watts_strogatz import example as watts_example
@@ -33,7 +34,7 @@ from .graph import Graph
 from .pipeline import PIPELINE_VERSION, Pipeline
 from .testset import TASKS, build
 
-VERSION = PIPELINE_VERSION
+VERSION = "1.3.0"          # the application; PIPELINE_VERSION changes only when decisions change
 ROOT = Path(__file__).resolve().parents[1]
 
 settings = Settings.from_env()
@@ -150,7 +151,7 @@ class ComplianceExampleIn(BaseModel):
 # ------------------------------------------------------------------------------ routes
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
+    return {"ok": True, "version": VERSION, "pipeline_version": PIPELINE_VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
             "auth_required": settings.api_token is not None, "eval_enabled": settings.eval_enabled,
             "llm_explainer": explainer.llm_available, "items": len(ITEMS),
             "compliance": compliance_graph.counts(),
@@ -214,6 +215,16 @@ def compliance_example(body: ComplianceExampleIn):
     if not ok:
         raise HTTPException(503, why)
     return run_example(b, compliance_graph, arize)
+
+
+@app.post("/api/compliance/check", dependencies=[Depends(guard)])
+def compliance_labelled_check(body: ComplianceExampleIn):
+    """Score one backend on the 30 hand-labelled payloads. Writes nothing to the graph."""
+    b = backend_or_404(body.backend)
+    ok, why = b.available()
+    if not ok:
+        raise HTTPException(503, why)
+    return compliance_check(b)
 
 
 @app.get("/api/compliance/graph")
@@ -345,6 +356,7 @@ def field_guide():
     return _page("field-guide.html", "Field guide is missing.")
 
 
-_files = ROOT / "web" / "field-guide_files"
-if _files.is_dir():
-    app.mount("/field-guide_files", StaticFiles(directory=_files), name="field-guide-files")
+@app.get("/small-world", include_in_schema=False)
+@app.get("/small-world.html", include_in_schema=False)
+def small_world():
+    return _page("small-world.html", "Small-world lab is missing.")

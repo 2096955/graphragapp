@@ -4,9 +4,9 @@ The catalogue graph in graph.py stays read-only. This store is the memory of the
 compliance agent: patterns, attempts, and decisions. A repeated injection updates
 the pattern node instead of disappearing as a one-off score.
 
-Two hops from a pattern reach its attempts and decisions. The Watts–Strogatz
-figures are a synthetic N=500 visual, not a measurement of this catalogue graph.
-Token-bounded retrieval is the design claim, not a measured p95.
+Two hops from a pattern reach its attempts, their decisions and the agent. That neighbourhood
+stays small because the schema is a star around each pattern; in a graph with small-world
+structure two hops can reach most of the graph (see watts_strogatz.py).
 """
 from __future__ import annotations
 
@@ -170,14 +170,14 @@ class ComplianceGraph:
                     edges.append({"source": src, "target": dst, "type": typ})
         hops = two_hop(nodes, edges, focus) if focus else []
         return {"nodes": nodes, "edges": edges, "hops": hops, "focus": focus,
-                "note": ("Two hops from the matched pattern reach prior attempts, the filter "
-                         "decision, and the downstream agent. The Watts–Strogatz figures are a "
-                         "synthetic N=500 visual, not a measurement of this catalogue graph. "
-                         "Token-bounded retrieval is the design claim, not a measured p95.")}
+                "note": ("Two hops from the matched pattern reach its earlier attempts, their "
+                         "decisions and both agents. This store is a star around each pattern, so "
+                         "two hops stay small here. In a small-world graph they would not: see the "
+                         "Watts-Strogatz example above.")}
 
 
 def two_hop(nodes: list[dict], edges: list[dict], start: str, hops: int = 2) -> list[dict]:
-    """Undirected expansion. Two hops is enough context on this small-world filter graph."""
+    """Undirected expansion from one node, with the hop at which each node is first reached."""
     by_id = {n["id"]: n for n in nodes}
     adj: dict[str, list[tuple[str, str]]] = {}
     for e in edges:

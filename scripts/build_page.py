@@ -79,9 +79,19 @@ def main() -> None:
         compliance = run_example(CatalogueBackend(), store, ArizeEval(None, None))
     finally:
         store.close()
+    check_path = ROOT / "results" / "compliance-check.json"
+    compliance_check = None
+    if check_path.exists():
+        saved = json.loads(check_path.read_text())
+        compliance_check = [
+            {"backend": k, "label": v.get("label") or k, "right": v["right"], "n": v["n"],
+             "leaked": v["released_when_it_should_not"], "finished": v.get("finished"),
+             "caught": {a: v["per_action"][a]["caught"] for a in ("release", "redact", "block")},
+             "labelled": {a: v["per_action"][a]["labelled"] for a in ("release", "redact", "block")}}
+            for k, v in saved.get("backends", {}).items()]
     payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
                "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance,
-               "watts_strogatz": watts_example()}
+               "compliance_check": compliance_check, "watts_strogatz": watts_example()}
     blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "web" / "template.html").read_text()
     marker = "/*__DATA__*/"

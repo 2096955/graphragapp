@@ -85,3 +85,27 @@ and year", adds the only heavy-metals yes. Most answers are no, so always saying
 For "Official sources only", a single official source scores 3 (fully matches) and a single
 research or commercial source scores 0 (does not match). Eight items can only catch gross
 failures; they are not a preference benchmark.
+
+## 8. Compliance filter (30 payloads)
+
+Separate from the discovery test set above. The payloads and labels are in
+`app/compliance_labels.py`; every name, address and number is invented, and e-mail addresses
+use the reserved `.test` domain. The labels were written from this policy, not from the rules
+backend, and the rules backend is scored against them like any other backend
+(`python -m scripts.compliance_check`, or `POST /api/compliance/check`).
+
+- **release** (9): nothing personal and nothing restricted. An organisation's role address
+  (helpdesk@, info@) is not personal information. Asking how the filter works is not an attempt
+  to get round it.
+- **redact** (11): personal details that can be removed while the rest of the request still
+  makes sense: a personal e-mail address, including one written out in words; a phone number;
+  a government or health identifier (SSN, tax file number, Medicare number); a home address.
+- **block** (10): an attempt to get round the filter, in any words ("ignore previous
+  instructions", "skip the privacy check", "developer mode"); privileged or restricted material
+  (attorney-client, internal only); personal data in bulk (a customer list, a staff directory).
+
+When a payload fits two rules, block wins over redact, and redact over release.
+
+Thirty payloads is a check, not a benchmark. It is there to show where exact rules stop working
+(paraphrase, obfuscation, bulk data) and to keep "whether the filter was right" honest: payloads
+outside this set have no label, and the eval view does not count them as right or wrong.

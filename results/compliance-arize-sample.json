@@ -5,7 +5,8 @@
     "decisions": 2,
     "filter_correct": 1.0,
     "cost_usd": 0.0,
-    "note": "Sample fixture. Catalogue mode costs $0. TypeSafe Jev, when TYPESAFE_API_KEY is set, reports cost from the hosted call. Set ARIZE_SPACE_ID, ARIZE_API_KEY and ARIZE_PROJECT_NAME to export live traces to space AzureDev. A key named graph-demo must not be committed. Traces store a pattern identity, the decision, and the attempt count — not raw PII."
+    "note": "Sample fixture. Catalogue mode costs $0; TypeSafe Jev, when TYPESAFE_API_KEY is set, reports the cost of the hosted call. Set ARIZE_SPACE_ID, ARIZE_API_KEY and ARIZE_PROJECT_NAME to send traces to Arize. Traces hold a keyed pattern identity, the decision and the attempt count, not the payload. Correct means agreeing with a hand-written label.",
+    "labelled": 2
   },
   "traces": [
     {
@@ -18,7 +19,7 @@
       "cost_usd": 0.0,
       "backend": "catalogue",
       "model": "catalogue-rules-v1",
-      "pattern_id": "pii.email:6e1b194a2c73aad97b66225a",
+      "pattern_id": "pii.email:(keyed hash)",
       "attempts": 1,
       "repeated": false
     },
@@ -32,7 +33,7 @@
       "cost_usd": 0.0,
       "backend": "catalogue",
       "model": "catalogue-rules-v1",
-      "pattern_id": "pii.email:6e1b194a2c73aad97b66225a",
+      "pattern_id": "pii.email:(keyed hash)",
       "attempts": 2,
       "repeated": true
     }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0092)https://df6c5aef-cddd-4e1d-be6d-79af38deee7f.frame.claudeusercontent.com/_f/1790283104-c4ec/ -->
-<html lang="en-GB" data-theme="light" style="color-scheme: light;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Graphs for agent context: a field guide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="field-guide_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#edf1f4;--paper:#ffffff;--ink:#16202b;--muted:#5a6878;--line:#cfd8e1;--code:#f4f6f9;
@@ -85,27 +85,28 @@ pre{max-width:100%}
 footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-.demo-bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
-.demo-bar-in{max-width:980px;margin:0 auto;padding:10px 18px 12px;display:grid;gap:6px}
-.demo-bar nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.92rem}
-.demo-bar a{color:var(--native);text-decoration:none;padding:4px 8px;border-radius:7px}
-.demo-bar a:hover{background:var(--code)}
-.demo-bar .here{padding:4px 8px;border-radius:7px;background:var(--ink);color:var(--paper);font-weight:600}
-.demo-bar p{margin:0;max-width:none;font-size:.86rem;color:var(--muted)}
-.demo-bar code{font-size:.8rem}
+/* Page links shared by the three pages in this repo */
+.pages{background:var(--paper);border-bottom:1px solid var(--line)}
+.pages-in{max-width:1000px;margin:0 auto;padding:10px 16px 12px;display:grid;gap:6px}
+.pages nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.92rem}
+.pages a{color:var(--native);text-decoration:none;padding:4px 8px;border-radius:7px}
+.pages a:hover{background:var(--code)}
+.pages .here{padding:4px 8px;border-radius:7px;background:var(--ink);color:var(--paper);font-weight:600}
+.pages p{margin:0;max-width:none;font-size:.86rem;color:var(--muted)}
+.pages code{font-size:.8rem}
 </style>
 </head>
 <body>
-<header class="demo-bar">
-  <div class="demo-bar-in">
-    <nav aria-label="Demo pages">
-      <a href="/">Decisions Lab</a>
-      <span class="here">Field guide</span>
+<header class="pages">
+  <div class="pages-in">
+    <nav aria-label="Pages in this lab">
+      <a href="index.html">Decisions Lab</a>
+      <span class="here" aria-current="page">Field guide</span>
+      <a href="small-world.html">Small-world graphs</a>
     </nav>
-    <p>This page compares <strong>graph databases</strong> (Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB Gremlin, Kuzu). <strong>Jev is the typed decision layer</strong> in the Decisions Lab, not a database. The lab&rsquo;s <code>/api/compare</code> compares decision backends, not these engines.</p>
+    <p>This page compares <strong>graph databases</strong>. <strong>Jev is the typed decision layer</strong> in the Decisions Lab, not a database. The lab&rsquo;s <code>/api/compare</code> compares decision backends, not these engines.</p>
   </div>
 </header>
-
 <main>
 
 <section class="hero">
@@ -115,11 +116,11 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
     <p class="note">Covers Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB and Kuzu. Prices and status as at 25 September 2026.</p>
   </div>
   <div class="panel graphbox">
-    <svg id="heroGraph" viewBox="0 0 360 350" role="img" aria-label="Example knowledge graph. Select a node to highlight its neighbourhood."><g class="edge"><line x1="55" y1="55" x2="180" y2="35"></line><text x="117.5" y="42" text-anchor="middle">leads</text></g><g class="edge"><line x1="55" y1="55" x2="180" y2="140"></line><text x="117.5" y="94.5" text-anchor="middle">advises</text></g><g class="edge"><line x1="305" y1="60" x2="180" y2="35"></line><text x="242.5" y="44.5" text-anchor="middle">owns</text></g><g class="edge"><line x1="305" y1="60" x2="180" y2="140"></line><text x="242.5" y="97" text-anchor="middle">owns</text></g><g class="edge"><line x1="180" y1="35" x2="305" y2="165"></line><text x="242.5" y="97" text-anchor="middle">part_of</text></g><g class="edge"><line x1="180" y1="140" x2="305" y2="165"></line><text x="242.5" y="149.5" text-anchor="middle">part_of</text></g><g class="edge dim"><line x1="300" y1="265" x2="305" y2="165"></line><text x="302.5" y="212" text-anchor="middle">covers</text></g><g class="edge dim"><line x1="305" y1="60" x2="300" y2="265"></line><text x="302.5" y="159.5" text-anchor="middle">authored</text></g><g class="edge"><line x1="55" y1="165" x2="180" y2="140"></line><text x="117.5" y="149.5" text-anchor="middle">supplies</text></g><g class="edge dim"><line x1="45" y1="255" x2="55" y2="165"></line><text x="50" y="207" text-anchor="middle">governs</text></g><g class="edge"><line x1="180" y1="140" x2="180" y2="245"></line><text x="180" y="189.5" text-anchor="middle">depends_on</text></g><g class="edge dim"><line x1="100" y1="325" x2="180" y2="245"></line><text x="140" y="282" text-anchor="middle">affected</text></g><g class="edge dim"><line x1="180" y1="245" x2="220" y2="325"></line><text x="200" y="282" text-anchor="middle">serves</text></g><g class="edge dim"><line x1="180" y1="245" x2="320" y2="325"></line><text x="250" y="282" text-anchor="middle">serves</text></g><g class="node" tabindex="0" role="button" aria-label="John Doe"><circle cx="55" cy="55" r="13" fill="var(--native)"></circle><text x="55" y="77" text-anchor="middle">John Doe</text></g><g class="node" tabindex="0" role="button" aria-label="Solar Farm Alpha"><circle cx="180" cy="35" r="10" fill="var(--over)"></circle><text x="180" y="38" text-anchor="middle" class="hopbadge">1</text><text x="180" y="57" text-anchor="middle">Solar Farm Alpha</text></g><g class="node" tabindex="0" role="button" aria-label="ACME"><circle cx="305" cy="60" r="10" fill="var(--doc)"></circle><text x="305" y="63" text-anchor="middle" class="hopbadge">2</text><text x="305" y="82" text-anchor="middle">ACME</text></g><g class="node" tabindex="0" role="button" aria-label="Wind Project Beta"><circle cx="180" cy="140" r="10" fill="var(--over)"></circle><text x="180" y="143" text-anchor="middle" class="hopbadge">1</text><text x="180" y="162" text-anchor="middle">Wind Project Beta</text></g><g class="node" tabindex="0" role="button" aria-label="Renewable energy"><circle cx="305" cy="165" r="10" fill="var(--embed)"></circle><text x="305" y="168" text-anchor="middle" class="hopbadge">2</text><text x="305" y="187" text-anchor="middle">Renewable energy</text></g><g class="node dim" tabindex="0" role="button" aria-label="2025 strategic plan"><circle cx="300" cy="265" r="10" fill="var(--muted)"></circle><text x="300" y="287" text-anchor="middle">2025 strategic plan</text></g><g class="node" tabindex="0" role="button" aria-label="Supplier X"><circle cx="55" cy="165" r="10" fill="var(--doc)"></circle><text x="55" y="168" text-anchor="middle" class="hopbadge">2</text><text x="55" y="187" text-anchor="middle">Supplier X</text></g><g class="node dim" tabindex="0" role="button" aria-label="Clause 7.2"><circle cx="45" cy="255" r="10" fill="var(--muted)"></circle><text x="45" y="277" text-anchor="middle">Clause 7.2</text></g><g class="node" tabindex="0" role="button" aria-label="Grid API"><circle cx="180" cy="245" r="10" fill="var(--over)"></circle><text x="180" y="248" text-anchor="middle" class="hopbadge">2</text><text x="180" y="267" text-anchor="middle">Grid API</text></g><g class="node dim" tabindex="0" role="button" aria-label="Outage 14"><circle cx="100" cy="325" r="10" fill="var(--warn)"></circle><text x="100" y="347" text-anchor="middle">Outage 14</text></g><g class="node dim" tabindex="0" role="button" aria-label="Customer Y"><circle cx="220" cy="325" r="10" fill="var(--doc)"></circle><text x="220" y="347" text-anchor="middle">Customer Y</text></g><g class="node dim" tabindex="0" role="button" aria-label="Customer Z"><circle cx="320" cy="325" r="10" fill="var(--doc)"></circle><text x="320" y="347" text-anchor="middle">Customer Z</text></g></svg>
+    <svg id="heroGraph" viewBox="0 0 360 350" role="img" aria-label="Example knowledge graph. Select a node to highlight its neighbourhood."></svg>
     <div class="controls">
       <span class="note">Hops:</span>
       <button data-hop="1">1</button><button data-hop="2" aria-pressed="true">2</button><button data-hop="3">3</button>
-      <span class="note" id="heroStatus">Selected: John Doe. 6 connected facts within 2 hops.</span>
+      <span class="note" id="heroStatus">Selected: John Doe</span>
     </div>
   </div>
 </section>
@@ -136,15 +137,15 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
   <span style="--c:var(--doc)">Document store with graph features</span>
   <span style="--c:var(--embed)">Embedded</span>
 </div>
-<div class="panel chart" id="gradeChart"><div class="bars"><div class="blab">Neo4j</div><div class="track"><div class="bar" style="--c:var(--native);width:66.60000000000001%"></div><span class="val">A-</span></div><div class="blab">FalkorDB</div><div class="track"><div class="bar" style="--c:var(--native);width:59.4%"></div><span class="val">B+</span></div><div class="blab">Neptune</div><div class="track"><div class="bar" style="--c:var(--native);width:54%"></div><span class="val">B</span></div><div class="blab">Spanner Graph</div><div class="track"><div class="bar" style="--c:var(--over);width:54%"></div><span class="val">B</span></div><div class="blab">PuppyGraph</div><div class="track"><div class="bar" style="--c:var(--over);width:54%"></div><span class="val">B (prov.)</span></div><div class="blab">Fabric graph</div><div class="track"><div class="bar" style="--c:var(--over);width:41.4%"></div><span class="val">C+</span></div><div class="blab">MongoDB Atlas</div><div class="track"><div class="bar" style="--c:var(--doc);width:36%"></div><span class="val">C</span></div><div class="blab">Cosmos DB Gremlin</div><div class="track"><div class="bar" style="--c:var(--doc);width:18%"></div><span class="val">D</span></div></div><p class="note" style="margin:10px 0 0">Scale runs from F to A.</p></div>
+<div class="panel chart" id="gradeChart"></div>
 
 <h2>Scores by criterion</h2>
 <p>Scores are out of 5 and are judgement, not measurement. PuppyGraph's depth score rests on vendor figures that have not been independently verified.</p>
-<div class="panel scroll"><table class="heat" id="heat"><thead><tr><th>Engine</th><th>Depth</th><th>Ops</th><th>Cost</th><th>Viability</th><th>Grade</th></tr></thead><tbody><tr><td><span class="pill" style="--c:var(--native)">Neo4j</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>A- shared</td></tr><tr><td><span class="pill" style="--c:var(--native)">FalkorDB</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td>B+ shared, B embedded</td></tr><tr><td><span class="pill" style="--c:var(--native)">Neptune</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>B shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">Spanner Graph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>B shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">PuppyGraph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td>B (prov.) shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">Fabric graph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td>C+ shared</td></tr><tr><td><span class="pill" style="--c:var(--doc)">MongoDB Atlas</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>C shared</td></tr><tr><td><span class="pill" style="--c:var(--doc)">Cosmos DB Gremlin</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td>D shared</td></tr><tr><td><span class="pill" style="--c:var(--embed)">Kuzu forks</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 36%, var(--paper));color:var(--ink)">1</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td>B- embedded</td></tr><tr><td><span class="pill" style="--c:var(--embed)">Kuzu 0.11.3</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 36%, var(--paper));color:var(--ink)">1</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 20%, var(--paper));color:var(--ink)">0</td><td>C embedded</td></tr></tbody></table></div>
+<div class="panel scroll"><table class="heat" id="heat"></table></div>
 
 <h2>Entry production cost</h2>
 <p>Approximate monthly list prices in USD. The paler bar shows a range. Duplication and sync costs for native stores are not included, and are often the larger number.</p>
-<div class="panel chart" id="costChart"><div class="bars"><div class="blab">Neo4j</div><div class="track"><div class="bar" style="--c:var(--native);width:65.38000000000001%"></div><span class="val">$4,670</span></div><div class="blab">Fabric graph</div><div class="track"><div class="bar" style="--c:var(--over);width:18.2%"></div><span class="val">$1,300</span></div><div class="blab">Spanner Graph</div><div class="track"><div class="bar" style="--c:var(--over);width:1.68%"></div><div class="rng" style="--c:var(--over);width:15.12%"></div><span class="val">$120 to $1,200</span></div><div class="blab">Neptune</div><div class="track"><div class="bar" style="--c:var(--native);width:6.4399999999999995%"></div><span class="val">$460</span></div><div class="blab">MongoDB Atlas</div><div class="track"><div class="bar" style="--c:var(--doc);width:5.516%"></div><span class="val">$394</span></div><div class="blab">FalkorDB</div><div class="track"><div class="bar" style="--c:var(--native);width:4.9%"></div><span class="val">$350</span></div><div class="blab">Kuzu forks</div><div class="track"><span class="val soft">$0 licence, own compute</span></div><div class="blab">Kuzu 0.11.3</div><div class="track"><span class="val soft">$0 licence, own compute</span></div><div class="blab">PuppyGraph</div><div class="track"><span class="val soft">Priced on server CPU and memory; quote only</span></div><div class="blab">Cosmos DB Gremlin</div><div class="track"><span class="val soft">Throughput-based; depends on load</span></div></div><p class="note" style="margin:10px 0 0">USD per month. Bars scaled to $5,000.</p></div>
+<div class="panel chart" id="costChart"></div>
 
 <h2>Have a go</h2>
 <p>Each lab runs in your browser on a small example graph. Change the settings, or open the code, edit it and run your version.</p>
@@ -153,26 +154,26 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
   <h3>Lab 1: keyword retrieval against graph retrieval</h3>
   <p class="note">Keyword search returns nodes whose text shares words with the question. Graph retrieval starts at the entities named in the question and follows relationships.</p>
   <div class="params">
-    <label style="flex:1 1 100%">Question <input id="aQ" style="width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)" value="What is John Doe&#39;s role in ACME&#39;s renewable energy projects?"></label>
+    <label style="flex:1 1 100%">Question <input id="aQ" style="width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)" value="What is John Doe's role in ACME's renewable energy projects?"></label>
     <label>Hops <input id="aK" type="number" min="1" max="4" value="2" style="width:64px"></label>
     <button class="primary" data-run="A">Run</button>
   </div>
   <details><summary>View and edit the code</summary><textarea id="aCode" spellcheck="false"></textarea>
     <div class="controls"><button data-runedit="A">Run edited code</button><button data-reset="A">Reset code</button></div></details>
-  <div class="out" id="aOut"><strong>Keyword retrieval</strong> found 4 fragments:<span class="path">John Doe (2 shared words): John Doe is a programme director based in Sydney.</span><span class="path">Renewable energy (2 shared words): Renewable energy is a strategic theme.</span><span class="path">2025 strategic plan (2 shared words): The 2025 strategic plan sets targets for renewable energy growth.</span><span class="path">ACME (1 shared words): ACME is an infrastructure company.</span><p class="note" style="margin-top:8px">None of these says how John Doe relates to ACME. The link lives in the relationships, not the text.</p><strong>Graph retrieval</strong> from John Doe, ACME, Renewable energy found 15 paths:<span class="path">John Doe -LEADS-&gt; Solar Farm Alpha</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta</span><span class="path">ACME -OWNS-&gt; Solar Farm Alpha</span><span class="path">ACME -OWNS-&gt; Wind Project Beta</span><span class="path">ACME -AUTHORED-&gt; 2025 strategic plan</span><span class="path">Renewable energy &lt;-PART_OF- Solar Farm Alpha</span><span class="path">Renewable energy &lt;-PART_OF- Wind Project Beta</span><span class="path">Renewable energy &lt;-COVERS- 2025 strategic plan</span><span class="path">John Doe -LEADS-&gt; Solar Farm Alpha &lt;-OWNS- ACME</span><span class="path">John Doe -LEADS-&gt; Solar Farm Alpha -PART_OF-&gt; Renewable energy</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta &lt;-OWNS- ACME</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta -PART_OF-&gt; Renewable energy</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta &lt;-SUPPLIES- Supplier X</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta -DEPENDS_ON-&gt; Grid API</span><span class="path">ACME -AUTHORED-&gt; 2025 strategic plan -COVERS-&gt; Renewable energy</span></div>
+  <div class="out" id="aOut"></div>
 </div>
 
 <div class="panel lab" id="labB">
   <h3>Lab 2: fit the best context into a token budget</h3>
   <p class="note">Personalised PageRank ranks nodes by how central they are to a starting entity, then the highest-ranked text is packed into the budget. Jev's real budget is 32,000 tokens; this example graph is tiny, so the budget is scaled down.</p>
   <div class="params">
-    <label>Start at <select id="bSeed"><option value="john">John Doe</option><option value="solar">Solar Farm Alpha</option><option value="acme">ACME</option><option value="wind" selected="">Wind Project Beta</option><option value="renew">Renewable energy</option><option value="plan">2025 strategic plan</option><option value="supplier">Supplier X</option><option value="clause">Clause 7.2</option><option value="api">Grid API</option><option value="outage">Outage 14</option><option value="custy">Customer Y</option><option value="custz">Customer Z</option></select></label>
+    <label>Start at <select id="bSeed"></select></label>
     <label>Budget <input id="bBudget" type="range" min="20" max="200" step="5" value="70"> <strong id="bBudgetV">70</strong> tokens</label>
     <button class="primary" data-run="B">Run</button>
   </div>
   <details><summary>View and edit the code</summary><textarea id="bCode" spellcheck="false"></textarea>
     <div class="controls"><button data-runedit="B">Run edited code</button><button data-reset="B">Reset code</button></div></details>
-  <div class="out" id="bOut"><p><strong>69</strong> of 70 tokens used.</p><div class="scroll"><table><tbody><tr><th>Rank</th><th>Node</th><th>Score</th><th>Tokens</th><th>In context</th></tr><tr><td>1</td><td>Wind Project Beta</td><td>0.294</td><td>12</td><td>Yes</td></tr><tr><td>2</td><td>Grid API</td><td>0.109</td><td>8</td><td>Yes</td></tr><tr><td>3</td><td>ACME</td><td>0.098</td><td>7</td><td>Yes</td></tr><tr><td>4</td><td>Renewable energy</td><td>0.098</td><td>8</td><td>Yes</td></tr><tr><td>5</td><td>Solar Farm Alpha</td><td>0.088</td><td>15</td><td>Yes</td></tr><tr><td>6</td><td>Supplier X</td><td>0.078</td><td>7</td><td>Yes</td></tr><tr><td>7</td><td>John Doe</td><td>0.075</td><td>12</td><td>Yes</td></tr><tr><td>8</td><td>2025 strategic plan</td><td>0.056</td><td>13</td><td>No</td></tr><tr><td>9</td><td>Clause 7.2</td><td>0.033</td><td>11</td><td>No</td></tr><tr><td>10</td><td>Outage 14</td><td>0.023</td><td>13</td><td>No</td></tr><tr><td>11</td><td>Customer Y</td><td>0.023</td><td>7</td><td>No</td></tr><tr><td>12</td><td>Customer Z</td><td>0.023</td><td>7</td><td>No</td></tr></tbody></table></div></div>
+  <div class="out" id="bOut"></div>
 </div>
 
 <div class="panel lab" id="labC">
@@ -187,24 +188,24 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
   </div>
   <details><summary>View and edit the code</summary><textarea id="cCode" spellcheck="false"></textarea>
     <div class="controls"><button data-runedit="C">Run edited code</button><button data-reset="C">Reset code</button></div></details>
-  <div class="out" id="cOut"><div class="scroll"><table><tbody><tr><th>Action</th><th>Cost of error</th><th>Decided automatically</th><th>Error rate when automatic</th><th>Cost</th></tr><tr><td>Approve payment</td><td>50</td><td>7%</td><td>1.4%</td><td>999</td></tr><tr><td>Route ticket</td><td>2</td><td>59%</td><td>13.1%</td><td>567</td></tr><tr><td>Flag for review</td><td>5</td><td>41%</td><td>10.8%</td><td>791</td></tr></tbody></table></div><p style="margin-top:8px">Total cost with thresholds: <strong>2,357</strong>. Escalate everything: 3,000. Decide everything automatically: 14,395.</p></div>
+  <div class="out" id="cOut"></div>
 </div>
 
 <h2>One question, five dialects</h2>
 <p>The same question in each query language: which projects does John Doe lead, and who owns them?</p>
-<div class="tabs" id="snipTabs" role="tablist"><button role="tab" aria-pressed="true" aria-selected="true">Cypher</button><button role="tab" aria-pressed="false" aria-selected="false">Gremlin</button><button role="tab" aria-pressed="false" aria-selected="false">GQL</button><button role="tab" aria-pressed="false" aria-selected="false">MongoDB</button><button role="tab" aria-pressed="false" aria-selected="false">Kuzu (Python)</button></div>
-<div class="snip"><pre><code id="snipCode">MATCH (p:Person {name: 'John Doe'})-[:LEADS]-&gt;(proj:Project)&lt;-[:OWNS]-(c:Company)
-RETURN p.name, proj.name, c.name;</code></pre><button class="copy" id="snipCopy">Copy</button></div>
-<p class="note" id="snipNote">Neo4j, FalkorDB, Kuzu, Neptune (openCypher), PuppyGraph</p>
+<div class="tabs" id="snipTabs" role="tablist"></div>
+<div class="snip"><pre><code id="snipCode"></code></pre><button class="copy" id="snipCopy">Copy</button></div>
+<p class="note" id="snipNote"></p>
 
 <h2>Run it on your laptop</h2>
 <p>Local options for the engines that have them. Neptune, Spanner Graph and Fabric graph are cloud-only.</p>
-<div class="runlist" id="runList"><div><span class="pill" style="--c:var(--native)">Neo4j</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/change-me neo4j:5</code></pre><button class="copy" data-copyrun="0">Copy</button></div><p class="note" style="margin-top:4px">Browser UI on localhost:7474.</p></div><div><span class="pill" style="--c:var(--native)">FalkorDB</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest</code></pre><button class="copy" data-copyrun="1">Copy</button></div><p class="note" style="margin-top:4px">Browser UI on localhost:3000.</p></div><div><span class="pill" style="--c:var(--doc)">MongoDB</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 27017:27017 mongo:8</code></pre><button class="copy" data-copyrun="2">Copy</button></div><p class="note" style="margin-top:4px">Local server; Atlas Vector Search needs Atlas or the Atlas CLI local deployment.</p></div><div><span class="pill" style="--c:var(--embed)">Kuzu</span><div class="snip" style="margin-top:6px"><pre><code>pip install kuzu==0.11.3</code></pre><button class="copy" data-copyrun="3">Copy</button></div><p class="note" style="margin-top:4px">Final upstream release. Use a community fork for anything you will keep.</p></div><div><span class="pill" style="--c:var(--over)">PuppyGraph</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 8081:8081 -p 8182:8182 -p 7687:7687 -d --name puppy --rm puppygraph/puppygraph:stable</code></pre><button class="copy" data-copyrun="4">Copy</button></div><p class="note" style="margin-top:4px">Free Developer edition, single node. Check docs.puppygraph.com for the current image tag.</p></div></div>
+<div class="runlist" id="runList"></div>
 
 <footer>
   <h3>Sources and caveats</h3>
   <p class="note">Prices are vendor list prices checked on 25 September 2026 and change often; confirm with each vendor's calculator before quoting to a client. Performance claims for PuppyGraph, FalkorDB and Jev are vendor-reported. Kuzu was archived in October 2025; the forks named here are community-maintained. Grades are the author's judgement against the stated weights.</p>
   <p class="note">Vendor pages: <a href="https://neo4j.com/pricing/">Neo4j</a>, <a href="https://www.falkordb.com/plans/">FalkorDB</a>, <a href="https://aws.amazon.com/neptune/pricing/">Neptune</a>, <a href="https://cloud.google.com/spanner/pricing">Spanner</a>, <a href="https://www.puppygraph.com/pricing">PuppyGraph</a>, <a href="https://learn.microsoft.com/en-us/fabric/graph/overview">Fabric graph</a>, <a href="https://www.mongodb.com/pricing">MongoDB</a>, <a href="https://www.puppygraph.com/blog/what-is-kuzudb">Kuzu status</a>.</p>
+  <p class="note">The explain-it-by-building-it style follows Tivadar Danka&rsquo;s newsletter <a href="https://thepalindrome.org/">The Palindrome</a>. The animations, code and figures on this page are original.</p>
 </footer>
 </main>
 
@@ -471,6 +472,5 @@ const RUNS=[
 document.getElementById("runList").innerHTML=RUNS.map((r,i)=>`<div><span class="pill" style="--c:${CV(r.cat)}">${r.n}</span><div class="snip" style="margin-top:6px"><pre><code>${esc(r.c)}</code></pre><button class="copy" data-copyrun="${i}">Copy</button></div><p class="note" style="margin-top:4px">${r.note}</p></div>`).join("");
 document.querySelectorAll("[data-copyrun]").forEach(b=>b.onclick=()=>copyText(RUNS[+b.dataset.copyrun].c,b));
 </script>
-
-
-</body></html>
+</body>
+</html>

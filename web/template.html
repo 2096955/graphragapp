@@ -59,6 +59,12 @@ button,select,input,textarea{font:inherit;color:inherit}
 .nav a:hover{color:var(--ink);background:var(--wash)}
 .mode{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);border-radius:999px;
   padding:5px 12px;font-size:.88rem;cursor:pointer;white-space:nowrap}
+@media(max-width:760px){
+  .nav{order:3;flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-9px}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap;flex:none}
+  .mode{margin-left:auto}
+}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--hold);flex:none}
 .mode[data-live="1"] .dot{background:var(--good)}
 
@@ -298,7 +304,7 @@ footer p{max-width:90ch}
   <div class="top-in">
     <a class="brand" href="#intro">GraphRAG Decisions Lab</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#small-world">Small world</a><a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
+      <a href="#small-world">Small world</a><a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="field-guide.html">Field guide</a><a href="small-world.html">Small-world lab</a>
     </nav>
     <button class="mode" id="modeBtn" type="button" aria-expanded="false" aria-controls="connect"><span class="dot"></span><span id="modeText">Recorded results</span></button>
   </div>
@@ -316,14 +322,14 @@ footer p{max-width:90ch}
 <main>
 <section class="intro" id="intro">
   <h1>Typed decisions for graph-based dataset discovery</h1>
-  <p class="lede">Finding datasets in a catalogue takes many small calls: can this request be answered, which pollutants and breakdowns does it mean, how well does each dataset fit. This lab puts a decision model on each of those calls. <b>Kuzu</b> holds the two-layer graph. <b>Jev is the typed decision layer</b>, not the database &mdash; Catalogue rules, Laya, AnyJev and TypeSafe Jev answer the small fixed questions; the graph only proposes candidates. For a comparison of graph databases, open the <a href="/field-guide">field guide</a>. This lab&rsquo;s <code>/api/compare</code> compares decision backends, not those engines.</p>
+  <p class="lede">Agents make many small calls: can this request be answered, which pollutants and breakdowns does it mean, should this payload go through. This lab puts a small typed decision model on each of those calls and uses a knowledge graph for everything else. <b>Kuzu</b> holds the graph. A typed decision model answers the fixed questions: Laya or AnyJev (open source, measured here), TypeSafe Jev (commercial API, supported but not measured here) or plain catalogue rules. A person reviews what the model is unsure about. The lab measures when that confidence can be trusted. For which graph database to build this on, open the <a href="field-guide.html">field guide</a>.</p>
   <div class="facts" id="facts"></div>
 </section>
 
 <section id="small-world">
   <div class="sec-head">
-    <h2>Why two hops are enough</h2>
-    <p>The Watts–Strogatz figures are a synthetic N=500 visual, not a measurement of this catalogue graph. Token-bounded retrieval is the design claim, not a measured p95. The compliance filter only expands a short neighbourhood from the matched pattern for that reason.</p>
+    <h2>Why hop count does not bound context</h2>
+    <p>In a small-world graph a few shortcuts make almost everything close. In this 500-node example, two hops from one node reach three quarters of the graph. An agent that expands k hops from a match fills its context long before k is interesting, so retrieval has to stop on a token budget or a ranking. The typed decisions below are one way to rank: they keep the candidates that matter and drop the rest. These figures are a synthetic example, not a measurement of the catalogue graph. Try other settings in the <a href="small-world.html">small-world lab</a>.</p>
   </div>
   <div class="ws-grid">
     <div class="panel">
@@ -345,7 +351,7 @@ footer p{max-width:90ch}
 <section id="compliance">
   <div class="sec-head">
     <h2>Worked example: compliance filter</h2>
-    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. If the decision backend errors, the filter fails closed and blocks. <b>Kuzu</b> stores a hashed pattern identity, the decision, and the attempt count — not raw PII. The same pattern identity is a repeat; recording the same payload is idempotent. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. Space name on the signed-in account is <b>AzureDev</b>. Send traces with <code>register(space_id, api_key, project_name=...)</code> or OTLP (<code>https://otlp.arize.com/v1</code> gRPC, <code>https://otlp.arize.com/v1/traces</code> HTTP). A key named <code>graph-demo</code> must not be committed. There is no live Arize export unless the env vars are set. This example has no measured redaction precision and no retention policy.</p>
+    <p>A legal and compliance agent sits in front of a research agent. A typed decision releases, redacts or blocks each payload: TypeSafe Jev, Laya or AnyJev, or the catalogue rules with no keys. It fails closed: a backend error blocks, and so does a "redact" with nothing the redactor can remove. <b>Kuzu</b> keeps a keyed pattern identity, the decision and the attempt count, not the payload, so a second attempt with the same address shows up as graph state. The identities are keyed hashes: pseudonymised, not anonymous. <b>Arize</b>, when configured, receives each decision as a trace. Whether a decision was right comes from 30 hand-labelled payloads, never from the rules themselves. This is a lab walkthrough, not a production filter: there is no retention policy, and 30 labels are a check, not a benchmark.</p>
   </div>
   <div class="controls">
     <button class="btn" id="compExampleBtn" type="button">Run the example (no keys)</button>
@@ -358,6 +364,11 @@ footer p{max-width:90ch}
         <h3 style="margin:0 0 8px">Graph state</h3>
         <p class="small muted" id="compGraphNote" style="margin:0 0 10px"></p>
         <div class="comp-graph" id="compGraph"></div>
+      </div>
+      <div class="panel" style="margin-bottom:14px">
+        <h3 style="margin:0 0 8px">Labelled check: 30 payloads</h3>
+        <p class="small muted" style="margin:0 0 10px">Hand-written labels (LABELLING.md, section 8), scored the same way for every backend. Leaks are payloads released that should have been redacted or blocked.</p>
+        <div id="compCheck"></div>
       </div>
       <div class="panel">
         <h3 style="margin:0 0 8px">Arize eval and cost</h3>
@@ -506,7 +517,7 @@ footer p{max-width:90ch}
 </section>
 
 <footer>
-  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0; its typed-decisions checkpoint is fine-tuned on four other workflows: invoices, security incidents, customer service and agent traces), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API): the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Small-world figures: D. J. Watts and S. H. Strogatz, <i>Collective dynamics of small-world networks</i>, Nature 393, 440 to 442 (1998), <a href="https://doi.org/10.1038/30918">doi:10.1038/30918</a>; MathWorks, <a href="https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts-Strogatz Small World Graph Model</a>. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
+  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0; its typed-decisions checkpoint is fine-tuned on four other workflows: invoices, security incidents, customer service and agent traces), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API): the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Small-world figures: D. J. Watts and S. H. Strogatz, <i>Collective dynamics of small-world networks</i>, Nature 393, 440 to 442 (1998), <a href="https://doi.org/10.1038/30918">doi:10.1038/30918</a>; MathWorks, <a href="https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts-Strogatz Small World Graph Model</a>. Graph-database comparison: <a href="field-guide.html">Graphs for agent context: a field guide</a>.</p>
   <p><b style="color:var(--ink)">Read the numbers with care.</b> The catalogue and its eight sources are synthetic. Labels are hand-written against LABELLING.md in the repository and should be reviewed before anyone relies on them. The 584 decisions come from 62 requests, 8 sources and 82 name pairs, so the effective sample is far smaller than 584; the intervals reflect that. Preference fit has only eight items. The pipeline's catalogue checks were written with these requests in view, so pipeline runs on them flatter the checks; the benchmark itself scores the models alone. Recorded runs are on CPU; latency on a GPU will be far lower. Each model's own published benchmarks are self-reported.</p>
 </footer>
 </main>
@@ -654,9 +665,9 @@ function renderFacts() {
   const measured = MODELS.filter(hasResults).map(b => META[b].label);
   $("#facts").replaceChildren(
     h("span", {}, h("b", {}, DATA.items.length), " labelled decisions in ", Object.keys(DATA.tasks).length, " tasks"),
-    h("span", {}, h("b", {}, "Kuzu"), " is the graph. ", h("b", {}, "Jev"), " is the typed decision layer, not a database"),
+    h("span", {}, h("b", {}, "Kuzu"), " holds the graph. ", h("b", {}, "Typed decision models"), " (Laya, AnyJev, TypeSafe Jev) make the calls"),
     h("span", {}, "Worked example: a compliance agent filters PII before another agent sees it"),
-    h("span", {}, "Watts–Strogatz: two hops reach ", h("b", {}, "75%"), " of a 500-node ring; retrieval is bounded by tokens, not hop count"),
+    h("span", {}, "Small world: two hops reach ", h("b", {}, "75%"), " of a 500-node graph, so retrieval has to stop on tokens, not hops"),
     h("span", {}, h("b", {}, DATA.catalogue.pollutants.length), " pollutants, ", h("b", {}, DATA.catalogue.sources.length), " synthetic sources in the graph"),
     measured.length ? h("span", {}, "Measured: ", h("b", {}, measured.join(", ")), when ? ` on ${when}` : "") : null,
     r ? h("span", {}, r.hardware.replace(/^CPU only: /, "CPU only, ")) : null);
@@ -1343,9 +1354,10 @@ function renderWatts() {
     h("div", {}, h("b", {class: "num"}, String(ex.clustering)), h("span", {class: "small muted"}, "clustering")),
     h("div", {}, h("b", {class: "num"}, String(ex.rewires)), h("span", {class: "small muted"}, "rewires")),
     h("div", {}, h("b", {class: "num"}, "75%"), h("span", {class: "small muted"}, "nodes in 2 hops")));
-  $("#wsTokens").textContent = `Two hops were about ${(ex.two_hop_tokens || 0).toLocaleString("en-GB")} tokens, ${pct(ex.two_hop_budget_pct, 0)} of the budget. Retrieval should stop on tokens or rank, not on hop count.`;
+  const h3 = (ex.hops || []).find(x => x.hop === 3);
+  $("#wsTokens").textContent = `At about ${ex.tokens_per_node} tokens per node, two hops are ${(ex.two_hop_tokens || 0).toLocaleString("en-GB")} tokens, ${pct(ex.two_hop_budget_pct, 0)} of a ${(ex.context_budget || 0).toLocaleString("en-GB")}-token context budget.` + (h3 ? ` Three hops reach ${h3.nodes} nodes, about ${(h3.nodes * ex.tokens_per_node).toLocaleString("en-GB")} tokens (${pct(h3.nodes * ex.tokens_per_node / ex.context_budget, 0)}), leaving almost nothing for the question and instructions.` : "");
   const rows = [["β", "MATLAB", "This visual"],
-    ...(ex.mathworks_check || []).map(r => [String(r.beta), String(r.matlab), r.visual == null ? "—" : String(r.visual)])];
+    ...(ex.mathworks_check || []).map(r => [String(r.beta), String(r.matlab), r.visual == null ? "n/a" : String(r.visual)])];
   $("#wsCheck").replaceChildren(h("table", {class: "grid"},
     h("thead", {}, h("tr", {}, ...rows[0].map(c => h("th", {}, c)))),
     h("tbody", {}, ...rows.slice(1).map(r => h("tr", {}, ...r.map(c => h("td", {}, c)))))));
@@ -1359,7 +1371,7 @@ function renderWatts() {
 
 /* ------------------------------------------------------------------ compliance example */
 function actionPill(action) {
-  return h("span", {class: "action " + (action || "")}, action || "—");
+  return h("span", {class: "action " + (action || "")}, action || "none");
 }
 function renderCompliance(data) {
   const ex = data || DATA.compliance;
@@ -1390,17 +1402,38 @@ function renderCompliance(data) {
   );
   const evl = ex.eval || {};
   const sum = evl.summary || {};
-  $("#compEvalNote").textContent = (evl.source === "live" ? "Live Arize export to space AzureDev. " : "Arize credentials unset; sample eval fixture. ") + (sum.note || "");
+  $("#compEvalNote").textContent = (evl.source === "live" ? "Traces are being sent to Arize. " : "Arize is not configured, so this shows the sample fixture and local traces. ") + (sum.note || "");
+  const chk = ex.check;
+  $("#compCheck").replaceChildren(...(chk ? [
+    h("div", {class: "readouts"},
+      h("div", {}, h("b", {class: "num"}, `${chk.right}/${chk.n}`), h("span", {}, "right")),
+      h("div", {}, h("b", {class: "num"}, String(chk.released_when_it_should_not)), h("span", {}, "leaked")),
+      h("div", {}, h("b", {class: "num"}, pct(chk.accuracy, 0)), h("span", {}, "accuracy"))),
+    h("table", {class: "grid", style: "margin-top:10px"},
+      h("thead", {}, h("tr", {}, h("th", {}, "Label"), h("th", {}, "Labelled"), h("th", {}, "Caught"), h("th", {}, "Precision"))),
+      h("tbody", {}, ...["release", "redact", "block"].map(a => { const r = chk.per_action[a];
+        return h("tr", {}, h("td", {}, a), h("td", {}, String(r.labelled)), h("td", {}, String(r.caught)), h("td", {}, pct(r.precision, 0))); }))),
+    h("p", {class: "small muted", style: "margin:8px 0 0"}, "Missed: " + chk.rows.filter(r => r.action !== r.gold).map(r => `${r.id} (${r.why}: said ${r.action})`).join("; ") + "."),
+    ...(DATA.compliance_check || []).length ? [
+      h("h4", {style: "margin:14px 0 6px"}, "Recorded for each backend"),
+      h("div", {class: "tbl-wrap"}, h("table", {class: "grid"},
+        h("thead", {}, h("tr", {}, h("th", {}, "Backend"), h("th", {class: "num"}, "Right"), h("th", {class: "num"}, "Leaked"), h("th", {class: "num"}, "Redacts caught"), h("th", {class: "num"}, "Blocks caught"))),
+        h("tbody", {}, ...DATA.compliance_check.map(r => h("tr", {},
+          h("td", {}, r.label), h("td", {class: "num"}, `${r.right}/${r.n}`), h("td", {class: "num"}, String(r.leaked)),
+          h("td", {class: "num"}, `${r.caught.redact}/${r.labelled.redact}`), h("td", {class: "num"}, `${r.caught.block}/${r.labelled.block}`)))))),
+      h("p", {class: "small muted", style: "margin:8px 0 0"}, "Recorded with python -m scripts.compliance_check: final actions, no confidence threshold. Neither model is a PII filter out of the box. Laya releases almost everything, but unsure of itself: at a 0.8 threshold it would send 29 of 30 payloads to a person. AnyJev leaks least, but is sure of itself when wrong: at 0.8 it still decides 25, and 7 of those are wrong.")
+    ] : []
+  ] : [h("p", {class: "small muted"}, "The labelled check runs with the catalogue rules.")]));
   $("#compEval").replaceChildren(
     h("div", {class: "readouts"},
-      h("div", {}, h("b", {class: "num"}, sum.decisions == null ? "—" : String(sum.decisions)), h("span", {}, "decisions")),
-      h("div", {}, h("b", {class: "num"}, sum.filter_correct == null ? "—" : pct(sum.filter_correct, 0)), h("span", {}, "filter right")),
-      h("div", {}, h("b", {class: "num"}, sum.cost_usd == null ? "—" : usd(sum.cost_usd)), h("span", {}, "decision cost"))),
+      h("div", {}, h("b", {class: "num"}, sum.decisions == null ? "n/a" : String(sum.decisions)), h("span", {}, "decisions")),
+      h("div", {}, h("b", {class: "num"}, sum.filter_correct == null ? "n/a" : pct(sum.filter_correct, 0)), h("span", {}, `right, of ${sum.labelled || 0} labelled`)),
+      h("div", {}, h("b", {class: "num"}, sum.cost_usd == null ? "n/a" : usd(sum.cost_usd)), h("span", {}, "decision cost"))),
     ...(evl.traces || []).map(t => h("div", {class: "comp-node"},
-      actionPill(t.action), h("span", {}, t.correct ? "right" : "wrong vs gold"),
+      actionPill(t.action), h("span", {}, t.correct == null ? "no label" : t.correct ? "right" : "wrong against its label"),
       h("span", {class: "small muted"}, t.repeated ? "repeat" : "first"),
       h("span", {class: "small muted"}, usd(t.cost_usd)))),
-    evl.register ? h("p", {class: "small muted"}, evl.register, " or OTLP HTTP ", evl.otlp_http, ". Env: ", (evl.env || []).join(", "), ". Key name graph-demo is not in this repo.") : null
+    evl.register ? h("p", {class: "small muted"}, "Send traces with ", evl.register, " or OTLP HTTP ", evl.otlp_http, ". Set ", (evl.env || []).join(", "), " on the server.") : null
   );
 }
 $("#compExampleBtn").addEventListener("click", async () => {
@@ -1410,14 +1443,14 @@ $("#compExampleBtn").addEventListener("click", async () => {
     return;
   }
   $("#compExampleBtn").disabled = true;
-  $("#compMsg").textContent = "Running catalogue rules on the two fixture payloads...";
+  $("#compMsg").textContent = "Running the catalogue rules on the two example payloads...";
   try {
     const out = await api("api/compliance/example", {body: {backend: "catalogue"}});
     DATA.compliance = out;
     renderCompliance(out);
     $("#compMsg").className = "msg";
     $("#compMsg").textContent = out.steps && out.steps[1] && out.steps[1].pattern && out.steps[1].pattern.repeated
-      ? "Repeat is on the graph: the email pattern now has two attempts."
+      ? "The repeat is on the graph: the address pattern now has two attempts."
       : "Example finished.";
   } catch (e) { $("#compMsg").className = "msg err"; $("#compMsg").textContent = e.message; }
   $("#compExampleBtn").disabled = false;
@@ -1467,9 +1500,10 @@ const API_ROWS = [
   ["POST", "/api/eval", "Start a benchmark run; poll GET /api/eval/{id}"],
   ["POST", "/api/compliance/example", "Worked PII filter: first attempt plus repeat, no keys on catalogue"],
   ["POST", "/api/compliance/filter", "One payload through the compliance agent"],
-  ["GET", "/api/compliance/eval", "Arize eval and cost view (sample fixture if no Arize key)"],
+  ["POST", "/api/compliance/check", "Score one backend on the 30 hand-labelled payloads"],
+  ["GET", "/api/compliance/eval", "Arize eval and cost view (sample fixture if Arize is not configured)"],
   ["GET", "/api/compliance/graph", "Pattern, attempt and decision nodes after the filter"],
-  ["GET", "/api/watts-strogatz", "Cited Watts–Strogatz visual (N=500, K=25, p=0.15). No keys"],
+  ["GET", "/api/watts-strogatz", "The small-world example (N=500, K=25, p=0.15) with its sources. No keys"],
   ["GET", "/api/docs", "Interactive API documentation"],
 ];
 function renderRun() {
