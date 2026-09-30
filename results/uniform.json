@@ -1,0 +1,8265 @@
+{
+ "backend": "uniform",
+ "label": "Uniform baseline",
+ "model": "none",
+ "residency": "local",
+ "hardware": "CPU only: 2 vCPU, Intel(R) Xeon(R) Processor @ 2.10GHz",
+ "finished": "2026-09-29T18:59:19+00:00",
+ "seconds": 0.0,
+ "metrics": {
+  "overall": {
+   "n": 448,
+   "errors": 0,
+   "accuracy": 0.38839285714285715,
+   "ece": 0.03530651785714302,
+   "brier": 0.622061011924775,
+   "nll": 1.0457638616119662,
+   "mean_confidence": 0.37793861607143037,
+   "coverage_at_5": {
+    "risk": 0.05,
+    "coverage": 0.0,
+    "threshold": null
+   },
+   "ece_recalibrated": 0.03530505952380947,
+   "temperatures": [
+    0.049787068367863944,
+    0.049787068367863944
+   ],
+   "coverage_at_5_recalibrated": {
+    "risk": 0.05,
+    "coverage": 0.0,
+    "threshold": null
+   },
+   "reliability": [
+    {
+     "lo": 0.0,
+     "hi": 0.1,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 80,
+     "confidence": 0.1695863749999999,
+     "accuracy": 0.1625
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 31,
+     "confidence": 0.25,
+     "accuracy": 0.2903225806451613
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 123,
+     "confidence": 0.33332999999999935,
+     "accuracy": 0.4065040650406504
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 214,
+     "confidence": 0.5,
+     "accuracy": 0.4766355140186916
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    }
+   ],
+   "reliability_recalibrated": [
+    {
+     "lo": 0.0,
+     "hi": 0.1,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 80,
+     "confidence": 0.16958333333333314,
+     "accuracy": 0.1625
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 31,
+     "confidence": 0.25,
+     "accuracy": 0.2903225806451613
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 123,
+     "confidence": 0.3333333333333334,
+     "accuracy": 0.4065040650406504
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 214,
+     "confidence": 0.5,
+     "accuracy": 0.4766355140186916
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    }
+   ],
+   "latency_ms_p50": 0.0,
+   "latency_ms_p95": 0.0,
+   "cost_usd": 0.0,
+   "cost_usd_per_1k": 0.0
+  },
+  "tasks": {
+   "gate": {
+    "n": 61,
+    "errors": 0,
+    "accuracy": 0.5081967213114754,
+    "ece": 0.17486672131147535,
+    "brier": 0.6666666667000004,
+    "nll": 1.0986222887181105,
+    "mean_confidence": 0.33333000000000007,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.17486338797814216,
+    "temperatures": [
+     0.049787068367863944,
+     0.049787068367863944
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 61,
+      "confidence": 0.33333000000000007,
+      "accuracy": 0.5081967213114754
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 61,
+      "confidence": 0.33333333333333326,
+      "accuracy": 0.5081967213114754
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 0.0,
+    "latency_ms_p95": 0.0,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "relevance": {
+    "n": 132,
+    "errors": 0,
+    "accuracy": 0.4015151515151515,
+    "ece": 0.09848484848484851,
+    "brier": 0.5,
+    "nll": 0.6931471805599462,
+    "mean_confidence": 0.5,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.09848484848484851,
+    "temperatures": [
+     0.049787068367863944,
+     0.049787068367863944
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 132,
+      "confidence": 0.5,
+      "accuracy": 0.4015151515151515
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 132,
+      "confidence": 0.5,
+      "accuracy": 0.4015151515151515
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 0.0,
+    "latency_ms_p95": 0.0,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "level": {
+    "n": 93,
+    "errors": 0,
+    "accuracy": 0.3010752688172043,
+    "ece": 0.03135978494623661,
+    "brier": 0.6944444444666675,
+    "nll": 1.1945129795187026,
+    "mean_confidence": 0.3055533333333334,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.03136200716845874,
+    "temperatures": [
+     0.049787068367863944,
+     0.049787068367863944
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 31,
+      "confidence": 0.25,
+      "accuracy": 0.2903225806451613
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 62,
+      "confidence": 0.33333000000000007,
+      "accuracy": 0.3064516129032258
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 31,
+      "confidence": 0.25,
+      "accuracy": 0.2903225806451613
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 62,
+      "confidence": 0.33333333333333326,
+      "accuracy": 0.3064516129032258
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 0.0,
+    "latency_ms_p95": 0.0,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "mapping": {
+    "n": 80,
+    "errors": 0,
+    "accuracy": 0.1625,
+    "ece": 0.007086374999999895,
+    "brier": 0.8304166667274993,
+    "nll": 1.775788083191081,
+    "mean_confidence": 0.1695863749999999,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.007083333333333136,
+    "temperatures": [
+     0.049787068367863944,
+     0.049787068367863944
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 80,
+      "confidence": 0.1695863749999999,
+      "accuracy": 0.1625
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 80,
+      "confidence": 0.16958333333333314,
+      "accuracy": 0.1625
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 0.0,
+    "latency_ms_p95": 0.0,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "entity": {
+    "n": 82,
+    "errors": 0,
+    "accuracy": 0.5975609756097561,
+    "ece": 0.09756097560975607,
+    "brier": 0.5,
+    "nll": 0.6931471805599456,
+    "mean_confidence": 0.5,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.09756097560975607,
+    "temperatures": [
+     0.049787068367863944,
+     0.049787068367863944
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 82,
+      "confidence": 0.5,
+      "accuracy": 0.5975609756097561
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 82,
+      "confidence": 0.5,
+      "accuracy": 0.5975609756097561
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 0.0,
+    "latency_ms_p95": 0.0,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   }
+  }
+ },
+ "records": [
+  {
+   "id": "gate-P01",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P02",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P03",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P04",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P05",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P06",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P07",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P08",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P09",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-PB",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P10",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-CO2e20",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-N2O",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P11",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO2e20",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P12",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P13",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P14",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P15",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P16",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P17",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P18",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P19",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P20",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P21",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P22",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A01",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A02",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A03",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A04",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-BC",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-OC",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A05",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A06",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A07",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-HG",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-PB",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-NI",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-CD",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-ZN",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A08",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CO2e100",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A09",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A10",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A11",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-NMVOCs",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A12",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A13",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-N2O",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A14",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-SOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A15",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.25,
+    "country": 0.25,
+    "continent": 0.25,
+    "none": 0.25
+   },
+   "top": "region",
+   "confidence": 0.25,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.33333,
+    "year": 0.33333,
+    "none": 0.33333
+   },
+   "top": "month",
+   "confidence": 0.33333,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.33333,
+    "macrosector": 0.33333,
+    "none": 0.33333
+   },
+   "top": "subsector",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C01",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C02",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C03",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C04",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C05",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C06",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C07",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C08",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C09",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C10",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C11",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C12",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R01",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R02",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R03",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R04",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R05",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R06",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R07",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R08",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R09",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R10",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R11",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R12",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.33333,
+    "clarify": 0.33333,
+    "reject": 0.33333
+   },
+   "top": "answer",
+   "confidence": 0.33333,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-01",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-02",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-03",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-04",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-05",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-06",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-07",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-08",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-09",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-10",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-11",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-12",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-13",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-14",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-15",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-16",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-17",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-18",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-19",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-20",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-21",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-22",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-23",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-24",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-25",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-26",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-27",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-28",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-29",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-30",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-31",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-32",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-33",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-34",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-35",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-36",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-37",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-38",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-39",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-40",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-41",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-42",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-43",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-44",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-45",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-46",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-47",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-48",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-49",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-50",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-51",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-52",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-53",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-54",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-55",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-56",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-57",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-58",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-59",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-60",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-61",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-62",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-63",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-64",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-65",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-66",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-67",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-68",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-69",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-70",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-71",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-72",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-73",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-74",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-75",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-76",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-77",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-78",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-79",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-80",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-81",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-82",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5,
+    "no": 0.5
+   },
+   "top": "yes",
+   "confidence": 0.5,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-iso3_country",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "country": 0.16667,
+    "continent": 0.16667,
+    "subsector": 0.16667,
+    "region": 0.16667,
+    "year": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-start_time",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "year": 0.16667,
+    "subsector": 0.16667,
+    "region": 0.16667,
+    "month": 0.16667,
+    "country": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "year",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-sector_subtype",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "month": 0.16667,
+    "subsector": 0.16667,
+    "macrosector": 0.16667,
+    "country": 0.16667,
+    "region": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "month",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2_t",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "N2O": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "CH4": 0.16667,
+    "CO2": 0.16667,
+    "CO": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "N2O",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-ch4_t",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CH4": 0.16667,
+    "N2O": 0.16667,
+    "NMVOCs": 0.16667,
+    "CO2": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CH4",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-n2o_t",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "NOx": 0.16667,
+    "NH3": 0.16667,
+    "CO2": 0.16667,
+    "N2O": 0.16667,
+    "CH4": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2e_100yr",
+   "task": "mapping",
+   "gold": "CO2e (100-year)",
+   "probs": {
+    "N2O": 0.16667,
+    "CH4": 0.16667,
+    "CO2e (20-year)": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "CO2": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "N2O",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2e_20yr",
+   "task": "mapping",
+   "gold": "CO2e (20-year)",
+   "probs": {
+    "CO2e (20-year)": 0.16667,
+    "N2O": 0.16667,
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2e (20-year)",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-facility_id",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.2,
+    "region": 0.2,
+    "CO2": 0.2,
+    "country": 0.2,
+    "none of these": 0.2
+   },
+   "top": "year",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-lat",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "PM10": 0.2,
+    "region": 0.2,
+    "continent": 0.2,
+    "country": 0.2,
+    "none of these": 0.2
+   },
+   "top": "PM10",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-lon",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "continent": 0.2,
+    "region": 0.2,
+    "NOx": 0.2,
+    "country": 0.2,
+    "none of these": 0.2
+   },
+   "top": "continent",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-country",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.16667,
+    "country": 0.16667,
+    "year": 0.16667,
+    "continent": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "region",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-iso_code",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.16667,
+    "continent": 0.16667,
+    "subsector": 0.16667,
+    "country": 0.16667,
+    "year": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "region",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.16667,
+    "macrosector": 0.16667,
+    "region": 0.16667,
+    "year": 0.16667,
+    "month": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-co2",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO": 0.16667,
+    "CH4": 0.16667,
+    "CO2": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "N2O": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-methane",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "N2O": 0.16667,
+    "NMVOCs": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nitrous_oxide",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "NH3": 0.16667,
+    "N2O": 0.16667,
+    "CO2": 0.16667,
+    "NOx": 0.16667,
+    "CH4": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NH3",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nox_emissions",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "NOx": 0.16667,
+    "N2O": 0.16667,
+    "CO": 0.16667,
+    "NH3": 0.16667,
+    "SOx": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NOx",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-so2_emissions",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "SOx": 0.16667,
+    "NOx": 0.16667,
+    "SO2": 0.16667,
+    "CO": 0.16667,
+    "NH3": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-co_emissions",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.16667,
+    "NMVOCs": 0.16667,
+    "CO2": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-bc_emissions",
+   "task": "mapping",
+   "gold": "BC",
+   "probs": {
+    "OC": 0.16667,
+    "PM2.5": 0.16667,
+    "BC": 0.16667,
+    "CO": 0.16667,
+    "CO2": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "OC",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-oc_emissions",
+   "task": "mapping",
+   "gold": "OC",
+   "probs": {
+    "BC": 0.16667,
+    "OC": 0.16667,
+    "PM10": 0.16667,
+    "CO": 0.16667,
+    "NMVOCs": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "BC",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nh3_emissions",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "N2O": 0.16667,
+    "NH3": 0.16667,
+    "CH4": 0.16667,
+    "NMVOCs": 0.16667,
+    "NOx": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "N2O",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nmvoc_emissions",
+   "task": "mapping",
+   "gold": "NMVOCs",
+   "probs": {
+    "CH4": 0.16667,
+    "NMVOCs": 0.16667,
+    "CO": 0.16667,
+    "NOx": 0.16667,
+    "OC": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CH4",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-population",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.2,
+    "CO2": 0.2,
+    "country": 0.2,
+    "NOx": 0.2,
+    "none of these": 0.2
+   },
+   "top": "year",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-country_code",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "continent": 0.16667,
+    "year": 0.16667,
+    "country": 0.16667,
+    "region": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "continent",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-reporting_year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.16667,
+    "month": 0.16667,
+    "macrosector": 0.16667,
+    "region": 0.16667,
+    "year": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nfr_sector",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "macrosector": 0.16667,
+    "region": 0.16667,
+    "month": 0.16667,
+    "country": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "macrosector",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pm25_kt",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "PM10": 0.16667,
+    "PM2.5": 0.16667,
+    "NOx": 0.16667,
+    "OC": 0.16667,
+    "BC": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "PM10",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pm10_kt",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "NOx": 0.16667,
+    "PM2.5": 0.16667,
+    "SO2": 0.16667,
+    "PM10": 0.16667,
+    "BC": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nox_kt",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "NOx": 0.16667,
+    "SOx": 0.16667,
+    "CO": 0.16667,
+    "N2O": 0.16667,
+    "NH3": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NOx",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-sox_kt",
+   "task": "mapping",
+   "gold": "SOx",
+   "probs": {
+    "SO2": 0.16667,
+    "SOx": 0.16667,
+    "NH3": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nh3_kt",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "CH4": 0.16667,
+    "NH3": 0.16667,
+    "NOx": 0.16667,
+    "NMVOCs": 0.16667,
+    "N2O": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CH4",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nmvoc_kt",
+   "task": "mapping",
+   "gold": "NMVOCs",
+   "probs": {
+    "NMVOCs": 0.16667,
+    "OC": 0.16667,
+    "CH4": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NMVOCs",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-co_kt",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.16667,
+    "NMVOCs": 0.16667,
+    "CO": 0.16667,
+    "CO2": 0.16667,
+    "NOx": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-as_t",
+   "task": "mapping",
+   "gold": "As",
+   "probs": {
+    "Pb": 0.16667,
+    "Hg": 0.16667,
+    "As": 0.16667,
+    "Cd": 0.16667,
+    "Se": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Pb",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cd_t",
+   "task": "mapping",
+   "gold": "Cd",
+   "probs": {
+    "Hg": 0.16667,
+    "As": 0.16667,
+    "Cu": 0.16667,
+    "Cr": 0.16667,
+    "Cd": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Hg",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cr_t",
+   "task": "mapping",
+   "gold": "Cr",
+   "probs": {
+    "Cu": 0.16667,
+    "Ni": 0.16667,
+    "Cr": 0.16667,
+    "Cd": 0.16667,
+    "Zn": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Cu",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cu_t",
+   "task": "mapping",
+   "gold": "Cu",
+   "probs": {
+    "Cr": 0.16667,
+    "Cd": 0.16667,
+    "Ni": 0.16667,
+    "Zn": 0.16667,
+    "Cu": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Cr",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-hg_t",
+   "task": "mapping",
+   "gold": "Hg",
+   "probs": {
+    "As": 0.16667,
+    "Pb": 0.16667,
+    "Cd": 0.16667,
+    "Hg": 0.16667,
+    "Ni": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "As",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-ni_t",
+   "task": "mapping",
+   "gold": "Ni",
+   "probs": {
+    "Pb": 0.16667,
+    "Zn": 0.16667,
+    "Cr": 0.16667,
+    "Cu": 0.16667,
+    "Ni": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Pb",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pb_t",
+   "task": "mapping",
+   "gold": "Pb",
+   "probs": {
+    "Zn": 0.16667,
+    "Pb": 0.16667,
+    "Hg": 0.16667,
+    "Cd": 0.16667,
+    "Ni": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Zn",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-se_t",
+   "task": "mapping",
+   "gold": "Se",
+   "probs": {
+    "As": 0.16667,
+    "Zn": 0.16667,
+    "Cd": 0.16667,
+    "Se": 0.16667,
+    "Pb": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "As",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-zn_t",
+   "task": "mapping",
+   "gold": "Zn",
+   "probs": {
+    "Cu": 0.16667,
+    "Cr": 0.16667,
+    "Ni": 0.16667,
+    "Zn": 0.16667,
+    "Pb": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "Cu",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-notation_key",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.2,
+    "country": 0.2,
+    "subsector": 0.2,
+    "NOx": 0.2,
+    "none of these": 0.2
+   },
+   "top": "year",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-nuts2_region",
+   "task": "mapping",
+   "gold": "region",
+   "probs": {
+    "region": 0.16667,
+    "continent": 0.16667,
+    "subsector": 0.16667,
+    "month": 0.16667,
+    "country": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "region",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-date_month",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "month": 0.16667,
+    "country": 0.16667,
+    "subsector": 0.16667,
+    "year": 0.16667,
+    "region": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "month",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-pm25_ugm3",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "PM10": 0.16667,
+    "OC": 0.16667,
+    "BC": 0.16667,
+    "NOx": 0.16667,
+    "PM2.5": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "PM10",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-pm10_ugm3",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "BC": 0.16667,
+    "NOx": 0.16667,
+    "PM2.5": 0.16667,
+    "PM10": 0.16667,
+    "SO2": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "BC",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-nox_ugm3",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "SOx": 0.16667,
+    "N2O": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "NH3": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-so2_ugm3",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "SO2": 0.16667,
+    "NOx": 0.16667,
+    "SOx": 0.16667,
+    "CO": 0.16667,
+    "NH3": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SO2",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-co_mgm3",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.16667,
+    "CO": 0.16667,
+    "NOx": 0.16667,
+    "CO2": 0.16667,
+    "NMVOCs": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-station_count",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "PM10": 0.2,
+    "region": 0.2,
+    "month": 0.2,
+    "CO": 0.2,
+    "none of these": 0.2
+   },
+   "top": "PM10",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-continent",
+   "task": "mapping",
+   "gold": "continent",
+   "probs": {
+    "year": 0.16667,
+    "country": 0.16667,
+    "region": 0.16667,
+    "macrosector": 0.16667,
+    "continent": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "year",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "region": 0.16667,
+    "month": 0.16667,
+    "macrosector": 0.16667,
+    "country": 0.16667,
+    "year": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "region",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-sector_group",
+   "task": "mapping",
+   "gold": "macrosector",
+   "probs": {
+    "country": 0.16667,
+    "subsector": 0.16667,
+    "macrosector": 0.16667,
+    "year": 0.16667,
+    "continent": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-co2_mt",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO2e (100-year)": 0.16667,
+    "CO": 0.16667,
+    "N2O": 0.16667,
+    "CH4": 0.16667,
+    "CO2": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2e (100-year)",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-ch4_mt",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CO2e (100-year)": 0.16667,
+    "N2O": 0.16667,
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "NMVOCs": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2e (100-year)",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-n2o_mt",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "CH4": 0.16667,
+    "NH3": 0.16667,
+    "N2O": 0.16667,
+    "NOx": 0.16667,
+    "CO2": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CH4",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-ghg_co2e_100",
+   "task": "mapping",
+   "gold": "CO2e (100-year)",
+   "probs": {
+    "CO2e (20-year)": 0.16667,
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "N2O": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2e (20-year)",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-nation",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.16667,
+    "continent": 0.16667,
+    "country": 0.16667,
+    "year": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "region",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-survey_year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.16667,
+    "year": 0.16667,
+    "month": 0.16667,
+    "region": 0.16667,
+    "macrosector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-sector",
+   "task": "mapping",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.16667,
+    "year": 0.16667,
+    "continent": 0.16667,
+    "macrosector": 0.16667,
+    "country": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "subsector",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-pm2_5",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "OC": 0.16667,
+    "BC": 0.16667,
+    "PM10": 0.16667,
+    "PM2.5": 0.16667,
+    "NOx": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "OC",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-pm_10",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "NOx": 0.16667,
+    "SO2": 0.16667,
+    "BC": 0.16667,
+    "PM10": 0.16667,
+    "PM2.5": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-black_carbon",
+   "task": "mapping",
+   "gold": "BC",
+   "probs": {
+    "CO2": 0.16667,
+    "PM2.5": 0.16667,
+    "BC": 0.16667,
+    "CO": 0.16667,
+    "OC": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-country_iso",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "country": 0.16667,
+    "subsector": 0.16667,
+    "year": 0.16667,
+    "region": 0.16667,
+    "continent": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "country",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-month",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "year": 0.16667,
+    "region": 0.16667,
+    "month": 0.16667,
+    "country": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "year",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-transport_mode",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "macrosector": 0.16667,
+    "country": 0.16667,
+    "month": 0.16667,
+    "subsector": 0.16667,
+    "region": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "macrosector",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-co2_tonnes",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO": 0.16667,
+    "N2O": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-nox_tonnes",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "SOx": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "N2O": 0.16667,
+    "NH3": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "SOx",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-so2_tonnes",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "NH3": 0.16667,
+    "SOx": 0.16667,
+    "SO2": 0.16667,
+    "NOx": 0.16667,
+    "CO": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NH3",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-pm25_tonnes",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "BC": 0.16667,
+    "PM10": 0.16667,
+    "NOx": 0.16667,
+    "PM2.5": 0.16667,
+    "OC": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "BC",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-area",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "year": 0.16667,
+    "region": 0.16667,
+    "country": 0.16667,
+    "continent": 0.16667,
+    "subsector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "year",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "year": 0.16667,
+    "month": 0.16667,
+    "country": 0.16667,
+    "region": 0.16667,
+    "macrosector": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "year",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-item",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.16667,
+    "country": 0.16667,
+    "month": 0.16667,
+    "macrosector": 0.16667,
+    "region": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "subsector",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-ch4_kt",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "NMVOCs": 0.16667,
+    "N2O": 0.16667,
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "CO2e (100-year)": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NMVOCs",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-n2o_kt",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "CO2": 0.16667,
+    "CH4": 0.16667,
+    "NH3": 0.16667,
+    "N2O": 0.16667,
+    "NOx": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "CO2",
+   "confidence": 0.16667,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-nh3_kt",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "NH3": 0.16667,
+    "CH4": 0.16667,
+    "NOx": 0.16667,
+    "NMVOCs": 0.16667,
+    "N2O": 0.16667,
+    "none of these": 0.16667
+   },
+   "top": "NH3",
+   "confidence": 0.16667,
+   "correct": true,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-element_code",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.2,
+    "macrosector": 0.2,
+    "subsector": 0.2,
+    "CH4": 0.2,
+    "none of these": 0.2
+   },
+   "top": "year",
+   "confidence": 0.2,
+   "correct": false,
+   "latency_ms": 0.0,
+   "tokens": null,
+   "cost_usd": 0.0
+  }
+ ]
+}

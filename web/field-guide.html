@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://df6c5aef-cddd-4e1d-be6d-79af38deee7f.frame.claudeusercontent.com/_f/1790283104-c4ec/ -->
+<html lang="en-GB" data-theme="light" style="color-scheme: light;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Graphs for agent context: a field guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="field-guide_files/css2" rel="stylesheet">
+<style>
+:root{
+  --bg:#edf1f4;--paper:#ffffff;--ink:#16202b;--muted:#5a6878;--line:#cfd8e1;--code:#f4f6f9;
+  --native:#3949ab;--over:#00897b;--doc:#b7791f;--embed:#8e3b8e;--warn:#b3261e;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10151c;--paper:#182029;--ink:#e6edf3;--muted:#9aa8b6;--line:#2c3845;--code:#121920;
+  --native:#8c9eff;--over:#4db6ac;--doc:#e0a84a;--embed:#d08bd0;--warn:#ff8a80;}}
+:root[data-theme="dark"]{--bg:#10151c;--paper:#182029;--ink:#e6edf3;--muted:#9aa8b6;--line:#2c3845;--code:#121920;
+  --native:#8c9eff;--over:#4db6ac;--doc:#e0a84a;--embed:#d08bd0;--warn:#ff8a80;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:980px;margin:0 auto;padding:28px 18px 64px}
+h1{font-size:clamp(2rem,6vw,3.3rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;font-weight:700;max-width:16ch}
+h2{font-size:1.55rem;letter-spacing:-.01em;margin:56px 0 8px}
+h3{font-size:1.1rem;margin:0 0 6px}
+p{max-width:68ch;margin:0 0 12px}
+.lede{color:var(--muted);font-size:1.08rem}
+a{color:var(--native)}
+code,pre,textarea{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.84rem}
+.hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+@media(min-width:820px){.hero{grid-template-columns:1fr 1.05fr}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}
+.graphbox svg{width:100%;height:auto;display:block}
+.node circle{stroke:var(--paper);stroke-width:2;cursor:pointer}
+.node text{font-size:10px;fill:var(--ink);pointer-events:none}
+.node.dim{opacity:.22}.edge.dim{opacity:.12}
+.edge line{stroke:var(--muted);stroke-width:1.3}
+.edge text{font-size:7.5px;fill:var(--muted)}
+.hopbadge{font-size:9px;font-weight:700;fill:#fff;pointer-events:none}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0 0}
+button,select,input[type=number]{font:inherit;font-size:.92rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:7px 12px}
+button{cursor:pointer}
+button.primary{background:var(--native);border-color:var(--native);color:#fff;font-weight:600}
+button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--over);outline-offset:2px}
+label{font-size:.92rem;color:var(--muted)}
+input[type=range]{width:180px;accent-color:var(--native)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.86rem;color:var(--muted);margin:8px 0 12px}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+td.num{text-align:center;font-weight:700}
+.heat td.num{color:#fff}
+.lab{margin-top:22px}
+.lab .params{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:8px 0}
+details{margin:10px 0}
+summary{cursor:pointer;color:var(--native);font-weight:600}
+textarea{width:100%;min-height:220px;background:var(--code);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;line-height:1.45;tab-size:2}
+.out{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:10px;font-size:.9rem;overflow-x:auto}
+.out .path{font-family:"JetBrains Mono",monospace;font-size:.8rem;display:block;margin:3px 0}
+.note{font-size:.88rem;color:var(--muted)}
+.err{color:var(--warn)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;margin:0;line-height:1.45}
+.snip{position:relative}
+.copy{position:absolute;top:8px;right:8px;font-size:.8rem;padding:4px 10px}
+.runlist{display:grid;gap:14px}
+.pill{display:inline-block;white-space:nowrap;font-size:.78rem;padding:2px 8px;border-radius:99px;color:#fff;background:var(--c)}
+.hero>*,.runlist>*,.snip,.panel{min-width:0}
+pre{max-width:100%}
+.bars{display:grid;grid-template-columns:minmax(96px,max-content) 1fr;gap:8px 10px;align-items:center;font-size:.9rem}
+.bars .blab{text-align:right;color:var(--ink)}
+.bars .track{position:relative;height:24px;display:flex;align-items:center;gap:8px}
+.bars .bar{height:22px;border-radius:4px;background:var(--c);flex:none}
+.bars .rng{height:22px;border-radius:0 4px 4px 0;background:var(--c);opacity:.35;flex:none;margin-left:-8px}
+.bars .val{font-weight:700;white-space:nowrap;font-size:.86rem}
+.bars .val.soft{font-weight:400;font-style:italic;color:var(--muted);white-space:normal}
+.axis{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin:6px 0 0}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.demo-bar-in{max-width:980px;margin:0 auto;padding:10px 18px 12px;display:grid;gap:6px}
+.demo-bar nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.92rem}
+.demo-bar a{color:var(--native);text-decoration:none;padding:4px 8px;border-radius:7px}
+.demo-bar a:hover{background:var(--code)}
+.demo-bar .here{padding:4px 8px;border-radius:7px;background:var(--ink);color:var(--paper);font-weight:600}
+.demo-bar p{margin:0;max-width:none;font-size:.86rem;color:var(--muted)}
+.demo-bar code{font-size:.8rem}
+</style>
+</head>
+<body>
+<header class="demo-bar">
+  <div class="demo-bar-in">
+    <nav aria-label="Demo pages">
+      <a href="/">Decisions Lab</a>
+      <span class="here">Field guide</span>
+    </nav>
+    <p>This page compares <strong>graph databases</strong> (Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB Gremlin, Kuzu). <strong>Jev is the typed decision layer</strong> in the Decisions Lab, not a database. The lab&rsquo;s <code>/api/compare</code> compares decision backends, not these engines.</p>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div>
+    <h1>Graphs for agent context: a field guide</h1>
+    <p class="lede">Vector search finds passages that look similar. A graph finds facts that are connected. Tap any node to see what an agent can reach in one, two or three hops.</p>
+    <p class="note">Covers Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB and Kuzu. Prices and status as at 25 September 2026.</p>
+  </div>
+  <div class="panel graphbox">
+    <svg id="heroGraph" viewBox="0 0 360 350" role="img" aria-label="Example knowledge graph. Select a node to highlight its neighbourhood."><g class="edge"><line x1="55" y1="55" x2="180" y2="35"></line><text x="117.5" y="42" text-anchor="middle">leads</text></g><g class="edge"><line x1="55" y1="55" x2="180" y2="140"></line><text x="117.5" y="94.5" text-anchor="middle">advises</text></g><g class="edge"><line x1="305" y1="60" x2="180" y2="35"></line><text x="242.5" y="44.5" text-anchor="middle">owns</text></g><g class="edge"><line x1="305" y1="60" x2="180" y2="140"></line><text x="242.5" y="97" text-anchor="middle">owns</text></g><g class="edge"><line x1="180" y1="35" x2="305" y2="165"></line><text x="242.5" y="97" text-anchor="middle">part_of</text></g><g class="edge"><line x1="180" y1="140" x2="305" y2="165"></line><text x="242.5" y="149.5" text-anchor="middle">part_of</text></g><g class="edge dim"><line x1="300" y1="265" x2="305" y2="165"></line><text x="302.5" y="212" text-anchor="middle">covers</text></g><g class="edge dim"><line x1="305" y1="60" x2="300" y2="265"></line><text x="302.5" y="159.5" text-anchor="middle">authored</text></g><g class="edge"><line x1="55" y1="165" x2="180" y2="140"></line><text x="117.5" y="149.5" text-anchor="middle">supplies</text></g><g class="edge dim"><line x1="45" y1="255" x2="55" y2="165"></line><text x="50" y="207" text-anchor="middle">governs</text></g><g class="edge"><line x1="180" y1="140" x2="180" y2="245"></line><text x="180" y="189.5" text-anchor="middle">depends_on</text></g><g class="edge dim"><line x1="100" y1="325" x2="180" y2="245"></line><text x="140" y="282" text-anchor="middle">affected</text></g><g class="edge dim"><line x1="180" y1="245" x2="220" y2="325"></line><text x="200" y="282" text-anchor="middle">serves</text></g><g class="edge dim"><line x1="180" y1="245" x2="320" y2="325"></line><text x="250" y="282" text-anchor="middle">serves</text></g><g class="node" tabindex="0" role="button" aria-label="John Doe"><circle cx="55" cy="55" r="13" fill="var(--native)"></circle><text x="55" y="77" text-anchor="middle">John Doe</text></g><g class="node" tabindex="0" role="button" aria-label="Solar Farm Alpha"><circle cx="180" cy="35" r="10" fill="var(--over)"></circle><text x="180" y="38" text-anchor="middle" class="hopbadge">1</text><text x="180" y="57" text-anchor="middle">Solar Farm Alpha</text></g><g class="node" tabindex="0" role="button" aria-label="ACME"><circle cx="305" cy="60" r="10" fill="var(--doc)"></circle><text x="305" y="63" text-anchor="middle" class="hopbadge">2</text><text x="305" y="82" text-anchor="middle">ACME</text></g><g class="node" tabindex="0" role="button" aria-label="Wind Project Beta"><circle cx="180" cy="140" r="10" fill="var(--over)"></circle><text x="180" y="143" text-anchor="middle" class="hopbadge">1</text><text x="180" y="162" text-anchor="middle">Wind Project Beta</text></g><g class="node" tabindex="0" role="button" aria-label="Renewable energy"><circle cx="305" cy="165" r="10" fill="var(--embed)"></circle><text x="305" y="168" text-anchor="middle" class="hopbadge">2</text><text x="305" y="187" text-anchor="middle">Renewable energy</text></g><g class="node dim" tabindex="0" role="button" aria-label="2025 strategic plan"><circle cx="300" cy="265" r="10" fill="var(--muted)"></circle><text x="300" y="287" text-anchor="middle">2025 strategic plan</text></g><g class="node" tabindex="0" role="button" aria-label="Supplier X"><circle cx="55" cy="165" r="10" fill="var(--doc)"></circle><text x="55" y="168" text-anchor="middle" class="hopbadge">2</text><text x="55" y="187" text-anchor="middle">Supplier X</text></g><g class="node dim" tabindex="0" role="button" aria-label="Clause 7.2"><circle cx="45" cy="255" r="10" fill="var(--muted)"></circle><text x="45" y="277" text-anchor="middle">Clause 7.2</text></g><g class="node" tabindex="0" role="button" aria-label="Grid API"><circle cx="180" cy="245" r="10" fill="var(--over)"></circle><text x="180" y="248" text-anchor="middle" class="hopbadge">2</text><text x="180" y="267" text-anchor="middle">Grid API</text></g><g class="node dim" tabindex="0" role="button" aria-label="Outage 14"><circle cx="100" cy="325" r="10" fill="var(--warn)"></circle><text x="100" y="347" text-anchor="middle">Outage 14</text></g><g class="node dim" tabindex="0" role="button" aria-label="Customer Y"><circle cx="220" cy="325" r="10" fill="var(--doc)"></circle><text x="220" y="347" text-anchor="middle">Customer Y</text></g><g class="node dim" tabindex="0" role="button" aria-label="Customer Z"><circle cx="320" cy="325" r="10" fill="var(--doc)"></circle><text x="320" y="347" text-anchor="middle">Customer Z</text></g></svg>
+    <div class="controls">
+      <span class="note">Hops:</span>
+      <button data-hop="1">1</button><button data-hop="2" aria-pressed="true">2</button><button data-hop="3">3</button>
+      <span class="note" id="heroStatus">Selected: John Doe. 6 connected facts within 2 hops.</span>
+    </div>
+  </div>
+</section>
+
+<h2>Grades by job</h2>
+<p>An embedded library and a clustered service do different jobs, so each engine is graded against the job it is built for. Weights: traversal depth 30%, operations 25%, total cost 20%, vendor viability 15%, fit for decision-model state 10%.</p>
+<div class="controls" role="group" aria-label="Choose job">
+  <button id="jobShared" aria-pressed="true">Shared production service</button>
+  <button id="jobEmbed">Embedded or per-session memory</button>
+</div>
+<div class="legend">
+  <span style="--c:var(--native)">Native graph store</span>
+  <span style="--c:var(--over)">Graph over existing data</span>
+  <span style="--c:var(--doc)">Document store with graph features</span>
+  <span style="--c:var(--embed)">Embedded</span>
+</div>
+<div class="panel chart" id="gradeChart"><div class="bars"><div class="blab">Neo4j</div><div class="track"><div class="bar" style="--c:var(--native);width:66.60000000000001%"></div><span class="val">A-</span></div><div class="blab">FalkorDB</div><div class="track"><div class="bar" style="--c:var(--native);width:59.4%"></div><span class="val">B+</span></div><div class="blab">Neptune</div><div class="track"><div class="bar" style="--c:var(--native);width:54%"></div><span class="val">B</span></div><div class="blab">Spanner Graph</div><div class="track"><div class="bar" style="--c:var(--over);width:54%"></div><span class="val">B</span></div><div class="blab">PuppyGraph</div><div class="track"><div class="bar" style="--c:var(--over);width:54%"></div><span class="val">B (prov.)</span></div><div class="blab">Fabric graph</div><div class="track"><div class="bar" style="--c:var(--over);width:41.4%"></div><span class="val">C+</span></div><div class="blab">MongoDB Atlas</div><div class="track"><div class="bar" style="--c:var(--doc);width:36%"></div><span class="val">C</span></div><div class="blab">Cosmos DB Gremlin</div><div class="track"><div class="bar" style="--c:var(--doc);width:18%"></div><span class="val">D</span></div></div><p class="note" style="margin:10px 0 0">Scale runs from F to A.</p></div>
+
+<h2>Scores by criterion</h2>
+<p>Scores are out of 5 and are judgement, not measurement. PuppyGraph's depth score rests on vendor figures that have not been independently verified.</p>
+<div class="panel scroll"><table class="heat" id="heat"><thead><tr><th>Engine</th><th>Depth</th><th>Ops</th><th>Cost</th><th>Viability</th><th>Grade</th></tr></thead><tbody><tr><td><span class="pill" style="--c:var(--native)">Neo4j</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>A- shared</td></tr><tr><td><span class="pill" style="--c:var(--native)">FalkorDB</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td>B+ shared, B embedded</td></tr><tr><td><span class="pill" style="--c:var(--native)">Neptune</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>B shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">Spanner Graph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>B shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">PuppyGraph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td>B (prov.) shared</td></tr><tr><td><span class="pill" style="--c:var(--over)">Fabric graph</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 68%, var(--paper));color:#fff">3</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td>C+ shared</td></tr><tr><td><span class="pill" style="--c:var(--doc)">MongoDB Atlas</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td>C shared</td></tr><tr><td><span class="pill" style="--c:var(--doc)">Cosmos DB Gremlin</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td>D shared</td></tr><tr><td><span class="pill" style="--c:var(--embed)">Kuzu forks</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 36%, var(--paper));color:var(--ink)">1</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 52%, var(--paper));color:var(--ink)">2</td><td>B- embedded</td></tr><tr><td><span class="pill" style="--c:var(--embed)">Kuzu 0.11.3</span></td><td class="num" style="background:color-mix(in srgb, var(--native) 84%, var(--paper));color:#fff">4</td><td class="num" style="background:color-mix(in srgb, var(--native) 36%, var(--paper));color:var(--ink)">1</td><td class="num" style="background:color-mix(in srgb, var(--native) 100%, var(--paper));color:#fff">5</td><td class="num" style="background:color-mix(in srgb, var(--native) 20%, var(--paper));color:var(--ink)">0</td><td>C embedded</td></tr></tbody></table></div>
+
+<h2>Entry production cost</h2>
+<p>Approximate monthly list prices in USD. The paler bar shows a range. Duplication and sync costs for native stores are not included, and are often the larger number.</p>
+<div class="panel chart" id="costChart"><div class="bars"><div class="blab">Neo4j</div><div class="track"><div class="bar" style="--c:var(--native);width:65.38000000000001%"></div><span class="val">$4,670</span></div><div class="blab">Fabric graph</div><div class="track"><div class="bar" style="--c:var(--over);width:18.2%"></div><span class="val">$1,300</span></div><div class="blab">Spanner Graph</div><div class="track"><div class="bar" style="--c:var(--over);width:1.68%"></div><div class="rng" style="--c:var(--over);width:15.12%"></div><span class="val">$120 to $1,200</span></div><div class="blab">Neptune</div><div class="track"><div class="bar" style="--c:var(--native);width:6.4399999999999995%"></div><span class="val">$460</span></div><div class="blab">MongoDB Atlas</div><div class="track"><div class="bar" style="--c:var(--doc);width:5.516%"></div><span class="val">$394</span></div><div class="blab">FalkorDB</div><div class="track"><div class="bar" style="--c:var(--native);width:4.9%"></div><span class="val">$350</span></div><div class="blab">Kuzu forks</div><div class="track"><span class="val soft">$0 licence, own compute</span></div><div class="blab">Kuzu 0.11.3</div><div class="track"><span class="val soft">$0 licence, own compute</span></div><div class="blab">PuppyGraph</div><div class="track"><span class="val soft">Priced on server CPU and memory; quote only</span></div><div class="blab">Cosmos DB Gremlin</div><div class="track"><span class="val soft">Throughput-based; depends on load</span></div></div><p class="note" style="margin:10px 0 0">USD per month. Bars scaled to $5,000.</p></div>
+
+<h2>Have a go</h2>
+<p>Each lab runs in your browser on a small example graph. Change the settings, or open the code, edit it and run your version.</p>
+
+<div class="panel lab" id="labA">
+  <h3>Lab 1: keyword retrieval against graph retrieval</h3>
+  <p class="note">Keyword search returns nodes whose text shares words with the question. Graph retrieval starts at the entities named in the question and follows relationships.</p>
+  <div class="params">
+    <label style="flex:1 1 100%">Question <input id="aQ" style="width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)" value="What is John Doe&#39;s role in ACME&#39;s renewable energy projects?"></label>
+    <label>Hops <input id="aK" type="number" min="1" max="4" value="2" style="width:64px"></label>
+    <button class="primary" data-run="A">Run</button>
+  </div>
+  <details><summary>View and edit the code</summary><textarea id="aCode" spellcheck="false"></textarea>
+    <div class="controls"><button data-runedit="A">Run edited code</button><button data-reset="A">Reset code</button></div></details>
+  <div class="out" id="aOut"><strong>Keyword retrieval</strong> found 4 fragments:<span class="path">John Doe (2 shared words): John Doe is a programme director based in Sydney.</span><span class="path">Renewable energy (2 shared words): Renewable energy is a strategic theme.</span><span class="path">2025 strategic plan (2 shared words): The 2025 strategic plan sets targets for renewable energy growth.</span><span class="path">ACME (1 shared words): ACME is an infrastructure company.</span><p class="note" style="margin-top:8px">None of these says how John Doe relates to ACME. The link lives in the relationships, not the text.</p><strong>Graph retrieval</strong> from John Doe, ACME, Renewable energy found 15 paths:<span class="path">John Doe -LEADS-&gt; Solar Farm Alpha</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta</span><span class="path">ACME -OWNS-&gt; Solar Farm Alpha</span><span class="path">ACME -OWNS-&gt; Wind Project Beta</span><span class="path">ACME -AUTHORED-&gt; 2025 strategic plan</span><span class="path">Renewable energy &lt;-PART_OF- Solar Farm Alpha</span><span class="path">Renewable energy &lt;-PART_OF- Wind Project Beta</span><span class="path">Renewable energy &lt;-COVERS- 2025 strategic plan</span><span class="path">John Doe -LEADS-&gt; Solar Farm Alpha &lt;-OWNS- ACME</span><span class="path">John Doe -LEADS-&gt; Solar Farm Alpha -PART_OF-&gt; Renewable energy</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta &lt;-OWNS- ACME</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta -PART_OF-&gt; Renewable energy</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta &lt;-SUPPLIES- Supplier X</span><span class="path">John Doe -ADVISES-&gt; Wind Project Beta -DEPENDS_ON-&gt; Grid API</span><span class="path">ACME -AUTHORED-&gt; 2025 strategic plan -COVERS-&gt; Renewable energy</span></div>
+</div>
+
+<div class="panel lab" id="labB">
+  <h3>Lab 2: fit the best context into a token budget</h3>
+  <p class="note">Personalised PageRank ranks nodes by how central they are to a starting entity, then the highest-ranked text is packed into the budget. Jev's real budget is 32,000 tokens; this example graph is tiny, so the budget is scaled down.</p>
+  <div class="params">
+    <label>Start at <select id="bSeed"><option value="john">John Doe</option><option value="solar">Solar Farm Alpha</option><option value="acme">ACME</option><option value="wind" selected="">Wind Project Beta</option><option value="renew">Renewable energy</option><option value="plan">2025 strategic plan</option><option value="supplier">Supplier X</option><option value="clause">Clause 7.2</option><option value="api">Grid API</option><option value="outage">Outage 14</option><option value="custy">Customer Y</option><option value="custz">Customer Z</option></select></label>
+    <label>Budget <input id="bBudget" type="range" min="20" max="200" step="5" value="70"> <strong id="bBudgetV">70</strong> tokens</label>
+    <button class="primary" data-run="B">Run</button>
+  </div>
+  <details><summary>View and edit the code</summary><textarea id="bCode" spellcheck="false"></textarea>
+    <div class="controls"><button data-runedit="B">Run edited code</button><button data-reset="B">Reset code</button></div></details>
+  <div class="out" id="bOut"><p><strong>69</strong> of 70 tokens used.</p><div class="scroll"><table><tbody><tr><th>Rank</th><th>Node</th><th>Score</th><th>Tokens</th><th>In context</th></tr><tr><td>1</td><td>Wind Project Beta</td><td>0.294</td><td>12</td><td>Yes</td></tr><tr><td>2</td><td>Grid API</td><td>0.109</td><td>8</td><td>Yes</td></tr><tr><td>3</td><td>ACME</td><td>0.098</td><td>7</td><td>Yes</td></tr><tr><td>4</td><td>Renewable energy</td><td>0.098</td><td>8</td><td>Yes</td></tr><tr><td>5</td><td>Solar Farm Alpha</td><td>0.088</td><td>15</td><td>Yes</td></tr><tr><td>6</td><td>Supplier X</td><td>0.078</td><td>7</td><td>Yes</td></tr><tr><td>7</td><td>John Doe</td><td>0.075</td><td>12</td><td>Yes</td></tr><tr><td>8</td><td>2025 strategic plan</td><td>0.056</td><td>13</td><td>No</td></tr><tr><td>9</td><td>Clause 7.2</td><td>0.033</td><td>11</td><td>No</td></tr><tr><td>10</td><td>Outage 14</td><td>0.023</td><td>13</td><td>No</td></tr><tr><td>11</td><td>Customer Y</td><td>0.023</td><td>7</td><td>No</td></tr><tr><td>12</td><td>Customer Z</td><td>0.023</td><td>7</td><td>No</td></tr></tbody></table></div></div>
+</div>
+
+<div class="panel lab" id="labC">
+  <h3>Lab 3: calibrated decisions with per-action thresholds</h3>
+  <p class="note">A simulation of the decision loop described in the paper. No model is called. Each case gets a stated confidence; the case is decided automatically if confidence clears that action's threshold, otherwise it is escalated at a cost of 1. Raise overconfidence to see what happens when stated probabilities stop matching reality.</p>
+  <div class="params">
+    <label>Overconfidence <input id="cOver" type="range" min="0" max="0.6" step="0.05" value="0"> <strong id="cOverV">0.00</strong></label>
+    <label>Approve payment threshold <input id="cT0" type="number" min="0.5" max="1" step="0.01" value="0.97" style="width:80px"></label>
+    <label>Route ticket threshold <input id="cT1" type="number" min="0.5" max="1" step="0.01" value="0.70" style="width:80px"></label>
+    <label>Flag for review threshold <input id="cT2" type="number" min="0.5" max="1" step="0.01" value="0.80" style="width:80px"></label>
+    <button class="primary" data-run="C">Run</button>
+  </div>
+  <details><summary>View and edit the code</summary><textarea id="cCode" spellcheck="false"></textarea>
+    <div class="controls"><button data-runedit="C">Run edited code</button><button data-reset="C">Reset code</button></div></details>
+  <div class="out" id="cOut"><div class="scroll"><table><tbody><tr><th>Action</th><th>Cost of error</th><th>Decided automatically</th><th>Error rate when automatic</th><th>Cost</th></tr><tr><td>Approve payment</td><td>50</td><td>7%</td><td>1.4%</td><td>999</td></tr><tr><td>Route ticket</td><td>2</td><td>59%</td><td>13.1%</td><td>567</td></tr><tr><td>Flag for review</td><td>5</td><td>41%</td><td>10.8%</td><td>791</td></tr></tbody></table></div><p style="margin-top:8px">Total cost with thresholds: <strong>2,357</strong>. Escalate everything: 3,000. Decide everything automatically: 14,395.</p></div>
+</div>
+
+<h2>One question, five dialects</h2>
+<p>The same question in each query language: which projects does John Doe lead, and who owns them?</p>
+<div class="tabs" id="snipTabs" role="tablist"><button role="tab" aria-pressed="true" aria-selected="true">Cypher</button><button role="tab" aria-pressed="false" aria-selected="false">Gremlin</button><button role="tab" aria-pressed="false" aria-selected="false">GQL</button><button role="tab" aria-pressed="false" aria-selected="false">MongoDB</button><button role="tab" aria-pressed="false" aria-selected="false">Kuzu (Python)</button></div>
+<div class="snip"><pre><code id="snipCode">MATCH (p:Person {name: 'John Doe'})-[:LEADS]-&gt;(proj:Project)&lt;-[:OWNS]-(c:Company)
+RETURN p.name, proj.name, c.name;</code></pre><button class="copy" id="snipCopy">Copy</button></div>
+<p class="note" id="snipNote">Neo4j, FalkorDB, Kuzu, Neptune (openCypher), PuppyGraph</p>
+
+<h2>Run it on your laptop</h2>
+<p>Local options for the engines that have them. Neptune, Spanner Graph and Fabric graph are cloud-only.</p>
+<div class="runlist" id="runList"><div><span class="pill" style="--c:var(--native)">Neo4j</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/change-me neo4j:5</code></pre><button class="copy" data-copyrun="0">Copy</button></div><p class="note" style="margin-top:4px">Browser UI on localhost:7474.</p></div><div><span class="pill" style="--c:var(--native)">FalkorDB</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest</code></pre><button class="copy" data-copyrun="1">Copy</button></div><p class="note" style="margin-top:4px">Browser UI on localhost:3000.</p></div><div><span class="pill" style="--c:var(--doc)">MongoDB</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 27017:27017 mongo:8</code></pre><button class="copy" data-copyrun="2">Copy</button></div><p class="note" style="margin-top:4px">Local server; Atlas Vector Search needs Atlas or the Atlas CLI local deployment.</p></div><div><span class="pill" style="--c:var(--embed)">Kuzu</span><div class="snip" style="margin-top:6px"><pre><code>pip install kuzu==0.11.3</code></pre><button class="copy" data-copyrun="3">Copy</button></div><p class="note" style="margin-top:4px">Final upstream release. Use a community fork for anything you will keep.</p></div><div><span class="pill" style="--c:var(--over)">PuppyGraph</span><div class="snip" style="margin-top:6px"><pre><code>docker run -p 8081:8081 -p 8182:8182 -p 7687:7687 -d --name puppy --rm puppygraph/puppygraph:stable</code></pre><button class="copy" data-copyrun="4">Copy</button></div><p class="note" style="margin-top:4px">Free Developer edition, single node. Check docs.puppygraph.com for the current image tag.</p></div></div>
+
+<footer>
+  <h3>Sources and caveats</h3>
+  <p class="note">Prices are vendor list prices checked on 25 September 2026 and change often; confirm with each vendor's calculator before quoting to a client. Performance claims for PuppyGraph, FalkorDB and Jev are vendor-reported. Kuzu was archived in October 2025; the forks named here are community-maintained. Grades are the author's judgement against the stated weights.</p>
+  <p class="note">Vendor pages: <a href="https://neo4j.com/pricing/">Neo4j</a>, <a href="https://www.falkordb.com/plans/">FalkorDB</a>, <a href="https://aws.amazon.com/neptune/pricing/">Neptune</a>, <a href="https://cloud.google.com/spanner/pricing">Spanner</a>, <a href="https://www.puppygraph.com/pricing">PuppyGraph</a>, <a href="https://learn.microsoft.com/en-us/fabric/graph/overview">Fabric graph</a>, <a href="https://www.mongodb.com/pricing">MongoDB</a>, <a href="https://www.puppygraph.com/blog/what-is-kuzudb">Kuzu status</a>.</p>
+</footer>
+</main>
+
+<script>
+/* ---------- Example graph shared by the hero and the labs ---------- */
+const G = {
+  nodes: [
+    {id:"john",label:"John Doe",type:"Person",x:55,y:55,text:"John Doe is a programme director based in Sydney."},
+    {id:"solar",label:"Solar Farm Alpha",type:"Project",x:180,y:35,text:"Solar Farm Alpha is a 120 MW site commissioned in 2024."},
+    {id:"acme",label:"ACME",type:"Company",x:305,y:60,text:"ACME is an infrastructure company."},
+    {id:"wind",label:"Wind Project Beta",type:"Project",x:180,y:140,text:"Wind Project Beta is an offshore site in planning."},
+    {id:"renew",label:"Renewable energy",type:"Theme",x:305,y:165,text:"Renewable energy is a strategic theme."},
+    {id:"plan",label:"2025 strategic plan",type:"Document",x:300,y:265,text:"The 2025 strategic plan sets targets for renewable energy growth."},
+    {id:"supplier",label:"Supplier X",type:"Company",x:55,y:165,text:"Supplier X manufactures turbine components."},
+    {id:"clause",label:"Clause 7.2",type:"Clause",x:45,y:255,text:"Clause 7.2 allows termination after two missed deliveries."},
+    {id:"api",label:"Grid API",type:"Service",x:180,y:245,text:"Grid API publishes live output data."},
+    {id:"outage",label:"Outage 14",type:"Incident",x:100,y:325,text:"Outage 14 took the Grid API offline for six hours."},
+    {id:"custy",label:"Customer Y",type:"Company",x:220,y:325,text:"Customer Y buys output data."},
+    {id:"custz",label:"Customer Z",type:"Company",x:320,y:325,text:"Customer Z buys output data."}
+  ],
+  edges: [
+    ["john","LEADS","solar"],["john","ADVISES","wind"],["acme","OWNS","solar"],["acme","OWNS","wind"],
+    ["solar","PART_OF","renew"],["wind","PART_OF","renew"],["plan","COVERS","renew"],["acme","AUTHORED","plan"],
+    ["supplier","SUPPLIES","wind"],["clause","GOVERNS","supplier"],["wind","DEPENDS_ON","api"],
+    ["outage","AFFECTED","api"],["api","SERVES","custy"],["api","SERVES","custz"]
+  ],
+  node(id){return this.nodes.find(n=>n.id===id)},
+  neighbours(id){const out=[];for(const [a,r,b] of this.edges){if(a===id)out.push({id:b,rel:r,dir:"out"});if(b===id)out.push({id:a,rel:r,dir:"in"});}return out},
+  tokens(n){return Math.ceil(n.text.split(/\s+/).length*1.3)}
+};
+const TYPE_COL={Person:"var(--native)",Company:"var(--doc)",Project:"var(--over)",Theme:"var(--embed)",Document:"var(--muted)",Clause:"var(--muted)",Service:"var(--over)",Incident:"var(--warn)"};
+
+function bfs(start,k){const d={[start]:0};let f=[start];for(let h=1;h<=k;h++){const nx=[];for(const id of f)for(const n of G.neighbours(id))if(d[n.id]===undefined){d[n.id]=h;nx.push(n.id)}f=nx}return d}
+
+/* ---------- Hero graph ---------- */
+let heroSel="john",heroHop=2;
+const SVGNS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(SVGNS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function drawHero(){
+  const svg=document.getElementById("heroGraph");svg.innerHTML="";
+  const d=bfs(heroSel,heroHop);
+  for(const [a,r,b] of G.edges){const A=G.node(a),B=G.node(b);
+    const g=el("g",{class:"edge"+((d[a]!==undefined&&d[b]!==undefined)?"":" dim")},svg);
+    el("line",{x1:A.x,y1:A.y,x2:B.x,y2:B.y},g);
+    const t=el("text",{x:(A.x+B.x)/2,y:(A.y+B.y)/2-3,"text-anchor":"middle"},g);t.textContent=r.toLowerCase();}
+  for(const n of G.nodes){const on=d[n.id]!==undefined;
+    const g=el("g",{class:"node"+(on?"":" dim"),tabindex:0,role:"button","aria-label":n.label},svg);
+    el("circle",{cx:n.x,cy:n.y,r:n.id===heroSel?13:10,fill:TYPE_COL[n.type]},g);
+    if(on&&d[n.id]>0){const b=el("text",{x:n.x,y:n.y+3,"text-anchor":"middle",class:"hopbadge"},g);b.textContent=d[n.id]}
+    const t=el("text",{x:n.x,y:n.y+22,"text-anchor":"middle"},g);t.textContent=n.label;
+    const pick=()=>{heroSel=n.id;drawHero()};
+    g.addEventListener("click",pick);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pick()}});}
+  const reached=Object.keys(d).length-1;
+  document.getElementById("heroStatus").textContent=`Selected: ${G.node(heroSel).label}. ${reached} connected facts within ${heroHop} hop${heroHop>1?"s":""}.`;
+}
+document.querySelectorAll("[data-hop]").forEach(b=>b.addEventListener("click",()=>{heroHop=+b.dataset.hop;document.querySelectorAll("[data-hop]").forEach(x=>x.setAttribute("aria-pressed",x===b));drawHero()}));
+drawHero();
+
+/* ---------- Engine data ---------- */
+const GV={"A":4,"A-":3.7,"B+":3.3,"B":3,"B-":2.7,"C+":2.3,"C":2,"C-":1.7,"D":1,"F":0};
+const E=[
+ {n:"Neo4j",cat:"native",shared:"A-",embed:null,d:5,o:5,c:2,v:5,cost:4670,note:"Business Critical, 32 GB"},
+ {n:"FalkorDB",cat:"native",shared:"B+",embed:"B",d:4,o:3,c:4,v:3,cost:350,note:"Pro, 8 GB with HA"},
+ {n:"Neptune",cat:"native",shared:"B",embed:null,d:3,o:5,c:3,v:5,cost:460,note:"Two db.r6g.large, before storage and I/O"},
+ {n:"Spanner Graph",cat:"over",shared:"B",embed:null,d:3,o:5,c:3,v:5,cost:120,hi:1200,note:"Enterprise edition, 0.1 to 1 node"},
+ {n:"PuppyGraph",cat:"over",shared:"B",prov:true,embed:null,d:4,o:3,c:4,v:3,cost:null,note:"Priced on server CPU and memory; quote only"},
+ {n:"Fabric graph",cat:"over",shared:"C+",embed:null,d:3,o:3,c:3,v:4,cost:1300,note:"Always on, pay-as-you-go estimate"},
+ {n:"MongoDB Atlas",cat:"doc",shared:"C",embed:null,d:2,o:5,c:4,v:5,cost:394,note:"M30 cluster"},
+ {n:"Cosmos DB Gremlin",cat:"doc",shared:"D",embed:null,d:2,o:4,c:2,v:2,cost:null,note:"Throughput-based; depends on load"},
+ {n:"Kuzu forks",cat:"embed",shared:null,embed:"B-",d:4,o:1,c:5,v:2,cost:0,note:"Open source; your own compute"},
+ {n:"Kuzu 0.11.3",cat:"embed",shared:null,embed:"C",d:4,o:1,c:5,v:0,cost:0,note:"Archived; pin only for existing use"}
+];
+const CV=c=>`var(--${c})`;
+
+/* ---------- Grade chart ---------- */
+let job="shared";
+function drawGrades(){
+  const rows=E.filter(e=>e[job]);
+  let h='<div class="bars">';
+  for(const e of rows){const w=GV[e[job]]/4*72;
+    h+=`<div class="blab">${e.n}</div><div class="track"><div class="bar" style="--c:${CV(e.cat)};width:${Math.max(w,1)}%"></div><span class="val">${e[job]}${e.prov?" (prov.)":""}</span></div>`}
+  document.getElementById("gradeChart").innerHTML=h+'</div><p class="note" style="margin:10px 0 0">Scale runs from F to A.</p>';
+}
+document.getElementById("jobShared").onclick=e=>{job="shared";e.target.setAttribute("aria-pressed",true);document.getElementById("jobEmbed").setAttribute("aria-pressed",false);drawGrades()};
+document.getElementById("jobEmbed").onclick=e=>{job="embed";e.target.setAttribute("aria-pressed",true);document.getElementById("jobShared").setAttribute("aria-pressed",false);drawGrades()};
+drawGrades();
+
+/* ---------- Heat table ---------- */
+(function(){
+  const shade=v=>`color-mix(in srgb, var(--native) ${20+v*16}%, var(--paper))`;
+  let h=`<thead><tr><th>Engine</th><th>Depth</th><th>Ops</th><th>Cost</th><th>Viability</th><th>Grade</th></tr></thead><tbody>`;
+  for(const e of E){h+=`<tr><td><span class="pill" style="--c:${CV(e.cat)}">${e.n}</span></td>`;
+    for(const k of ["d","o","c","v"]){const v=e[k];h+=`<td class="num" style="background:${shade(v)};color:${v>=3?"#fff":"var(--ink)"}">${v}</td>`}
+    h+=`<td>${e.shared?e.shared+(e.prov?" (prov.)":"")+" shared":""}${e.shared&&e.embed?", ":""}${e.embed?e.embed+" embedded":""}</td></tr>`}
+  document.getElementById("heat").innerHTML=h+"</tbody>";
+})();
+
+/* ---------- Cost chart ---------- */
+(function(){
+  const rows=[...E].sort((a,b)=>((b.hi||b.cost)??-1)-((a.hi||a.cost)??-1)),max=5000,pct=v=>v/max*70;
+  const fmt=v=>"$"+v.toLocaleString("en-GB");
+  let h='<div class="bars">';
+  for(const e of rows){h+=`<div class="blab">${e.n}</div><div class="track">`;
+    if(e.cost===null)h+=`<span class="val soft">${e.note}</span>`;
+    else if(e.cost===0)h+=`<span class="val soft">$0 licence, own compute</span>`;
+    else{h+=`<div class="bar" style="--c:${CV(e.cat)};width:${pct(e.cost)}%"></div>`;
+      if(e.hi)h+=`<div class="rng" style="--c:${CV(e.cat)};width:${pct(e.hi-e.cost)}%"></div>`;
+      h+=`<span class="val">${e.hi?fmt(e.cost)+" to "+fmt(e.hi):fmt(e.cost)}</span>`}
+    h+='</div>'}
+  document.getElementById("costChart").innerHTML=h+'</div><p class="note" style="margin:10px 0 0">USD per month. Bars scaled to $5,000.</p>';
+})();
+
+/* ---------- Labs ---------- */
+function labA(G, question, hops){
+  // Keyword retrieval: score nodes by words shared with the question
+  const stop=new Set(["what","is","the","in","of","and","a","role","s"]);
+  const words=question.toLowerCase().replace(/'s\b/g,"").match(/[a-z0-9]+/g).filter(w=>!stop.has(w));
+  const keyword=G.nodes.map(n=>({n,score:words.filter(w=>n.text.toLowerCase().includes(w)).length}))
+    .filter(r=>r.score>0).sort((a,b)=>b.score-a.score).map(r=>`${r.n.label} (${r.score} shared words): ${r.n.text}`);
+
+  // Graph retrieval: start at entities named in the question, follow edges
+  const seeds=G.nodes.filter(n=>question.toLowerCase().includes(n.label.toLowerCase())).map(n=>n.id);
+  const paths=[];const seen=new Set(seeds);
+  let frontier=seeds.map(id=>({id,prev:null,path:G.node(id).label}));
+  for(let h=0;h<hops;h++){const next=[];
+    for(const f of frontier)for(const nb of G.neighbours(f.id)){
+      if(nb.id===f.prev)continue;
+      const step=nb.dir==="out"?` -${nb.rel}-> `:` <-${nb.rel}- `;
+      const p=f.path+step+G.node(nb.id).label;paths.push(p);
+      if(!seen.has(nb.id)){seen.add(nb.id);next.push({id:nb.id,prev:f.id,path:p})}}
+    frontier=next}
+  return {seeds:seeds.map(id=>G.node(id).label),keyword,paths:[...new Set(paths)]};
+}
+function labB(G, seed, budget){
+  // Personalised PageRank from the seed node, then pack text into the budget
+  const ids=G.nodes.map(n=>n.id),damp=0.85;let r=Object.fromEntries(ids.map(i=>[i,i===seed?1:0]));
+  for(let it=0;it<40;it++){const nr=Object.fromEntries(ids.map(i=>[i,i===seed?1-damp:0]));
+    for(const i of ids){const nb=G.neighbours(i);for(const n of nb)nr[n.id]+=damp*r[i]/nb.length}r=nr}
+  const ranked=ids.map(i=>({node:G.node(i),score:r[i],tokens:G.tokens(G.node(i))})).sort((a,b)=>b.score-a.score);
+  let used=0;for(const x of ranked){x.included=used+x.tokens<=budget;if(x.included)used+=x.tokens}
+  return {ranked,used,budget};
+}
+function labC(thresholds, overconfidence, cases=3000, seed=42){
+  // Seeded random numbers so runs are repeatable
+  let s=seed;const rnd=()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+  const actions=[{name:"Approve payment",errorCost:50},{name:"Route ticket",errorCost:2},{name:"Flag for review",errorCost:5}];
+  const escalationCost=1;
+  const stats=actions.map(a=>({...a,n:0,auto:0,wrong:0,cost:0}));let autoAllCost=0;
+  for(let i=0;i<cases;i++){
+    const k=Math.floor(rnd()*3),st=stats[k];st.n++;
+    const stated=0.5+0.5*rnd();                         // what the model says
+    const real=stated-overconfidence*(stated-0.5);        // what is actually true
+    const correct=rnd()<real;
+    if(!correct)autoAllCost+=st.errorCost;
+    if(stated>=thresholds[k]){st.auto++;if(!correct){st.wrong++;st.cost+=st.errorCost}}
+    else st.cost+=escalationCost;}
+  const total=stats.reduce((t,x)=>t+x.cost,0);
+  return {stats,total,escalateAll:cases*escalationCost,autoAll:autoAllCost};
+}
+
+const DEFAULT={A:labA.toString(),B:labB.toString(),C:labC.toString()};
+const FN={A:labA,B:labB,C:labC};
+["A","B","C"].forEach(k=>document.getElementById(k.toLowerCase()+"Code").value=DEFAULT[k]);
+
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function renderA(r){
+  document.getElementById("aOut").innerHTML=
+   `<strong>Keyword retrieval</strong> found ${r.keyword.length} fragments:`+r.keyword.map(x=>`<span class="path">${esc(x)}</span>`).join("")+
+   `<p class="note" style="margin-top:8px">None of these says how John Doe relates to ACME. The link lives in the relationships, not the text.</p>`+
+   `<strong>Graph retrieval</strong> from ${esc(r.seeds.join(", ")||"no named entities")} found ${r.paths.length} paths:`+r.paths.map(x=>`<span class="path">${esc(x)}</span>`).join("");
+}
+function renderB(r){
+  let h=`<p><strong>${r.used}</strong> of ${r.budget} tokens used.</p><div class="scroll"><table><tr><th>Rank</th><th>Node</th><th>Score</th><th>Tokens</th><th>In context</th></tr>`;
+  r.ranked.forEach((x,i)=>h+=`<tr><td>${i+1}</td><td>${esc(x.node.label)}</td><td>${x.score.toFixed(3)}</td><td>${x.tokens}</td><td>${x.included?"Yes":"No"}</td></tr>`);
+  document.getElementById("bOut").innerHTML=h+"</table></div>";
+}
+function renderC(r){
+  let h=`<div class="scroll"><table><tr><th>Action</th><th>Cost of error</th><th>Decided automatically</th><th>Error rate when automatic</th><th>Cost</th></tr>`;
+  for(const s of r.stats)h+=`<tr><td>${s.name}</td><td>${s.errorCost}</td><td>${(s.auto/s.n*100).toFixed(0)}%</td><td>${s.auto?(s.wrong/s.auto*100).toFixed(1):"0.0"}%</td><td>${s.cost.toLocaleString("en-GB")}</td></tr>`;
+  h+=`</table></div><p style="margin-top:8px">Total cost with thresholds: <strong>${r.total.toLocaleString("en-GB")}</strong>. Escalate everything: ${r.escalateAll.toLocaleString("en-GB")}. Decide everything automatically: ${r.autoAll.toLocaleString("en-GB")}.</p>`;
+  document.getElementById("cOut").innerHTML=h;
+}
+function params(k){
+  if(k==="A")return [G,document.getElementById("aQ").value,Math.min(4,Math.max(1,+document.getElementById("aK").value||2))];
+  if(k==="B")return [G,document.getElementById("bSeed").value,+document.getElementById("bBudget").value];
+  return [[+cT0.value,+cT1.value,+cT2.value],+cOver.value];
+}
+const RENDER={A:renderA,B:renderB,C:renderC};
+function run(k,fn){const out=document.getElementById(k.toLowerCase()+"Out");
+  try{RENDER[k](fn(...params(k)))}catch(e){out.innerHTML=`<span class="err">Your code threw an error: ${esc(e.message)}. Fix it and run again, or reset the code.</span>`}}
+document.querySelectorAll("[data-run]").forEach(b=>b.onclick=()=>run(b.dataset.run,FN[b.dataset.run]));
+document.querySelectorAll("[data-reset]").forEach(b=>b.onclick=()=>{const k=b.dataset.reset;document.getElementById(k.toLowerCase()+"Code").value=DEFAULT[k];run(k,FN[k])});
+document.querySelectorAll("[data-runedit]").forEach(b=>b.onclick=()=>{const k=b.dataset.runedit,out=document.getElementById(k.toLowerCase()+"Out");
+  let fn;try{fn=new Function("return ("+document.getElementById(k.toLowerCase()+"Code").value+")")()}
+  catch(e){out.innerHTML=e instanceof EvalError?`<span class="err">This page's security settings block running edited code. Copy the code into your browser console or a Node.js file to experiment.</span>`:`<span class="err">Your code has a syntax error: ${esc(e.message)}</span>`;return}
+  run(k,fn)});
+
+const bSeed=document.getElementById("bSeed");G.nodes.forEach(n=>bSeed.add(new Option(n.label,n.id,n.id==="wind",n.id==="wind")));
+const bBudget=document.getElementById("bBudget");bBudget.oninput=()=>{document.getElementById("bBudgetV").textContent=bBudget.value;run("B",FN.B)};
+bSeed.onchange=()=>run("B",FN.B);
+const cOver=document.getElementById("cOver"),cT0=document.getElementById("cT0"),cT1=document.getElementById("cT1"),cT2=document.getElementById("cT2");
+cOver.oninput=()=>{document.getElementById("cOverV").textContent=(+cOver.value).toFixed(2);run("C",FN.C)};
+[cT0,cT1,cT2].forEach(i=>i.onchange=()=>run("C",FN.C));
+run("A",FN.A);run("B",FN.B);run("C",FN.C);
+
+/* ---------- Snippets ---------- */
+const SNIPS=[
+ {t:"Cypher",who:"Neo4j, FalkorDB, Kuzu, Neptune (openCypher), PuppyGraph",c:`MATCH (p:Person {name: 'John Doe'})-[:LEADS]->(proj:Project)<-[:OWNS]-(c:Company)
+RETURN p.name, proj.name, c.name;`},
+ {t:"Gremlin",who:"Neptune, Cosmos DB, PuppyGraph",c:`g.V().has('Person', 'name', 'John Doe')
+  .out('LEADS').as('project')
+  .in('OWNS').as('owner')
+  .select('project', 'owner').by('name')`},
+ {t:"GQL",who:"Spanner Graph needs the GRAPH line. Fabric graph runs against the graph you have open.",c:`GRAPH ProjectGraph
+MATCH (p:Person {name: 'John Doe'})-[:LEADS]->(proj:Project)<-[:OWNS]-(c:Company)
+RETURN p.name AS person, proj.name AS project, c.name AS owner`},
+ {t:"MongoDB",who:"MongoDB Atlas. Keep maxDepth low; $graphLookup has a 100 MB memory limit per stage.",c:`db.entities.aggregate([
+  { $match: { name: "John Doe" } },
+  { $graphLookup: {
+      from: "entities",
+      startWith: "$links",
+      connectFromField: "links",
+      connectToField: "_id",
+      maxDepth: 1,
+      depthField: "hops",
+      as: "network"
+  } }
+])`},
+ {t:"Kuzu (Python)",who:"Embedded. Runs in memory with no server. Works the same on the community forks.",c:`import kuzu
+
+db = kuzu.Database(":memory:")
+conn = kuzu.Connection(db)
+
+conn.execute("CREATE NODE TABLE Person(name STRING PRIMARY KEY)")
+conn.execute("CREATE NODE TABLE Project(name STRING PRIMARY KEY)")
+conn.execute("CREATE REL TABLE LEADS(FROM Person TO Project)")
+conn.execute("CREATE (:Person {name: 'John Doe'})")
+conn.execute("CREATE (:Project {name: 'Solar Farm Alpha'})")
+conn.execute("""
+  MATCH (p:Person {name: 'John Doe'}), (x:Project {name: 'Solar Farm Alpha'})
+  CREATE (p)-[:LEADS]->(x)
+""")
+
+r = conn.execute("MATCH (p:Person)-[:LEADS]->(x:Project) RETURN p.name, x.name")
+while r.has_next():
+    print(r.get_next())`}
+];
+const tabs=document.getElementById("snipTabs");let cur=0;
+function showSnip(i){cur=i;document.getElementById("snipCode").textContent=SNIPS[i].c;document.getElementById("snipNote").textContent=SNIPS[i].who;
+  [...tabs.children].forEach((b,j)=>{b.setAttribute("aria-pressed",j===i);b.setAttribute("aria-selected",j===i)})}
+SNIPS.forEach((s,i)=>{const b=document.createElement("button");b.textContent=s.t;b.setAttribute("role","tab");b.onclick=()=>showSnip(i);tabs.appendChild(b)});
+showSnip(0);
+async function copyText(text,btn){try{await navigator.clipboard.writeText(text);btn.textContent="Copied"}catch(e){btn.textContent="Select and copy"}setTimeout(()=>btn.textContent="Copy",1600)}
+document.getElementById("snipCopy").onclick=e=>copyText(SNIPS[cur].c,e.target);
+
+/* ---------- Local runs ---------- */
+const RUNS=[
+ {n:"Neo4j",cat:"native",c:"docker run -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/change-me neo4j:5",note:"Browser UI on localhost:7474."},
+ {n:"FalkorDB",cat:"native",c:"docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest",note:"Browser UI on localhost:3000."},
+ {n:"MongoDB",cat:"doc",c:"docker run -p 27017:27017 mongo:8",note:"Local server; Atlas Vector Search needs Atlas or the Atlas CLI local deployment."},
+ {n:"Kuzu",cat:"embed",c:"pip install kuzu==0.11.3",note:"Final upstream release. Use a community fork for anything you will keep."},
+ {n:"PuppyGraph",cat:"over",c:"docker run -p 8081:8081 -p 8182:8182 -p 7687:7687 -d --name puppy --rm puppygraph/puppygraph:stable",note:"Free Developer edition, single node. Check docs.puppygraph.com for the current image tag."}
+];
+document.getElementById("runList").innerHTML=RUNS.map((r,i)=>`<div><span class="pill" style="--c:${CV(r.cat)}">${r.n}</span><div class="snip" style="margin-top:6px"><pre><code>${esc(r.c)}</code></pre><button class="copy" data-copyrun="${i}">Copy</button></div><p class="note" style="margin-top:4px">${r.note}</p></div>`).join("");
+document.querySelectorAll("[data-copyrun]").forEach(b=>b.onclick=()=>copyText(RUNS[+b.dataset.copyrun].c,b));
+</script>
+
+
+</body></html>
