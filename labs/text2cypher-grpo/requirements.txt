@@ -1,0 +1,8 @@
+# CPU parts: graph, tasks, reward, evaluation
+kuzu==0.11.3
+datasets>=3.0
+nbformat>=5.9
+
+# Training (Linux + NVIDIA GPU), installed by the notebook's first cell:
+# unsloth==2026.9.12  (pins trl<=0.24.0)
+# vllm

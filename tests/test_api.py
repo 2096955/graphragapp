@@ -61,17 +61,23 @@ def test_catalogue_pipeline_endpoint_needs_no_key(client):
     assert "CO2" in body["query"]["pollutants"]
 
 
-def test_pages_and_field_guide_assets(client):
+def test_pages_link_to_each_other(client):
     lab = client.get("/")
     assert lab.status_code == 200 and "GraphRAG Decisions Lab" in lab.text
-    assert "Jev is the typed decision layer" in lab.text
-    assert 'href="/field-guide"' in lab.text
-    guide = client.get("/field-guide")
-    assert guide.status_code == 200 and "Graphs for agent context" in guide.text
-    assert "Jev is the typed decision layer" in guide.text
-    assert "Neo4j" in guide.text and "Kuzu" in guide.text
-    css = client.get("/field-guide_files/css2")
-    assert css.status_code == 200 and css.content
+    assert "not measured here" in lab.text
+    assert 'href="field-guide.html"' in lab.text and 'href="small-world.html"' in lab.text
+    for path in ("/field-guide", "/field-guide.html"):
+        guide = client.get(path)
+        assert guide.status_code == 200 and "Graphs for agent context" in guide.text
+        assert "Jev is the typed decision layer" in guide.text and "/api/compare" in guide.text
+        assert "Neo4j" in guide.text and "Kuzu" in guide.text
+        assert "field-guide_files" not in guide.text
+        assert 'href="index.html"' in guide.text and 'href="small-world.html"' in guide.text
+    for path in ("/small-world", "/small-world.html"):
+        world = client.get(path)
+        assert world.status_code == 200 and "Watts" in world.text
+        assert 'href="field-guide.html' in world.text
+    assert client.get("/index.html").status_code == 200
 
 
 def test_eval_off_without_token(client):

@@ -3,17 +3,22 @@
 Send traces with register(space_id, api_key, project_name=...) or OTLP:
 gRPC https://otlp.arize.com/v1 and HTTP https://otlp.arize.com/v1/traces.
 
-Environment variables: ARIZE_SPACE_ID, ARIZE_API_KEY, ARIZE_PROJECT_NAME.
-The signed-in space is named AzureDev. A key named graph-demo exists there
-and must not be committed. This module never invents a key.
+Environment variables: ARIZE_SPACE_ID, ARIZE_API_KEY, ARIZE_PROJECT_NAME. Keys stay on the
+server and out of the repository.
 
-When those env vars are unset, the compliance example still runs and this
-module returns the sample eval fixture plus locally recorded traces.
-When they are set, traces go to Arize.
+When those variables are unset, the compliance example still runs and this module returns the
+sample fixture plus the traces recorded locally. When they are set, each trace is also sent to
+Arize as an OTLP span. The export follows the OTLP/HTTP JSON format but has not been tested
+against a live Arize space from this repository.
+
+"Correct" is only reported for payloads with a hand-written label; unlabelled traffic has no
+ground truth, and the summary says how many decisions were labelled.
 """
 from __future__ import annotations
 
 import json
+import secrets
+import time
 from pathlib import Path
 from typing import Any
 
@@ -23,8 +28,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SAMPLE_PATH = ROOT / "results" / "compliance-arize-sample.json"
 OTLP_HTTP = "https://otlp.arize.com/v1/traces"
 OTLP_GRPC = "https://otlp.arize.com/v1"
-SPACE_NAME = "AzureDev"
 REGISTER = "register(space_id, api_key, project_name=...)"
+EXPORT_ATTEMPTS = 3
 
 
 def load_sample() -> dict[str, Any]:
@@ -39,7 +44,7 @@ def load_sample() -> dict[str, Any]:
             "cost_usd": 0.0,
             "note": (
                 "Sample fixture. Catalogue mode costs $0. Set ARIZE_SPACE_ID, "
-                "ARIZE_API_KEY and ARIZE_PROJECT_NAME to export live traces to space AzureDev."
+                "ARIZE_API_KEY and ARIZE_PROJECT_NAME to export traces to Arize."
             ),
         },
         "traces": [],
@@ -50,12 +55,13 @@ class ArizeEval:
     """Collects filter traces. Exports to Arize only when both credentials are present."""
 
     def __init__(self, space_id: str | None, api_key: str | None, project: str = "graphrag-compliance",
-                 endpoint: str = OTLP_HTTP, transport: httpx.BaseTransport | None = None):
+                 endpoint: str = OTLP_HTTP, transport: httpx.BaseTransport | None = None, sleep=time.sleep):
         self.space_id = (space_id or "").strip() or None
         self.api_key = (api_key or "").strip() or None
         self.project = project
         self.endpoint = endpoint.rstrip("/")
         self._client = httpx.Client(timeout=8.0, transport=transport)
+        self._sleep = sleep
         self.traces: list[dict[str, Any]] = []
         self.last_export: dict[str, Any] | None = None
 
@@ -76,14 +82,11 @@ class ArizeEval:
 
     def wiring(self) -> dict[str, Any]:
         return {
-            "space_name": SPACE_NAME,
             "project": self.project,
             "register": REGISTER,
             "otlp_http": OTLP_HTTP,
             "otlp_grpc": OTLP_GRPC,
             "env": ["ARIZE_SPACE_ID", "ARIZE_API_KEY", "ARIZE_PROJECT_NAME"],
-            "key_name": "graph-demo",
-            "key_committed": False,
         }
 
     def view(self) -> dict[str, Any]:
@@ -115,14 +118,16 @@ class ArizeEval:
 
     def _summarise(self, traces: list[dict[str, Any]]) -> dict[str, Any]:
         if not traces:
-            return {"decisions": 0, "filter_correct": None, "cost_usd": 0.0,
+            return {"decisions": 0, "labelled": 0, "filter_correct": None, "cost_usd": 0.0,
                     "note": "No filter traces yet. Run the compliance example."}
         n = len(traces)
-        right = sum(1 for t in traces if t.get("correct"))
+        labelled = [t for t in traces if t.get("correct") is not None]
+        right = sum(1 for t in labelled if t["correct"])
         cost = round(sum(float(t.get("cost_usd") or 0) for t in traces), 6)
         return {
             "decisions": n,
-            "filter_correct": round(right / n, 4),
+            "labelled": len(labelled),
+            "filter_correct": round(right / len(labelled), 4) if labelled else None,
             "cost_usd": cost,
             "note": (
                 "Live Arize export is on." if self.configured
@@ -131,7 +136,17 @@ class ArizeEval:
         }
 
     def _export(self, trace: dict[str, Any]) -> dict[str, Any]:
-        """OTLP-ish JSON body. Never called unless both credentials are set."""
+        """One OTLP/HTTP JSON span. Never called unless both credentials are set."""
+        end = time.time_ns()
+        start = end - int(float(trace.get("latency_ms") or 0) * 1e6)
+        attributes = [
+            {"key": "filter.action", "value": {"stringValue": str(trace.get("action"))}},
+            {"key": "filter.cost_usd", "value": {"doubleValue": float(trace.get("cost_usd") or 0)}},
+            {"key": "filter.pattern_id", "value": {"stringValue": str(trace.get("pattern_id"))}},
+            {"key": "filter.backend", "value": {"stringValue": str(trace.get("backend"))}},
+        ]
+        if trace.get("correct") is not None:
+            attributes.append({"key": "filter.correct", "value": {"boolValue": bool(trace["correct"])}})
         body = {
             "resourceSpans": [{
                 "resource": {"attributes": [
@@ -139,27 +154,31 @@ class ArizeEval:
                     {"key": "arize.space_id", "value": {"stringValue": self.space_id}},
                 ]},
                 "scopeSpans": [{
+                    "scope": {"name": "graphrag-compliance"},
                     "spans": [{
+                        "traceId": secrets.token_hex(16),
+                        "spanId": secrets.token_hex(8),
                         "name": trace.get("name") or "compliance.filter",
-                        "attributes": [
-                            {"key": "filter.action", "value": {"stringValue": str(trace.get("action"))}},
-                            {"key": "filter.correct", "value": {"boolValue": bool(trace.get("correct"))}},
-                            {"key": "filter.cost_usd", "value": {"doubleValue": float(trace.get("cost_usd") or 0)}},
-                            {"key": "filter.pattern_id", "value": {"stringValue": str(trace.get("pattern_id"))}},
-                            {"key": "filter.backend", "value": {"stringValue": str(trace.get("backend"))}},
-                        ],
+                        "kind": 1,
+                        "startTimeUnixNano": str(start),
+                        "endTimeUnixNano": str(end),
+                        "attributes": attributes,
                     }],
                 }],
             }],
         }
-        headers = {
-            "Content-Type": "application/json",
-            "space_id": self.space_id or "",
-            "api_key": self.api_key or "",
-            "Authorization": f"Bearer {self.api_key}",
-        }
-        try:
-            resp = self._client.post(self.endpoint, json=body, headers=headers)
-            return {"ok": resp.status_code < 300, "status": resp.status_code}
-        except httpx.HTTPError as e:
-            return {"ok": False, "status": 0, "error": type(e).__name__}
+        headers = {"Content-Type": "application/json", "space_id": self.space_id or "", "api_key": self.api_key or ""}
+        # Retry timeouts, rate limits and server errors a couple of times; a 4xx other than 429
+        # means the request itself is wrong, and sending it again would not help.
+        out: dict[str, Any] = {"ok": False, "status": 0}
+        for attempt in range(1, EXPORT_ATTEMPTS + 1):
+            try:
+                resp = self._client.post(self.endpoint, json=body, headers=headers)
+                out = {"ok": resp.status_code < 300, "status": resp.status_code, "attempts": attempt}
+                if resp.status_code not in (429, 500, 502, 503, 504):
+                    return out
+            except httpx.HTTPError as e:
+                out = {"ok": False, "status": 0, "error": type(e).__name__, "attempts": attempt}
+            if attempt < EXPORT_ATTEMPTS:
+                self._sleep(0.25 * 2 ** (attempt - 1))
+        return out

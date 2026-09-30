@@ -1,0 +1,3 @@
+# MCP server for editors (app/mcp_server.py). Needs only httpx and the MCP SDK.
+mcp==2.2.0
+httpx==0.28.1

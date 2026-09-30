@@ -1,0 +1,5510 @@
+{
+ "builds": {
+  "labels": {
+   "backend": "labels",
+   "label": "Hand-written labels",
+   "model": "hand-written labels",
+   "threshold": 0.8,
+   "engine": "Kuzu, embedded (set FALKORDB_URL to use FalkorDB)",
+   "counts": {
+    "Publisher": 5,
+    "Person": 5,
+    "Document": 12,
+    "Topic": 4,
+    "Claim": 20,
+    "SAME_AS": 4,
+    "SHIFT": 9
+   },
+   "rejected": [
+    {
+     "claim": "X01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X03",
+     "why": "the quote is not in the document"
+    },
+    {
+     "claim": "X02",
+     "why": "the quote does not support the claim as stated"
+    }
+   ],
+   "review": [],
+   "decisions": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "quote_check",
+     "claims": [
+      "X03"
+     ],
+     "answer": "not found",
+     "confidence": null,
+     "action": "rejected"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "weaker",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "action": "written"
+    }
+   ],
+   "claims": [
+    {
+     "id": "C01",
+     "statement": "Keeping a person involved when a model declines a customer is encouraged, not required.",
+     "quote": "we encourage institutions to keep a person involved when a model declines a customer, but we are not prescribing how",
+     "date": "2023-05-10",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D01",
+     "title": "Opening remarks, model risk roundtable"
+    },
+    {
+     "id": "C02",
+     "statement": "Every institution should keep an inventory of the models it runs.",
+     "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+     "date": "2023-05-10",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D01",
+     "title": "Opening remarks, model risk roundtable"
+    },
+    {
+     "id": "C03",
+     "statement": "A lender stays accountable for decisions made with a vendor's model.",
+     "quote": "buying a model does not buy an exemption. A lender answers for the decision, whoever wrote the code",
+     "date": "2024-02-20",
+     "aspect": "accountability",
+     "topic": "vendor-models",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D02",
+     "title": "Governance of AI in consumer lending"
+    },
+    {
+     "id": "C04",
+     "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+     "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+     "date": "2024-02-20",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D02",
+     "title": "Governance of AI in consumer lending"
+    },
+    {
+     "id": "C05",
+     "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+     "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+     "date": "2024-09-03",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D03",
+     "title": "Supervisory priorities for 2025"
+    },
+    {
+     "id": "C06",
+     "statement": "An institution remains accountable for decisions made with a vendor's model.",
+     "quote": "an institution remains accountable for decisions made with a model it bought from a vendor",
+     "date": "2024-09-03",
+     "aspect": "accountability",
+     "topic": "vendor-models",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D03",
+     "title": "Supervisory priorities for 2025"
+    },
+    {
+     "id": "C07",
+     "statement": "Customer personal information should not be entered into generative AI tools.",
+     "quote": "customer personal information should not be entered into generative AI tools",
+     "date": "2024-11-12",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C08",
+     "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+     "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+     "date": "2024-11-12",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C09",
+     "statement": "The Forum opposes any requirement for human review of automated declines.",
+     "quote": "We oppose any requirement for human review of automated declines",
+     "date": "2025-02-14",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D05",
+     "title": "Submission on automated decision rules"
+    },
+    {
+     "id": "C10",
+     "statement": "New rules on model inventories are unnecessary because banks already keep them.",
+     "quote": "our members already keep an inventory of their models, so new rules on inventories would add cost without adding safety",
+     "date": "2025-02-14",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D05",
+     "title": "Submission on automated decision rules"
+    },
+    {
+     "id": "C11",
+     "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+     "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+     "date": "2025-08-18",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C12",
+     "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+     "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+     "date": "2025-08-18",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C13",
+     "statement": "Customers declined by an automated system should be told why, in plain language.",
+     "quote": "People declined by a machine deserve an explanation in plain language",
+     "date": "2025-09-02",
+     "aspect": "explanation",
+     "topic": "automated-declines",
+     "person": "okafor-lane",
+     "person_name": "Ines Okafor-Lane",
+     "publisher": "Lantern Consumer Alliance",
+     "publisher_kind": "consumer group",
+     "document": "D07",
+     "title": "Declined by a machine, and no one to ask"
+    },
+    {
+     "id": "C14",
+     "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+     "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+     "date": "2025-09-02",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "okafor-lane",
+     "person_name": "Ines Okafor-Lane",
+     "publisher": "Lantern Consumer Alliance",
+     "publisher_kind": "consumer group",
+     "document": "D07",
+     "title": "Declined by a machine, and no one to ask"
+    },
+    {
+     "id": "C15",
+     "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+     "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+     "date": "2026-03-10",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C16",
+     "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+     "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+     "date": "2026-03-10",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C17",
+     "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+     "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+     "date": "2026-04-15",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C18",
+     "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+     "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+     "date": "2026-04-15",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C19",
+     "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+     "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+     "date": "2026-05-05",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D11",
+     "title": "Enforcement priorities for 2026-27"
+    },
+    {
+     "id": "C20",
+     "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+     "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+     "date": "2026-06-01",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D12",
+     "title": "Forum response to the final standard"
+    }
+   ],
+   "same_as": [
+    {
+     "a": "C06",
+     "b": "C03",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "a": "C16",
+     "b": "C08",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "a": "C17",
+     "b": "C11",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "a": "C18",
+     "b": "C12",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    }
+   ],
+   "shifts": [
+    {
+     "later": "C05",
+     "earlier": "C01",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C11",
+     "earlier": "C05",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C12",
+     "earlier": "C02",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C15",
+     "earlier": "C07",
+     "label": "weaker",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C16",
+     "earlier": "C08",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C17",
+     "earlier": "C11",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C18",
+     "earlier": "C12",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C19",
+     "earlier": "C04",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    },
+    {
+     "later": "C20",
+     "earlier": "C09",
+     "label": "opposite",
+     "confidence": 1.0,
+     "decided_by": "labels"
+    }
+   ],
+   "timelines": {
+    "oyelaran|human-review": {
+     "person": "oyelaran",
+     "aspect": "human-review",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "C01",
+       "statement": "Keeping a person involved when a model declines a customer is encouraged, not required.",
+       "quote": "we encourage institutions to keep a person involved when a model declines a customer, but we are not prescribing how",
+       "date": "2023-05-10",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D01",
+       "title": "Opening remarks, model risk roundtable",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C05",
+       "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+       "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+       "date": "2024-09-03",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D03",
+       "title": "Supervisory priorities for 2025",
+       "change": "stronger",
+       "from": "C01",
+       "confidence": 1.0
+      },
+      {
+       "id": "C11",
+       "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+       "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+       "date": "2025-08-18",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": "stronger",
+       "from": "C05",
+       "confidence": 1.0
+      },
+      {
+       "id": "C17",
+       "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+       "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+       "date": "2026-04-15",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": "same",
+       "from": "C11",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "oyelaran|register": {
+     "person": "oyelaran",
+     "aspect": "register",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "C02",
+       "statement": "Every institution should keep an inventory of the models it runs.",
+       "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+       "date": "2023-05-10",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D01",
+       "title": "Opening remarks, model risk roundtable",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C12",
+       "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+       "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+       "date": "2025-08-18",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": "stronger",
+       "from": "C02",
+       "confidence": 1.0
+      },
+      {
+       "id": "C18",
+       "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+       "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+       "date": "2026-04-15",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": "same",
+       "from": "C12",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "fairweather|human-review": {
+     "person": "fairweather",
+     "aspect": "human-review",
+     "as_of": "2026-05-05",
+     "steps": [
+      {
+       "id": "C04",
+       "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+       "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+       "date": "2024-02-20",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "fairweather",
+       "person_name": "Tomas Fairweather",
+       "publisher": "Coral Sea Markets Commission",
+       "publisher_kind": "regulator",
+       "document": "D02",
+       "title": "Governance of AI in consumer lending",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C19",
+       "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+       "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+       "date": "2026-05-05",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "fairweather",
+       "person_name": "Tomas Fairweather",
+       "publisher": "Coral Sea Markets Commission",
+       "publisher_kind": "regulator",
+       "document": "D11",
+       "title": "Enforcement priorities for 2026-27",
+       "change": "stronger",
+       "from": "C04",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "castellane|use": {
+     "person": "castellane",
+     "aspect": "use",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C07",
+       "statement": "Customer personal information should not be entered into generative AI tools.",
+       "quote": "customer personal information should not be entered into generative AI tools",
+       "date": "2024-11-12",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C15",
+       "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+       "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+       "date": "2026-03-10",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": "weaker",
+       "from": "C07",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "castellane|notice": {
+     "person": "castellane",
+     "aspect": "notice",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C08",
+       "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+       "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+       "date": "2024-11-12",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C16",
+       "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+       "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+       "date": "2026-03-10",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": "same",
+       "from": "C08",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "quist|human-review": {
+     "person": "quist",
+     "aspect": "human-review",
+     "as_of": "2026-06-01",
+     "steps": [
+      {
+       "id": "C09",
+       "statement": "The Forum opposes any requirement for human review of automated declines.",
+       "quote": "We oppose any requirement for human review of automated declines",
+       "date": "2025-02-14",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D05",
+       "title": "Submission on automated decision rules",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C20",
+       "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+       "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+       "date": "2026-06-01",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D12",
+       "title": "Forum response to the final standard",
+       "change": "opposite",
+       "from": "C09",
+       "confidence": 1.0
+      }
+     ]
+    }
+   },
+   "who": {
+    "human-review": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C01",
+        "statement": "Keeping a person involved when a model declines a customer is encouraged, not required.",
+        "quote": "we encourage institutions to keep a person involved when a model declines a customer, but we are not prescribing how",
+        "date": "2023-05-10",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D01",
+        "title": "Opening remarks, model risk roundtable"
+       },
+       {
+        "id": "C05",
+        "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+        "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+        "date": "2024-09-03",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D03",
+        "title": "Supervisory priorities for 2025"
+       },
+       {
+        "id": "C11",
+        "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+        "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+        "date": "2025-08-18",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       },
+       {
+        "id": "C17",
+        "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+        "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+        "date": "2026-04-15",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     },
+     {
+      "person": "fairweather",
+      "name": "Tomas Fairweather",
+      "publisher": "Coral Sea Markets Commission",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C04",
+        "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+        "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+        "date": "2024-02-20",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D02",
+        "title": "Governance of AI in consumer lending"
+       },
+       {
+        "id": "C19",
+        "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+        "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+        "date": "2026-05-05",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D11",
+        "title": "Enforcement priorities for 2026-27"
+       }
+      ]
+     },
+     {
+      "person": "quist",
+      "name": "Rafael Quist",
+      "publisher": "Coral Sea Bankers' Forum",
+      "kind": "industry body",
+      "claims": [
+       {
+        "id": "C09",
+        "statement": "The Forum opposes any requirement for human review of automated declines.",
+        "quote": "We oppose any requirement for human review of automated declines",
+        "date": "2025-02-14",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D05",
+        "title": "Submission on automated decision rules"
+       },
+       {
+        "id": "C20",
+        "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+        "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+        "date": "2026-06-01",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D12",
+        "title": "Forum response to the final standard"
+       }
+      ]
+     }
+    ],
+    "register": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C02",
+        "statement": "Every institution should keep an inventory of the models it runs.",
+        "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+        "date": "2023-05-10",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D01",
+        "title": "Opening remarks, model risk roundtable"
+       },
+       {
+        "id": "C12",
+        "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+        "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+        "date": "2025-08-18",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       },
+       {
+        "id": "C18",
+        "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+        "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+        "date": "2026-04-15",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     },
+     {
+      "person": "quist",
+      "name": "Rafael Quist",
+      "publisher": "Coral Sea Bankers' Forum",
+      "kind": "industry body",
+      "claims": [
+       {
+        "id": "C10",
+        "statement": "New rules on model inventories are unnecessary because banks already keep them.",
+        "quote": "our members already keep an inventory of their models, so new rules on inventories would add cost without adding safety",
+        "date": "2025-02-14",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D05",
+        "title": "Submission on automated decision rules"
+       }
+      ]
+     }
+    ],
+    "accountability": [
+     {
+      "person": "fairweather",
+      "name": "Tomas Fairweather",
+      "publisher": "Coral Sea Markets Commission",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C03",
+        "statement": "A lender stays accountable for decisions made with a vendor's model.",
+        "quote": "buying a model does not buy an exemption. A lender answers for the decision, whoever wrote the code",
+        "date": "2024-02-20",
+        "aspect": "accountability",
+        "topic": "vendor-models",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D02",
+        "title": "Governance of AI in consumer lending"
+       }
+      ]
+     },
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C06",
+        "statement": "An institution remains accountable for decisions made with a vendor's model.",
+        "quote": "an institution remains accountable for decisions made with a model it bought from a vendor",
+        "date": "2024-09-03",
+        "aspect": "accountability",
+        "topic": "vendor-models",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D03",
+        "title": "Supervisory priorities for 2025"
+       }
+      ]
+     }
+    ],
+    "use": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C07",
+        "statement": "Customer personal information should not be entered into generative AI tools.",
+        "quote": "customer personal information should not be entered into generative AI tools",
+        "date": "2024-11-12",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C15",
+        "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+        "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+        "date": "2026-03-10",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     },
+     {
+      "person": "okafor-lane",
+      "name": "Ines Okafor-Lane",
+      "publisher": "Lantern Consumer Alliance",
+      "kind": "consumer group",
+      "claims": [
+       {
+        "id": "C14",
+        "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+        "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+        "date": "2025-09-02",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "okafor-lane",
+        "person_name": "Ines Okafor-Lane",
+        "publisher": "Lantern Consumer Alliance",
+        "publisher_kind": "consumer group",
+        "document": "D07",
+        "title": "Declined by a machine, and no one to ask"
+       }
+      ]
+     }
+    ],
+    "notice": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C08",
+        "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+        "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+        "date": "2024-11-12",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C16",
+        "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+        "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+        "date": "2026-03-10",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     }
+    ],
+    "explanation": [
+     {
+      "person": "okafor-lane",
+      "name": "Ines Okafor-Lane",
+      "publisher": "Lantern Consumer Alliance",
+      "kind": "consumer group",
+      "claims": [
+       {
+        "id": "C13",
+        "statement": "Customers declined by an automated system should be told why, in plain language.",
+        "quote": "People declined by a machine deserve an explanation in plain language",
+        "date": "2025-09-02",
+        "aspect": "explanation",
+        "topic": "automated-declines",
+        "person": "okafor-lane",
+        "person_name": "Ines Okafor-Lane",
+        "publisher": "Lantern Consumer Alliance",
+        "publisher_kind": "consumer group",
+        "document": "D07",
+        "title": "Declined by a machine, and no one to ask"
+       }
+      ]
+     }
+    ]
+   },
+   "finished": "2026-09-30T12:09:22+00:00"
+  },
+  "catalogue": {
+   "backend": "catalogue",
+   "label": "Catalogue rules",
+   "model": "catalogue-rules-v1",
+   "threshold": 0.8,
+   "engine": "Kuzu, embedded (set FALKORDB_URL to use FalkorDB)",
+   "counts": {
+    "Publisher": 5,
+    "Person": 5,
+    "Document": 12,
+    "Topic": 4,
+    "Claim": 15,
+    "SAME_AS": 3,
+    "SHIFT": 8
+   },
+   "rejected": [
+    {
+     "claim": "C01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C03",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C10",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X03",
+     "why": "the quote is not in the document"
+    },
+    {
+     "claim": "X02",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C13",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C14",
+     "why": "the quote does not support the claim as stated"
+    }
+   ],
+   "review": [],
+   "decisions": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "quote_check",
+     "claims": [
+      "X03"
+     ],
+     "answer": "not found",
+     "confidence": null,
+     "action": "rejected"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "action": "written"
+    }
+   ],
+   "claims": [
+    {
+     "id": "C02",
+     "statement": "Every institution should keep an inventory of the models it runs.",
+     "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+     "date": "2023-05-10",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D01",
+     "title": "Opening remarks, model risk roundtable"
+    },
+    {
+     "id": "C04",
+     "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+     "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+     "date": "2024-02-20",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D02",
+     "title": "Governance of AI in consumer lending"
+    },
+    {
+     "id": "C05",
+     "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+     "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+     "date": "2024-09-03",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D03",
+     "title": "Supervisory priorities for 2025"
+    },
+    {
+     "id": "C06",
+     "statement": "An institution remains accountable for decisions made with a vendor's model.",
+     "quote": "an institution remains accountable for decisions made with a model it bought from a vendor",
+     "date": "2024-09-03",
+     "aspect": "accountability",
+     "topic": "vendor-models",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D03",
+     "title": "Supervisory priorities for 2025"
+    },
+    {
+     "id": "C07",
+     "statement": "Customer personal information should not be entered into generative AI tools.",
+     "quote": "customer personal information should not be entered into generative AI tools",
+     "date": "2024-11-12",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C08",
+     "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+     "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+     "date": "2024-11-12",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C09",
+     "statement": "The Forum opposes any requirement for human review of automated declines.",
+     "quote": "We oppose any requirement for human review of automated declines",
+     "date": "2025-02-14",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D05",
+     "title": "Submission on automated decision rules"
+    },
+    {
+     "id": "C11",
+     "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+     "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+     "date": "2025-08-18",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C12",
+     "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+     "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+     "date": "2025-08-18",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C15",
+     "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+     "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+     "date": "2026-03-10",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C16",
+     "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+     "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+     "date": "2026-03-10",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C17",
+     "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+     "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+     "date": "2026-04-15",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C18",
+     "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+     "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+     "date": "2026-04-15",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C19",
+     "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+     "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+     "date": "2026-05-05",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D11",
+     "title": "Enforcement priorities for 2026-27"
+    },
+    {
+     "id": "C20",
+     "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+     "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+     "date": "2026-06-01",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D12",
+     "title": "Forum response to the final standard"
+    }
+   ],
+   "same_as": [
+    {
+     "a": "C16",
+     "b": "C08",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "a": "C18",
+     "b": "C12",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "a": "C20",
+     "b": "C09",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    }
+   ],
+   "shifts": [
+    {
+     "later": "C11",
+     "earlier": "C05",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C12",
+     "earlier": "C02",
+     "label": "stronger",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C15",
+     "earlier": "C07",
+     "label": "opposite",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C16",
+     "earlier": "C08",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C17",
+     "earlier": "C11",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C18",
+     "earlier": "C12",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C19",
+     "earlier": "C04",
+     "label": "opposite",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    },
+    {
+     "later": "C20",
+     "earlier": "C09",
+     "label": "same",
+     "confidence": 1.0,
+     "decided_by": "catalogue rules"
+    }
+   ],
+   "timelines": {
+    "oyelaran|human-review": {
+     "person": "oyelaran",
+     "aspect": "human-review",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "C05",
+       "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+       "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+       "date": "2024-09-03",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D03",
+       "title": "Supervisory priorities for 2025",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C11",
+       "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+       "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+       "date": "2025-08-18",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": "stronger",
+       "from": "C05",
+       "confidence": 1.0
+      },
+      {
+       "id": "C17",
+       "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+       "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+       "date": "2026-04-15",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": "same",
+       "from": "C11",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "oyelaran|register": {
+     "person": "oyelaran",
+     "aspect": "register",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "C02",
+       "statement": "Every institution should keep an inventory of the models it runs.",
+       "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+       "date": "2023-05-10",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D01",
+       "title": "Opening remarks, model risk roundtable",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C12",
+       "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+       "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+       "date": "2025-08-18",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": "stronger",
+       "from": "C02",
+       "confidence": 1.0
+      },
+      {
+       "id": "C18",
+       "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+       "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+       "date": "2026-04-15",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": "same",
+       "from": "C12",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "fairweather|human-review": {
+     "person": "fairweather",
+     "aspect": "human-review",
+     "as_of": "2026-05-05",
+     "steps": [
+      {
+       "id": "C04",
+       "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+       "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+       "date": "2024-02-20",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "fairweather",
+       "person_name": "Tomas Fairweather",
+       "publisher": "Coral Sea Markets Commission",
+       "publisher_kind": "regulator",
+       "document": "D02",
+       "title": "Governance of AI in consumer lending",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C19",
+       "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+       "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+       "date": "2026-05-05",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "fairweather",
+       "person_name": "Tomas Fairweather",
+       "publisher": "Coral Sea Markets Commission",
+       "publisher_kind": "regulator",
+       "document": "D11",
+       "title": "Enforcement priorities for 2026-27",
+       "change": "opposite",
+       "from": "C04",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "castellane|use": {
+     "person": "castellane",
+     "aspect": "use",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C07",
+       "statement": "Customer personal information should not be entered into generative AI tools.",
+       "quote": "customer personal information should not be entered into generative AI tools",
+       "date": "2024-11-12",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C15",
+       "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+       "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+       "date": "2026-03-10",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": "opposite",
+       "from": "C07",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "castellane|notice": {
+     "person": "castellane",
+     "aspect": "notice",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C08",
+       "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+       "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+       "date": "2024-11-12",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C16",
+       "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+       "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+       "date": "2026-03-10",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": "same",
+       "from": "C08",
+       "confidence": 1.0
+      }
+     ]
+    },
+    "quist|human-review": {
+     "person": "quist",
+     "aspect": "human-review",
+     "as_of": "2026-06-01",
+     "steps": [
+      {
+       "id": "C09",
+       "statement": "The Forum opposes any requirement for human review of automated declines.",
+       "quote": "We oppose any requirement for human review of automated declines",
+       "date": "2025-02-14",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D05",
+       "title": "Submission on automated decision rules",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C20",
+       "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+       "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+       "date": "2026-06-01",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D12",
+       "title": "Forum response to the final standard",
+       "change": "same",
+       "from": "C09",
+       "confidence": 1.0
+      }
+     ]
+    }
+   },
+   "who": {
+    "human-review": [
+     {
+      "person": "fairweather",
+      "name": "Tomas Fairweather",
+      "publisher": "Coral Sea Markets Commission",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C04",
+        "statement": "Lenders should give declined customers a clear way to ask for a human review.",
+        "quote": "Lenders should give every declined customer a clear way to ask for a human review",
+        "date": "2024-02-20",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D02",
+        "title": "Governance of AI in consumer lending"
+       },
+       {
+        "id": "C19",
+        "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+        "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+        "date": "2026-05-05",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D11",
+        "title": "Enforcement priorities for 2026-27"
+       }
+      ]
+     },
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C05",
+        "statement": "For adverse decisions, institutions are now expected to offer a review by a person who can overturn the model.",
+        "quote": "For adverse decisions, we now expect institutions to offer a review by a person, who can overturn the model where it is wrong",
+        "date": "2024-09-03",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D03",
+        "title": "Supervisory priorities for 2025"
+       },
+       {
+        "id": "C11",
+        "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+        "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+        "date": "2025-08-18",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       },
+       {
+        "id": "C17",
+        "statement": "A person must review any automated decline when the customer asks, and customers must be told how to ask.",
+        "quote": "A person must review any automated decline when the customer asks, and institutions must tell declined customers how to ask",
+        "date": "2026-04-15",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     },
+     {
+      "person": "quist",
+      "name": "Rafael Quist",
+      "publisher": "Coral Sea Bankers' Forum",
+      "kind": "industry body",
+      "claims": [
+       {
+        "id": "C09",
+        "statement": "The Forum opposes any requirement for human review of automated declines.",
+        "quote": "We oppose any requirement for human review of automated declines",
+        "date": "2025-02-14",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D05",
+        "title": "Submission on automated decision rules"
+       },
+       {
+        "id": "C20",
+        "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+        "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+        "date": "2026-06-01",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D12",
+        "title": "Forum response to the final standard"
+       }
+      ]
+     }
+    ],
+    "register": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C02",
+        "statement": "Every institution should keep an inventory of the models it runs.",
+        "quote": "every institution should know which models it runs. An inventory of models is the least we would expect",
+        "date": "2023-05-10",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D01",
+        "title": "Opening remarks, model risk roundtable"
+       },
+       {
+        "id": "C12",
+        "statement": "Institutions must keep a register of the models that inform decisions about customers and validate each model before use.",
+        "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+        "date": "2025-08-18",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       },
+       {
+        "id": "C18",
+        "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+        "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+        "date": "2026-04-15",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     }
+    ],
+    "accountability": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C06",
+        "statement": "An institution remains accountable for decisions made with a vendor's model.",
+        "quote": "an institution remains accountable for decisions made with a model it bought from a vendor",
+        "date": "2024-09-03",
+        "aspect": "accountability",
+        "topic": "vendor-models",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D03",
+        "title": "Supervisory priorities for 2025"
+       }
+      ]
+     }
+    ],
+    "use": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C07",
+        "statement": "Customer personal information should not be entered into generative AI tools.",
+        "quote": "customer personal information should not be entered into generative AI tools",
+        "date": "2024-11-12",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C15",
+        "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+        "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+        "date": "2026-03-10",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     }
+    ],
+    "notice": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C08",
+        "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+        "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+        "date": "2024-11-12",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C16",
+        "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+        "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+        "date": "2026-03-10",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     }
+    ],
+    "explanation": []
+   },
+   "finished": "2026-09-30T12:45:08+00:00"
+  },
+  "laya": {
+   "backend": "laya",
+   "label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "threshold": 0.8,
+   "engine": "Kuzu, embedded (set FALKORDB_URL to use FalkorDB)",
+   "counts": {
+    "Publisher": 5,
+    "Person": 5,
+    "Document": 12,
+    "Topic": 4,
+    "Claim": 9,
+    "SAME_AS": 0,
+    "SHIFT": 0
+   },
+   "rejected": [
+    {
+     "claim": "C01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X03",
+     "why": "the quote is not in the document"
+    },
+    {
+     "claim": "X02",
+     "why": "the quote does not support the claim as stated"
+    }
+   ],
+   "review": [
+    {
+     "id": "supports:C02",
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 0.6053
+    },
+    {
+     "id": "supports:C03",
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 0.5622
+    },
+    {
+     "id": "supports:C04",
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.5823
+    },
+    {
+     "id": "supports:C05",
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 0.6743
+    },
+    {
+     "id": "supports:C06",
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.69
+    },
+    {
+     "id": "supports:C09",
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 0.7247
+    },
+    {
+     "id": "supports:C10",
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7527
+    },
+    {
+     "id": "supports:C12",
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 0.6849
+    },
+    {
+     "id": "same_claim:C07:C14",
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 0.5425
+    },
+    {
+     "id": "same_claim:C14:C15",
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 0.7643
+    },
+    {
+     "id": "shift:C07:C15",
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "opposite",
+     "confidence": 0.3501649835016499
+    },
+    {
+     "id": "supports:C16",
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "no",
+     "confidence": 0.708
+    },
+    {
+     "id": "supports:C17",
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 0.6067
+    },
+    {
+     "id": "same_claim:C11:C20",
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.6247
+    }
+   ],
+   "decisions": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "no",
+     "confidence": 0.8210999999999999,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 0.6053,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 0.8019000000000001,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 0.5622,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.5823,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 0.6743,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.69,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 0.9155,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 0.84,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 0.7247,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7527,
+     "action": "review"
+    },
+    {
+     "kind": "quote_check",
+     "claims": [
+      "X03"
+     ],
+     "answer": "not found",
+     "confidence": null,
+     "action": "rejected"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 0.9342,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 0.6849,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 0.866,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 0.8362,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.822,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 0.5425,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 0.8979,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 0.898,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 0.7643,
+     "action": "review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "opposite",
+     "confidence": 0.3501649835016499,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "no",
+     "confidence": 0.708,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 0.6067,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 0.8057,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 0.9766,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 0.9323,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.892,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.6247,
+     "action": "review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 0.8381000000000001,
+     "action": "written"
+    }
+   ],
+   "claims": [
+    {
+     "id": "C07",
+     "statement": "Customer personal information should not be entered into generative AI tools.",
+     "quote": "customer personal information should not be entered into generative AI tools",
+     "date": "2024-11-12",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C08",
+     "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+     "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+     "date": "2024-11-12",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C11",
+     "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+     "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+     "date": "2025-08-18",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C13",
+     "statement": "Customers declined by an automated system should be told why, in plain language.",
+     "quote": "People declined by a machine deserve an explanation in plain language",
+     "date": "2025-09-02",
+     "aspect": "explanation",
+     "topic": "automated-declines",
+     "person": "okafor-lane",
+     "person_name": "Ines Okafor-Lane",
+     "publisher": "Lantern Consumer Alliance",
+     "publisher_kind": "consumer group",
+     "document": "D07",
+     "title": "Declined by a machine, and no one to ask"
+    },
+    {
+     "id": "C14",
+     "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+     "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+     "date": "2025-09-02",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "okafor-lane",
+     "person_name": "Ines Okafor-Lane",
+     "publisher": "Lantern Consumer Alliance",
+     "publisher_kind": "consumer group",
+     "document": "D07",
+     "title": "Declined by a machine, and no one to ask"
+    },
+    {
+     "id": "C15",
+     "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+     "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+     "date": "2026-03-10",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C18",
+     "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+     "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+     "date": "2026-04-15",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C19",
+     "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+     "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+     "date": "2026-05-05",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D11",
+     "title": "Enforcement priorities for 2026-27"
+    },
+    {
+     "id": "C20",
+     "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+     "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+     "date": "2026-06-01",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D12",
+     "title": "Forum response to the final standard"
+    }
+   ],
+   "same_as": [],
+   "shifts": [],
+   "timelines": {
+    "oyelaran|human-review": {
+     "person": "oyelaran",
+     "aspect": "human-review",
+     "as_of": "2025-08-18",
+     "steps": [
+      {
+       "id": "C11",
+       "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+       "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+       "date": "2025-08-18",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "oyelaran|register": {
+     "person": "oyelaran",
+     "aspect": "register",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "C18",
+       "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+       "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+       "date": "2026-04-15",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "fairweather|human-review": {
+     "person": "fairweather",
+     "aspect": "human-review",
+     "as_of": "2026-05-05",
+     "steps": [
+      {
+       "id": "C19",
+       "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+       "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+       "date": "2026-05-05",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "fairweather",
+       "person_name": "Tomas Fairweather",
+       "publisher": "Coral Sea Markets Commission",
+       "publisher_kind": "regulator",
+       "document": "D11",
+       "title": "Enforcement priorities for 2026-27",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "castellane|use": {
+     "person": "castellane",
+     "aspect": "use",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C07",
+       "statement": "Customer personal information should not be entered into generative AI tools.",
+       "quote": "customer personal information should not be entered into generative AI tools",
+       "date": "2024-11-12",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C15",
+       "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+       "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+       "date": "2026-03-10",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "castellane|notice": {
+     "person": "castellane",
+     "aspect": "notice",
+     "as_of": "2024-11-12",
+     "steps": [
+      {
+       "id": "C08",
+       "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+       "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+       "date": "2024-11-12",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "quist|human-review": {
+     "person": "quist",
+     "aspect": "human-review",
+     "as_of": "2026-06-01",
+     "steps": [
+      {
+       "id": "C20",
+       "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+       "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+       "date": "2026-06-01",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D12",
+       "title": "Forum response to the final standard",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    }
+   },
+   "who": {
+    "human-review": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C11",
+        "statement": "Where a model declines a customer, a person must review the decision on request, and the customer must be told how to ask.",
+        "quote": "Where a model declines a customer, a person must review the decision if the customer asks, and the customer must be told how to ask",
+        "date": "2025-08-18",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       }
+      ]
+     },
+     {
+      "person": "fairweather",
+      "name": "Tomas Fairweather",
+      "publisher": "Coral Sea Markets Commission",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C19",
+        "statement": "From 1 July 2026, lenders that decline customers with a model and offer no human review on request will face enforcement action.",
+        "quote": "From 1 July 2026, a lender that declines customers with a model and offers no human review on request will face enforcement action",
+        "date": "2026-05-05",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D11",
+        "title": "Enforcement priorities for 2026-27"
+       }
+      ]
+     },
+     {
+      "person": "quist",
+      "name": "Rafael Quist",
+      "publisher": "Coral Sea Bankers' Forum",
+      "kind": "industry body",
+      "claims": [
+       {
+        "id": "C20",
+        "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+        "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+        "date": "2026-06-01",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D12",
+        "title": "Forum response to the final standard"
+       }
+      ]
+     }
+    ],
+    "register": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C18",
+        "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+        "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+        "date": "2026-04-15",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     }
+    ],
+    "accountability": [],
+    "use": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C07",
+        "statement": "Customer personal information should not be entered into generative AI tools.",
+        "quote": "customer personal information should not be entered into generative AI tools",
+        "date": "2024-11-12",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C15",
+        "statement": "Customer personal information may be used in generative AI tools that keep it inside the organisation.",
+        "quote": "customer personal information may be used in generative AI tools that keep the information inside the organisation",
+        "date": "2026-03-10",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     },
+     {
+      "person": "okafor-lane",
+      "name": "Ines Okafor-Lane",
+      "publisher": "Lantern Consumer Alliance",
+      "kind": "consumer group",
+      "claims": [
+       {
+        "id": "C14",
+        "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+        "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+        "date": "2025-09-02",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "okafor-lane",
+        "person_name": "Ines Okafor-Lane",
+        "publisher": "Lantern Consumer Alliance",
+        "publisher_kind": "consumer group",
+        "document": "D07",
+        "title": "Declined by a machine, and no one to ask"
+       }
+      ]
+     }
+    ],
+    "notice": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C08",
+        "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+        "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+        "date": "2024-11-12",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       }
+      ]
+     }
+    ],
+    "explanation": [
+     {
+      "person": "okafor-lane",
+      "name": "Ines Okafor-Lane",
+      "publisher": "Lantern Consumer Alliance",
+      "kind": "consumer group",
+      "claims": [
+       {
+        "id": "C13",
+        "statement": "Customers declined by an automated system should be told why, in plain language.",
+        "quote": "People declined by a machine deserve an explanation in plain language",
+        "date": "2025-09-02",
+        "aspect": "explanation",
+        "topic": "automated-declines",
+        "person": "okafor-lane",
+        "person_name": "Ines Okafor-Lane",
+        "publisher": "Lantern Consumer Alliance",
+        "publisher_kind": "consumer group",
+        "document": "D07",
+        "title": "Declined by a machine, and no one to ask"
+       }
+      ]
+     }
+    ]
+   },
+   "finished": "2026-09-30T12:09:53+00:00"
+  },
+  "laya-typed": {
+   "backend": "laya-typed",
+   "label": "Laya typed-decisions",
+   "model": "convaiinnovations/laya (typed-decisions)",
+   "threshold": 0.8,
+   "engine": "Kuzu, embedded (set FALKORDB_URL to use FalkorDB)",
+   "counts": {
+    "Publisher": 5,
+    "Person": 5,
+    "Document": 12,
+    "Topic": 4,
+    "Claim": 0,
+    "SAME_AS": 0,
+    "SHIFT": 0
+   },
+   "rejected": [
+    {
+     "claim": "X03",
+     "why": "the quote is not in the document"
+    }
+   ],
+   "review": [
+    {
+     "id": "supports:C01",
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "no",
+     "confidence": 0.6699999999999999
+    },
+    {
+     "id": "supports:C02",
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 0.5309
+    },
+    {
+     "id": "supports:X01",
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 0.739
+    },
+    {
+     "id": "supports:C03",
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 0.5869
+    },
+    {
+     "id": "supports:C04",
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.5502
+    },
+    {
+     "id": "supports:C05",
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 0.517
+    },
+    {
+     "id": "supports:C06",
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.6812
+    },
+    {
+     "id": "supports:C07",
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 0.6499
+    },
+    {
+     "id": "supports:C08",
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 0.634
+    },
+    {
+     "id": "supports:C09",
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 0.5425
+    },
+    {
+     "id": "supports:C10",
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7006
+    },
+    {
+     "id": "supports:C11",
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 0.7496
+    },
+    {
+     "id": "supports:C12",
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 0.5263
+    },
+    {
+     "id": "supports:X02",
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 0.7905
+    },
+    {
+     "id": "supports:C13",
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 0.6383
+    },
+    {
+     "id": "supports:C14",
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.6882
+    },
+    {
+     "id": "supports:C15",
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 0.6628
+    },
+    {
+     "id": "supports:C16",
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "no",
+     "confidence": 0.6246
+    },
+    {
+     "id": "supports:C17",
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 0.6424000000000001
+    },
+    {
+     "id": "supports:C18",
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 0.6638
+    },
+    {
+     "id": "supports:C19",
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 0.7823
+    },
+    {
+     "id": "supports:C20",
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.7058
+    }
+   ],
+   "decisions": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "no",
+     "confidence": 0.6699999999999999,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 0.5309,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 0.739,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 0.5869,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.5502,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 0.517,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.6812,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 0.6499,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 0.634,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 0.5425,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7006,
+     "action": "review"
+    },
+    {
+     "kind": "quote_check",
+     "claims": [
+      "X03"
+     ],
+     "answer": "not found",
+     "confidence": null,
+     "action": "rejected"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 0.7496,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 0.5263,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 0.7905,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 0.6383,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.6882,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 0.6628,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "no",
+     "confidence": 0.6246,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 0.6424000000000001,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 0.6638,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 0.7823,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.7058,
+     "action": "review"
+    }
+   ],
+   "claims": [],
+   "same_as": [],
+   "shifts": [],
+   "timelines": {
+    "oyelaran|human-review": {
+     "person": "oyelaran",
+     "aspect": "human-review",
+     "as_of": null,
+     "steps": []
+    },
+    "oyelaran|register": {
+     "person": "oyelaran",
+     "aspect": "register",
+     "as_of": null,
+     "steps": []
+    },
+    "fairweather|human-review": {
+     "person": "fairweather",
+     "aspect": "human-review",
+     "as_of": null,
+     "steps": []
+    },
+    "castellane|use": {
+     "person": "castellane",
+     "aspect": "use",
+     "as_of": null,
+     "steps": []
+    },
+    "castellane|notice": {
+     "person": "castellane",
+     "aspect": "notice",
+     "as_of": null,
+     "steps": []
+    },
+    "quist|human-review": {
+     "person": "quist",
+     "aspect": "human-review",
+     "as_of": null,
+     "steps": []
+    }
+   },
+   "who": {
+    "human-review": [],
+    "register": [],
+    "accountability": [],
+    "use": [],
+    "notice": [],
+    "explanation": []
+   },
+   "finished": "2026-09-30T12:10:11+00:00"
+  },
+  "anyjev": {
+   "backend": "anyjev",
+   "label": "AnyJev",
+   "model": "Qwen/Qwen3-1.7B (L0)",
+   "threshold": 0.8,
+   "engine": "Kuzu, embedded (set FALKORDB_URL to use FalkorDB)",
+   "counts": {
+    "Publisher": 5,
+    "Person": 5,
+    "Document": 12,
+    "Topic": 4,
+    "Claim": 8,
+    "SAME_AS": 2,
+    "SHIFT": 2
+   },
+   "rejected": [
+    {
+     "claim": "C02",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X01",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C05",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "X03",
+     "why": "the quote is not in the document"
+    },
+    {
+     "claim": "C11",
+     "why": "the quote does not support the claim as stated"
+    },
+    {
+     "claim": "C17",
+     "why": "the quote does not support the claim as stated"
+    }
+   ],
+   "review": [
+    {
+     "id": "supports:C01",
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "yes",
+     "confidence": 0.7981867828403613
+    },
+    {
+     "id": "supports:C04",
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.6791787040457256
+    },
+    {
+     "id": "supports:C06",
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.7772998566606321
+    },
+    {
+     "id": "supports:C09",
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 0.7229772888593166
+    },
+    {
+     "id": "supports:C10",
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7270614792149193
+    },
+    {
+     "id": "supports:C12",
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 0.6164120258431178
+    },
+    {
+     "id": "supports:C13",
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 0.6321375036388291
+    },
+    {
+     "id": "same_claim:C07:C14",
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.7981867777396211
+    },
+    {
+     "id": "supports:C15",
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 0.663585219060578
+    },
+    {
+     "id": "supports:C19",
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 0.5495147514818238
+    }
+   ],
+   "decisions": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "yes",
+     "confidence": 0.7981867828403613,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "no",
+     "confidence": 0.9740426407536,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 0.9820137903833517,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "yes",
+     "confidence": 0.9324533050475653,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 0.6791787040457256,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 0.9975273764084924,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "no",
+     "confidence": 0.7772998566606321,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 0.8062124686409574,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 0.9816639181623417,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 0.7229772888593166,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 0.7270614792149193,
+     "action": "review"
+    },
+    {
+     "kind": "quote_check",
+     "claims": [
+      "X03"
+     ],
+     "answer": "not found",
+     "confidence": null,
+     "action": "rejected"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 0.997783681125699,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 0.6164120258431178,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "yes",
+     "confidence": 0.8596412900426595,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "yes",
+     "confidence": 0.6321375036388291,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.9371425873353822,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "yes",
+     "confidence": 0.7981867777396211,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 0.663585219060578,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 0.8810706193589077,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 0.9947798731461069,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "weaker",
+     "confidence": 0.9999970951235305,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 0.9993158871456198,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 0.8067200147548172,
+     "action": "written"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "X02",
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 0.8807970743599153,
+     "action": "written"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "X02",
+      "C18"
+     ],
+     "answer": "weaker",
+     "confidence": 0.9997029608203234,
+     "action": "written"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 0.5495147514818238,
+     "action": "review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 0.8049861132852723,
+     "action": "written"
+    }
+   ],
+   "claims": [
+    {
+     "id": "C03",
+     "statement": "A lender stays accountable for decisions made with a vendor's model.",
+     "quote": "buying a model does not buy an exemption. A lender answers for the decision, whoever wrote the code",
+     "date": "2024-02-20",
+     "aspect": "accountability",
+     "topic": "vendor-models",
+     "person": "fairweather",
+     "person_name": "Tomas Fairweather",
+     "publisher": "Coral Sea Markets Commission",
+     "publisher_kind": "regulator",
+     "document": "D02",
+     "title": "Governance of AI in consumer lending"
+    },
+    {
+     "id": "C07",
+     "statement": "Customer personal information should not be entered into generative AI tools.",
+     "quote": "customer personal information should not be entered into generative AI tools",
+     "date": "2024-11-12",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "C08",
+     "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+     "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+     "date": "2024-11-12",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D04",
+     "title": "Generative AI and customer information"
+    },
+    {
+     "id": "X02",
+     "statement": "Institutions may decide for themselves whether to validate their models.",
+     "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+     "date": "2025-08-18",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D06",
+     "title": "Proposed standard on automated decisions"
+    },
+    {
+     "id": "C14",
+     "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+     "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+     "date": "2025-09-02",
+     "aspect": "use",
+     "topic": "genai-customer-data",
+     "person": "okafor-lane",
+     "person_name": "Ines Okafor-Lane",
+     "publisher": "Lantern Consumer Alliance",
+     "publisher_kind": "consumer group",
+     "document": "D07",
+     "title": "Declined by a machine, and no one to ask"
+    },
+    {
+     "id": "C16",
+     "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+     "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+     "date": "2026-03-10",
+     "aspect": "notice",
+     "topic": "genai-customer-data",
+     "person": "castellane",
+     "person_name": "Imogen Castellane",
+     "publisher": "Office of the Information Steward",
+     "publisher_kind": "regulator",
+     "document": "D09",
+     "title": "Updated guidance: generative AI and customer information"
+    },
+    {
+     "id": "C18",
+     "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+     "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+     "date": "2026-04-15",
+     "aspect": "register",
+     "topic": "model-register",
+     "person": "oyelaran",
+     "person_name": "Nadia Oyelaran",
+     "publisher": "Meridian Prudential Authority",
+     "publisher_kind": "regulator",
+     "document": "D10",
+     "title": "Standard on automated decisions"
+    },
+    {
+     "id": "C20",
+     "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+     "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+     "date": "2026-06-01",
+     "aspect": "human-review",
+     "topic": "automated-declines",
+     "person": "quist",
+     "person_name": "Rafael Quist",
+     "publisher": "Coral Sea Bankers' Forum",
+     "publisher_kind": "industry body",
+     "document": "D12",
+     "title": "Forum response to the final standard"
+    }
+   ],
+   "same_as": [
+    {
+     "a": "C16",
+     "b": "C08",
+     "confidence": 0.9947798731461069,
+     "decided_by": "Qwen/Qwen3-1.7B (L0)"
+    },
+    {
+     "a": "C18",
+     "b": "X02",
+     "confidence": 0.8807970743599153,
+     "decided_by": "Qwen/Qwen3-1.7B (L0)"
+    }
+   ],
+   "shifts": [
+    {
+     "later": "C16",
+     "earlier": "C08",
+     "label": "weaker",
+     "confidence": 0.9999970951235305,
+     "decided_by": "Qwen/Qwen3-1.7B (L0)"
+    },
+    {
+     "later": "C18",
+     "earlier": "X02",
+     "label": "weaker",
+     "confidence": 0.9997029608203234,
+     "decided_by": "Qwen/Qwen3-1.7B (L0)"
+    }
+   ],
+   "timelines": {
+    "oyelaran|human-review": {
+     "person": "oyelaran",
+     "aspect": "human-review",
+     "as_of": null,
+     "steps": []
+    },
+    "oyelaran|register": {
+     "person": "oyelaran",
+     "aspect": "register",
+     "as_of": "2026-04-15",
+     "steps": [
+      {
+       "id": "X02",
+       "statement": "Institutions may decide for themselves whether to validate their models.",
+       "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+       "date": "2025-08-18",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D06",
+       "title": "Proposed standard on automated decisions",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C18",
+       "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+       "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+       "date": "2026-04-15",
+       "aspect": "register",
+       "topic": "model-register",
+       "person": "oyelaran",
+       "person_name": "Nadia Oyelaran",
+       "publisher": "Meridian Prudential Authority",
+       "publisher_kind": "regulator",
+       "document": "D10",
+       "title": "Standard on automated decisions",
+       "change": "weaker",
+       "from": "X02",
+       "confidence": 0.9997029608203234
+      }
+     ]
+    },
+    "fairweather|human-review": {
+     "person": "fairweather",
+     "aspect": "human-review",
+     "as_of": null,
+     "steps": []
+    },
+    "castellane|use": {
+     "person": "castellane",
+     "aspect": "use",
+     "as_of": "2024-11-12",
+     "steps": [
+      {
+       "id": "C07",
+       "statement": "Customer personal information should not be entered into generative AI tools.",
+       "quote": "customer personal information should not be entered into generative AI tools",
+       "date": "2024-11-12",
+       "aspect": "use",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    },
+    "castellane|notice": {
+     "person": "castellane",
+     "aspect": "notice",
+     "as_of": "2026-03-10",
+     "steps": [
+      {
+       "id": "C08",
+       "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+       "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+       "date": "2024-11-12",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D04",
+       "title": "Generative AI and customer information",
+       "change": null,
+       "from": null,
+       "confidence": null
+      },
+      {
+       "id": "C16",
+       "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+       "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+       "date": "2026-03-10",
+       "aspect": "notice",
+       "topic": "genai-customer-data",
+       "person": "castellane",
+       "person_name": "Imogen Castellane",
+       "publisher": "Office of the Information Steward",
+       "publisher_kind": "regulator",
+       "document": "D09",
+       "title": "Updated guidance: generative AI and customer information",
+       "change": "weaker",
+       "from": "C08",
+       "confidence": 0.9999970951235305
+      }
+     ]
+    },
+    "quist|human-review": {
+     "person": "quist",
+     "aspect": "human-review",
+     "as_of": "2026-06-01",
+     "steps": [
+      {
+       "id": "C20",
+       "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+       "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+       "date": "2026-06-01",
+       "aspect": "human-review",
+       "topic": "automated-declines",
+       "person": "quist",
+       "person_name": "Rafael Quist",
+       "publisher": "Coral Sea Bankers' Forum",
+       "publisher_kind": "industry body",
+       "document": "D12",
+       "title": "Forum response to the final standard",
+       "change": null,
+       "from": null,
+       "confidence": null
+      }
+     ]
+    }
+   },
+   "who": {
+    "human-review": [
+     {
+      "person": "quist",
+      "name": "Rafael Quist",
+      "publisher": "Coral Sea Bankers' Forum",
+      "kind": "industry body",
+      "claims": [
+       {
+        "id": "C20",
+        "statement": "The Forum now supports a requirement for human review of automated declines when the customer asks.",
+        "quote": "The Forum now supports a requirement for human review of automated declines when the customer asks",
+        "date": "2026-06-01",
+        "aspect": "human-review",
+        "topic": "automated-declines",
+        "person": "quist",
+        "person_name": "Rafael Quist",
+        "publisher": "Coral Sea Bankers' Forum",
+        "publisher_kind": "industry body",
+        "document": "D12",
+        "title": "Forum response to the final standard"
+       }
+      ]
+     }
+    ],
+    "register": [
+     {
+      "person": "oyelaran",
+      "name": "Nadia Oyelaran",
+      "publisher": "Meridian Prudential Authority",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "X02",
+        "statement": "Institutions may decide for themselves whether to validate their models.",
+        "quote": "Each institution must keep a register of every model that makes or informs a decision about a customer, and must validate each model before it is used",
+        "date": "2025-08-18",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D06",
+        "title": "Proposed standard on automated decisions"
+       },
+       {
+        "id": "C18",
+        "statement": "Institutions must maintain a register of the models that inform decisions about customers and validate each before use.",
+        "quote": "An institution must maintain a register of every model that informs a decision about a customer and must validate each model before it is used",
+        "date": "2026-04-15",
+        "aspect": "register",
+        "topic": "model-register",
+        "person": "oyelaran",
+        "person_name": "Nadia Oyelaran",
+        "publisher": "Meridian Prudential Authority",
+        "publisher_kind": "regulator",
+        "document": "D10",
+        "title": "Standard on automated decisions"
+       }
+      ]
+     }
+    ],
+    "accountability": [
+     {
+      "person": "fairweather",
+      "name": "Tomas Fairweather",
+      "publisher": "Coral Sea Markets Commission",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C03",
+        "statement": "A lender stays accountable for decisions made with a vendor's model.",
+        "quote": "buying a model does not buy an exemption. A lender answers for the decision, whoever wrote the code",
+        "date": "2024-02-20",
+        "aspect": "accountability",
+        "topic": "vendor-models",
+        "person": "fairweather",
+        "person_name": "Tomas Fairweather",
+        "publisher": "Coral Sea Markets Commission",
+        "publisher_kind": "regulator",
+        "document": "D02",
+        "title": "Governance of AI in consumer lending"
+       }
+      ]
+     }
+    ],
+    "use": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C07",
+        "statement": "Customer personal information should not be entered into generative AI tools.",
+        "quote": "customer personal information should not be entered into generative AI tools",
+        "date": "2024-11-12",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       }
+      ]
+     },
+     {
+      "person": "okafor-lane",
+      "name": "Ines Okafor-Lane",
+      "publisher": "Lantern Consumer Alliance",
+      "kind": "consumer group",
+      "claims": [
+       {
+        "id": "C14",
+        "statement": "Lenders should not use customer records in generative AI systems without the customers' agreement.",
+        "quote": "call on lenders to stop feeding customer records into generative AI systems until customers have agreed to it",
+        "date": "2025-09-02",
+        "aspect": "use",
+        "topic": "genai-customer-data",
+        "person": "okafor-lane",
+        "person_name": "Ines Okafor-Lane",
+        "publisher": "Lantern Consumer Alliance",
+        "publisher_kind": "consumer group",
+        "document": "D07",
+        "title": "Declined by a machine, and no one to ask"
+       }
+      ]
+     }
+    ],
+    "notice": [
+     {
+      "person": "castellane",
+      "name": "Imogen Castellane",
+      "publisher": "Office of the Information Steward",
+      "kind": "regulator",
+      "claims": [
+       {
+        "id": "C08",
+        "statement": "An organisation that uses generative AI on customer information must tell the customers concerned.",
+        "quote": "Where an organisation already uses generative AI on customer information, it must tell the customers concerned",
+        "date": "2024-11-12",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D04",
+        "title": "Generative AI and customer information"
+       },
+       {
+        "id": "C16",
+        "statement": "An organisation using generative AI on customer information must still tell the customers concerned.",
+        "quote": "an organisation using these tools on customer information must still tell the customers concerned",
+        "date": "2026-03-10",
+        "aspect": "notice",
+        "topic": "genai-customer-data",
+        "person": "castellane",
+        "person_name": "Imogen Castellane",
+        "publisher": "Office of the Information Steward",
+        "publisher_kind": "regulator",
+        "document": "D09",
+        "title": "Updated guidance: generative AI and customer information"
+       }
+      ]
+     }
+    ],
+    "explanation": []
+   },
+   "finished": "2026-09-30T12:19:46+00:00"
+  }
+ }
+}

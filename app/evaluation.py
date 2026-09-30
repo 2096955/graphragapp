@@ -14,35 +14,85 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
-from .decisions import Backend, DecisionError
+from .decisions import Backend, DecisionError, TransientError
 from .testset import TASKS
 from .calibration import question_key
 
 EPS = 1e-6
 
 
-def run(backend: Backend, items: list[dict], progress: Callable[[int, int], None] | None = None,
-        should_stop: Callable[[], bool] | None = None) -> list[dict]:
-    """One decision per item, sequentially, so latency is per decision on this hardware."""
-    records = []
-    for i, it in enumerate(items):
-        if should_stop and should_stop():
-            break
-        meta = it.get("meta", {})
-        rec = {"id": it["id"], "task": it["task"], "gold": it["gold"],
-               "group": meta.get("request") or meta.get("source_id") or it["id"],
-               "question_key": question_key(it["questions"][it["question"]])}
+RETRIES = 3            # attempts for a transient failure within one run
+BACKOFF_S = 2.0        # doubled after each attempt
+
+
+def load_checkpoint(path: str | Path | None, backend: Backend, items: list[dict]) -> dict[str, dict]:
+    """Decisions already made in an interrupted run, by item id. A line counts only if it came from
+    the same model and asked the item's current question; failed decisions are tried again."""
+    if not path or not Path(path).exists():
+        return {}
+    keys = {it["id"]: question_key(it["questions"][it["question"]]) for it in items}
+    done = {}
+    for line in Path(path).read_text().splitlines():
         try:
-            res = backend.decide(it["state"], it["questions"], calibrate=False)
-            ans = res.answers[it["question"]]
-            rec.update(probs={k: round(v, 5) for k, v in ans.probabilities.items()}, top=ans.top,
-                       confidence=round(ans.confidence, 5), correct=ans.top == it["gold"],
-                       latency_ms=round(res.latency_ms, 1), tokens=res.input_tokens, cost_usd=res.cost_usd)
-        except DecisionError as e:
-            rec.update(error=str(e)[:300])
-        records.append(rec)
-        if progress:
-            progress(i + 1, len(items))
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue           # a line cut short by the crash
+        if rec.get("model") == backend.model and keys.get(rec.get("id")) == rec.get("question_key") \
+                and "error" not in rec:
+            done[rec["id"]] = rec
+    return done
+
+
+def run(backend: Backend, items: list[dict], progress: Callable[[int, int], None] | None = None,
+        should_stop: Callable[[], bool] | None = None, checkpoint: str | Path | None = None,
+        sleep: Callable[[float], None] = time.sleep) -> list[dict]:
+    """One decision per item, sequentially, so latency is per decision on this hardware.
+
+    With a checkpoint file, each decision is appended as it is made, and a rerun skips the items
+    already decided, so a crash halfway through a paid run costs only the decision in flight.
+    Transient failures (timeouts, rate limits, server errors) are retried with backoff; other
+    errors are recorded once and tried again on the next run."""
+    done = load_checkpoint(checkpoint, backend, items)
+    log = open(checkpoint, "a", encoding="utf-8") if checkpoint else None
+    records = []
+    try:
+        for i, it in enumerate(items):
+            if should_stop and should_stop():
+                break
+            if it["id"] in done:
+                records.append({k: v for k, v in done[it["id"]].items() if k != "model"})
+                if progress:
+                    progress(i + 1, len(items))
+                continue
+            meta = it.get("meta", {})
+            rec = {"id": it["id"], "task": it["task"], "gold": it["gold"],
+                   "group": meta.get("request") or meta.get("source_id") or it["id"],
+                   "question_key": question_key(it["questions"][it["question"]])}
+            for attempt in range(RETRIES):
+                try:
+                    res = backend.decide(it["state"], it["questions"], calibrate=False)
+                    ans = res.answers[it["question"]]
+                    rec.update(probs={k: round(v, 5) for k, v in ans.probabilities.items()}, top=ans.top,
+                               confidence=round(ans.confidence, 5), correct=ans.top == it["gold"],
+                               latency_ms=round(res.latency_ms, 1), tokens=res.input_tokens, cost_usd=res.cost_usd)
+                    break
+                except TransientError as e:
+                    if attempt == RETRIES - 1:
+                        rec.update(error=str(e)[:300], transient=True)
+                    else:
+                        sleep(BACKOFF_S * 2 ** attempt)
+                except DecisionError as e:
+                    rec.update(error=str(e)[:300])
+                    break
+            records.append(rec)
+            if log:
+                log.write(json.dumps({**rec, "model": backend.model}) + "\n")
+                log.flush()
+            if progress:
+                progress(i + 1, len(items))
+    finally:
+        if log:
+            log.close()
     return records
 
 
@@ -107,9 +157,11 @@ def group_id(record: dict, index: int = 0) -> str:
     return record.get("id", f"item-{index}")
 
 
-def group_folds(recs: list[dict], folds: int = 2) -> dict[int, int]:
+def group_folds(recs: list[dict], folds: int = 2, seed: int = 0) -> dict[int, int]:
+    """Assign whole groups (requests, sources, name pairs) to folds. Different seeds give
+    different splits; one split alone can flatter or harm a model, so report several."""
     groups = sorted({group_id(r, i) for i, r in enumerate(recs)})
-    random.Random(0).shuffle(groups)
+    random.Random(seed).shuffle(groups)
     assigned = {group: i % folds for i, group in enumerate(groups)}
     return {i: assigned[group_id(r, i)] for i, r in enumerate(recs)}
 
@@ -147,11 +199,11 @@ def _fit_temperature(recs: list[dict]) -> float:
     return min(grid, key=loss)
 
 
-def recalibrated(recs: list[dict], folds: int = 2) -> tuple[list[dict], list[float]]:
+def recalibrated(recs: list[dict], folds: int = 2, seed: int = 0) -> tuple[list[dict], list[float]]:
     """Temperature scaling with k-fold cross-fitting: each record is rescaled by a temperature
     fitted on the other folds only. This is what calibrating on your own labels buys."""
     out, temps = [], []
-    fold = group_folds(recs, folds)
+    fold = group_folds(recs, folds, seed)
     for f in range(folds):
         train = [r for i, r in enumerate(recs) if fold[i] != f]
         test = [r for i, r in enumerate(recs) if fold[i] == f]
@@ -174,17 +226,18 @@ def _pct(xs: list[float], q: float) -> float | None:
 
 
 def summarise(recs: list[dict]) -> dict:
+    from . import stats
     ok = [r for r in recs if "error" not in r]
     lat = [r["latency_ms"] for r in ok]
     cost = sum(r.get("cost_usd") or 0.0 for r in ok)
     cal, temps = recalibrated(ok)
     return {
-        "n": len(recs), "errors": len(recs) - len(ok),
+        "n": len(recs), "errors": len(recs) - len(ok), "groups": stats.n_groups(recs),
         "accuracy": sum(r["correct"] for r in ok) / len(ok) if ok else None,
+        "accuracy_ci": stats.bootstrap(recs, stats.accuracy), "majority": stats.majority(recs),
         "ece": ece(ok), "brier": brier(ok), "nll": nll(ok),
         "mean_confidence": sum(r["confidence"] for r in ok) / len(ok) if ok else None,
         "coverage_at_5": coverage_at_risk(recs, 0.05),
-        "heldout_at_5": heldout_coverage(recs, 0.05),
         "attempted_accuracy": sum(r.get("correct", False) for r in recs) / len(recs) if recs else None,
         "ece_recalibrated": ece(cal), "temperatures": temps, "coverage_at_5_recalibrated": coverage_at_risk(cal, 0.05),
         "reliability": _bins(ok), "reliability_recalibrated": _bins(cal),
@@ -194,17 +247,40 @@ def summarise(recs: list[dict]) -> dict:
 
 
 def metrics(recs: list[dict]) -> dict:
-    per_task = {task: summarise([r for r in recs if r["task"] == task]) for task in TASKS}
+    """Per task and overall.
+
+    Calibration error: per task, then weighted by task size for the overall figure (`ece`), so
+    errors in different tasks cannot cancel. `ece_pooled` pools all decisions first, which is what
+    the overall reliability diagram shows. `ece_recalibrated` is after temperature scaling fitted
+    on the other half of the requests, averaged over random splits.
+    `selective`: coverage and error at several target error rates, thresholds chosen per task,
+    in sample and held out over many random splits (see stats.py)."""
+    from . import stats
+    by_task = {task: [r for r in recs if r["task"] == task] for task in TASKS}
+    per_task = {task: summarise(v) for task, v in by_task.items()}
+    for task, summary in per_task.items():
+        summary["ece_recalibrated"] = stats.scaled_ece(by_task[task]) if by_task[task] else None
     overall = summarise(recs)
-    # Pooled recalibration mixes temperatures fitted per task, as a deployment would.
+    ok = [r for r in recs if "error" not in r]
+    overall["majority"] = None            # one most-common answer across different tasks means nothing
+    overall["ece_pooled"] = overall["ece"]
+    overall["ece"] = stats.weighted_ece(ok)
+    sized = [(len([r for r in by_task[t] if "error" not in r]), per_task[t]["ece_recalibrated"]) for t in TASKS]
+    sized = [(n, e) for n, e in sized if n and e is not None]
+    overall["ece_recalibrated"] = sum(n * e for n, e in sized) / sum(n for n, _ in sized) if sized else None
+    selective = stats.selective({task: v for task, v in by_task.items() if v})
+    overall["selective"] = selective
+    for task, summary in per_task.items():
+        summary["selective"] = {risk: s["tasks"][task] for risk, s in selective.items() if task in s["tasks"]}
+    # One split of per-task temperature scaling, pooled: what the overall reliability diagram shows.
     pooled = []
     for task in TASKS:
         pooled += recalibrated([r for r in recs if r["task"] == task and "error" not in r])[0]
-    overall["ece_recalibrated"] = ece(pooled)
+    overall["ece_pooled_recalibrated"] = ece(pooled)
     overall["reliability_recalibrated"] = _bins(pooled)
     overall["coverage_at_5_recalibrated"] = coverage_at_risk(pooled, 0.05)
     overall["temperatures"] = {task: summary["temperatures"] for task, summary in per_task.items()}
-    overall["calibration_method"] = "grouped_cross_fit_per_task"
+    overall["calibration_method"] = "per_task_temperature_grouped_cross_fit"
     return {"overall": overall, "tasks": per_task}
 
 
@@ -213,10 +289,33 @@ def save(path: str | Path, backend: Backend, recs: list[dict], hardware: str, se
         "backend": backend.name, "label": backend.label, "model": backend.model, "residency": backend.residency,
         "hardware": hardware, "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seconds": round(seconds, 1), "metrics": metrics(recs), "records": recs,
-        "pipeline_version": "1.1.0", "benchmark_scope": "typed decisions, not end-to-end request success",
+        "benchmark_scope": "typed decisions, not end-to-end request success",
     }
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(json.dumps(clean(out), indent=1))
+    return out
+
+
+def refresh(data: dict, items: list[dict]) -> dict:
+    """Score a saved run against the current labels. A run is current when it covers every
+    current item and asked each one exactly the current question; labels may have changed since."""
+    by_id = {it["id"]: it for it in items}
+    keys = {it["id"]: question_key(it["questions"][it["question"]]) for it in items}
+    recs, stale = [], 0
+    for i, r in enumerate(data.get("records", [])):
+        it = by_id.get(r["id"])
+        if it is None:
+            continue
+        meta = it.get("meta", {})
+        r = {**r, "task": it["task"], "gold": it["gold"],
+             "group": r.get("group") or meta.get("request") or meta.get("source_id") or it["id"]}
+        if "error" not in r:
+            r["correct"] = r["top"] == it["gold"]
+        stale += r.get("question_key") != keys[it["id"]]
+        recs.append(r)
+    out = {**data, "records": recs, "stale": stale, "missing": len(items) - len(recs)}
+    out["current"] = stale == 0 and out["missing"] == 0
+    out["metrics"] = metrics(recs)
     return out
 
 

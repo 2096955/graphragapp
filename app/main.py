@@ -1,7 +1,8 @@
 """HTTP API. Run with:  uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-Serves the Decisions Lab at / and the graph-database field guide at /field-guide.
-The page and API share an origin. /api/compare is decision backends, not databases.
+Serves the Decisions Lab at /, the graph-database field guide at /field-guide and the
+small-world lab at /small-world. The pages and the API share an origin. /api/compare compares
+decision backends, not databases.
 """
 from __future__ import annotations
 
@@ -17,23 +18,27 @@ from typing import Any
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import domain as d
 from . import evaluation as ev
+from . import retrieval
 from .arize_eval import ArizeEval
+from .claims import ClaimsLab
+from .claims import check as claims_check
+from .claims_corpus import PEOPLE, TOPICS
+from .compliance import check as compliance_check
 from .compliance import filter_payload, run_example
 from .compliance_graph import ComplianceGraph
 from .watts_strogatz import example as watts_example
 from .config import Settings
-from .decisions import BackendUnavailable, DecisionError, build_backends
+from .decisions import BackendUnavailable, CatalogueBackend, DecisionError, build_backends
 from .explain import Explainer
 from .graph import Graph
-from .pipeline import Pipeline
+from .pipeline import PIPELINE_VERSION, Pipeline
 from .testset import TASKS, build
 
-VERSION = "1.1.0"
+VERSION = "1.4.0"          # the application; PIPELINE_VERSION changes only when decisions change
 ROOT = Path(__file__).resolve().parents[1]
 
 settings = Settings.from_env()
@@ -45,6 +50,10 @@ backends = build_backends(settings)
 explainer = Explainer(settings.llm_base_url, settings.llm_api_key, settings.llm_model)
 pipeline = Pipeline(graph, explainer, settings.min_confidence)
 ITEMS = build()
+claims_lab = ClaimsLab()
+_claims_lock = threading.Lock()
+with _claims_lock:
+    claims_lab.build(backends.get("catalogue") or CatalogueBackend(), settings.min_confidence)
 
 
 
@@ -147,13 +156,25 @@ class ComplianceExampleIn(BaseModel):
     backend: str = "catalogue"
 
 
+class ClaimsBuildIn(BaseModel):
+    backend: str = "catalogue"
+    threshold: float | None = Field(default=None, ge=0.0, le=1.0)
+
+
+class ClaimsReviewIn(BaseModel):
+    id: str = Field(min_length=1, max_length=64)
+    accept: bool
+    label: str | None = None
+
+
 # ------------------------------------------------------------------------------ routes
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
+    return {"ok": True, "version": VERSION, "pipeline_version": PIPELINE_VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
             "auth_required": settings.api_token is not None, "eval_enabled": settings.eval_enabled,
             "llm_explainer": explainer.llm_available, "items": len(ITEMS),
             "compliance": compliance_graph.counts(),
+            "claims": {"engine": claims_lab.store.detail, **claims_lab.store.counts()},
             "arize": {"configured": arize.configured, "source": "live" if arize.configured else "sample",
                       **arize.wiring()}}
 
@@ -216,9 +237,99 @@ def compliance_example(body: ComplianceExampleIn):
     return run_example(b, compliance_graph, arize)
 
 
+@app.post("/api/compliance/check", dependencies=[Depends(guard)])
+def compliance_labelled_check(body: ComplianceExampleIn):
+    """Score one backend on the 30 hand-labelled payloads. Writes nothing to the graph."""
+    b = backend_or_404(body.backend)
+    ok, why = b.available()
+    if not ok:
+        raise HTTPException(503, why)
+    return compliance_check(b)
+
+
 @app.get("/api/compliance/graph")
 def compliance_graph_view():
     return compliance_graph.snapshot()
+
+
+# ------------------------------------------------------------------------------ claims graph
+def _available_or_503(name: str):
+    b = backend_or_404(name)
+    ok, why = b.available()
+    if not ok:
+        raise HTTPException(503, why)
+    return b
+
+
+@app.get("/api/claims")
+def claims_view():
+    """The claims graph as built, with the review queue and the last build's decisions."""
+    last = claims_lab.last or {}
+    return {**claims_lab.snapshot(), "built_with": last.get("backend"), "threshold": last.get("threshold"),
+            "rejected": last.get("rejected", []), "decisions": last.get("decisions", [])}
+
+
+@app.post("/api/claims/build", dependencies=[Depends(guard)])
+def claims_build(body: ClaimsBuildIn):
+    """Rebuild the claims graph from the corpus, with one backend making every typed decision."""
+    b = _available_or_503(body.backend)
+    with _claims_lock:
+        return claims_lab.build(b, settings.min_confidence if body.threshold is None else body.threshold)
+
+
+@app.post("/api/claims/review", dependencies=[Depends(guard)])
+def claims_review(body: ClaimsReviewIn):
+    """A person's answer to one review item. Accepting writes it to the graph."""
+    with _claims_lock:
+        try:
+            return claims_lab.resolve(body.id, body.accept, body.label)
+        except KeyError:
+            raise HTTPException(404, f"No review item {body.id!r}.") from None
+        except ValueError as e:
+            raise HTTPException(422, str(e)) from None
+
+
+@app.get("/api/claims/who")
+def claims_who(topic: str | None = None, aspect: str | None = None, publisher_kind: str | None = None):
+    """Everyone with a claim on a topic or aspect, with their claims and sources."""
+    if topic and topic not in TOPICS:
+        raise HTTPException(404, f"Unknown topic {topic!r}. Topics: {', '.join(TOPICS)}")
+    return {"topic": topic, "aspect": aspect, "people": claims_lab.who(topic, aspect, publisher_kind)}
+
+
+@app.get("/api/claims/timeline")
+def claims_timeline(person: str, aspect: str, as_of: str | None = None):
+    """One person's claims on one aspect, oldest first, with how each changed the position."""
+    if person not in PEOPLE:
+        raise HTTPException(404, f"Unknown person {person!r}. People: {', '.join(PEOPLE)}")
+    return claims_lab.timeline(person, aspect, as_of)
+
+
+@app.get("/api/claims/search")
+def claims_search(q: str, method: str = "hybrid", k: int = 10):
+    """The same question through BM25, dense, hybrid or the graph."""
+    k = max(1, min(k, 20))
+    if method == "graph":
+        out = retrieval.graph(q, claims_lab, k)
+    elif method in ("dense", "hybrid"):
+        ok, why = retrieval.dense_available()
+        if not ok:
+            raise HTTPException(503, why)
+        out = {"passages": getattr(retrieval, method)(q, k)}
+    elif method == "bm25":
+        out = {"passages": retrieval.bm25(q, k)}
+    else:
+        raise HTTPException(422, "method must be bm25, dense, hybrid or graph")
+    by_id = {p["id"]: p for p in retrieval.passages()}
+    return {"method": method, "question": q, **out,
+            "results": [{"id": pid, "date": by_id[pid]["date"], "text": by_id[pid]["indexed"]} for pid in out["passages"]]}
+
+
+@app.post("/api/claims/check", dependencies=[Depends(guard)])
+def claims_labelled_check(body: ClaimsBuildIn):
+    """Score one backend on the labelled claims decisions. Writes nothing to the graph."""
+    b = _available_or_503(body.backend)
+    return claims_check(b, settings.min_confidence if body.threshold is None else body.threshold)
 
 
 @app.get("/api/compliance/eval")
@@ -237,16 +348,26 @@ def testset():
     return {"tasks": TASKS, "items": ITEMS}
 
 
+_results_cache: dict[str, tuple[int, dict]] = {}
+
+
 @app.get("/api/results")
 def results():
+    """Saved runs, rescored against the current labels. Metrics include bootstrap intervals, so
+    each file is scored once per change rather than on every request."""
     out = {}
     for f in sorted(Path(settings.results_dir).glob("*.json")):
         try:
-            data = json.loads(f.read_text())
-            if "records" not in data or f.name.endswith("-partial.json"):
-                continue
-            data["legacy"] = data.get("pipeline_version") != VERSION
-            data["metrics"] = ev.clean(ev.metrics(data["records"]))
+            stamp = f.stat().st_mtime_ns
+            hit = _results_cache.get(str(f))
+            if hit and hit[0] == stamp:
+                data = hit[1]
+            else:
+                data = json.loads(f.read_text())
+                if "records" not in data or f.name.endswith("-partial.json"):
+                    continue
+                data = ev.clean(ev.refresh(data, ITEMS))
+                _results_cache[str(f)] = (stamp, data)
             out[data["backend"]] = data
         except (OSError, ValueError, KeyError):
             continue
@@ -286,12 +407,18 @@ def start_eval(body: EvalIn):
             try:
                 runner = b.fork_for_benchmark()
                 runner.warm_up()
+                # Decisions are saved as they are made, so a restart or a cancelled run picks up
+                # where it stopped instead of paying for the same decisions again.
+                checkpoint = Path(settings.results_dir) / f"{b.name}.progress.jsonl"
+                checkpoint.parent.mkdir(parents=True, exist_ok=True)
                 recs, secs = ev.timed_run(runner, items, progress=lambda i, n: job.update(done=i),
-                                          should_stop=lambda: job["stop"])
+                                          should_stop=lambda: job["stop"], checkpoint=checkpoint)
                 path = Path(settings.results_dir) / f"{b.name}.json"
                 if job["stop"] or len(recs) < len(ITEMS):
                     path = Path(settings.results_dir) / f"{b.name}-partial.json"
                 ev.save(path, runner, recs, "this server", secs)
+                if not job["stop"] and len(recs) == len(ITEMS) and not any("error" in r for r in recs):
+                    checkpoint.unlink(missing_ok=True)
                 job.update(state="cancelled" if job["stop"] else "finished", result=str(path.name))
             except Exception as e:  # noqa: BLE001
                 job.update(state="failed", error=f"{type(e).__name__}: {str(e)[:300]}")
@@ -335,6 +462,7 @@ def field_guide():
     return _page("field-guide.html", "Field guide is missing.")
 
 
-_files = ROOT / "web" / "field-guide_files"
-if _files.is_dir():
-    app.mount("/field-guide_files", StaticFiles(directory=_files), name="field-guide-files")
+@app.get("/small-world", include_in_schema=False)
+@app.get("/small-world.html", include_in_schema=False)
+def small_world():
+    return _page("small-world.html", "Small-world lab is missing.")

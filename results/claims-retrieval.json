@@ -1,0 +1,972 @@
+{
+ "k": 10,
+ "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+ "methods": [
+  "BM25",
+  "Dense",
+  "Hybrid",
+  "Graph, correct decisions",
+  "Graph, built by the rules"
+ ],
+ "summary": {
+  "BM25": 0.875,
+  "Dense": 0.95,
+  "Hybrid": 0.887,
+  "Graph, correct decisions": 0.8,
+  "Graph, built by the rules": 0.613
+ },
+ "by_kind": {
+  "as_of": {
+   "BM25": 1.0,
+   "Dense": 1.0,
+   "Hybrid": 1.0,
+   "Graph, correct decisions": 1.0,
+   "Graph, built by the rules": 1.0
+  },
+  "content": {
+   "BM25": 1.0,
+   "Dense": 1.0,
+   "Hybrid": 1.0,
+   "Graph, correct decisions": 0.0,
+   "Graph, built by the rules": 0.0
+  },
+  "publisher": {
+   "BM25": 1.0,
+   "Dense": 1.0,
+   "Hybrid": 1.0,
+   "Graph, correct decisions": 1.0,
+   "Graph, built by the rules": 1.0
+  },
+  "same": {
+   "BM25": 0.5,
+   "Dense": 1.0,
+   "Hybrid": 0.5,
+   "Graph, correct decisions": 1.0,
+   "Graph, built by the rules": 0.5
+  },
+  "timeline": {
+   "BM25": 0.75,
+   "Dense": 0.875,
+   "Hybrid": 0.875,
+   "Graph, correct decisions": 1.0,
+   "Graph, built by the rules": 0.875
+  },
+  "who": {
+   "BM25": 0.917,
+   "Dense": 0.917,
+   "Hybrid": 0.875,
+   "Graph, correct decisions": 1.0,
+   "Graph, built by the rules": 0.625
+  }
+ },
+ "questions": [
+  {
+   "id": "R01",
+   "kind": "who",
+   "question": "Who has said anything about human review of automated declines?",
+   "methods": {
+    "BM25": {
+     "recall": 0.75,
+     "found": [
+      "C04",
+      "C09",
+      "C11",
+      "C17",
+      "C19",
+      "C20"
+     ],
+     "retrieved": [
+      "D05.2",
+      "D12.3",
+      "D02.5",
+      "D11.3",
+      "D10.3",
+      "D05.3",
+      "D12.1",
+      "D06.2",
+      "D07.1",
+      "D02.4"
+     ]
+    },
+    "Dense": {
+     "recall": 0.75,
+     "found": [
+      "C04",
+      "C05",
+      "C09",
+      "C11",
+      "C17",
+      "C20"
+     ],
+     "retrieved": [
+      "D05.2",
+      "D12.3",
+      "D10.3",
+      "D12.4",
+      "D05.3",
+      "D06.2",
+      "D02.5",
+      "D02.4",
+      "D12.1",
+      "D03.3"
+     ]
+    },
+    "Hybrid": {
+     "recall": 0.625,
+     "found": [
+      "C04",
+      "C09",
+      "C11",
+      "C17",
+      "C20"
+     ],
+     "retrieved": [
+      "D05.2",
+      "D12.3",
+      "D10.3",
+      "D02.5",
+      "D05.3",
+      "D06.2",
+      "D12.1",
+      "D02.4",
+      "D12.4",
+      "D07.1"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C01",
+      "C04",
+      "C05",
+      "C09",
+      "C11",
+      "C17",
+      "C19",
+      "C20"
+     ],
+     "retrieved": [
+      "D01.4",
+      "D02.5",
+      "D03.3",
+      "D05.2",
+      "D06.2",
+      "D10.3",
+      "D11.3",
+      "D12.3"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.875,
+     "found": [
+      "C04",
+      "C05",
+      "C09",
+      "C11",
+      "C17",
+      "C19",
+      "C20"
+     ],
+     "retrieved": [
+      "D02.5",
+      "D03.3",
+      "D05.2",
+      "D06.2",
+      "D10.3",
+      "D11.3",
+      "D12.3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R02",
+   "kind": "timeline",
+   "question": "How has Nadia Oyelaran's view on human review of declines changed?",
+   "methods": {
+    "BM25": {
+     "recall": 0.5,
+     "found": [
+      "C11",
+      "C17"
+     ],
+     "retrieved": [
+      "D03.2",
+      "D05.2",
+      "D02.5",
+      "D12.3",
+      "D11.3",
+      "D12.1",
+      "D10.3",
+      "D06.2",
+      "D03.4",
+      "D05.3"
+     ]
+    },
+    "Dense": {
+     "recall": 0.75,
+     "found": [
+      "C05",
+      "C11",
+      "C17"
+     ],
+     "retrieved": [
+      "D03.3",
+      "D10.3",
+      "D12.4",
+      "D10.4",
+      "D06.2",
+      "D03.2",
+      "D03.4",
+      "D06.4",
+      "D10.1",
+      "D05.2"
+     ]
+    },
+    "Hybrid": {
+     "recall": 0.75,
+     "found": [
+      "C05",
+      "C11",
+      "C17"
+     ],
+     "retrieved": [
+      "D03.2",
+      "D10.3",
+      "D03.3",
+      "D05.2",
+      "D06.2",
+      "D12.3",
+      "D03.4",
+      "D10.4",
+      "D12.4",
+      "D02.5"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C01",
+      "C05",
+      "C11",
+      "C17"
+     ],
+     "retrieved": [
+      "D01.4",
+      "D03.3",
+      "D06.2",
+      "D10.3"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.75,
+     "found": [
+      "C05",
+      "C11",
+      "C17"
+     ],
+     "retrieved": [
+      "D03.3",
+      "D06.2",
+      "D10.3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R03",
+   "kind": "publisher",
+   "question": "What has the Office of the Information Steward said about customer information in generative AI?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08",
+      "C15",
+      "C16"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D04.5",
+      "D04.2",
+      "D04.1",
+      "D09.2",
+      "D04.3",
+      "D09.4",
+      "D09.1",
+      "D09.3",
+      "D07.3"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08",
+      "C15",
+      "C16"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D04.3",
+      "D04.1",
+      "D09.2",
+      "D09.4",
+      "D04.5",
+      "D09.1",
+      "D09.3",
+      "D04.2",
+      "D07.3"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08",
+      "C15",
+      "C16"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D04.1",
+      "D04.3",
+      "D04.5",
+      "D09.2",
+      "D04.2",
+      "D09.4",
+      "D09.1",
+      "D09.3",
+      "D07.3"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08",
+      "C15",
+      "C16"
+     ],
+     "retrieved": [
+      "D04.2",
+      "D04.4",
+      "D09.2",
+      "D09.3"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08",
+      "C15",
+      "C16"
+     ],
+     "retrieved": [
+      "D04.2",
+      "D04.4",
+      "D09.2",
+      "D09.3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R04",
+   "kind": "as_of",
+   "question": "As of the start of 2025, what was the Information Steward's position on customer information in generative AI?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D04.2",
+      "D09.2",
+      "D04.1",
+      "D04.5",
+      "D09.4",
+      "D04.3",
+      "D09.1",
+      "D09.3",
+      "D11.4"
+     ],
+     "later_than_as_of": 5
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D04.3",
+      "D09.2",
+      "D04.1",
+      "D09.4",
+      "D09.1",
+      "D04.5",
+      "D09.3",
+      "D04.2",
+      "D07.3"
+     ],
+     "later_than_as_of": 5
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08"
+     ],
+     "retrieved": [
+      "D04.4",
+      "D09.2",
+      "D04.1",
+      "D04.3",
+      "D04.2",
+      "D09.4",
+      "D04.5",
+      "D09.1",
+      "D09.3",
+      "D07.3"
+     ],
+     "later_than_as_of": 5
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08"
+     ],
+     "retrieved": [
+      "D04.2",
+      "D04.4"
+     ],
+     "later_than_as_of": 0
+    },
+    "Graph, built by the rules": {
+     "recall": 1.0,
+     "found": [
+      "C07",
+      "C08"
+     ],
+     "retrieved": [
+      "D04.2",
+      "D04.4"
+     ],
+     "later_than_as_of": 0
+    }
+   }
+  },
+  {
+   "id": "R05",
+   "kind": "same",
+   "question": "Who says an organisation stays accountable for decisions made with a vendor's model?",
+   "methods": {
+    "BM25": {
+     "recall": 0.5,
+     "found": [
+      "C06"
+     ],
+     "retrieved": [
+      "D03.5",
+      "D09.3",
+      "D10.2",
+      "D06.3",
+      "D06.2",
+      "D05.3",
+      "D03.3",
+      "D04.1",
+      "D04.4",
+      "D09.4"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C03",
+      "C06"
+     ],
+     "retrieved": [
+      "D03.5",
+      "D10.2",
+      "D02.2",
+      "D06.3",
+      "D03.3",
+      "D01.4",
+      "D06.2",
+      "D01.6",
+      "D06.1",
+      "D02.6"
+     ]
+    },
+    "Hybrid": {
+     "recall": 0.5,
+     "found": [
+      "C06"
+     ],
+     "retrieved": [
+      "D03.5",
+      "D10.2",
+      "D06.3",
+      "D03.3",
+      "D06.2",
+      "D09.3",
+      "D01.4",
+      "D06.1",
+      "D05.4",
+      "D01.6"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C03",
+      "C06"
+     ],
+     "retrieved": [
+      "D02.2",
+      "D02.3",
+      "D03.5"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.5,
+     "found": [
+      "C06"
+     ],
+     "retrieved": [
+      "D03.5"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R06",
+   "kind": "who",
+   "question": "What have regulators said about keeping a register of models?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "C02",
+      "C12",
+      "C18"
+     ],
+     "retrieved": [
+      "D06.3",
+      "D10.2",
+      "D01.4",
+      "D05.4",
+      "D08.2",
+      "D09.2",
+      "D01.5",
+      "D01.2",
+      "D01.6",
+      "D03.5"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C02",
+      "C12",
+      "C18"
+     ],
+     "retrieved": [
+      "D10.2",
+      "D06.3",
+      "D05.4",
+      "D03.5",
+      "D01.4",
+      "D02.2",
+      "D03.3",
+      "D01.2",
+      "D01.6",
+      "D06.2"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "C02",
+      "C12",
+      "C18"
+     ],
+     "retrieved": [
+      "D06.3",
+      "D10.2",
+      "D05.4",
+      "D01.4",
+      "D03.5",
+      "D01.2",
+      "D01.6",
+      "D02.2",
+      "D01.5",
+      "D03.3"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C02",
+      "C12",
+      "C18"
+     ],
+     "retrieved": [
+      "D01.5",
+      "D01.6",
+      "D06.3",
+      "D10.2"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 1.0,
+     "found": [
+      "C02",
+      "C12",
+      "C18"
+     ],
+     "retrieved": [
+      "D01.5",
+      "D01.6",
+      "D06.3",
+      "D10.2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R07",
+   "kind": "timeline",
+   "question": "Has the Coral Sea Bankers' Forum changed its position on human review?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "C09",
+      "C20"
+     ],
+     "retrieved": [
+      "D12.3",
+      "D12.1",
+      "D05.2",
+      "D12.4",
+      "D05.1",
+      "D12.2",
+      "D05.3",
+      "D02.5",
+      "D11.3",
+      "D05.4"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C09",
+      "C20"
+     ],
+     "retrieved": [
+      "D12.1",
+      "D12.3",
+      "D02.5",
+      "D12.4",
+      "D05.2",
+      "D12.2",
+      "D05.1",
+      "D05.3",
+      "D02.4",
+      "D02.1"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "C09",
+      "C20"
+     ],
+     "retrieved": [
+      "D12.1",
+      "D12.3",
+      "D05.2",
+      "D12.4",
+      "D02.5",
+      "D05.1",
+      "D12.2",
+      "D05.3",
+      "D11.3",
+      "D02.1"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C09",
+      "C20"
+     ],
+     "retrieved": [
+      "D05.2",
+      "D12.3"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 1.0,
+     "found": [
+      "C09",
+      "C20"
+     ],
+     "retrieved": [
+      "D05.2",
+      "D12.3"
+     ]
+    }
+   }
+  },
+  {
+   "id": "R08",
+   "kind": "who",
+   "question": "Who has asked for declined customers to be told why?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "C13"
+     ],
+     "retrieved": [
+      "D11.1",
+      "D07.1",
+      "D06.2",
+      "D10.3",
+      "D02.4",
+      "D07.3",
+      "D11.3",
+      "D01.6",
+      "D09.3",
+      "D07.2"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "C13"
+     ],
+     "retrieved": [
+      "D10.3",
+      "D11.1",
+      "D07.1",
+      "D07.2",
+      "D12.4",
+      "D02.4",
+      "D12.3",
+      "D06.2",
+      "D08.3",
+      "D01.4"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "C13"
+     ],
+     "retrieved": [
+      "D11.1",
+      "D10.3",
+      "D07.1",
+      "D06.2",
+      "D02.4",
+      "D07.2",
+      "D07.3",
+      "D09.3",
+      "D12.3",
+      "D08.3"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 1.0,
+     "found": [
+      "C13"
+     ],
+     "retrieved": [
+      "D07.2"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.0,
+     "found": [],
+     "retrieved": []
+    }
+   }
+  },
+  {
+   "id": "R09",
+   "kind": "content",
+   "question": "What did the Lantern Consumer Alliance's survey of borrowers find?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "fewer than one in five"
+     ],
+     "retrieved": [
+      "D07.1",
+      "D11.2",
+      "D02.2",
+      "D07.2",
+      "D07.3",
+      "D02.1",
+      "D02.3",
+      "D02.6",
+      "D02.5",
+      "D02.4"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "fewer than one in five"
+     ],
+     "retrieved": [
+      "D07.1",
+      "D07.3",
+      "D07.2",
+      "D02.1",
+      "D02.4",
+      "D02.2",
+      "D02.6",
+      "D11.1",
+      "D02.5",
+      "D01.2"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "fewer than one in five"
+     ],
+     "retrieved": [
+      "D07.1",
+      "D07.3",
+      "D07.2",
+      "D02.2",
+      "D02.1",
+      "D02.4",
+      "D02.6",
+      "D02.3",
+      "D02.5",
+      "D11.2"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 0.0,
+     "found": [],
+     "retrieved": [
+      "D07.2",
+      "D07.3"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.0,
+     "found": [],
+     "retrieved": []
+    }
+   }
+  },
+  {
+   "id": "R10",
+   "kind": "content",
+   "question": "How many climate scenarios does the Meridian Prudential Authority use?",
+   "methods": {
+    "BM25": {
+     "recall": 1.0,
+     "found": [
+      "climate scenarios to eleven"
+     ],
+     "retrieved": [
+      "D08.1",
+      "D08.2",
+      "D11.2",
+      "D08.3",
+      "D03.4",
+      "D01.1",
+      "D03.2",
+      "D04.1",
+      "D01.3",
+      "D03.1"
+     ]
+    },
+    "Dense": {
+     "recall": 1.0,
+     "found": [
+      "climate scenarios to eleven"
+     ],
+     "retrieved": [
+      "D08.1",
+      "D08.2",
+      "D10.1",
+      "D01.5",
+      "D01.3",
+      "D03.2",
+      "D03.4",
+      "D03.1",
+      "D06.3",
+      "D01.1"
+     ]
+    },
+    "Hybrid": {
+     "recall": 1.0,
+     "found": [
+      "climate scenarios to eleven"
+     ],
+     "retrieved": [
+      "D08.1",
+      "D08.2",
+      "D03.4",
+      "D03.2",
+      "D10.1",
+      "D01.3",
+      "D01.1",
+      "D03.1",
+      "D01.5",
+      "D08.3"
+     ]
+    },
+    "Graph, correct decisions": {
+     "recall": 0.0,
+     "found": [],
+     "retrieved": [
+      "D01.4",
+      "D01.5",
+      "D01.6",
+      "D03.3",
+      "D03.5",
+      "D06.2",
+      "D06.3",
+      "D10.3",
+      "D10.2"
+     ]
+    },
+    "Graph, built by the rules": {
+     "recall": 0.0,
+     "found": [],
+     "retrieved": [
+      "D01.5",
+      "D01.6",
+      "D03.3",
+      "D03.5",
+      "D06.2",
+      "D06.3",
+      "D10.3",
+      "D10.2"
+     ]
+    }
+   }
+  }
+ ],
+ "finished": "2026-09-30T12:44:25+00:00"
+}

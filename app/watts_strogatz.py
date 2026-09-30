@@ -1,16 +1,18 @@
-"""Watts–Strogatz small-world example shown in the lab.
+"""Watts-Strogatz small-world example shown in the lab.
 
-The on-screen figures are the visual from Anthony's notes (N=500, K=25, p=0.15,
-seed 1). They are not recomputed at serve time, so a clone sees the same numbers
-without NetworkX, MATLAB, or a key.
+The figures come from one draw of the interactive small-world lab (web/small-world.html):
+N=500, K=25, p=0.15, seed 1. They are stored, not recomputed at serve time, so a clone sees
+the same numbers without NetworkX, MATLAB or a key.
 
-These figures are a synthetic N=500 visual, not a measurement of this catalogue
-graph. Token-bounded retrieval is the design claim, not a measured p95.
+The lesson: in a small-world graph, hop count does not bound context. Two hops from one node
+reach 75% of this graph. An agent that expands k hops from a match floods its context long
+before k is interesting, so retrieval has to stop on a token budget or a ranking. These figures
+are a synthetic example, not a measurement of the catalogue graph.
 
 Citations:
 - D. J. Watts and S. H. Strogatz, Collective dynamics of small-world networks,
   Nature 393, 440–442 (1998), doi:10.1038/30918
-- MathWorks, Build Watts–Strogatz Small World Graph Model
+- MathWorks, Build Watts-Strogatz Small World Graph Model
   https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html
 
 NetworkX uses k=2K, so the equivalent call is watts_strogatz_graph(n=500, k=50, p=0.15).
@@ -32,12 +34,16 @@ NATURE = {
 }
 
 MATHWORKS = {
-    "title": "Build Watts–Strogatz Small World Graph Model",
+    "title": "Build Watts-Strogatz Small World Graph Model",
     "publisher": "MathWorks",
     "url": "https://www.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html",
 }
 
-# Visual on screen. Seed 1, 1,912 rewires. Do not replace these with a fresh draw.
+# Assumptions for the token figure, stated rather than hidden in a constant.
+TOKENS_PER_NODE = 60        # a short node description: name, type and a few properties
+CONTEXT_BUDGET = 32_000     # tokens available for retrieved context
+
+# One draw from the lab. Seed 1, 1,912 rewires. Replace all of it together, not piecemeal.
 EXAMPLE: dict[str, Any] = {
     "n": 500,
     "k": 25,
@@ -53,8 +59,10 @@ EXAMPLE: dict[str, Any] = {
         {"hop": 2, "nodes": 373, "pct": 0.75},
         {"hop": 3, "nodes": 499, "pct": 1.00},
     ],
-    "two_hop_tokens": 22380,
-    "two_hop_budget_pct": 0.70,
+    "tokens_per_node": TOKENS_PER_NODE,
+    "context_budget": CONTEXT_BUDGET,
+    "two_hop_tokens": 373 * TOKENS_PER_NODE,
+    "two_hop_budget_pct": round(373 * TOKENS_PER_NODE / CONTEXT_BUDGET, 2),
     "networkx": {"n": 500, "k": 50, "p": 0.15, "note": "NetworkX uses k=2K"},
     "mathworks_check": [
         {"beta": 0.0, "matlab": 5.48, "visual": 5.48},
@@ -65,9 +73,9 @@ EXAMPLE: dict[str, Any] = {
 }
 
 CLAIM = (
-    "These Watts–Strogatz figures are a synthetic N=500 visual, not a measurement "
-    "of this catalogue graph. Token-bounded retrieval is the design claim, not a "
-    "measured p95."
+    "In a small-world graph, hop count does not bound context: two hops from one node reach 75% "
+    "of this 500-node graph. Retrieval has to stop on a token budget or a ranking. These figures "
+    "are a synthetic example, not a measurement of the catalogue graph."
 )
 
 
@@ -78,10 +86,10 @@ def example() -> dict[str, Any]:
         "example": EXAMPLE,
         "citations": [NATURE, MATHWORKS],
         "why_here": (
-            "The compliance graph only expands a short neighbourhood from the matched "
-            "pattern: prior attempts, the filter decision, and the downstream agent. "
-            "The ring is a cited visual for that design, not a measurement of the "
-            "catalogue graph, and not a measured p95."
+            "The discovery pipeline does not expand by hops at all: the graph proposes candidates and "
+            "typed decisions keep the relevant ones, which is a ranking. The compliance store can use a "
+            "two-hop neighbourhood only because its schema is a small star around each pattern (its "
+            "attempts, their decisions and the agent), not because two hops are small in general."
         ),
     }
 
@@ -115,7 +123,7 @@ def generate(n: int = 80, k: int = 4, p: float = 0.15, seed: int = 1) -> list[se
 
 
 def hop_coverage(adj: list[set[int]], start: int = 0, hops: int = 2) -> dict[int, int]:
-    """Nodes reached in exactly d hops, d=1..hops. start itself is excluded."""
+    """Nodes within d hops, for d = 1..hops (cumulative). The start node is not counted."""
     seen = {start}
     frontier = {start}
     out: dict[int, int] = {}

@@ -1,5 +1,6 @@
 import json
 import math
+from dataclasses import replace
 
 import httpx
 import pytest
@@ -7,7 +8,8 @@ from conftest import OracleBackend
 
 from app import domain as d
 from app import evaluation as ev
-from app.decisions import DecisionError, JevBackend, UniformBackend, labels, validate_questions
+from app.config import Settings
+from app.decisions import DecisionError, JevBackend, UniformBackend, build_backends, labels, validate_questions
 from app.graph import Graph
 from app.pipeline import Pipeline, lexical_candidates
 from app.testset import REQUESTS, TASKS, build, gold_query
@@ -32,7 +34,7 @@ def test_items_are_well_formed():
 def test_task_sizes_and_balance():
     items = build()
     count = lambda task, gold=None: sum(1 for i in items if i["task"] == task and (gold is None or i["gold"] == gold))  # noqa: E731
-    assert count("gate") == 61 and count("gate", "answer") == 30 and count("gate", "clarify") == 17 and count("gate", "reject") == 14
+    assert count("gate") == 61 and count("gate", "answer") == 31 and count("gate", "clarify") == 16 and count("gate", "reject") == 14
     assert count("level") == 93 and count("relevance") == 132 and count("entity") == 82 and count("mapping") == 80
     assert count("relevance", "yes") == 53 and count("entity", "yes") == 49
 
@@ -94,16 +96,16 @@ def test_pipeline_recovers_every_labelled_query(graph):
     pipe, oracle = Pipeline(graph), OracleBackend()
     for r in REQUESTS:
         out = pipe.run(oracle, r[1], "European countries, recent years")
-        if r[0] == "P15":
-            assert out["outcome"] == "clarify"
-            continue
         if r[2] != "answer":
             assert out["outcome"] == r[2], r[0]
             continue
         gq = gold_query(r[0])
         assert out["query"]["pollutants"] == gq["pollutants"], r[0]
         assert out["query"]["levels"] == gq["levels"], r[0]
-        assert out["outcome"] in ("answer", "no_data")
+        # A perfect model is only sent to review for words the checks cannot place (typos here).
+        assert out["outcome"] in ("answer", "no_data", "review"), r[0]
+        if out["outcome"] == "review":
+            assert all(x.startswith("Words the catalogue checks could not place") for x in out["review"]), r[0]
 
 
 def test_pipeline_explains_ranked_solutions(graph):
@@ -163,6 +165,52 @@ def test_jev_wire_format_round_trip():
 def test_jev_without_key_is_unavailable():
     ok, why = JevBackend(None).available()
     assert not ok and "TYPESAFE_API_KEY" in why
+    ok, why = JevBackend(None, provider="openrouter").available()
+    assert not ok and "OPENROUTER_API_KEY" in why
+
+
+def test_jev_through_openrouter(monkeypatch):
+    """OpenRouter's Decisions API: same request and answers, its own URL, model alias and reported cost."""
+    seen, calls = {}, []
+    monkeypatch.setattr("app.decisions.backends.time.sleep", lambda s: calls.append(s))
+
+    def handler(request: httpx.Request):
+        calls.append(str(request.url))
+        if len(calls) == 1:
+            return httpx.Response(529, headers={"retry-after": "1"})   # overloaded: retried
+        seen["auth"], seen["body"] = request.headers["authorization"], json.loads(request.content)
+        return httpx.Response(200, json={"model": "typesafe/jev-1.13", "answers": {"rel": {"type": "noul", "noul": 0.25}},
+                                         "usage": {"input_tokens": 400, "output_tokens": 1, "cost": 0.0000168}})
+
+    jev = JevBackend("or-key", transport=httpx.MockTransport(handler), provider="openrouter")
+    res = jev.decide({"request": "hi"}, {"rel": {"type": "noul", "instructions": "Is it?"}})
+    assert calls[0] == "https://openrouter.ai/api/alpha/decisions" and calls[1] == 1.0
+    assert seen["auth"] == "Bearer or-key" and seen["body"]["model"] == "~typesafe/jev-latest"
+    assert res.answers["rel"].probabilities == pytest.approx({"yes": 0.25, "no": 0.75})
+    assert res.cost_usd == pytest.approx(0.0000168) and res.detail["cost_source"] == "reported"
+    assert res.detail["via"] == "openrouter" and res.detail["served_by"] == "typesafe/jev-1.13"
+    with pytest.raises(ValueError):
+        JevBackend("k", provider="elsewhere")
+
+
+def test_jev_provider_follows_the_keys(monkeypatch):
+    for k in ("TYPESAFE_API_KEY", "OPENROUTER_API_KEY", "JEV_PROVIDER", "JEV_MODEL"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "or")
+    s = Settings.from_env()
+    assert (s.jev_provider, s.jev_model) == ("openrouter", "~typesafe/jev-latest")
+    for typesafe_name, openrouter_name in (("jev-latest", "~typesafe/jev-latest"), ("jev-1.13", "typesafe/jev-1.13"),
+                                           ("typesafe/jev-1.13", "typesafe/jev-1.13")):
+        monkeypatch.setenv("JEV_MODEL", typesafe_name)
+        assert Settings.from_env().jev_model == openrouter_name
+    monkeypatch.delenv("JEV_MODEL")
+    monkeypatch.setenv("TYPESAFE_API_KEY", "ts")        # both keys: TypeSafe's own API first
+    s = Settings.from_env()
+    assert (s.jev_provider, s.jev_model) == ("typesafe", "jev-latest")
+    monkeypatch.setenv("JEV_PROVIDER", "openrouter")
+    assert Settings.from_env().jev_provider == "openrouter"
+    jev = build_backends(replace(Settings.from_env(), backends=["jev"]))["jev"]
+    assert jev.available()[0] and jev.provider == "openrouter"
 
 
 def test_jev_errors_are_reported():

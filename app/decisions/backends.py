@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import json
+import math
 import threading
 import time
 from typing import Any
 
 import httpx
 
-from .base import Backend, DecisionError, from_wire
+from .base import Backend, DecisionError, TransientError, from_wire
 
 
 def _clean(q: dict) -> dict:
@@ -21,21 +22,44 @@ def _clean(q: dict) -> dict:
     return out
 
 
+# Jev is served by TypeSafe's own API and by OpenRouter's Decisions API, with the same request and
+# answers. Ten levels of Jev (github.com/disler/ten-levels-of-jev) reaches it both ways.
+JEV_ENDPOINTS = {"typesafe": "/v1/systemone", "openrouter": "https://openrouter.ai/api/alpha/decisions"}
+JEV_DEFAULT_MODELS = {"typesafe": "jev-latest", "openrouter": "~typesafe/jev-latest"}
+JEV_KEY_ENV = {"typesafe": "TYPESAFE_API_KEY", "openrouter": "OPENROUTER_API_KEY"}
+RETRY_STATUSES = (429, 500, 502, 503, 504, 529)
+
+
+def _reported_cost(usage: dict) -> float | None:
+    """The provider's own cost, when it sends one that is a finite, non-negative number."""
+    cost = usage.get("cost")
+    if isinstance(cost, bool) or not isinstance(cost, (int, float)) or not math.isfinite(cost) or cost < 0:
+        return None
+    return float(cost)
+
+
 class JevBackend(Backend):
     name = "jev"
     label = "TypeSafe Jev"
     residency = "hosted"
     description = "Hosted System One model. The state is sent to TypeSafe's API."
 
-    def __init__(self, api_key: str | None, base_url: str = "https://api.typesafe.ai", model: str = "jev-latest",
-                 price_per_mtok: float = 0.042, timeout: float = 15.0, transport: httpx.BaseTransport | None = None):
-        super().__init__(model)
+    def __init__(self, api_key: str | None, base_url: str = "https://api.typesafe.ai", model: str | None = None,
+                 price_per_mtok: float = 0.042, timeout: float = 15.0, transport: httpx.BaseTransport | None = None,
+                 provider: str = "typesafe"):
+        if provider not in JEV_ENDPOINTS:
+            raise ValueError(f"Unknown Jev provider {provider!r}; use typesafe or openrouter")
+        super().__init__(model or JEV_DEFAULT_MODELS[provider])
+        self.provider = provider
         self._key = (api_key or "").strip()
         self.price_per_mtok = price_per_mtok
-        self._client = httpx.Client(base_url=base_url.rstrip("/"), timeout=timeout, transport=transport)
+        self._url = base_url.rstrip("/") + JEV_ENDPOINTS[provider] if provider == "typesafe" else JEV_ENDPOINTS[provider]
+        self._client = httpx.Client(timeout=timeout, transport=transport, follow_redirects=False)
+        if provider == "openrouter":
+            self.description = "TypeSafe's Jev through OpenRouter's Decisions API. The state is sent to OpenRouter."
 
     def available(self):
-        return (True, "") if self._key else (False, "Set TYPESAFE_API_KEY on the server to enable Jev.")
+        return (True, "") if self._key else (False, f"Set {JEV_KEY_ENV[self.provider]} on the server to enable Jev.")
 
     def _decide(self, state, questions):
         body = {"state": state, "model": self.model, "questions": {n: _clean(q) for n, q in questions.items()}}
@@ -43,22 +67,37 @@ class JevBackend(Backend):
         resp = None
         for attempt in range(3):
             try:
-                resp = self._client.post("/v1/systemone", json=body, headers=headers)
+                resp = self._client.post(self._url, json=body, headers=headers)
             except httpx.HTTPError as e:
                 if attempt == 2:
-                    raise DecisionError(f"Could not reach the Jev API: {type(e).__name__}") from None
+                    raise TransientError(f"Could not reach the Jev API: {type(e).__name__}") from None
                 time.sleep(0.5 * (attempt + 1))
                 continue
-            if resp.status_code in (429, 500, 502, 503, 504) and attempt < 2:
-                time.sleep(float(resp.headers.get("retry-after", 0.5 * (attempt + 1))))
+            if resp.status_code in RETRY_STATUSES and attempt < 2:
+                time.sleep(_retry_after(resp.headers.get("retry-after"), 0.5 * (attempt + 1)))
                 continue
             break
+        if resp.status_code in RETRY_STATUSES:
+            raise TransientError(f"Jev returned HTTP {resp.status_code} after retries")
         if resp.status_code >= 400:
-            raise DecisionError(f"Jev returned HTTP {resp.status_code}: {resp.text[:300]}")
+            hint = {401: f" Check {JEV_KEY_ENV[self.provider]}.", 402: " Check the account's credits."}.get(resp.status_code, "")
+            raise DecisionError(f"Jev returned HTTP {resp.status_code}.{hint} {resp.text[:300]}".rstrip())
         data = resp.json()
         answers = {n: from_wire(questions[n], data["answers"][n]) for n in questions if n in data.get("answers", {})}
-        tokens = int(data.get("usage", {}).get("input_tokens") or 0)
-        return answers, tokens, tokens * self.price_per_mtok / 1e6, {"served_by": data.get("model")}
+        usage = data.get("usage") or {}
+        tokens = int(usage.get("input_tokens") or 0)
+        reported = _reported_cost(usage)
+        cost = reported if reported is not None else tokens * self.price_per_mtok / 1e6
+        return answers, tokens, cost, {"served_by": data.get("model"), "via": self.provider,
+                                       "cost_source": "reported" if reported is not None else "estimated"}
+
+
+def _retry_after(header: str | None, default: float) -> float:
+    """Seconds from a Retry-After header, capped at 8; the default when it is missing or not a number."""
+    try:
+        return min(8.0, max(0.0, float(header))) if header else default
+    except ValueError:
+        return default
 
 
 class LayaBackend(Backend):
@@ -67,9 +106,16 @@ class LayaBackend(Backend):
     residency = "local"
     description = "Open 421M-parameter decision model (Apache 2.0). Runs on CPU or GPU where the backend runs."
 
-    def __init__(self, checkpoint: str = "typed-decisions", device: str = "cpu", max_len: int | None = None):
+    def __init__(self, checkpoint: str = "english", device: str = "cpu", max_len: int | None = None,
+                 name: str | None = None, label: str | None = None):
+        # "english" is Laya's own default. "typed-decisions" is fine-tuned on four unrelated workflows
+        # (invoice, security, customer service, agent traces); Laya advises against using it silently.
         super().__init__(f"convaiinnovations/laya ({checkpoint})")
         self.checkpoint, self.device, self.max_len = checkpoint, device, max_len
+        if name:
+            self.name = name
+        if label:
+            self.label = label
         self._router = None
         self._lock = threading.Lock()
 

@@ -15,7 +15,7 @@
       ]
     }
   },
-  "updateContentCommand": "[ -f requirements.txt ] && pip3 install --user -r requirements.txt; echo 'Requirements installed'",
+  "updateContentCommand": "pip3 install --user -r requirements-dev.txt; echo 'Requirements installed'",
   "postAttachCommand": {
     "server": "uvicorn app.main:app --host 0.0.0.0 --port 8000"
   },

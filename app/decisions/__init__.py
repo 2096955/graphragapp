@@ -1,16 +1,20 @@
 from .backends import AnyJevBackend, CatalogueBackend, JevBackend, LayaBackend, UniformBackend
-from .base import Answer, Backend, BackendUnavailable, DecisionError, DecisionResult, labels, validate_questions
+from .base import (Answer, Backend, BackendUnavailable, DecisionError, DecisionResult, TransientError, labels,
+                   validate_questions)
 
 __all__ = ["Answer", "AnyJevBackend", "Backend", "BackendUnavailable", "CatalogueBackend", "DecisionError", "DecisionResult",
-           "JevBackend", "LayaBackend", "UniformBackend", "build_backends", "labels", "validate_questions"]
+           "JevBackend", "LayaBackend", "TransientError", "UniformBackend", "build_backends", "labels", "validate_questions"]
 
 
 def build_backends(settings) -> dict[str, Backend]:
     """Backends named in settings.backends, in that order."""
     makers = {
-        "jev": lambda: JevBackend(settings.typesafe_api_key, settings.typesafe_base_url, settings.jev_model,
-                                  settings.jev_price_per_mtok),
+        "jev": lambda: JevBackend(settings.openrouter_api_key if settings.jev_provider == "openrouter"
+                                  else settings.typesafe_api_key, settings.typesafe_base_url, settings.jev_model,
+                                  settings.jev_price_per_mtok, provider=settings.jev_provider),
         "laya": lambda: LayaBackend(settings.laya_checkpoint, settings.device),
+        "laya-typed": lambda: LayaBackend("typed-decisions", settings.device, name="laya-typed",
+                                          label="Laya typed-decisions"),
         "anyjev": lambda: AnyJevBackend(settings.anyjev_model, settings.device, settings.anyjev_dtype, settings.anyjev_level),
         "uniform": UniformBackend,
         "catalogue": CatalogueBackend,

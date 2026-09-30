@@ -39,9 +39,18 @@ def relevance_question(candidate: str) -> dict:
 
 
 def group_question(group: str) -> dict:
-    return {"type": "noul", "instructions": f"Does the request explicitly ask for {d.GROUPS[group]['describe']}?",
-            "criteria": {"true": "The whole named group is requested, not merely one member of it.",
-                         "false": "Only specific pollutants or another group are requested. A mention of emissions alone does not include every group."}}
+    """Whole-group selection. The criteria must agree with LABELLING.md section 6: a general request
+    ("air emissions", "data by region") selects every pollutant; a named group selects only itself."""
+    if group == "all":
+        return {"type": "noul", "instructions": "Does the request ask for all pollutants?",
+                "criteria": {"true": ("It asks for pollution, emissions or data in general and names no specific "
+                                      "pollutant or pollutant group, or it asks for all pollutants."),
+                             "false": "It names at least one specific pollutant or pollutant group."}}
+    name = d.GROUPS[group]["label"].lower()
+    return {"type": "noul", "instructions": f"Does the request ask for {d.GROUPS[group]['describe']}?",
+            "criteria": {"true": f"It names {name} as a group, not only some of its members.",
+                         "false": ("It names only specific pollutants, another group, or asks for pollution, "
+                                   "emissions or data in general.")}}
 
 
 LEVEL = {

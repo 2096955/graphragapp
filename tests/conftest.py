@@ -6,7 +6,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # Tests never load model weights or call a vendor: only the uniform baseline and an
 # unconfigured Jev backend are built, plus the oracle backend defined below.
 os.environ["BACKENDS"] = "catalogue,uniform,jev"
-os.environ.pop("TYPESAFE_API_KEY", None)
+for _var in ("TYPESAFE_API_KEY", "OPENROUTER_API_KEY", "JEV_PROVIDER", "JEV_MODEL", "FALKORDB_URL", "CLAIMS_GRAPH"):
+    os.environ.pop(_var, None)   # no vendor keys, and the claims graph on its default engine
 os.environ.pop("API_TOKEN", None)
 os.environ.pop("ARIZE_API_KEY", None)
 os.environ.pop("ARIZE_SPACE_ID", None)
@@ -38,8 +39,7 @@ class OracleBackend(Backend):
         for name, q in questions.items():
             if q is t.GATE or q.get("instructions") == t.GATE["instructions"]:
                 r = BY_TEXT[state["request"]]
-                gold = "clarify" if r[0] == "P15" else r[2]
-                out[name] = {k: float(k == gold) for k in q["criteria"]}
+                out[name] = {k: float(k == r[2]) for k in q["criteria"]}
             elif q["type"] == "noul" and q["instructions"].startswith("Does the request ask for data on "):
                 r = BY_TEXT[state["request"]]
                 cand = q["instructions"][len("Does the request ask for data on "):-1]

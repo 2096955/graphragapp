@@ -20,10 +20,11 @@ from app.arize_eval import ArizeEval  # noqa: E402
 from app.compliance import run_example  # noqa: E402
 from app.compliance_graph import ComplianceGraph  # noqa: E402
 from app.decisions import CatalogueBackend  # noqa: E402
+from app.pipeline import PIPELINE_VERSION  # noqa: E402
 from app.testset import REQUESTS, TASKS, build, gold_query  # noqa: E402
 from app.watts_strogatz import example as watts_example  # noqa: E402
 
-ORDER = ["catalogue", "laya", "anyjev", "jev", "uniform"]
+ORDER = ["catalogue", "laya", "laya-typed", "anyjev", "jev", "uniform"]
 
 
 def compact_items(items: list[dict]) -> tuple[list, dict]:
@@ -40,25 +41,54 @@ def compact_items(items: list[dict]) -> tuple[list, dict]:
     return out, qtable
 
 
+def claims_payload() -> dict:
+    """Recorded claims-graph builds, the labelled check and the retrieval comparison, trimmed for the page."""
+    from app.claims import claim_records
+    res = ROOT / "results"
+    out: dict = {"extracted": [{k: c[k] for k in ("id", "statement", "date", "person", "aspect")} for c in claim_records()]}
+    builds = res / "claims-builds.json"
+    if builds.exists():
+        keep = ("backend", "label", "threshold", "engine", "counts", "rejected", "review", "claims", "same_as", "shifts")
+        out["builds"] = {k: {f: v.get(f) for f in keep} for k, v in json.loads(builds.read_text())["builds"].items()}
+    check = res / "claims-check.json"
+    if check.exists():
+        saved = json.loads(check.read_text())
+        keep = ("label", "right", "n", "summary", "threshold", "decided_right", "written_wrongly", "left_out_wrongly",
+                "to_review")
+        out["check"] = {"backends": {k: {f: v[f] for f in keep} for k, v in saved["backends"].items()},
+                        "most_common": saved.get("most_common")}
+    retrieval = res / "claims-retrieval.json"
+    if retrieval.exists():
+        r = json.loads(retrieval.read_text())
+        for q in r["questions"]:
+            for m in q["methods"].values():
+                m.pop("retrieved", None)
+        out["retrieval"] = r
+    return out
+
+
 def main() -> None:
     current_items = build()
     items, qtable = compact_items(current_items)
     results, examples = {}, {}
     for f in sorted((ROOT / "results").glob("*.json")):
         data = json.loads(f.read_text())
-        if f.name.startswith("compliance") or f.name.startswith("watts"):
+        if f.name.startswith(("compliance", "watts", "claims")):
             continue
         if f.name.startswith("examples-"):
-            data["legacy"] = data.get("pipeline_version") != "1.1.0"
+            if data.get("pipeline_version") != PIPELINE_VERSION:
+                print(f"skipped {f.name}: recorded with pipeline {data.get('pipeline_version')}, not {PIPELINE_VERSION}")
+                continue
             examples[data["backend"]] = data
             continue
-        if f.name.endswith("-partial.json"):
+        if f.name.endswith("-partial.json") or "records" not in data:
             continue
-        recs = data["records"]
-        data["metrics"] = ev.clean(ev.metrics(recs))
-        data["legacy"] = data.get("pipeline_version") != "1.1.0"
-        data["records"] = [{k: r.get(k) for k in ("id", "task", "gold", "top", "confidence", "probs", "latency_ms", "error") if k in r}
-                           for r in recs]
+        data = ev.refresh(data, current_items)
+        if not data["current"]:
+            print(f"skipped {f.name}: {data['stale']} decisions asked a different question, {data['missing']} missing")
+            continue
+        data["records"] = [{k: r.get(k) for k in ("id", "top", "confidence", "probs", "latency_ms", "error") if k in r}
+                           for r in data["records"]]
         results[data["backend"]] = data
     catalogue = {
         "pollutants": [{"id": p.id, "label": p.label, "name": p.name} for p in d.POLLUTANTS],
@@ -75,9 +105,19 @@ def main() -> None:
         compliance = run_example(CatalogueBackend(), store, ArizeEval(None, None))
     finally:
         store.close()
+    check_path = ROOT / "results" / "compliance-check.json"
+    compliance_check = None
+    if check_path.exists():
+        saved = json.loads(check_path.read_text())
+        compliance_check = [
+            {"backend": k, "label": v.get("label") or k, "right": v["right"], "n": v["n"],
+             "leaked": v["released_when_it_should_not"], "finished": v.get("finished"),
+             "caught": {a: v["per_action"][a]["caught"] for a in ("release", "redact", "block")},
+             "labelled": {a: v["per_action"][a]["labelled"] for a in ("release", "redact", "block")}}
+            for k, v in saved.get("backends", {}).items()]
     payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
                "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance,
-               "watts_strogatz": watts_example()}
+               "compliance_check": compliance_check, "watts_strogatz": watts_example(), "claims": claims_payload()}
     blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "web" / "template.html").read_text()
     marker = "/*__DATA__*/"

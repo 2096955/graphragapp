@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Small-world graphs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#edf1f4;--paper:#ffffff;--ink:#16202b;--muted:#5a6878;--line:#cfd8e1;--code:#f4f6f9;
+  --ring:#9aa9b8;--rewired:#00897b;--hub:#b7791f;--sel:#3949ab;--h1:#3949ab;--h2:#8e3b8e;--h3:#b7791f;--warn:#b3261e;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10151c;--paper:#182029;--ink:#e6edf3;--muted:#9aa8b6;--line:#2c3845;--code:#121920;
+  --ring:#4a5a6a;--rewired:#4db6ac;--hub:#e0a84a;--sel:#8c9eff;--h1:#8c9eff;--h2:#d08bd0;--h3:#e0a84a;--warn:#ff8a80;}}
+:root[data-theme="dark"]{--bg:#10151c;--paper:#182029;--ink:#e6edf3;--muted:#9aa8b6;--line:#2c3845;--code:#121920;
+  --ring:#4a5a6a;--rewired:#4db6ac;--hub:#e0a84a;--sel:#8c9eff;--h1:#8c9eff;--h2:#d08bd0;--h3:#e0a84a;--warn:#ff8a80;}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 12px;max-width:17ch}
+h2{font-size:1.5rem;letter-spacing:-.01em;margin:52px 0 8px}
+h3{font-size:1.05rem;margin:0 0 6px}
+p{max-width:68ch;margin:0 0 12px}
+.lede{color:var(--muted);font-size:1.08rem}
+.note{font-size:.88rem;color:var(--muted)}
+a{color:var(--sel)}
+code,pre,textarea{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.84rem}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.stage{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+@media(min-width:860px){.stage{grid-template-columns:1.25fr 1fr}}
+canvas{width:100%;aspect-ratio:1;display:block;cursor:crosshair;touch-action:manipulation}
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:12px}
+button,select,input[type=number]{font:inherit;font-size:.92rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:7px 12px}
+button{cursor:pointer}
+button.primary{background:var(--sel);border-color:var(--sel);color:#fff;font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,canvas:focus-visible{outline:3px solid var(--rewired);outline-offset:2px}
+label{font-size:.92rem;color:var(--muted);display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:100%}
+select{max-width:100%}
+input[type=range]{width:150px;accent-color:var(--sel)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric b{display:block;font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.metric span{font-size:.84rem;color:var(--muted)}
+.reach{margin-top:14px}
+.reachrow{display:grid;grid-template-columns:56px 1fr 92px;gap:8px;align-items:center;font-size:.88rem;margin:6px 0}
+.track{height:14px;background:var(--code);border-radius:4px;overflow:hidden}
+.fill{height:100%;border-radius:4px;transition:width .25s}
+.budget{font-size:.88rem;margin-top:8px}
+.over{color:var(--warn);font-weight:600}
+.key{display:flex;flex-wrap:wrap;gap:12px;font-size:.84rem;color:var(--muted);margin-top:10px}
+.key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--ink);font-family:"Instrument Sans",system-ui,sans-serif}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+td{font-variant-numeric:tabular-nums}
+details{margin:10px 0}
+summary{cursor:pointer;color:var(--sel);font-weight:600}
+textarea{width:100%;min-height:300px;background:var(--code);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;line-height:1.45;tab-size:2}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;margin:0;line-height:1.45;max-width:100%}
+.snip{position:relative;min-width:0}
+.copy{position:absolute;top:8px;right:8px;font-size:.8rem;padding:4px 10px}
+.err{color:var(--warn)}
+.points{display:grid;gap:14px;margin-top:12px}
+@media(min-width:760px){.points{grid-template-columns:1fr 1fr}}
+footer{margin-top:52px;border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+
+/* Page links shared by the three pages in this repo */
+.pages{background:var(--paper);border-bottom:1px solid var(--line)}
+.pages-in{max-width:1000px;margin:0 auto;padding:10px 16px 12px;display:grid;gap:6px}
+.pages nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.92rem}
+.pages a{color:var(--sel);text-decoration:none;padding:4px 8px;border-radius:7px}
+.pages a:hover{background:var(--code)}
+.pages .here{padding:4px 8px;border-radius:7px;background:var(--ink);color:var(--paper);font-weight:600}
+.pages p{margin:0;max-width:none;font-size:.86rem;color:var(--muted)}
+.pages code{font-size:.8rem}
+</style>
+</head>
+<body>
+<header class="pages">
+  <div class="pages-in">
+    <nav aria-label="Pages in this lab">
+      <a href="index.html">Decisions Lab</a>
+      <a href="field-guide.html">Field guide</a>
+      <span class="here" aria-current="page">Small-world graphs</span>
+    </nav>
+    <p>The Watts-Strogatz model, rebuilt in the browser and checked against MathWorks&rsquo; published results. The Decisions Lab uses it to show why hop count does not bound an agent&rsquo;s context.</p>
+  </div>
+</header>
+<main>
+
+<h1>Small-world graphs, and why two hops can reach most of the graph</h1>
+<p class="lede">A ring where everyone knows only their neighbours needs many hops to cross. Rewire a few edges at random and most nodes end up two or three hops from each other. Many real networks behave like this (Watts and Strogatz showed it for film actors, a power grid and a worm&rsquo;s nervous system), and knowledge graphs with hub entities tend to as well. That changes how an agent should retrieve context.</p>
+<p class="note">A from-scratch JavaScript implementation of the Watts-Strogatz model, reproducing <a href="https://au.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">MathWorks' MATLAB example</a> and checked against its published results below.</p>
+
+<section class="stage">
+  <div class="panel">
+    <canvas id="cv" tabindex="0" aria-label="Watts-Strogatz graph drawn on a circle. Select a node to see how much of the graph it reaches in one, two and three hops."></canvas>
+    <div class="key">
+      <span style="--c:var(--ring)">Original ring edge</span>
+      <span style="--c:var(--rewired)">Rewired edge</span>
+      <span style="--c:var(--hub)">Hub (degree 10% above the ring)</span>
+      <span style="--c:var(--sel)">Selected node</span>
+    </div>
+    <div class="controls">
+      <button class="primary" id="play">Play rewiring</button>
+      <button id="step">Step 1 edge</button>
+      <button id="finish">Finish</button>
+      <button id="reset">Back to ring</button>
+      <label>Speed <input id="speed" type="range" min="1" max="400" value="40"></label>
+    </div>
+    <p class="note" id="progress" style="margin:8px 0 0"></p>
+  </div>
+
+  <div class="panel">
+    <h3>Build</h3>
+    <div class="controls" style="margin-top:0">
+      <label>Preset <select id="preset"><option value="500,25">MathWorks example: 500 nodes, K = 25</option><option value="60,3">Readable: 60 nodes, K = 3</option><option value="1000,5">Sparse: 1,000 nodes, K = 5</option></select></label>
+      <label>N <input id="N" type="number" min="10" max="2000" value="500" style="width:88px"></label>
+      <label>K <input id="K" type="number" min="1" max="100" value="25" style="width:72px"></label>
+      <label>Rewiring probability β <input id="beta" type="range" min="0" max="1" step="0.01" value="0.15"> <strong id="betaV">0.15</strong></label>
+      <label>Seed <input id="seed" type="number" min="1" value="1" style="width:72px"></label>
+    </div>
+
+    <h3 style="margin-top:18px">Measures</h3>
+    <div class="metrics">
+      <div class="metric"><b id="mPath">–</b><span>Average path length (hops)</span></div>
+      <div class="metric"><b id="mClust">–</b><span>Clustering coefficient</span></div>
+      <div class="metric"><b id="mHubs">–</b><span>Hubs</span></div>
+      <div class="metric"><b id="mRew">–</b><span>Edges rewired</span></div>
+    </div>
+    <p class="note" style="margin-top:8px" id="mNote">Path length and clustering update when the animation pauses or finishes.</p>
+
+    <div class="reach">
+      <h3>Reach from node <span id="selId">0</span></h3>
+      <div class="reachrow"><span>1 hop</span><div class="track"><div class="fill" id="r1" style="background:var(--h1)"></div></div><span id="r1v"></span></div>
+      <div class="reachrow"><span>2 hops</span><div class="track"><div class="fill" id="r2" style="background:var(--h2)"></div></div><span id="r2v"></span></div>
+      <div class="reachrow"><span>3 hops</span><div class="track"><div class="fill" id="r3" style="background:var(--h3)"></div></div><span id="r3v"></span></div>
+      <p class="budget" id="budget"></p>
+      <p class="note">Tap the graph to pick a node. The token estimate assumes 60 tokens per fact against a 32,000-token state budget.</p>
+    </div>
+  </div>
+</section>
+
+<h2>The sweep: order to randomness</h2>
+<p>This is the result Watts and Strogatz published in 1998. As β rises from 0, path length collapses long before clustering does. The band in between is the small world: neighbourhoods stay tight, yet everything is close. The third line is the engineering addition: the share of the graph an agent pulls in with a two-hop expansion.</p>
+<div class="controls" style="margin:0 0 10px"><button id="sweepBtn">Run sweep for current N and K</button><span class="note" id="sweepNote"></span></div>
+<div class="panel chart" id="sweep"></div>
+
+<h2>Checked against MathWorks' published results</h2>
+<p>Same parameters as the MATLAB example: 500 nodes, K = 25, hubs are nodes with degree 55 or more. Path length uses MATLAB's convention (mean of the full distance matrix, including each node's zero distance to itself). A single MATLAB run gives one hub count, so ours is shown as the range over 40 seeds.</p>
+<div class="panel scroll"><table id="valid"><tr><td class="note">Running…</td></tr></table></div>
+
+<h2>What it means for agent context</h2>
+<div class="points">
+  <div class="panel"><h3>Hop limits are not a budget</h3><p>In a small world, "two hops" can mean most of the graph. Cap retrieval by tokens and rank what comes back (<a href="field-guide.html#labB">Lab 2 in the field guide</a>), not by hop count alone.</p></div>
+  <div class="panel"><h3>Hubs are both shortcut and trap</h3><p>A few high-degree nodes, such as a parent company, a shared service or a common regulation, make paths short. Expanding through one floods the context. Cap fan-out per node or down-weight hubs in ranking.</p></div>
+  <div class="panel"><h3>Clustering is what makes graphs useful</h3><p>High clustering means a node's neighbours know each other, so one local neighbourhood is coherent context. A purely random graph (β = 1) loses that and behaves more like vector search.</p></div>
+  <div class="panel"><h3>Engine choice follows the shape</h3><p>Short, wide traversals over small-world data suit engines built for many-to-many expansion: FalkorDB's sparse matrices and Kuzu's factorised execution. Deep chains suit pointer-following engines such as Neo4j.</p></div>
+</div>
+
+<h2>Have a go</h2>
+<p>The generator below drives everything on this page. Edit it, run it, and the graph, measures and reach update.</p>
+<div class="panel">
+  <details><summary>View and edit the generator</summary><textarea id="code" spellcheck="false"></textarea>
+    <div class="controls"><button id="runEdit">Run edited code</button><button id="resetCode">Reset code</button></div></details>
+  <p class="note" id="codeMsg" style="margin:6px 0 0">Try making rewiring prefer high-degree nodes, and watch hubs grow faster.</p>
+  <div class="controls"><button id="dl">Show current edge list (CSV)</button><button id="dlCopy" hidden>Copy CSV</button></div>
+  <textarea id="csv" hidden readonly spellcheck="false" style="min-height:160px;margin-top:10px" aria-label="Edge list as CSV"></textarea>
+  <p class="note" style="margin:6px 0 0">Save it as edges.csv and load it into any engine in the field guide to run the same measures there.</p>
+</div>
+
+<h3 style="margin-top:26px">The same model elsewhere</h3>
+<p class="note">NetworkX's generator follows the same model but differs in detail (it skips a rewire rather than retrying when a node is already fully connected), so expect small differences in individual runs.</p>
+<div class="snip"><pre><code id="pyCode">import networkx as nx
+
+G = nx.watts_strogatz_graph(n=500, k=50, p=0.15, seed=1)  # NetworkX k = 2K
+print(nx.average_shortest_path_length(G))  # excludes self-distances
+print(nx.average_clustering(G))</code></pre><button class="copy" data-copy="pyCode">Copy</button></div>
+<div class="snip" style="margin-top:12px"><pre><code id="cyCode">// Neo4j or FalkorDB: load the downloaded CSV
+LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
+MERGE (a:Node {id: toInteger(row.source)})
+MERGE (b:Node {id: toInteger(row.target)})
+MERGE (a)-[:LINK]-(b);
+
+// Reach in two hops from node 0
+MATCH (n:Node {id: 0})-[:LINK*1..2]-(m)
+RETURN count(DISTINCT m) AS reached;</code></pre><button class="copy" data-copy="cyCode">Copy</button></div>
+
+<footer>
+  <h3>Sources</h3>
+  <p class="note">D. J. Watts and S. H. Strogatz, "Collective dynamics of 'small-world' networks", <i>Nature</i> 393, 440–442 (1998). MathWorks, <a href="https://au.mathworks.com/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">Build Watts-Strogatz Small World Graph Model</a>, used as the reference results. The code on this page is an independent implementation.</p>
+  <p class="note">The explain-it-by-building-it style follows Tivadar Danka&rsquo;s newsletter <a href="https://thepalindrome.org/">The Palindrome</a>. The animations, code and figures on this page are original.</p>
+</footer>
+</main>
+
+<script>
+/* ================= Generator (editable) ================= */
+function wattsStrogatz(N, K, beta, random) {
+  // 1. Ring lattice: connect each node to its K nearest neighbours on each side
+  const adj = Array.from({ length: N }, () => new Set());
+  for (let u = 0; u < N; u++)
+    for (let j = 1; j <= K; j++) {
+      const v = (u + j) % N;
+      adj[u].add(v); adj[v].add(u);
+    }
+  // 2. For each forward edge u-v, with probability beta move its far end to a
+  //    random node w, avoiding self-loops and duplicate edges.
+  //    Every rewire is recorded, so the animation replays the real algorithm.
+  const trace = [];
+  for (let u = 0; u < N; u++)
+    for (let j = 1; j <= K; j++) {
+      const v = (u + j) % N;
+      if (!adj[u].has(v) || random() >= beta || adj[u].size >= N - 1) continue;
+      let w;
+      do { w = Math.floor(random() * N); } while (w === u || adj[u].has(w));
+      adj[u].delete(v); adj[v].delete(u);
+      adj[u].add(w); adj[w].add(u);
+      trace.push([u, v, w]);
+    }
+  return trace;
+}
+const DEFAULT_CODE = wattsStrogatz.toString();
+let generator = wattsStrogatz;
+
+/* ================= Graph utilities ================= */
+function rng(seed){let s=seed>>>0;return()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function ring(N,K){const a=Array.from({length:N},()=>new Set());for(let u=0;u<N;u++)for(let j=1;j<=K;j++){const v=(u+j)%N;a[u].add(v);a[v].add(u)}return a}
+function bfs(adj,s,maxHop=Infinity){const N=adj.length,d=new Int32Array(N).fill(-1);d[s]=0;const q=new Int32Array(N);let h=0,t=0;q[t++]=s;
+  while(h<t){const u=q[h++];if(d[u]>=maxHop)continue;for(const v of adj[u])if(d[v]<0){d[v]=d[u]+1;q[t++]=v}}return d}
+function pathAndClust(adj){const N=adj.length;let sum=0,un=0;
+  for(let s=0;s<N;s++){const d=bfs(adj,s);for(let i=0;i<N;i++)d[i]<0?un++:sum+=d[i]}
+  let cc=0;for(let u=0;u<N;u++){const nb=[...adj[u]],k=nb.length;if(k<2)continue;let l=0;
+    for(let a=0;a<k;a++){const A=adj[nb[a]];for(let b=a+1;b<k;b++)if(A.has(nb[b]))l++}cc+=2*l/(k*(k-1))}
+  return {pathMatlab:sum/(N*N),path:sum/(N*(N-1)),clust:cc/N,disconnected:un>0}}
+const hubCount=(adj,K)=>adj.reduce((n,s)=>n+(s.size>=Math.ceil(2*K*1.1-1e-9)),0);
+function reachShare(adj,s){const d=bfs(adj,s,3),c=[0,0,0,0];for(const x of d)if(x>0)c[x]++;return[c[1],c[1]+c[2],c[1]+c[2]+c[3]]}
+
+/* ================= State ================= */
+const $=id=>document.getElementById(id);
+let N=500,K=25,beta=0.15,seed=1,adj,trace=[],applied=0,sel=0,playing=false,raf=0,metricTimer=0;
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function build(){
+  stop();N=+$("N").value;K=+$("K").value;beta=+$("beta").value;seed=+$("seed").value||1;
+  if(!(N>=10&&N<=2000)){N=Math.min(2000,Math.max(10,N||10));$("N").value=N}
+  const maxK=Math.floor((N-1)/2);if(!(K>=1&&K<=maxK)){K=Math.min(maxK,Math.max(1,K||1));$("K").value=K}
+  if(sel>=N)sel=0;
+  try{
+    const scratch=ring(N,K);const t=generator(N,K,beta,rng(seed));
+    if(!Array.isArray(t))throw new Error("the generator must return the trace array");
+    trace=t;$("codeMsg").innerHTML="Try making rewiring prefer high-degree nodes, and watch hubs grow faster.";
+  }catch(e){$("codeMsg").innerHTML=`<span class="err">The generator failed: ${esc(e.message)}. Fix it or reset the code.</span>`;trace=[]}
+  adj=ring(N,K);applied=0;layout();draw();updateCheap();scheduleMetrics();
+}
+function applyOne(){if(applied>=trace.length)return false;const[u,v,w]=trace[applied++];adj[u].delete(v);adj[v].delete(u);adj[u].add(w);adj[w].add(u);return true}
+function finish(){stop();while(applyOne());draw();updateCheap();scheduleMetrics()}
+function resetRing(){stop();adj=ring(N,K);applied=0;draw();updateCheap();scheduleMetrics()}
+
+/* ================= Drawing ================= */
+const cv=$("cv"),ctx=cv.getContext("2d");let pos=[],R=0,cx=0,cy=0,dpr=1;
+function layout(){const w=cv.clientWidth||500;dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=w*dpr;
+  cx=cy=w/2;R=w/2-14;pos=Array.from({length:N},(_,i)=>{const a=-Math.PI/2+2*Math.PI*i/N;return[cx+R*Math.cos(a),cy+R*Math.sin(a)]})}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+function draw(){
+  if(!pos.length)layout();const w=cv.clientWidth;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,w);
+  const cRing=css("--ring"),cRew=css("--rewired"),cHub=css("--hub"),cSel=css("--sel");
+  const E=N*K,alpha=Math.min(.6,Math.max(.05,60/Math.sqrt(E)));
+  const isRing=(u,v)=>{const d=Math.abs(u-v),m=Math.min(d,N-d);return m<=K};
+  // ring edges then rewired edges on top
+  let nRew=0;for(let u=0;u<N;u++)for(const v of adj[u])if(v>u&&!isRing(u,v))nRew++;
+  const aRew=Math.max(.05,Math.min(.75,110/Math.max(1,nRew)));
+  for(const pass of[0,1]){ctx.beginPath();
+    for(let u=0;u<N;u++)for(const v of adj[u]){if(v<u)continue;const r=isRing(u,v);if(r!==(pass===0))continue;
+      const[a,b]=pos[u],[c,d]=pos[v];ctx.moveTo(a,b);
+      if(r)ctx.lineTo(c,d);else ctx.quadraticCurveTo(cx+(a+c-2*cx)*.25,cy+(b+d-2*cy)*.25,c,d)}
+    ctx.strokeStyle=pass?cRew:cRing;ctx.globalAlpha=pass?aRew:alpha;ctx.lineWidth=pass?(nRew>300?.7:1.2):.8;ctx.stroke()}
+  ctx.globalAlpha=1;
+  // nodes: size by degree, hubs coloured, reach from selection
+  const d=bfs(adj,sel,3),hub=Math.ceil(2*K*1.1-1e-9),base=2*K;const hc=[null,css("--h1"),css("--h2"),css("--h3")];
+  const r0=Math.max(1.4,Math.min(4,260/N));
+  for(let i=0;i<N;i++){const deg=adj[i].size,[x,y]=pos[i];const r=r0*Math.sqrt(Math.max(.4,deg/base));
+    ctx.beginPath();ctx.arc(x,y,i===sel?r*2.2:(deg>=hub?r*1.6:r),0,7);
+    ctx.fillStyle=i===sel?cSel:deg>=hub?cHub:(d[i]>0&&N<=120?hc[d[i]]:css("--muted"));ctx.fill()}
+}
+cv.addEventListener("click",e=>{const b=cv.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
+  let best=0,bd=1e9;pos.forEach(([a,c],i)=>{const q=(a-x)**2+(c-y)**2;if(q<bd){bd=q;best=i}});sel=best;draw();updateCheap()});
+cv.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();sel=(sel+(e.key==="ArrowRight"?1:N-1))%N;draw();updateCheap()}});
+addEventListener("resize",()=>{layout();draw()});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",draw);
+
+/* ================= Measures ================= */
+const fmt=(x,d=2)=>x.toLocaleString("en-GB",{minimumFractionDigits:d,maximumFractionDigits:d});
+function updateCheap(){
+  $("mHubs").textContent=hubCount(adj,K);$("mRew").textContent=`${applied.toLocaleString("en-GB")} of ${(N*K).toLocaleString("en-GB")}`;
+  $("progress").textContent=trace.length?`${applied.toLocaleString("en-GB")} of ${trace.length.toLocaleString("en-GB")} planned rewires applied (β = ${beta.toFixed(2)}).`:"β = 0: nothing to rewire. This is the pure ring.";
+  $("selId").textContent=sel;const r=reachShare(adj,sel),tot=N-1;
+  ["r1","r2","r3"].forEach((id,i)=>{$(id).style.width=(r[i]/tot*100)+"%";$(id+"v").textContent=`${r[i].toLocaleString("en-GB")} (${Math.round(r[i]/tot*100)}%)`});
+  const tok=r[1]*60;$("budget").innerHTML=`A two-hop expansion pulls about <strong>${tok.toLocaleString("en-GB")}</strong> tokens of facts`+(tok>32000?` <span class="over">(over the 32,000 budget)</span>`:` (${Math.round(tok/320)}% of the budget)`)+".";
+  const done=applied>=trace.length;$("play").textContent=playing?"Pause":(done&&trace.length?"Replay":"Play rewiring");
+  $("step").disabled=done;$("finish").disabled=done;
+}
+function scheduleMetrics(){clearTimeout(metricTimer);$("mPath").textContent="…";$("mClust").textContent="…";
+  metricTimer=setTimeout(()=>{const m=pathAndClust(adj);$("mPath").textContent=m.disconnected?"∞":fmt(m.pathMatlab);$("mClust").textContent=fmt(m.clust,3);
+    $("mNote").textContent=m.disconnected?"The graph is disconnected, so some nodes cannot reach others.":"Path length and clustering update when the animation pauses or finishes."},30)}
+
+/* ================= Animation ================= */
+function stop(){playing=false;cancelAnimationFrame(raf)}
+function tick(){if(!playing)return;const n=+$("speed").value;let any=false;for(let i=0;i<n;i++)any=applyOne()||any;
+  draw();updateCheap();if(any&&applied<trace.length)raf=requestAnimationFrame(tick);else{playing=false;updateCheap();scheduleMetrics()}}
+$("play").onclick=()=>{if(playing){stop();updateCheap();scheduleMetrics();return}
+  if(applied>=trace.length){adj=ring(N,K);applied=0}
+  if(reduced){finish();return}playing=true;updateCheap();tick()};
+$("step").onclick=()=>{stop();applyOne();draw();updateCheap();scheduleMetrics()};
+$("finish").onclick=finish;$("reset").onclick=resetRing;
+
+/* ================= Controls ================= */
+$("beta").oninput=()=>{$("betaV").textContent=(+$("beta").value).toFixed(2)};
+$("beta").onchange=()=>{build();finish()};
+["N","K","seed"].forEach(id=>$(id).onchange=()=>{build();finish()});
+$("preset").onchange=()=>{const[n,k]=$("preset").value.split(",");$("N").value=n;$("K").value=k;sel=0;build();finish()};
+
+/* ================= Sweep chart ================= */
+const BETAS=[0,0.0001,0.0003,0.001,0.003,0.01,0.03,0.1,0.3,1];
+async function sweep(){
+  $("sweepBtn").disabled=true;const rows=[];let L0,C0;
+  for(let i=0;i<BETAS.length;i++){$("sweepNote").textContent=`Computing ${i+1} of ${BETAS.length}…`;await new Promise(r=>setTimeout(r,0));
+    const a=ring(N,K),t=generator(N,K,BETAS[i],rng(seed));for(const[u,v,w]of t){a[u].delete(v);a[v].delete(u);a[u].add(w);a[w].add(u)}
+    const m=pathAndClust(a);let reach=0;const S=Math.min(N,40);for(let s=0;s<S;s++)reach+=reachShare(a,Math.floor(s*N/S))[1]/(N-1);
+    if(i===0){L0=m.path;C0=m.clust}rows.push({b:BETAS[i],L:m.path/L0,C:m.clust/C0,reach:reach/S})}
+  drawSweep(rows);$("sweepNote").textContent=`N = ${N}, K = ${K}, seed ${seed}. Path length and clustering are relative to the ring (β = 0).`;$("sweepBtn").disabled=false;
+}
+function drawSweep(rows){
+  const W=640,H=330,L=48,Rr=16,T=16,B=52,pts=rows.filter(r=>r.b>0),xs=b=>L+(Math.log10(b)+4)/4*(W-L-Rr),ys=v=>T+(1-v)*(H-T-B);
+  const line=(k)=>pts.map((r,i)=>`${i?"L":"M"}${xs(r.b).toFixed(1)},${ys(r[k]).toFixed(1)}`).join("");
+  const S=[["C","var(--h2)","Clustering, relative to ring"],["L","var(--sel)","Path length, relative to ring"],["reach","var(--hub)","Share reached in two hops"]];
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Clustering, path length and two-hop reach as rewiring probability rises">`;
+  [0,.25,.5,.75,1].forEach(v=>s+=`<line x1="${L}" x2="${W-Rr}" y1="${ys(v)}" y2="${ys(v)}" stroke="var(--line)"/><text x="${L-8}" y="${ys(v)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${v}</text>`);
+  [0.0001,0.001,0.01,0.1,1].forEach(b=>s+=`<text x="${xs(b)}" y="${H-B+18}" text-anchor="middle" font-size="12" fill="var(--muted)">${b}</text>`);
+  s+=`<text x="${(W+L)/2}" y="${H-B+36}" text-anchor="middle" font-size="12" fill="var(--muted)">Rewiring probability β (log scale)</text>`;
+  const band=[0.003,0.1];s+=`<rect x="${xs(band[0])}" y="${T}" width="${xs(band[1])-xs(band[0])}" height="${H-T-B}" fill="var(--rewired)" opacity=".08"/><text x="${(xs(band[0])+xs(band[1]))/2}" y="${H-B-8}" text-anchor="middle" font-size="12" fill="var(--muted)">small world</text>`;
+  for(const[k,c]of S){s+=`<path d="${line(k)}" fill="none" stroke="${c}" stroke-width="2.4"/>`;pts.forEach(r=>s+=`<circle cx="${xs(r.b)}" cy="${ys(r[k])}" r="3.2" fill="${c}"/>`)}
+  s+=`</svg><div class="key">`+S.map(([,c,l])=>`<span style="--c:${c}">${l}</span>`).join("")+`</div>`;
+  $("sweep").innerHTML=s;
+}
+$("sweepBtn").onclick=sweep;
+
+/* ================= Validation against MathWorks ================= */
+async function validate(){
+  const REF=[[0,5.48,0],[0.15,2.0715,20],[0.5,1.9101,85],[1,1.9008,92]];
+  let h=`<tr><th>β</th><th>MATLAB path length</th><th>Ours (seed 1)</th><th>MATLAB hubs</th><th>Our hubs, 40 seeds</th></tr>`;
+  for(const[b,lp,hb]of REF){await new Promise(r=>setTimeout(r,0));
+    const run=s=>{const a=ring(500,25);for(const[u,v,w]of wattsStrogatz(500,25,b,rng(s))){a[u].delete(v);a[v].delete(u);a[u].add(w);a[w].add(u)}return a};
+    const m=pathAndClust(run(1));const hs=[];for(let s=1;s<=40;s++)hs.push(hubCount(run(s),25));hs.sort((x,y)=>x-y);
+    const mean=hs.reduce((x,y)=>x+y,0)/hs.length;
+    h+=`<tr><td>${b}</td><td>${lp}</td><td>${fmt(m.pathMatlab,4)}</td><td>${hb}</td><td>${hs[0]} to ${hs.at(-1)}, mean ${fmt(mean,1)}</td></tr>`}
+  $("valid").innerHTML=h;
+}
+
+/* ================= Editable code ================= */
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+$("code").value=DEFAULT_CODE;
+$("runEdit").onclick=()=>{let fn;try{fn=new Function("return ("+$("code").value+")")()}catch(e){
+  $("codeMsg").innerHTML=e instanceof EvalError?`<span class="err">This page's security settings block running edited code. Copy it into a browser console or Node.js to experiment.</span>`:`<span class="err">Syntax error: ${esc(e.message)}</span>`;return}
+  if(typeof fn!=="function"){$("codeMsg").innerHTML=`<span class="err">The code must be a single function.</span>`;return}
+  generator=fn;build();finish()};
+$("resetCode").onclick=()=>{$("code").value=DEFAULT_CODE;generator=wattsStrogatz;build();finish()};
+$("dl").onclick=()=>{let csv="source,target\n";for(let u=0;u<N;u++)for(const v of adj[u])if(v>u)csv+=`${u},${v}\n`;
+  $("csv").value=csv;$("csv").hidden=false;$("dlCopy").hidden=false;$("dl").textContent="Refresh edge list"};
+$("dlCopy").onclick=async e=>{const b=e.target;try{await navigator.clipboard.writeText($("csv").value);b.textContent="Copied"}catch(x){$("csv").select();b.textContent="Selected, press copy"}setTimeout(()=>b.textContent="Copy CSV",1600)};
+document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText($(b.dataset.copy).textContent);b.textContent="Copied"}catch(e){b.textContent="Select and copy"}setTimeout(()=>b.textContent="Copy",1600)});
+
+/* ================= Start ================= */
+build();finish();
+setTimeout(async()=>{await validate();await sweep()},50);
+</script>
+</body>
+</html>

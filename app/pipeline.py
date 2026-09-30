@@ -1,12 +1,27 @@
 """Dataset discovery: a request in, ranked and explained dataset solutions out.
 
 Stage       Who decides                      Paper (Diamantini et al. 2026)
+checks      catalogue facts (request.py)     validation against the knowledge graph
 gate        decision model (choice)          Table 1's "Not sure" and invalid cases
 enrich      graph narrows, model decides     Algorithm 1, lines 1-2 (KG context)
 query       model picks levels (choice)      Algorithm 1 (well-defined query, Definition 5)
 discover    graph only                       Algorithm 2, lines 2-9; Definition 7
 rank        model scores each solution       Algorithm 2, lines 10-11
 explain     template, or an LLM if set       Section 4.4
+
+Who wins when they disagree:
+- Catalogue facts stop a request outright: years or granularity the catalogue does not hold,
+  pollutants it does not hold, places it does not know.
+- Where the request states something in catalogue terms (a named pollutant or group, "by
+  country", "Germany", "2020"), that is used, and a model that disagrees sends the result to review.
+- Everything else is the model's decision. Below the acceptance threshold it goes to review.
+- Review does not stop the run once the gate says answer: the result is complete but marked
+  provisional, so a person checks a proposal instead of starting again. If the gate leans towards
+  clarify or reject without enough confidence, the run stops there for a person to decide.
+- Words the checks cannot place are listed for review: one of them may name a pollutant, place
+  or period the result would otherwise leave out.
+- Clarify ends the run even when earlier decisions were uncertain. Nothing under review is
+  reported as an answer, and "no data" is reported only when no decision was uncertain.
 
 The decision model never writes text, and the LLM (when used) never makes a decision: it is
 given the scores and asked to explain them.
@@ -21,8 +36,9 @@ from . import tasks as t
 from .decisions import Backend
 from .explain import Explainer
 from .graph import Graph
-from .request import requested_groups, resolve
+from .request import resolve
 
+PIPELINE_VERSION = "1.2.0"
 RELEVANCE_THRESHOLD = 0.5
 MAX_CANDIDATES = 8
 MAX_RANKED = 6
@@ -84,6 +100,14 @@ def summarise(sol: dict, pollutants: list[str]) -> str:
     return " ".join(parts)
 
 
+DIM_LABEL = {"GEO": "Geography", "TIME": "Time", "SECTOR": "Sector"}
+
+
+def _names(ids: list[str]) -> str:
+    labels = [d.POLLUTANT[p].label for p in ids]
+    return ", ".join(labels[:5]) + (f" and {len(labels) - 5} more" if len(labels) > 5 else "")
+
+
 class Pipeline:
     def __init__(self, graph: Graph, explainer: Explainer | None = None, min_confidence: float = 0.8):
         if not 0 <= min_confidence <= 1:
@@ -95,6 +119,8 @@ class Pipeline:
     def run(self, backend: Backend, request: str, preference: str | None = None, use_llm: bool = False) -> dict:
         started = time.perf_counter()
         stages, totals = [], {"decisions": 0, "calls": 0, "latency_ms": 0.0, "cost_usd": 0.0}
+        review: list[str] = []   # why a person must check this before it is used
+        notes: list[str] = []    # facts the user should see either way
 
         def ask(name, state, questions):
             res = backend.decide(state, questions)
@@ -104,37 +130,57 @@ class Pipeline:
             totals["cost_usd"] += res.cost_usd
             return res
 
-        out = {"request": request, "preference": preference or "", "backend": backend.name, "backend_label": backend.label,
-               "model": backend.model, "residency": backend.residency, "stages": stages}
+        def threshold(name, question):
+            # With a calibration file, only thresholds validated for this exact question count.
+            if backend.calibration:
+                spec = backend.calibration.spec(name, question)
+                return spec.get("threshold") if spec else None
+            return self.min_confidence
+
+        def unsure(name, question, answer):
+            limit = threshold(name, question)
+            return limit is None or answer.confidence < limit
+
         parsed = resolve(request)
-        out["policy"] = {"min_confidence": self.min_confidence, "validated_risk_guarantee": False,
-                         "calibration_loaded": backend.calibration is not None,
-                         "time_anchor": parsed["time_anchor"]}
+        out = {"request": request, "preference": preference or "", "backend": backend.name, "backend_label": backend.label,
+               "model": backend.model, "residency": backend.residency, "stages": stages, "review": review, "notes": notes,
+               "policy": {"min_confidence": self.min_confidence, "calibration_loaded": backend.calibration is not None,
+                          "validated_risk_guarantee": False, "time_anchor": parsed["time_anchor"]},
+               "checks": {k: parsed[k] for k in ("named", "groups", "levels", "filters", "unheld", "unknown",
+                                                 "issues", "hard_reject")}}
+        if parsed["unheld"]:
+            notes.append(f"{' and '.join(parsed['unheld'])} {'is' if len(parsed['unheld']) == 1 else 'are'} "
+                         "not held in the catalogue, so the result leaves it out.")
+        if parsed["time_anchor"]:
+            notes.append(f"Relative periods count back from {parsed['time_anchor']}, the latest year in the catalogue.")
 
-        def uncertain(name, question, answer):
-            spec = backend.calibration.spec(name, question) if backend.calibration else None
-            if backend.calibration and spec is None:
-                return True
-            threshold = spec.get("threshold") if spec else self.min_confidence
-            return threshold is None or answer.confidence < threshold
-
-        # 1. Gate
+        # 1. Gate, after the catalogue checks
         state, qs = t.gate(request)
         r = ask("gate", state, qs)
         gate = r.answers["gate"]
         stages.append({"stage": "gate", "title": "Answer, clarify or reject", "latency_ms": r.latency_ms,
                        "question": qs["gate"], "answer": gate.to_dict()})
-        if parsed["gate"] == "reject":
-            return self._finish(out, "reject", "The request requires unsupported data, granularity or years outside 2015-2025.", totals, started)
+        if parsed["hard_reject"]:
+            return self._finish(out, "reject", parsed["hard_reject"], totals, started)
+        if gate.top == "reject" and not unsure("gate", qs["gate"], gate):
+            # Asking the user to fix a request that is out of scope anyway helps no one.
+            return self._finish(out, "reject", "The catalogue does not hold what this request needs.", totals, started)
         if parsed["issues"]:
             return self._finish(out, "clarify", " ".join(parsed["issues"]), totals, started)
-        if uncertain("gate", qs["gate"], gate):
-            return self._finish(out, "review", "Gate confidence is below the acceptance threshold. Review or clarify the request.", totals, started)
         if gate.top != "answer":
+            if unsure("gate", qs["gate"], gate):
+                review.append(f"The model leans towards {gate.top} at {gate.confidence:.2f}, below the acceptance threshold.")
+                return self._finish(out, "review", "A person should decide whether to answer, clarify or reject this request.",
+                                    totals, started)
             msg = ("The request needs more detail: name a pollutant (or ask for emissions in general) and a breakdown such as "
                    "country and year." if gate.top == "clarify" else
                    "The catalogue does not hold what this request needs.")
             return self._finish(out, gate.top, msg, totals, started)
+        if unsure("gate", qs["gate"], gate):
+            review.append(f"Gate: answer at {gate.confidence:.2f}, below the acceptance threshold.")
+        if parsed["unknown"]:
+            review.append(f"Words the catalogue checks could not place: {', '.join(parsed['unknown'])}. "
+                          "If one names a pollutant, place or period, the result leaves it out.")
 
         # 2. Enrich: the graph proposes candidate nodes, the model decides which are relevant
         cands = {f"group:{g}": meta["describe"] for g, meta in d.GROUPS.items()}
@@ -143,42 +189,56 @@ class Pipeline:
             cands[f"pollutant:{pid}"] = d.POLLUTANT[pid].describe
         state, qs = t.relevance_many(request, cands)
         r = ask("relevance", state, qs)
-        explicit_groups = requested_groups(request)
-        rel = [{"node": k, "label": (d.GROUPS[k[6:]]["label"] if k.startswith("group:") else d.POLLUTANT[k[10:]].label),
-                "kind": k.split(":")[0], "p": r.answers[k].probabilities["yes"],
-                "selected": k[6:] in explicit_groups if k.startswith("group:") else r.answers[k].probabilities["yes"] >= RELEVANCE_THRESHOLD,
-                "by": "explicit catalogue group" if k.startswith("group:") else "model"} for k in cands]
-        groups = [x["node"][6:] for x in rel if x["selected"] and x["kind"] == "group"]
-        singles = [x["node"][10:] for x in rel if x["selected"] and x["kind"] == "pollutant"]
+        p_yes = {k: r.answers[k].probabilities["yes"] for k in cands}
+        model_groups = [k[6:] for k in cands if k.startswith("group:") and p_yes[k] >= RELEVANCE_THRESHOLD]
+        model_singles = [k[10:] for k in cands if k.startswith("pollutant:") and p_yes[k] >= RELEVANCE_THRESHOLD]
         order = [p.id for p in d.POLLUTANTS]
-        pollutants = sorted(set(singles) | set(self.graph.expand_groups(groups)), key=order.index)
+        model_set = sorted(set(model_singles) | set(self.graph.expand_groups(model_groups)), key=order.index)
+        explicit = parsed["pollutants"]
+        if explicit:
+            pollutants, groups, by = explicit, parsed["groups"], "request"
+            missing = [p for p in explicit if p not in model_set]
+            extra = [p for p in model_set if p not in explicit]
+            if missing or extra:
+                said = " and ".join(x for x in (f"left out {_names(missing)}" if missing else "",
+                                                f"added {_names(extra)}" if extra else "") if x)
+                review.append(f"Pollutants: the model {said}. The pollutants named in the request are used.")
+        else:
+            pollutants, groups, by = model_set, model_groups, "model"
+            low = [k for k in cands if unsure(k, qs[k], r.answers[k])]
+            if low:
+                review.append(f"Pollutants: {len(low)} of {len(cands)} relevance decisions are below the acceptance threshold.")
+        rel = [{"node": k, "label": (d.GROUPS[k[6:]]["label"] if k.startswith("group:") else d.POLLUTANT[k[10:]].label),
+                "kind": k.split(":")[0], "p": p_yes[k], "model": p_yes[k] >= RELEVANCE_THRESHOLD,
+                "selected": (k[6:] in groups) if k.startswith("group:") else (k[10:] in pollutants)} for k in cands]
         stages.append({"stage": "enrich", "title": "Pollutants", "latency_ms": r.latency_ms, "threshold": RELEVANCE_THRESHOLD,
                        "graph_candidates": [p for p, _ in lex], "nodes": rel, "groups_expanded": groups,
-                       "pollutants": pollutants})
-        if any(uncertain(k, qs[k], r.answers[k]) for k in cands if k.startswith("pollutant:")):
-            return self._finish(out, "review", "A pollutant relevance decision is below the acceptance threshold.", totals, started)
-        if parsed["pollutants"] and set(pollutants) != set(parsed["pollutants"]):
-            return self._finish(out, "review", "Model pollutants conflict with explicit catalogue terms; review the query.", totals, started)
+                       "pollutants": pollutants, "by": by})
 
         # 3. Query: one breakdown level per dimension
         state, qs = t.levels(request)
         r = ask("levels", state, qs)
-        levels = {dim: a.top for dim, a in r.answers.items() if a.top != "none"}
+        levels, level_by = {}, {}
+        for dim, a in r.answers.items():
+            stated = parsed["levels"].get(dim)
+            if stated:
+                levels[dim], level_by[dim] = stated, "request"
+                if a.top != stated:
+                    review.append(f"{DIM_LABEL[dim]}: the model chose {a.top}, the request says {stated}. The request is used.")
+                continue
+            level_by[dim] = "model"
+            if a.top != "none":
+                levels[dim] = a.top
+            if unsure(dim, qs[dim], a):
+                review.append(f"{DIM_LABEL[dim]}: {a.top} at {a.confidence:.2f}, below the acceptance threshold.")
         filters = parsed["filters"]
+        query = {"pollutants": pollutants, "levels": levels, "filters": filters}
         stages.append({"stage": "query", "title": "Breakdown", "latency_ms": r.latency_ms,
-                       "answers": {dim: a.to_dict() for dim, a in r.answers.items()},
-                       "query": {"pollutants": pollutants, "levels": levels, "filters": filters}})
-        out["query"] = {"pollutants": pollutants, "levels": levels, "filters": filters}
-        if any(uncertain(dim, qs[dim], a) for dim, a in r.answers.items()):
-            return self._finish(out, "review", "A breakdown-level decision is below the acceptance threshold.", totals, started)
-        if any(dim not in levels for dim in filters):
-            return self._finish(out, "review", "The extracted levels omit a named member constraint.", totals, started)
-        if parsed["levels"] and any(levels.get(dim) != lvl for dim, lvl in parsed["levels"].items()):
-            return self._finish(out, "review", "Model levels conflict with explicit catalogue terms; review the query.", totals, started)
+                       "answers": {dim: a.to_dict() for dim, a in r.answers.items()}, "by": level_by, "query": query})
+        out["query"] = query
         if not pollutants or not levels:
             missing = "a pollutant" if not pollutants else "a breakdown"
-            return self._finish(out, "clarify", f"The gate said answer, but no {missing} passed the threshold. Ask the user for {missing}.",
-                                totals, started)
+            return self._finish(out, "clarify", f"No {missing} could be established. Ask the user for {missing}.", totals, started)
 
         # 4. Discover: graph only, no model
         t0 = time.perf_counter()
@@ -187,11 +247,13 @@ class Pipeline:
                        "solutions": len(sols)})
         if not sols:
             out["subgraph"] = self.graph.subgraph(pollutants, levels, [])
+            if review:   # "no data" is only as good as the decisions that built the query
+                return self._finish(out, "review", "No combination of sources holds this query, but the query rests on "
+                                    "the decisions below. Check them before telling the user there is no data.", totals, started)
             return self._finish(out, "no_data", "No combination of sources holds these pollutants at these levels.", totals, started)
 
         # 5. Rank: the model scores each solution against the preference
-        ranked = []
-        rank_uncertain = False
+        ranked, low_fit = [], 0
         for i, sol in enumerate(sols):
             sol["id"] = chr(65 + i)
             sol["summary"] = summarise(sol, pollutants)
@@ -199,25 +261,28 @@ class Pipeline:
                 state, qs = t.fit(preference, sol["summary"], sol)
                 r = ask("fit", state, qs)
                 sol["fit"] = r.answers["fit"].to_dict()
-                rank_uncertain |= uncertain("fit", qs["fit"], r.answers["fit"])
+                low_fit += unsure("fit", qs["fit"], r.answers["fit"])
             ranked.append(sol)
         if preference:
             ranked.sort(key=lambda s: (-s["fit"]["score"], -s["cells"]))
         else:
             ranked.sort(key=lambda s: -s["cells"])
         ranked = ranked[:MAX_RANKED]
+        if low_fit:
+            review.append(f"Ranking: {low_fit} of {len(sols)} preference scores are below the acceptance threshold.")
         stages.append({"stage": "rank", "title": "Ranking", "by": "preference fit" if preference else "coverage (no preference given)",
                        "order": [s["id"] for s in ranked]})
         out["solutions"] = ranked
         out["subgraph"] = self.graph.subgraph(pollutants, levels, sorted({s["id"] for sol in ranked for s in sol["sources"]}))
-        if rank_uncertain:
-            return self._finish(out, "review", "Preference scores are uncertain. Candidate datasets are returned for review, not approved automatically.", totals, started)
 
         # 6. Explain
         t0 = time.perf_counter()
         out["explanation"] = self.explainer.explain(request, preference, pollutants, levels, ranked, use_llm=use_llm)
         stages.append({"stage": "explain", "title": "Explanation", "latency_ms": (time.perf_counter() - t0) * 1000,
                        "by": out["explanation"]["by"]})
+        if review:
+            return self._finish(out, "review", "Provisional: a person should check the points below before this is used.",
+                                totals, started)
         return self._finish(out, "answer", None, totals, started)
 
     @staticmethod
