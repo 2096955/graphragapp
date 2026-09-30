@@ -63,6 +63,11 @@ class ArizeEval:
     def configured(self) -> bool:
         return bool(self.space_id and self.api_key)
 
+    def reset(self) -> None:
+        """Forget local traces. Used when the worked example rebuilds the graph."""
+        self.traces.clear()
+        self.last_export = None
+
     def record(self, trace: dict[str, Any]) -> dict[str, Any]:
         self.traces.append(trace)
         if self.configured:

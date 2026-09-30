@@ -183,6 +183,10 @@ def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
 def run_example(backend: Backend, store: ComplianceGraph, exporter=None) -> dict[str, Any]:
     """Reset the store and run the first payload plus the repeated circumvention."""
     store.reset()
+    if exporter is not None:
+        reset = getattr(exporter, "reset", None)
+        if callable(reset):
+            reset()
     first = filter_payload(backend, FIRST_PAYLOAD, store, exporter)
     repeat = filter_payload(backend, REPEAT_PAYLOAD, store, exporter)
     eval_view = None

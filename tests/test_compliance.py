@@ -47,11 +47,14 @@ def test_repeat_updates_pattern_node(store):
 
 
 def test_example_needs_no_key(store):
-    out = run_example(CatalogueBackend(), store, ArizeEval(None, None))
+    exporter = ArizeEval(None, None)
+    exporter.record({"correct": True, "cost_usd": 0, "action": "release"})
+    out = run_example(CatalogueBackend(), store, exporter)
     assert out["no_keys"] and out["steps"][0]["action"] == "redact"
     assert out["steps"][1]["pattern"]["attempts"] == 2
     assert out["eval"]["source"] == "sample" and out["eval"]["configured"] is False
     assert out["eval"]["summary"]["cost_usd"] == 0
+    assert out["eval"]["summary"]["decisions"] == 2
 
 
 def test_arize_exports_only_with_both_credentials(store):
