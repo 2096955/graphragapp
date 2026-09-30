@@ -1,0 +1,6 @@
+# Local decision models. Install PyTorch first for your hardware:
+#   CPU:  pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+#   GPU:  see https://pytorch.org/get-started/locally/
+laya==0.3.22
+anyjev[hf]==0.2.0
+transformers==5.17.0

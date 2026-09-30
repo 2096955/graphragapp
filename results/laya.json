@@ -1,0 +1,8282 @@
+{
+ "backend": "laya",
+ "label": "Laya",
+ "model": "convaiinnovations/laya (english)",
+ "residency": "local",
+ "hardware": "CPU only: 2 vCPU, Intel(R) Xeon(R) Processor @ 2.10GHz",
+ "finished": "2026-09-29T19:05:42+00:00",
+ "seconds": 286.1,
+ "metrics": {
+  "overall": {
+   "n": 448,
+   "errors": 0,
+   "accuracy": 0.6785714285714286,
+   "ece": 0.0603094196428572,
+   "brier": 0.4338914982283484,
+   "nll": 0.6978566169473019,
+   "mean_confidence": 0.7332584821428567,
+   "coverage_at_5": {
+    "risk": 0.05,
+    "coverage": 0.13839285714285715,
+    "threshold": 0.9203
+   },
+   "ece_recalibrated": 0.05162594661238843,
+   "temperatures": [
+    1.2214027581601699,
+    1.2840254166877414
+   ],
+   "coverage_at_5_recalibrated": {
+    "risk": 0.05,
+    "coverage": 0.13839285714285715,
+    "threshold": 0.8950032409965056
+   },
+   "reliability": [
+    {
+     "lo": 0.0,
+     "hi": 0.1,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 1,
+     "confidence": 0.29,
+     "accuracy": 0.0
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 13,
+     "confidence": 0.3802692307692308,
+     "accuracy": 0.3076923076923077
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 37,
+     "confidence": 0.4524483783783784,
+     "accuracy": 0.4864864864864865
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 65,
+     "confidence": 0.5515321538461538,
+     "accuracy": 0.5230769230769231
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 70,
+     "confidence": 0.6536027142857143,
+     "accuracy": 0.6142857142857143
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 77,
+     "confidence": 0.7535093506493509,
+     "accuracy": 0.7402597402597403
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 93,
+     "confidence": 0.853515806451613,
+     "accuracy": 0.7311827956989247
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 92,
+     "confidence": 0.9513776086956524,
+     "accuracy": 0.8695652173913043
+    }
+   ],
+   "reliability_recalibrated": [
+    {
+     "lo": 0.0,
+     "hi": 0.1,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "n": 0,
+     "confidence": null,
+     "accuracy": null
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "n": 1,
+     "confidence": 0.26605378240052596,
+     "accuracy": 0.0
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "n": 15,
+     "confidence": 0.3753237742383458,
+     "accuracy": 0.4
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "n": 46,
+     "confidence": 0.45274678519912326,
+     "accuracy": 0.5
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "n": 94,
+     "confidence": 0.5510227396718689,
+     "accuracy": 0.5957446808510638
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "n": 101,
+     "confidence": 0.6500579896423914,
+     "accuracy": 0.6732673267326733
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "n": 58,
+     "confidence": 0.7419765991281944,
+     "accuracy": 0.7586206896551724
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "n": 74,
+     "confidence": 0.8468483579722089,
+     "accuracy": 0.6756756756756757
+    },
+    {
+     "lo": 0.9,
+     "hi": 1.0,
+     "n": 59,
+     "confidence": 0.9684480978849722,
+     "accuracy": 0.9661016949152542
+    }
+   ],
+   "latency_ms_p50": 529.2,
+   "latency_ms_p95": 1214.7,
+   "cost_usd": 0.0,
+   "cost_usd_per_1k": 0.0
+  },
+  "tasks": {
+   "gate": {
+    "n": 61,
+    "errors": 0,
+    "accuracy": 0.5245901639344263,
+    "ece": 0.1393981967213115,
+    "brier": 0.6076109564016393,
+    "nll": 1.0207639424270365,
+    "mean_confidence": 0.5235880327868855,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "ece_recalibrated": 0.0944008260856035,
+    "temperatures": [
+     1.8221188003905089,
+     0.8607079764250578
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.0,
+     "threshold": null
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 10,
+      "confidence": 0.38457600000000003,
+      "accuracy": 0.3
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 18,
+      "confidence": 0.44880222222222227,
+      "accuracy": 0.6111111111111112
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 17,
+      "confidence": 0.5487441176470589,
+      "accuracy": 0.4117647058823529
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 12,
+      "confidence": 0.6366125,
+      "accuracy": 0.75
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 3,
+      "confidence": 0.7342233333333333,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 1,
+      "confidence": 0.844,
+      "accuracy": 0.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 11,
+      "confidence": 0.3789266734156935,
+      "accuracy": 0.36363636363636365
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 32,
+      "confidence": 0.4477807392447941,
+      "accuracy": 0.5625
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 9,
+      "confidence": 0.5499113038987089,
+      "accuracy": 0.5555555555555556
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 3,
+      "confidence": 0.6287748689398064,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 4,
+      "confidence": 0.7336832607774932,
+      "accuracy": 0.75
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 2,
+      "confidence": 0.8447500122501845,
+      "accuracy": 0.0
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 1170.1,
+    "latency_ms_p95": 1523.7,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "relevance": {
+    "n": 132,
+    "errors": 0,
+    "accuracy": 0.6742424242424242,
+    "ece": 0.11242424242424237,
+    "brier": 0.45074222969696975,
+    "nll": 0.6677182475416856,
+    "mean_confidence": 0.786039393939394,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.022727272727272728,
+     "threshold": 0.9532
+    },
+    "ece_recalibrated": 0.08334183672817529,
+    "temperatures": [
+     1.2840254166877414,
+     3.0041660239464334
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.007575757575757576,
+     "threshold": 0.9193475771310665
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 18,
+      "confidence": 0.5532555555555555,
+      "accuracy": 0.5555555555555556
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 17,
+      "confidence": 0.6541470588235295,
+      "accuracy": 0.47058823529411764
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 24,
+      "confidence": 0.7464,
+      "accuracy": 0.7083333333333334
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 42,
+      "confidence": 0.8614190476190476,
+      "accuracy": 0.7380952380952381
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 31,
+      "confidence": 0.9220935483870966,
+      "accuracy": 0.7419354838709677
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 37,
+      "confidence": 0.5487764391606235,
+      "accuracy": 0.5945945945945946
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 47,
+      "confidence": 0.6517958060169874,
+      "accuracy": 0.6808510638297872
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 14,
+      "confidence": 0.7285970208157443,
+      "accuracy": 0.8571428571428571
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 33,
+      "confidence": 0.8503018014670333,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 1,
+      "confidence": 0.9193475771310665,
+      "accuracy": 1.0
+     }
+    ],
+    "latency_ms_p50": 509.0,
+    "latency_ms_p95": 593.9,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "level": {
+    "n": 93,
+    "errors": 0,
+    "accuracy": 0.7096774193548387,
+    "ece": 0.050066989247311865,
+    "brier": 0.37088514807849454,
+    "nll": 0.6413516850235563,
+    "mean_confidence": 0.7021093548387098,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.24731182795698925,
+     "threshold": 0.822
+    },
+    "ece_recalibrated": 0.0757887067617641,
+    "temperatures": [
+     0.8607079764250578,
+     0.7788007830714049
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.1935483870967742,
+     "threshold": 0.9006447454219905
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 13,
+      "confidence": 0.4597076923076923,
+      "accuracy": 0.3076923076923077
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 14,
+      "confidence": 0.5519292857142857,
+      "accuracy": 0.5714285714285714
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 18,
+      "confidence": 0.6614027777777778,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 22,
+      "confidence": 0.7598136363636363,
+      "accuracy": 0.8181818181818182
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 17,
+      "confidence": 0.8405652941176468,
+      "accuracy": 0.8823529411764706
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 9,
+      "confidence": 0.964688888888889,
+      "accuracy": 1.0
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 10,
+      "confidence": 0.4717855686734982,
+      "accuracy": 0.3
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 11,
+      "confidence": 0.5558833822720844,
+      "accuracy": 0.5454545454545454
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 11,
+      "confidence": 0.6511004702495783,
+      "accuracy": 0.45454545454545453
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 19,
+      "confidence": 0.7489712171352925,
+      "accuracy": 0.7894736842105263
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 24,
+      "confidence": 0.8495720548727062,
+      "accuracy": 0.7916666666666666
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 18,
+      "confidence": 0.9503113626113113,
+      "accuracy": 1.0
+     }
+    ],
+    "latency_ms_p50": 446.5,
+    "latency_ms_p95": 542.3,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "mapping": {
+    "n": 80,
+    "errors": 0,
+    "accuracy": 0.7875,
+    "ece": 0.044616250000000086,
+    "brier": 0.30474060493125,
+    "nll": 0.5753095975081229,
+    "mean_confidence": 0.8175057499999998,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.525,
+     "threshold": 0.8838
+    },
+    "ece_recalibrated": 0.08334024102883379,
+    "temperatures": [
+     0.8607079764250578,
+     1.2840254166877414
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.5375,
+     "threshold": 0.8544037100220548
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 1,
+      "confidence": 0.29,
+      "accuracy": 0.0
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 3,
+      "confidence": 0.36591333333333337,
+      "accuracy": 0.3333333333333333
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 6,
+      "confidence": 0.4476583333333333,
+      "accuracy": 0.5
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 5,
+      "confidence": 0.5459259999999999,
+      "accuracy": 0.6
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 5,
+      "confidence": 0.649038,
+      "accuracy": 0.6
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 10,
+      "confidence": 0.7601150000000001,
+      "accuracy": 0.7
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 9,
+      "confidence": 0.8400622222222223,
+      "accuracy": 0.7777777777777778
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 41,
+      "confidence": 0.980249756097561,
+      "accuracy": 0.9512195121951219
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 1,
+      "confidence": 0.26605378240052596,
+      "accuracy": 0.0
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 4,
+      "confidence": 0.3654158015006394,
+      "accuracy": 0.5
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 4,
+      "confidence": 0.44487819414782037,
+      "accuracy": 0.5
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 6,
+      "confidence": 0.5552923595530673,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 9,
+      "confidence": 0.6554029693674729,
+      "accuracy": 0.7777777777777778
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 7,
+      "confidence": 0.7410057935949901,
+      "accuracy": 0.7142857142857143
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 9,
+      "confidence": 0.8413551264313415,
+      "accuracy": 0.5555555555555556
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 40,
+      "confidence": 0.9778371417769668,
+      "accuracy": 0.95
+     }
+    ],
+    "latency_ms_p50": 656.1,
+    "latency_ms_p95": 983.6,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   },
+   "entity": {
+    "n": 82,
+    "errors": 0,
+    "accuracy": 0.6585365853658537,
+    "ece": 0.09886707317073164,
+    "brier": 0.4749948948780487,
+    "nll": 0.6898034234268184,
+    "mean_confidence": 0.7574036585365854,
+    "coverage_at_5": {
+     "risk": 0.05,
+     "coverage": 0.06097560975609756,
+     "threshold": 0.9156
+    },
+    "ece_recalibrated": 0.07643070178474903,
+    "temperatures": [
+     1.4918246976412703,
+     3.3201169227365472
+    ],
+    "coverage_at_5_recalibrated": {
+     "risk": 0.05,
+     "coverage": 0.04878048780487805,
+     "threshold": 0.8198943086305461
+    },
+    "reliability": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 11,
+      "confidence": 0.5550636363636363,
+      "accuracy": 0.5454545454545454
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 18,
+      "confidence": 0.6578833333333333,
+      "accuracy": 0.6111111111111112
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 18,
+      "confidence": 0.7548277777777777,
+      "accuracy": 0.7222222222222222
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 24,
+      "confidence": 0.8543,
+      "accuracy": 0.625
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 11,
+      "confidence": 0.9154,
+      "accuracy": 0.8181818181818182
+     }
+    ],
+    "reliability_recalibrated": [
+     {
+      "lo": 0.0,
+      "hi": 0.1,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.1,
+      "hi": 0.2,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.2,
+      "hi": 0.3,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.3,
+      "hi": 0.4,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.4,
+      "hi": 0.5,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     },
+     {
+      "lo": 0.5,
+      "hi": 0.6,
+      "n": 31,
+      "confidence": 0.5514753607358995,
+      "accuracy": 0.6129032258064516
+     },
+     {
+      "lo": 0.6,
+      "hi": 0.7,
+      "n": 31,
+      "confidence": 0.6475612118455184,
+      "accuracy": 0.7096774193548387
+     },
+     {
+      "lo": 0.7,
+      "hi": 0.8,
+      "n": 14,
+      "confidence": 0.7487184095835274,
+      "accuracy": 0.6428571428571429
+     },
+     {
+      "lo": 0.8,
+      "hi": 0.9,
+      "n": 6,
+      "confidence": 0.8258989270339988,
+      "accuracy": 0.6666666666666666
+     },
+     {
+      "lo": 0.9,
+      "hi": 1.0,
+      "n": 0,
+      "confidence": null,
+      "accuracy": null
+     }
+    ],
+    "latency_ms_p50": 524.1,
+    "latency_ms_p95": 844.5,
+    "cost_usd": 0.0,
+    "cost_usd_per_1k": 0.0
+   }
+  }
+ },
+ "records": [
+  {
+   "id": "gate-P01",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.7462,
+    "clarify": 0.1507,
+    "reject": 0.1031
+   },
+   "top": "answer",
+   "confidence": 0.7462,
+   "correct": true,
+   "latency_ms": 1380.9,
+   "tokens": 265,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3529,
+    "no": 0.6471
+   },
+   "top": "no",
+   "confidence": 0.6471,
+   "correct": false,
+   "latency_ms": 486.0,
+   "tokens": 121,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6941,
+    "no": 0.3059
+   },
+   "top": "yes",
+   "confidence": 0.6941,
+   "correct": true,
+   "latency_ms": 512.6,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4452,
+    "no": 0.5548
+   },
+   "top": "no",
+   "confidence": 0.5548,
+   "correct": true,
+   "latency_ms": 583.7,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.481,
+    "no": 0.519
+   },
+   "top": "no",
+   "confidence": 0.519,
+   "correct": true,
+   "latency_ms": 585.5,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P01-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2253,
+    "no": 0.7747
+   },
+   "top": "no",
+   "confidence": 0.7747,
+   "correct": true,
+   "latency_ms": 608.3,
+   "tokens": 122,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0574,
+    "country": 0.5069,
+    "continent": 0.0322,
+    "none": 0.4035
+   },
+   "top": "country",
+   "confidence": 0.5069,
+   "correct": true,
+   "latency_ms": 504.2,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0389,
+    "year": 0.7631,
+    "none": 0.198
+   },
+   "top": "year",
+   "confidence": 0.7631,
+   "correct": true,
+   "latency_ms": 367.6,
+   "tokens": 81,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P01-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0938,
+    "macrosector": 0.1951,
+    "none": 0.7111
+   },
+   "top": "none",
+   "confidence": 0.7111,
+   "correct": true,
+   "latency_ms": 520.7,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P02",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.5454,
+    "clarify": 0.2499,
+    "reject": 0.2047
+   },
+   "top": "answer",
+   "confidence": 0.5454,
+   "correct": true,
+   "latency_ms": 1250.6,
+   "tokens": 263,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2939,
+    "no": 0.7061
+   },
+   "top": "no",
+   "confidence": 0.7061,
+   "correct": false,
+   "latency_ms": 538.6,
+   "tokens": 105,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.06,
+    "no": 0.94
+   },
+   "top": "no",
+   "confidence": 0.94,
+   "correct": true,
+   "latency_ms": 558.1,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1198,
+    "no": 0.8802
+   },
+   "top": "no",
+   "confidence": 0.8802,
+   "correct": true,
+   "latency_ms": 503.3,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P02-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2107,
+    "no": 0.7893
+   },
+   "top": "no",
+   "confidence": 0.7893,
+   "correct": true,
+   "latency_ms": 497.0,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0571,
+    "country": 0.4419,
+    "continent": 0.0342,
+    "none": 0.4668
+   },
+   "top": "none",
+   "confidence": 0.4668,
+   "correct": false,
+   "latency_ms": 468.7,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.05459,
+    "year": 0.67233,
+    "none": 0.27307
+   },
+   "top": "year",
+   "confidence": 0.67233,
+   "correct": true,
+   "latency_ms": 427.7,
+   "tokens": 79,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P02-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.1193,
+    "macrosector": 0.69,
+    "none": 0.1907
+   },
+   "top": "macrosector",
+   "confidence": 0.69,
+   "correct": true,
+   "latency_ms": 505.9,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P03",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.60964,
+    "clarify": 0.24858,
+    "reject": 0.14179
+   },
+   "top": "answer",
+   "confidence": 0.60964,
+   "correct": true,
+   "latency_ms": 1173.6,
+   "tokens": 265,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4257,
+    "no": 0.5743
+   },
+   "top": "no",
+   "confidence": 0.5743,
+   "correct": false,
+   "latency_ms": 544.4,
+   "tokens": 121,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5547,
+    "no": 0.4453
+   },
+   "top": "yes",
+   "confidence": 0.5547,
+   "correct": false,
+   "latency_ms": 519.2,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.128,
+    "no": 0.872
+   },
+   "top": "no",
+   "confidence": 0.872,
+   "correct": true,
+   "latency_ms": 537.6,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P03-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1272,
+    "no": 0.8728
+   },
+   "top": "no",
+   "confidence": 0.8728,
+   "correct": true,
+   "latency_ms": 571.0,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.8039,
+    "country": 0.0128,
+    "continent": 0.0136,
+    "none": 0.1697
+   },
+   "top": "region",
+   "confidence": 0.8039,
+   "correct": true,
+   "latency_ms": 477.7,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.049,
+    "year": 0.6433,
+    "none": 0.3077
+   },
+   "top": "year",
+   "confidence": 0.6433,
+   "correct": true,
+   "latency_ms": 424.0,
+   "tokens": 81,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P03-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.5477,
+    "macrosector": 0.1659,
+    "none": 0.2864
+   },
+   "top": "subsector",
+   "confidence": 0.5477,
+   "correct": true,
+   "latency_ms": 491.9,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P04",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6892,
+    "clarify": 0.1972,
+    "reject": 0.1136
+   },
+   "top": "answer",
+   "confidence": 0.6892,
+   "correct": true,
+   "latency_ms": 1343.4,
+   "tokens": 273,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7251,
+    "no": 0.2749
+   },
+   "top": "yes",
+   "confidence": 0.7251,
+   "correct": true,
+   "latency_ms": 558.9,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2855,
+    "no": 0.7145
+   },
+   "top": "no",
+   "confidence": 0.7145,
+   "correct": false,
+   "latency_ms": 576.5,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4236,
+    "no": 0.5764
+   },
+   "top": "no",
+   "confidence": 0.5764,
+   "correct": true,
+   "latency_ms": 711.5,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3314,
+    "no": 0.6686
+   },
+   "top": "no",
+   "confidence": 0.6686,
+   "correct": true,
+   "latency_ms": 497.6,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P04-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.246,
+    "no": 0.754
+   },
+   "top": "no",
+   "confidence": 0.754,
+   "correct": true,
+   "latency_ms": 559.7,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.1917,
+    "country": 0.1251,
+    "continent": 0.0452,
+    "none": 0.638
+   },
+   "top": "none",
+   "confidence": 0.638,
+   "correct": false,
+   "latency_ms": 517.6,
+   "tokens": 110,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.05249,
+    "year": 0.15998,
+    "none": 0.78752
+   },
+   "top": "none",
+   "confidence": 0.78752,
+   "correct": false,
+   "latency_ms": 544.5,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P04-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.3695,
+    "macrosector": 0.2045,
+    "none": 0.426
+   },
+   "top": "none",
+   "confidence": 0.426,
+   "correct": false,
+   "latency_ms": 515.3,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P05",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6729,
+    "clarify": 0.189,
+    "reject": 0.1381
+   },
+   "top": "answer",
+   "confidence": 0.6729,
+   "correct": true,
+   "latency_ms": 1182.1,
+   "tokens": 274,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5652,
+    "no": 0.4348
+   },
+   "top": "yes",
+   "confidence": 0.5652,
+   "correct": true,
+   "latency_ms": 527.3,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2163,
+    "no": 0.7837
+   },
+   "top": "no",
+   "confidence": 0.7837,
+   "correct": false,
+   "latency_ms": 541.7,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4135,
+    "no": 0.5865
+   },
+   "top": "no",
+   "confidence": 0.5865,
+   "correct": false,
+   "latency_ms": 549.3,
+   "tokens": 125,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1711,
+    "no": 0.8289
+   },
+   "top": "no",
+   "confidence": 0.8289,
+   "correct": true,
+   "latency_ms": 559.0,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2405,
+    "no": 0.7595
+   },
+   "top": "no",
+   "confidence": 0.7595,
+   "correct": true,
+   "latency_ms": 547.8,
+   "tokens": 130,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P05-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1433,
+    "no": 0.8567
+   },
+   "top": "no",
+   "confidence": 0.8567,
+   "correct": true,
+   "latency_ms": 474.4,
+   "tokens": 119,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.08611,
+    "country": 0.41554,
+    "continent": 0.0272,
+    "none": 0.47115
+   },
+   "top": "none",
+   "confidence": 0.47115,
+   "correct": false,
+   "latency_ms": 518.9,
+   "tokens": 111,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.9531,
+    "year": 0.0203,
+    "none": 0.0266
+   },
+   "top": "month",
+   "confidence": 0.9531,
+   "correct": true,
+   "latency_ms": 385.9,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P05-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.3492,
+    "macrosector": 0.1607,
+    "none": 0.4901
+   },
+   "top": "none",
+   "confidence": 0.4901,
+   "correct": false,
+   "latency_ms": 550.4,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P06",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.39566,
+    "clarify": 0.32577,
+    "reject": 0.27857
+   },
+   "top": "answer",
+   "confidence": 0.39566,
+   "correct": true,
+   "latency_ms": 1172.9,
+   "tokens": 260,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1961,
+    "no": 0.8039
+   },
+   "top": "no",
+   "confidence": 0.8039,
+   "correct": false,
+   "latency_ms": 501.6,
+   "tokens": 111,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2865,
+    "no": 0.7135
+   },
+   "top": "no",
+   "confidence": 0.7135,
+   "correct": true,
+   "latency_ms": 566.2,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.086,
+    "no": 0.914
+   },
+   "top": "no",
+   "confidence": 0.914,
+   "correct": true,
+   "latency_ms": 536.1,
+   "tokens": 104,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P06-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.085,
+    "no": 0.915
+   },
+   "top": "no",
+   "confidence": 0.915,
+   "correct": true,
+   "latency_ms": 643.6,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0652,
+    "country": 0.189,
+    "continent": 0.0571,
+    "none": 0.6887
+   },
+   "top": "none",
+   "confidence": 0.6887,
+   "correct": false,
+   "latency_ms": 469.4,
+   "tokens": 97,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.09291,
+    "year": 0.25673,
+    "none": 0.65037
+   },
+   "top": "none",
+   "confidence": 0.65037,
+   "correct": false,
+   "latency_ms": 442.9,
+   "tokens": 76,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P06-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.08501,
+    "macrosector": 0.14091,
+    "none": 0.77408
+   },
+   "top": "none",
+   "confidence": 0.77408,
+   "correct": true,
+   "latency_ms": 496.3,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P07",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.555,
+    "clarify": 0.2666,
+    "reject": 0.1784
+   },
+   "top": "answer",
+   "confidence": 0.555,
+   "correct": true,
+   "latency_ms": 1189.2,
+   "tokens": 264,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3907,
+    "no": 0.6093
+   },
+   "top": "no",
+   "confidence": 0.6093,
+   "correct": false,
+   "latency_ms": 515.1,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.6624,
+    "no": 0.3376
+   },
+   "top": "yes",
+   "confidence": 0.6624,
+   "correct": false,
+   "latency_ms": 507.9,
+   "tokens": 109,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1303,
+    "no": 0.8697
+   },
+   "top": "no",
+   "confidence": 0.8697,
+   "correct": true,
+   "latency_ms": 556.0,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P07-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.231,
+    "no": 0.769
+   },
+   "top": "no",
+   "confidence": 0.769,
+   "correct": true,
+   "latency_ms": 589.8,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.5501,
+    "country": 0.0195,
+    "continent": 0.0185,
+    "none": 0.4119
+   },
+   "top": "region",
+   "confidence": 0.5501,
+   "correct": true,
+   "latency_ms": 472.8,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.8335,
+    "year": 0.0549,
+    "none": 0.1116
+   },
+   "top": "month",
+   "confidence": 0.8335,
+   "correct": true,
+   "latency_ms": 417.5,
+   "tokens": 80,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P07-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.28827,
+    "macrosector": 0.15148,
+    "none": 0.56024
+   },
+   "top": "none",
+   "confidence": 0.56024,
+   "correct": false,
+   "latency_ms": 543.6,
+   "tokens": 97,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P08",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.60074,
+    "clarify": 0.22168,
+    "reject": 0.17758
+   },
+   "top": "answer",
+   "confidence": 0.60074,
+   "correct": true,
+   "latency_ms": 1159.6,
+   "tokens": 259,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5941,
+    "no": 0.4059
+   },
+   "top": "yes",
+   "confidence": 0.5941,
+   "correct": true,
+   "latency_ms": 500.0,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2572,
+    "no": 0.7428
+   },
+   "top": "no",
+   "confidence": 0.7428,
+   "correct": true,
+   "latency_ms": 438.3,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2104,
+    "no": 0.7896
+   },
+   "top": "no",
+   "confidence": 0.7896,
+   "correct": true,
+   "latency_ms": 526.0,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P08-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1181,
+    "no": 0.8819
+   },
+   "top": "no",
+   "confidence": 0.8819,
+   "correct": true,
+   "latency_ms": 539.4,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0042,
+    "country": 0.9816,
+    "continent": 0.0023,
+    "none": 0.0119
+   },
+   "top": "country",
+   "confidence": 0.9816,
+   "correct": true,
+   "latency_ms": 488.3,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.0394,
+    "year": 0.0976,
+    "none": 0.863
+   },
+   "top": "none",
+   "confidence": 0.863,
+   "correct": true,
+   "latency_ms": 426.5,
+   "tokens": 75,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P08-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0754,
+    "macrosector": 0.1388,
+    "none": 0.7858
+   },
+   "top": "none",
+   "confidence": 0.7858,
+   "correct": true,
+   "latency_ms": 624.0,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P09",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.70527,
+    "clarify": 0.19072,
+    "reject": 0.10401
+   },
+   "top": "answer",
+   "confidence": 0.70527,
+   "correct": true,
+   "latency_ms": 1212.1,
+   "tokens": 260,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1114,
+    "no": 0.8886
+   },
+   "top": "no",
+   "confidence": 0.8886,
+   "correct": false,
+   "latency_ms": 570.9,
+   "tokens": 111,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0882,
+    "no": 0.9118
+   },
+   "top": "no",
+   "confidence": 0.9118,
+   "correct": false,
+   "latency_ms": 515.0,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P09-PB",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0686,
+    "no": 0.9314
+   },
+   "top": "no",
+   "confidence": 0.9314,
+   "correct": false,
+   "latency_ms": 518.8,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.798,
+    "country": 0.0118,
+    "continent": 0.0102,
+    "none": 0.18
+   },
+   "top": "region",
+   "confidence": 0.798,
+   "correct": true,
+   "latency_ms": 390.9,
+   "tokens": 97,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0458,
+    "year": 0.3425,
+    "none": 0.6117
+   },
+   "top": "none",
+   "confidence": 0.6117,
+   "correct": false,
+   "latency_ms": 334.6,
+   "tokens": 76,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P09-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.5289,
+    "macrosector": 0.1587,
+    "none": 0.3124
+   },
+   "top": "subsector",
+   "confidence": 0.5289,
+   "correct": true,
+   "latency_ms": 477.7,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P10",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.53995,
+    "clarify": 0.25147,
+    "reject": 0.20858
+   },
+   "top": "answer",
+   "confidence": 0.53995,
+   "correct": true,
+   "latency_ms": 1067.5,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-CO2e20",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1915,
+    "no": 0.8085
+   },
+   "top": "no",
+   "confidence": 0.8085,
+   "correct": false,
+   "latency_ms": 571.2,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-N2O",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0959,
+    "no": 0.9041
+   },
+   "top": "no",
+   "confidence": 0.9041,
+   "correct": false,
+   "latency_ms": 504.7,
+   "tokens": 103,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0578,
+    "no": 0.9422
+   },
+   "top": "no",
+   "confidence": 0.9422,
+   "correct": false,
+   "latency_ms": 494.6,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0901,
+    "no": 0.9099
+   },
+   "top": "no",
+   "confidence": 0.9099,
+   "correct": true,
+   "latency_ms": 593.9,
+   "tokens": 114,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0824,
+    "no": 0.9176
+   },
+   "top": "no",
+   "confidence": 0.9176,
+   "correct": true,
+   "latency_ms": 507.1,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P10-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0584,
+    "no": 0.9416
+   },
+   "top": "no",
+   "confidence": 0.9416,
+   "correct": true,
+   "latency_ms": 518.8,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0407,
+    "country": 0.68747,
+    "continent": 0.024,
+    "none": 0.24782
+   },
+   "top": "country",
+   "confidence": 0.68747,
+   "correct": true,
+   "latency_ms": 462.4,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0492,
+    "year": 0.71123,
+    "none": 0.23958
+   },
+   "top": "year",
+   "confidence": 0.71123,
+   "correct": true,
+   "latency_ms": 406.9,
+   "tokens": 74,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P10-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.4976,
+    "macrosector": 0.161,
+    "none": 0.3414
+   },
+   "top": "subsector",
+   "confidence": 0.4976,
+   "correct": true,
+   "latency_ms": 469.0,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P11",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.53945,
+    "clarify": 0.25143,
+    "reject": 0.20912
+   },
+   "top": "answer",
+   "confidence": 0.53945,
+   "correct": true,
+   "latency_ms": 1128.3,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6417,
+    "no": 0.3583
+   },
+   "top": "yes",
+   "confidence": 0.6417,
+   "correct": true,
+   "latency_ms": 681.0,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3507,
+    "no": 0.6493
+   },
+   "top": "no",
+   "confidence": 0.6493,
+   "correct": true,
+   "latency_ms": 630.7,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.112,
+    "no": 0.888
+   },
+   "top": "no",
+   "confidence": 0.888,
+   "correct": true,
+   "latency_ms": 578.1,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P11-CO2e20",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1713,
+    "no": 0.8287
+   },
+   "top": "no",
+   "confidence": 0.8287,
+   "correct": true,
+   "latency_ms": 635.9,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.061,
+    "country": 0.0441,
+    "continent": 0.0615,
+    "none": 0.8334
+   },
+   "top": "none",
+   "confidence": 0.8334,
+   "correct": false,
+   "latency_ms": 499.2,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.10369,
+    "year": 0.10569,
+    "none": 0.79062
+   },
+   "top": "none",
+   "confidence": 0.79062,
+   "correct": false,
+   "latency_ms": 415.6,
+   "tokens": 74,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P11-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0582,
+    "macrosector": 0.1109,
+    "none": 0.8309
+   },
+   "top": "none",
+   "confidence": 0.8309,
+   "correct": true,
+   "latency_ms": 403.9,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P12",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.554,
+    "clarify": 0.2769,
+    "reject": 0.1691
+   },
+   "top": "answer",
+   "confidence": 0.554,
+   "correct": true,
+   "latency_ms": 1090.0,
+   "tokens": 262,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.13,
+    "no": 0.87
+   },
+   "top": "no",
+   "confidence": 0.87,
+   "correct": false,
+   "latency_ms": 543.4,
+   "tokens": 105,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1014,
+    "no": 0.8986
+   },
+   "top": "no",
+   "confidence": 0.8986,
+   "correct": false,
+   "latency_ms": 527.9,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P12-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1072,
+    "no": 0.8928
+   },
+   "top": "no",
+   "confidence": 0.8928,
+   "correct": false,
+   "latency_ms": 519.6,
+   "tokens": 105,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.7176,
+    "country": 0.0218,
+    "continent": 0.0189,
+    "none": 0.2417
+   },
+   "top": "region",
+   "confidence": 0.7176,
+   "correct": true,
+   "latency_ms": 521.0,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.7867,
+    "year": 0.0232,
+    "none": 0.1901
+   },
+   "top": "month",
+   "confidence": 0.7867,
+   "correct": true,
+   "latency_ms": 427.1,
+   "tokens": 78,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P12-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.1842,
+    "macrosector": 0.2324,
+    "none": 0.5834
+   },
+   "top": "none",
+   "confidence": 0.5834,
+   "correct": false,
+   "latency_ms": 464.6,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P13",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6068,
+    "clarify": 0.2088,
+    "reject": 0.1844
+   },
+   "top": "answer",
+   "confidence": 0.6068,
+   "correct": true,
+   "latency_ms": 1168.7,
+   "tokens": 259,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5222,
+    "no": 0.4778
+   },
+   "top": "yes",
+   "confidence": 0.5222,
+   "correct": true,
+   "latency_ms": 513.3,
+   "tokens": 110,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.499,
+    "no": 0.501
+   },
+   "top": "no",
+   "confidence": 0.501,
+   "correct": false,
+   "latency_ms": 563.3,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.112,
+    "no": 0.888
+   },
+   "top": "no",
+   "confidence": 0.888,
+   "correct": true,
+   "latency_ms": 485.4,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1064,
+    "no": 0.8936
+   },
+   "top": "no",
+   "confidence": 0.8936,
+   "correct": true,
+   "latency_ms": 475.3,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P13-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0976,
+    "no": 0.9024
+   },
+   "top": "no",
+   "confidence": 0.9024,
+   "correct": true,
+   "latency_ms": 475.7,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.21332,
+    "country": 0.0491,
+    "continent": 0.0259,
+    "none": 0.71167
+   },
+   "top": "none",
+   "confidence": 0.71167,
+   "correct": true,
+   "latency_ms": 425.8,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.2204,
+    "year": 0.1267,
+    "none": 0.6529
+   },
+   "top": "none",
+   "confidence": 0.6529,
+   "correct": true,
+   "latency_ms": 397.7,
+   "tokens": 75,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P13-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.2175,
+    "macrosector": 0.3495,
+    "none": 0.433
+   },
+   "top": "none",
+   "confidence": 0.433,
+   "correct": false,
+   "latency_ms": 441.7,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P14",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.36884,
+    "clarify": 0.31693,
+    "reject": 0.31423
+   },
+   "top": "answer",
+   "confidence": 0.36884,
+   "correct": true,
+   "latency_ms": 1023.8,
+   "tokens": 257,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3528,
+    "no": 0.6472
+   },
+   "top": "no",
+   "confidence": 0.6472,
+   "correct": false,
+   "latency_ms": 529.5,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.328,
+    "no": 0.672
+   },
+   "top": "no",
+   "confidence": 0.672,
+   "correct": false,
+   "latency_ms": 503.6,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0421,
+    "no": 0.9579
+   },
+   "top": "no",
+   "confidence": 0.9579,
+   "correct": true,
+   "latency_ms": 499.9,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P14-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.068,
+    "no": 0.932
+   },
+   "top": "no",
+   "confidence": 0.932,
+   "correct": true,
+   "latency_ms": 508.4,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.0771,
+    "country": 0.042,
+    "continent": 0.591,
+    "none": 0.2899
+   },
+   "top": "continent",
+   "confidence": 0.591,
+   "correct": true,
+   "latency_ms": 508.6,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0346,
+    "year": 0.214,
+    "none": 0.7514
+   },
+   "top": "none",
+   "confidence": 0.7514,
+   "correct": false,
+   "latency_ms": 416.5,
+   "tokens": 73,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P14-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.09731,
+    "macrosector": 0.14441,
+    "none": 0.75828
+   },
+   "top": "none",
+   "confidence": 0.75828,
+   "correct": true,
+   "latency_ms": 517.8,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P15",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6529,
+    "clarify": 0.2037,
+    "reject": 0.1434
+   },
+   "top": "answer",
+   "confidence": 0.6529,
+   "correct": true,
+   "latency_ms": 1066.2,
+   "tokens": 270,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7002,
+    "no": 0.2998
+   },
+   "top": "yes",
+   "confidence": 0.7002,
+   "correct": true,
+   "latency_ms": 493.1,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4346,
+    "no": 0.5654
+   },
+   "top": "no",
+   "confidence": 0.5654,
+   "correct": false,
+   "latency_ms": 517.6,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5144,
+    "no": 0.4856
+   },
+   "top": "yes",
+   "confidence": 0.5144,
+   "correct": false,
+   "latency_ms": 540.8,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5723,
+    "no": 0.4277
+   },
+   "top": "yes",
+   "confidence": 0.5723,
+   "correct": false,
+   "latency_ms": 530.6,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P15-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.105,
+    "no": 0.895
+   },
+   "top": "no",
+   "confidence": 0.895,
+   "correct": true,
+   "latency_ms": 546.6,
+   "tokens": 114,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.6802,
+    "country": 0.0235,
+    "continent": 0.0225,
+    "none": 0.2738
+   },
+   "top": "region",
+   "confidence": 0.6802,
+   "correct": true,
+   "latency_ms": 512.3,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.82908,
+    "year": 0.03,
+    "none": 0.14091
+   },
+   "top": "month",
+   "confidence": 0.82908,
+   "correct": true,
+   "latency_ms": 431.0,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P15-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.4096,
+    "macrosector": 0.2929,
+    "none": 0.2975
+   },
+   "top": "subsector",
+   "confidence": 0.4096,
+   "correct": true,
+   "latency_ms": 557.3,
+   "tokens": 103,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P16",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.57,
+    "clarify": 0.2426,
+    "reject": 0.1874
+   },
+   "top": "answer",
+   "confidence": 0.57,
+   "correct": false,
+   "latency_ms": 1105.4,
+   "tokens": 252,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P17",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4678,
+    "clarify": 0.2975,
+    "reject": 0.2347
+   },
+   "top": "answer",
+   "confidence": 0.4678,
+   "correct": true,
+   "latency_ms": 1124.2,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.114,
+    "no": 0.886
+   },
+   "top": "no",
+   "confidence": 0.886,
+   "correct": false,
+   "latency_ms": 487.4,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0907,
+    "no": 0.9093
+   },
+   "top": "no",
+   "confidence": 0.9093,
+   "correct": false,
+   "latency_ms": 523.0,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-P17-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0831,
+    "no": 0.9169
+   },
+   "top": "no",
+   "confidence": 0.9169,
+   "correct": false,
+   "latency_ms": 454.8,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.0803,
+    "country": 0.0521,
+    "continent": 0.0395,
+    "none": 0.8281
+   },
+   "top": "none",
+   "confidence": 0.8281,
+   "correct": true,
+   "latency_ms": 474.7,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.0859,
+    "year": 0.1294,
+    "none": 0.7847
+   },
+   "top": "none",
+   "confidence": 0.7847,
+   "correct": true,
+   "latency_ms": 429.0,
+   "tokens": 72,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-P17-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.2091,
+    "macrosector": 0.4529,
+    "none": 0.338
+   },
+   "top": "macrosector",
+   "confidence": 0.4529,
+   "correct": true,
+   "latency_ms": 446.5,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P18",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.6135,
+    "clarify": 0.2231,
+    "reject": 0.1634
+   },
+   "top": "answer",
+   "confidence": 0.6135,
+   "correct": false,
+   "latency_ms": 1214.7,
+   "tokens": 264,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P19",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.5535,
+    "clarify": 0.2396,
+    "reject": 0.2069
+   },
+   "top": "answer",
+   "confidence": 0.5535,
+   "correct": false,
+   "latency_ms": 1236.0,
+   "tokens": 260,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P20",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.844,
+    "clarify": 0.0914,
+    "reject": 0.0646
+   },
+   "top": "answer",
+   "confidence": 0.844,
+   "correct": false,
+   "latency_ms": 1131.1,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P21",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.39566,
+    "clarify": 0.28527,
+    "reject": 0.31907
+   },
+   "top": "answer",
+   "confidence": 0.39566,
+   "correct": false,
+   "latency_ms": 1132.6,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-P22",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.6152,
+    "clarify": 0.2346,
+    "reject": 0.1502
+   },
+   "top": "answer",
+   "confidence": 0.6152,
+   "correct": false,
+   "latency_ms": 1131.9,
+   "tokens": 252,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A01",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4116,
+    "clarify": 0.3647,
+    "reject": 0.2237
+   },
+   "top": "answer",
+   "confidence": 0.4116,
+   "correct": true,
+   "latency_ms": 1275.0,
+   "tokens": 259,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-NOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7548,
+    "no": 0.2452
+   },
+   "top": "yes",
+   "confidence": 0.7548,
+   "correct": true,
+   "latency_ms": 502.6,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.7275,
+    "no": 0.2725
+   },
+   "top": "yes",
+   "confidence": 0.7275,
+   "correct": false,
+   "latency_ms": 496.1,
+   "tokens": 104,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0732,
+    "no": 0.9268
+   },
+   "top": "no",
+   "confidence": 0.9268,
+   "correct": true,
+   "latency_ms": 503.9,
+   "tokens": 103,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A01-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1268,
+    "no": 0.8732
+   },
+   "top": "no",
+   "confidence": 0.8732,
+   "correct": true,
+   "latency_ms": 513.6,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.85521,
+    "country": 0.0107,
+    "continent": 0.0107,
+    "none": 0.12339
+   },
+   "top": "region",
+   "confidence": 0.85521,
+   "correct": true,
+   "latency_ms": 509.4,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.975,
+    "year": 0.0195,
+    "none": 0.0055
+   },
+   "top": "month",
+   "confidence": 0.975,
+   "correct": true,
+   "latency_ms": 426.5,
+   "tokens": 75,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A01-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.1196,
+    "macrosector": 0.1219,
+    "none": 0.7585
+   },
+   "top": "none",
+   "confidence": 0.7585,
+   "correct": true,
+   "latency_ms": 427.8,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A02",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.5574,
+    "clarify": 0.2112,
+    "reject": 0.2314
+   },
+   "top": "answer",
+   "confidence": 0.5574,
+   "correct": true,
+   "latency_ms": 1156.2,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5557,
+    "no": 0.4443
+   },
+   "top": "yes",
+   "confidence": 0.5557,
+   "correct": true,
+   "latency_ms": 508.6,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0463,
+    "no": 0.9537
+   },
+   "top": "no",
+   "confidence": 0.9537,
+   "correct": true,
+   "latency_ms": 484.9,
+   "tokens": 97,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1087,
+    "no": 0.8913
+   },
+   "top": "no",
+   "confidence": 0.8913,
+   "correct": true,
+   "latency_ms": 506.7,
+   "tokens": 104,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A02-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.089,
+    "no": 0.911
+   },
+   "top": "no",
+   "confidence": 0.911,
+   "correct": true,
+   "latency_ms": 491.1,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.0294,
+    "country": 0.0228,
+    "continent": 0.6889,
+    "none": 0.2589
+   },
+   "top": "continent",
+   "confidence": 0.6889,
+   "correct": true,
+   "latency_ms": 478.5,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0227,
+    "year": 0.6758,
+    "none": 0.3015
+   },
+   "top": "year",
+   "confidence": 0.6758,
+   "correct": true,
+   "latency_ms": 395.0,
+   "tokens": 70,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A02-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.051,
+    "macrosector": 0.0979,
+    "none": 0.8511
+   },
+   "top": "none",
+   "confidence": 0.8511,
+   "correct": true,
+   "latency_ms": 455.1,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A03",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4225,
+    "clarify": 0.303,
+    "reject": 0.2745
+   },
+   "top": "answer",
+   "confidence": 0.4225,
+   "correct": true,
+   "latency_ms": 1175.3,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7045,
+    "no": 0.2955
+   },
+   "top": "yes",
+   "confidence": 0.7045,
+   "correct": true,
+   "latency_ms": 495.4,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.11,
+    "no": 0.89
+   },
+   "top": "no",
+   "confidence": 0.89,
+   "correct": true,
+   "latency_ms": 487.1,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1569,
+    "no": 0.8431
+   },
+   "top": "no",
+   "confidence": 0.8431,
+   "correct": true,
+   "latency_ms": 504.5,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A03-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.129,
+    "no": 0.871
+   },
+   "top": "no",
+   "confidence": 0.871,
+   "correct": true,
+   "latency_ms": 475.8,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.05421,
+    "country": 0.52225,
+    "continent": 0.0355,
+    "none": 0.38804
+   },
+   "top": "country",
+   "confidence": 0.52225,
+   "correct": true,
+   "latency_ms": 503.0,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.07281,
+    "year": 0.56486,
+    "none": 0.36234
+   },
+   "top": "year",
+   "confidence": 0.56486,
+   "correct": true,
+   "latency_ms": 421.3,
+   "tokens": 72,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A03-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.0878,
+    "macrosector": 0.3923,
+    "none": 0.5199
+   },
+   "top": "none",
+   "confidence": 0.5199,
+   "correct": false,
+   "latency_ms": 479.2,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A04",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.3853,
+    "clarify": 0.3308,
+    "reject": 0.2839
+   },
+   "top": "answer",
+   "confidence": 0.3853,
+   "correct": true,
+   "latency_ms": 1329.3,
+   "tokens": 257,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-BC",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2545,
+    "no": 0.7455
+   },
+   "top": "no",
+   "confidence": 0.7455,
+   "correct": false,
+   "latency_ms": 485.2,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-OC",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4923,
+    "no": 0.5077
+   },
+   "top": "no",
+   "confidence": 0.5077,
+   "correct": false,
+   "latency_ms": 509.0,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0796,
+    "no": 0.9204
+   },
+   "top": "no",
+   "confidence": 0.9204,
+   "correct": true,
+   "latency_ms": 489.9,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0975,
+    "no": 0.9025
+   },
+   "top": "no",
+   "confidence": 0.9025,
+   "correct": true,
+   "latency_ms": 580.3,
+   "tokens": 113,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A04-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1179,
+    "no": 0.8821
+   },
+   "top": "no",
+   "confidence": 0.8821,
+   "correct": true,
+   "latency_ms": 459.3,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0903,
+    "country": 0.2324,
+    "continent": 0.113,
+    "none": 0.5643
+   },
+   "top": "none",
+   "confidence": 0.5643,
+   "correct": false,
+   "latency_ms": 461.4,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.005,
+    "year": 0.9336,
+    "none": 0.0614
+   },
+   "top": "year",
+   "confidence": 0.9336,
+   "correct": true,
+   "latency_ms": 383.2,
+   "tokens": 73,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A04-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0823,
+    "macrosector": 0.0908,
+    "none": 0.8269
+   },
+   "top": "none",
+   "confidence": 0.8269,
+   "correct": true,
+   "latency_ms": 434.3,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A05",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6944,
+    "clarify": 0.1976,
+    "reject": 0.108
+   },
+   "top": "answer",
+   "confidence": 0.6944,
+   "correct": true,
+   "latency_ms": 1058.9,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1852,
+    "no": 0.8148
+   },
+   "top": "no",
+   "confidence": 0.8148,
+   "correct": false,
+   "latency_ms": 449.7,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-SOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2475,
+    "no": 0.7525
+   },
+   "top": "no",
+   "confidence": 0.7525,
+   "correct": true,
+   "latency_ms": 456.9,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1198,
+    "no": 0.8802
+   },
+   "top": "no",
+   "confidence": 0.8802,
+   "correct": true,
+   "latency_ms": 459.0,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A05-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1882,
+    "no": 0.8118
+   },
+   "top": "no",
+   "confidence": 0.8118,
+   "correct": true,
+   "latency_ms": 459.5,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0438,
+    "country": 0.7891,
+    "continent": 0.0136,
+    "none": 0.1535
+   },
+   "top": "country",
+   "confidence": 0.7891,
+   "correct": true,
+   "latency_ms": 458.6,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.0846,
+    "year": 0.0934,
+    "none": 0.822
+   },
+   "top": "none",
+   "confidence": 0.822,
+   "correct": true,
+   "latency_ms": 402.4,
+   "tokens": 72,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A05-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.3227,
+    "macrosector": 0.1169,
+    "none": 0.5604
+   },
+   "top": "none",
+   "confidence": 0.5604,
+   "correct": false,
+   "latency_ms": 414.6,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A06",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4739,
+    "clarify": 0.2684,
+    "reject": 0.2577
+   },
+   "top": "answer",
+   "confidence": 0.4739,
+   "correct": true,
+   "latency_ms": 985.0,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2867,
+    "no": 0.7133
+   },
+   "top": "no",
+   "confidence": 0.7133,
+   "correct": false,
+   "latency_ms": 519.2,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-PM2_5",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.237,
+    "no": 0.763
+   },
+   "top": "no",
+   "confidence": 0.763,
+   "correct": true,
+   "latency_ms": 511.5,
+   "tokens": 112,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0947,
+    "no": 0.9053
+   },
+   "top": "no",
+   "confidence": 0.9053,
+   "correct": true,
+   "latency_ms": 491.2,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A06-BC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0991,
+    "no": 0.9009
+   },
+   "top": "no",
+   "confidence": 0.9009,
+   "correct": true,
+   "latency_ms": 466.8,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.1134,
+    "country": 0.0462,
+    "continent": 0.0307,
+    "none": 0.8097
+   },
+   "top": "none",
+   "confidence": 0.8097,
+   "correct": false,
+   "latency_ms": 411.7,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.9919,
+    "year": 0.0026,
+    "none": 0.0055
+   },
+   "top": "month",
+   "confidence": 0.9919,
+   "correct": true,
+   "latency_ms": 336.1,
+   "tokens": 72,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A06-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.1914,
+    "macrosector": 0.1241,
+    "none": 0.6845
+   },
+   "top": "none",
+   "confidence": 0.6845,
+   "correct": true,
+   "latency_ms": 401.8,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A07",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.3223,
+    "clarify": 0.3288,
+    "reject": 0.3489
+   },
+   "top": "reject",
+   "confidence": 0.3489,
+   "correct": false,
+   "latency_ms": 953.7,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-HG",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7335,
+    "no": 0.2665
+   },
+   "top": "yes",
+   "confidence": 0.7335,
+   "correct": true,
+   "latency_ms": 503.7,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-PB",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6048,
+    "no": 0.3952
+   },
+   "top": "yes",
+   "confidence": 0.6048,
+   "correct": true,
+   "latency_ms": 429.0,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-NI",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0851,
+    "no": 0.9149
+   },
+   "top": "no",
+   "confidence": 0.9149,
+   "correct": true,
+   "latency_ms": 517.8,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-CD",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0651,
+    "no": 0.9349
+   },
+   "top": "no",
+   "confidence": 0.9349,
+   "correct": true,
+   "latency_ms": 475.0,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A07-ZN",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0468,
+    "no": 0.9532
+   },
+   "top": "no",
+   "confidence": 0.9532,
+   "correct": true,
+   "latency_ms": 486.5,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.08071,
+    "country": 0.29743,
+    "continent": 0.06841,
+    "none": 0.55346
+   },
+   "top": "none",
+   "confidence": 0.55346,
+   "correct": false,
+   "latency_ms": 479.3,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0217,
+    "year": 0.7729,
+    "none": 0.2054
+   },
+   "top": "year",
+   "confidence": 0.7729,
+   "correct": true,
+   "latency_ms": 374.3,
+   "tokens": 74,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A07-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.1942,
+    "macrosector": 0.1943,
+    "none": 0.6115
+   },
+   "top": "none",
+   "confidence": 0.6115,
+   "correct": true,
+   "latency_ms": 542.3,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A08",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4532,
+    "clarify": 0.2997,
+    "reject": 0.2471
+   },
+   "top": "answer",
+   "confidence": 0.4532,
+   "correct": true,
+   "latency_ms": 1070.8,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3283,
+    "no": 0.6717
+   },
+   "top": "no",
+   "confidence": 0.6717,
+   "correct": false,
+   "latency_ms": 463.6,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CH4",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1012,
+    "no": 0.8988
+   },
+   "top": "no",
+   "confidence": 0.8988,
+   "correct": false,
+   "latency_ms": 474.1,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-CO2e100",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3613,
+    "no": 0.6387
+   },
+   "top": "no",
+   "confidence": 0.6387,
+   "correct": false,
+   "latency_ms": 586.2,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0847,
+    "no": 0.9153
+   },
+   "top": "no",
+   "confidence": 0.9153,
+   "correct": true,
+   "latency_ms": 478.4,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0797,
+    "no": 0.9203
+   },
+   "top": "no",
+   "confidence": 0.9203,
+   "correct": true,
+   "latency_ms": 511.5,
+   "tokens": 109,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A08-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0697,
+    "no": 0.9303
+   },
+   "top": "no",
+   "confidence": 0.9303,
+   "correct": true,
+   "latency_ms": 424.9,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0152,
+    "country": 0.8898,
+    "continent": 0.0173,
+    "none": 0.0777
+   },
+   "top": "country",
+   "confidence": 0.8898,
+   "correct": true,
+   "latency_ms": 498.2,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.9294,
+    "year": 0.0317,
+    "none": 0.0389
+   },
+   "top": "month",
+   "confidence": 0.9294,
+   "correct": true,
+   "latency_ms": 404.8,
+   "tokens": 74,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A08-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.2907,
+    "macrosector": 0.2534,
+    "none": 0.4559
+   },
+   "top": "none",
+   "confidence": 0.4559,
+   "correct": false,
+   "latency_ms": 442.2,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A09",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4555,
+    "clarify": 0.285,
+    "reject": 0.2595
+   },
+   "top": "answer",
+   "confidence": 0.4555,
+   "correct": true,
+   "latency_ms": 1081.0,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-CO",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6079,
+    "no": 0.3921
+   },
+   "top": "yes",
+   "confidence": 0.6079,
+   "correct": true,
+   "latency_ms": 533.1,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4077,
+    "no": 0.5923
+   },
+   "top": "no",
+   "confidence": 0.5923,
+   "correct": true,
+   "latency_ms": 497.3,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2132,
+    "no": 0.7868
+   },
+   "top": "no",
+   "confidence": 0.7868,
+   "correct": true,
+   "latency_ms": 463.4,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A09-NMVOCs",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1955,
+    "no": 0.8045
+   },
+   "top": "no",
+   "confidence": 0.8045,
+   "correct": true,
+   "latency_ms": 533.3,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.07181,
+    "country": 0.46225,
+    "continent": 0.05661,
+    "none": 0.40934
+   },
+   "top": "country",
+   "confidence": 0.46225,
+   "correct": true,
+   "latency_ms": 410.5,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0528,
+    "year": 0.4569,
+    "none": 0.4903
+   },
+   "top": "none",
+   "confidence": 0.4903,
+   "correct": false,
+   "latency_ms": 393.3,
+   "tokens": 72,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A09-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.2056,
+    "macrosector": 0.432,
+    "none": 0.3624
+   },
+   "top": "macrosector",
+   "confidence": 0.432,
+   "correct": false,
+   "latency_ms": 414.0,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A10",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.6001,
+    "clarify": 0.2053,
+    "reject": 0.1946
+   },
+   "top": "answer",
+   "confidence": 0.6001,
+   "correct": true,
+   "latency_ms": 1173.6,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6681,
+    "no": 0.3319
+   },
+   "top": "yes",
+   "confidence": 0.6681,
+   "correct": true,
+   "latency_ms": 489.4,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4503,
+    "no": 0.5497
+   },
+   "top": "no",
+   "confidence": 0.5497,
+   "correct": true,
+   "latency_ms": 461.0,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-CO2e100",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2255,
+    "no": 0.7745
+   },
+   "top": "no",
+   "confidence": 0.7745,
+   "correct": true,
+   "latency_ms": 615.8,
+   "tokens": 110,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A10-N2O",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1935,
+    "no": 0.8065
+   },
+   "top": "no",
+   "confidence": 0.8065,
+   "correct": true,
+   "latency_ms": 478.4,
+   "tokens": 98,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0696,
+    "country": 0.0838,
+    "continent": 0.0858,
+    "none": 0.7608
+   },
+   "top": "none",
+   "confidence": 0.7608,
+   "correct": false,
+   "latency_ms": 461.6,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0348,
+    "year": 0.4766,
+    "none": 0.4886
+   },
+   "top": "none",
+   "confidence": 0.4886,
+   "correct": false,
+   "latency_ms": 367.1,
+   "tokens": 69,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A10-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0629,
+    "macrosector": 0.1492,
+    "none": 0.7879
+   },
+   "top": "none",
+   "confidence": 0.7879,
+   "correct": true,
+   "latency_ms": 413.2,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A11",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.5897,
+    "clarify": 0.2768,
+    "reject": 0.1335
+   },
+   "top": "answer",
+   "confidence": 0.5897,
+   "correct": true,
+   "latency_ms": 1101.0,
+   "tokens": 257,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-NMVOCs",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6524,
+    "no": 0.3476
+   },
+   "top": "yes",
+   "confidence": 0.6524,
+   "correct": true,
+   "latency_ms": 467.7,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1239,
+    "no": 0.8761
+   },
+   "top": "no",
+   "confidence": 0.8761,
+   "correct": true,
+   "latency_ms": 438.3,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-CO",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1541,
+    "no": 0.8459
+   },
+   "top": "no",
+   "confidence": 0.8459,
+   "correct": true,
+   "latency_ms": 484.9,
+   "tokens": 100,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A11-OC",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1206,
+    "no": 0.8794
+   },
+   "top": "no",
+   "confidence": 0.8794,
+   "correct": true,
+   "latency_ms": 493.9,
+   "tokens": 99,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-GEO",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "region": 0.1732,
+    "country": 0.049,
+    "continent": 0.0388,
+    "none": 0.739
+   },
+   "top": "none",
+   "confidence": 0.739,
+   "correct": true,
+   "latency_ms": 411.0,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0214,
+    "year": 0.66877,
+    "none": 0.30983
+   },
+   "top": "year",
+   "confidence": 0.66877,
+   "correct": true,
+   "latency_ms": 367.9,
+   "tokens": 73,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A11-SECTOR",
+   "task": "level",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.1319,
+    "macrosector": 0.5736,
+    "none": 0.2945
+   },
+   "top": "macrosector",
+   "confidence": 0.5736,
+   "correct": true,
+   "latency_ms": 440.3,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A12",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4723,
+    "clarify": 0.2439,
+    "reject": 0.2838
+   },
+   "top": "answer",
+   "confidence": 0.4723,
+   "correct": true,
+   "latency_ms": 1085.5,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2643,
+    "no": 0.7357
+   },
+   "top": "no",
+   "confidence": 0.7357,
+   "correct": false,
+   "latency_ms": 506.7,
+   "tokens": 109,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-PM10",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3087,
+    "no": 0.6913
+   },
+   "top": "no",
+   "confidence": 0.6913,
+   "correct": false,
+   "latency_ms": 496.2,
+   "tokens": 104,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-SO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.111,
+    "no": 0.889
+   },
+   "top": "no",
+   "confidence": 0.889,
+   "correct": true,
+   "latency_ms": 508.7,
+   "tokens": 97,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A12-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.0915,
+    "no": 0.9085
+   },
+   "top": "no",
+   "confidence": 0.9085,
+   "correct": true,
+   "latency_ms": 527.2,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.7105,
+    "country": 0.0168,
+    "continent": 0.0172,
+    "none": 0.2555
+   },
+   "top": "region",
+   "confidence": 0.7105,
+   "correct": true,
+   "latency_ms": 523.0,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-TIME",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "month": 0.05009,
+    "year": 0.06699,
+    "none": 0.88291
+   },
+   "top": "none",
+   "confidence": 0.88291,
+   "correct": true,
+   "latency_ms": 417.2,
+   "tokens": 69,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A12-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0701,
+    "macrosector": 0.0981,
+    "none": 0.8318
+   },
+   "top": "none",
+   "confidence": 0.8318,
+   "correct": true,
+   "latency_ms": 468.0,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A13",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.44724,
+    "clarify": 0.28793,
+    "reject": 0.26483
+   },
+   "top": "answer",
+   "confidence": 0.44724,
+   "correct": true,
+   "latency_ms": 1138.8,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-N2O",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1656,
+    "no": 0.8344
+   },
+   "top": "no",
+   "confidence": 0.8344,
+   "correct": false,
+   "latency_ms": 516.4,
+   "tokens": 104,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4471,
+    "no": 0.5529
+   },
+   "top": "no",
+   "confidence": 0.5529,
+   "correct": true,
+   "latency_ms": 476.3,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-NH3",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1954,
+    "no": 0.8046
+   },
+   "top": "no",
+   "confidence": 0.8046,
+   "correct": true,
+   "latency_ms": 579.0,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A13-CH4",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1478,
+    "no": 0.8522
+   },
+   "top": "no",
+   "confidence": 0.8522,
+   "correct": true,
+   "latency_ms": 488.4,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-GEO",
+   "task": "level",
+   "gold": "continent",
+   "probs": {
+    "region": 0.0132,
+    "country": 0.0152,
+    "continent": 0.89171,
+    "none": 0.07989
+   },
+   "top": "continent",
+   "confidence": 0.89171,
+   "correct": true,
+   "latency_ms": 504.1,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-TIME",
+   "task": "level",
+   "gold": "year",
+   "probs": {
+    "month": 0.0745,
+    "year": 0.2541,
+    "none": 0.6714
+   },
+   "top": "none",
+   "confidence": 0.6714,
+   "correct": false,
+   "latency_ms": 432.5,
+   "tokens": 75,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A13-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.0623,
+    "macrosector": 0.1311,
+    "none": 0.8066
+   },
+   "top": "none",
+   "confidence": 0.8066,
+   "correct": true,
+   "latency_ms": 482.2,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A14",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.42814,
+    "clarify": 0.26633,
+    "reject": 0.30553
+   },
+   "top": "answer",
+   "confidence": 0.42814,
+   "correct": true,
+   "latency_ms": 1219.9,
+   "tokens": 258,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-SOx",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3061,
+    "no": 0.6939
+   },
+   "top": "no",
+   "confidence": 0.6939,
+   "correct": false,
+   "latency_ms": 528.2,
+   "tokens": 102,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-NOx",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1591,
+    "no": 0.8409
+   },
+   "top": "no",
+   "confidence": 0.8409,
+   "correct": true,
+   "latency_ms": 508.8,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-CO2",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1197,
+    "no": 0.8803
+   },
+   "top": "no",
+   "confidence": 0.8803,
+   "correct": true,
+   "latency_ms": 534.1,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A14-PM10",
+   "task": "relevance",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1514,
+    "no": 0.8486
+   },
+   "top": "no",
+   "confidence": 0.8486,
+   "correct": true,
+   "latency_ms": 544.6,
+   "tokens": 109,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-GEO",
+   "task": "level",
+   "gold": "country",
+   "probs": {
+    "region": 0.0487,
+    "country": 0.61074,
+    "continent": 0.08329,
+    "none": 0.25727
+   },
+   "top": "country",
+   "confidence": 0.61074,
+   "correct": true,
+   "latency_ms": 528.6,
+   "tokens": 95,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.9714,
+    "year": 0.009,
+    "none": 0.0196
+   },
+   "top": "month",
+   "confidence": 0.9714,
+   "correct": true,
+   "latency_ms": 439.7,
+   "tokens": 74,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A14-SECTOR",
+   "task": "level",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.15412,
+    "macrosector": 0.16722,
+    "none": 0.67867
+   },
+   "top": "none",
+   "confidence": 0.67867,
+   "correct": false,
+   "latency_ms": 462.8,
+   "tokens": 91,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-A15",
+   "task": "gate",
+   "gold": "answer",
+   "probs": {
+    "answer": 0.4812,
+    "clarify": 0.2681,
+    "reject": 0.2507
+   },
+   "top": "answer",
+   "confidence": 0.4812,
+   "correct": true,
+   "latency_ms": 1167.3,
+   "tokens": 252,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-SO2",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.0802,
+    "no": 0.9198
+   },
+   "top": "no",
+   "confidence": 0.9198,
+   "correct": false,
+   "latency_ms": 448.9,
+   "tokens": 96,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-NH3",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.079,
+    "no": 0.921
+   },
+   "top": "no",
+   "confidence": 0.921,
+   "correct": false,
+   "latency_ms": 420.2,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "rel-A15-PM2_5",
+   "task": "relevance",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.143,
+    "no": 0.857
+   },
+   "top": "no",
+   "confidence": 0.857,
+   "correct": false,
+   "latency_ms": 534.3,
+   "tokens": 108,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-GEO",
+   "task": "level",
+   "gold": "region",
+   "probs": {
+    "region": 0.9466,
+    "country": 0.0041,
+    "continent": 0.0035,
+    "none": 0.0458
+   },
+   "top": "region",
+   "confidence": 0.9466,
+   "correct": true,
+   "latency_ms": 462.4,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-TIME",
+   "task": "level",
+   "gold": "month",
+   "probs": {
+    "month": 0.9996,
+    "year": 0.0001,
+    "none": 0.0003
+   },
+   "top": "month",
+   "confidence": 0.9996,
+   "correct": true,
+   "latency_ms": 375.7,
+   "tokens": 68,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "lvl-A15-SECTOR",
+   "task": "level",
+   "gold": "none",
+   "probs": {
+    "subsector": 0.11,
+    "macrosector": 0.1246,
+    "none": 0.7654
+   },
+   "top": "none",
+   "confidence": 0.7654,
+   "correct": true,
+   "latency_ms": 416.9,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C01",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.5167,
+    "clarify": 0.2443,
+    "reject": 0.239
+   },
+   "top": "answer",
+   "confidence": 0.5167,
+   "correct": false,
+   "latency_ms": 1152.1,
+   "tokens": 251,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C02",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.67507,
+    "clarify": 0.16822,
+    "reject": 0.15672
+   },
+   "top": "answer",
+   "confidence": 0.67507,
+   "correct": false,
+   "latency_ms": 1059.6,
+   "tokens": 251,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C03",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.3849,
+    "clarify": 0.2922,
+    "reject": 0.3229
+   },
+   "top": "answer",
+   "confidence": 0.3849,
+   "correct": false,
+   "latency_ms": 1137.1,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C04",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.32277,
+    "clarify": 0.21028,
+    "reject": 0.46695
+   },
+   "top": "reject",
+   "confidence": 0.46695,
+   "correct": false,
+   "latency_ms": 1193.6,
+   "tokens": 250,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C05",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.5541,
+    "clarify": 0.2873,
+    "reject": 0.1586
+   },
+   "top": "answer",
+   "confidence": 0.5541,
+   "correct": false,
+   "latency_ms": 1443.3,
+   "tokens": 255,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C06",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.4299,
+    "clarify": 0.2794,
+    "reject": 0.2907
+   },
+   "top": "answer",
+   "confidence": 0.4299,
+   "correct": false,
+   "latency_ms": 1176.7,
+   "tokens": 251,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C07",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.1939,
+    "clarify": 0.2593,
+    "reject": 0.5468
+   },
+   "top": "reject",
+   "confidence": 0.5468,
+   "correct": false,
+   "latency_ms": 1220.8,
+   "tokens": 251,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C08",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.4602,
+    "clarify": 0.2548,
+    "reject": 0.285
+   },
+   "top": "answer",
+   "confidence": 0.4602,
+   "correct": false,
+   "latency_ms": 1213.2,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C09",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.343,
+    "clarify": 0.2674,
+    "reject": 0.3896
+   },
+   "top": "reject",
+   "confidence": 0.3896,
+   "correct": false,
+   "latency_ms": 1170.1,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C10",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.5481,
+    "clarify": 0.2103,
+    "reject": 0.2416
+   },
+   "top": "answer",
+   "confidence": 0.5481,
+   "correct": false,
+   "latency_ms": 1257.2,
+   "tokens": 255,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C11",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.5954,
+    "clarify": 0.1871,
+    "reject": 0.2175
+   },
+   "top": "answer",
+   "confidence": 0.5954,
+   "correct": false,
+   "latency_ms": 1086.4,
+   "tokens": 252,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-C12",
+   "task": "gate",
+   "gold": "clarify",
+   "probs": {
+    "answer": 0.3276,
+    "clarify": 0.274,
+    "reject": 0.3984
+   },
+   "top": "reject",
+   "confidence": 0.3984,
+   "correct": false,
+   "latency_ms": 1107.5,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R01",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.5078,
+    "clarify": 0.2297,
+    "reject": 0.2625
+   },
+   "top": "answer",
+   "confidence": 0.5078,
+   "correct": false,
+   "latency_ms": 1081.7,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R02",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.1818,
+    "clarify": 0.2093,
+    "reject": 0.6089
+   },
+   "top": "reject",
+   "confidence": 0.6089,
+   "correct": true,
+   "latency_ms": 1299.5,
+   "tokens": 255,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R03",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.4117,
+    "clarify": 0.2375,
+    "reject": 0.3508
+   },
+   "top": "answer",
+   "confidence": 0.4117,
+   "correct": false,
+   "latency_ms": 1343.8,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R04",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.4828,
+    "clarify": 0.2881,
+    "reject": 0.2291
+   },
+   "top": "answer",
+   "confidence": 0.4828,
+   "correct": false,
+   "latency_ms": 1091.9,
+   "tokens": 256,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R05",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.3791,
+    "clarify": 0.2539,
+    "reject": 0.367
+   },
+   "top": "answer",
+   "confidence": 0.3791,
+   "correct": false,
+   "latency_ms": 1103.6,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R06",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.27267,
+    "clarify": 0.24328,
+    "reject": 0.48405
+   },
+   "top": "reject",
+   "confidence": 0.48405,
+   "correct": true,
+   "latency_ms": 1223.2,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R07",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.3994,
+    "clarify": 0.3094,
+    "reject": 0.2912
+   },
+   "top": "answer",
+   "confidence": 0.3994,
+   "correct": false,
+   "latency_ms": 1655.2,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R08",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.5145,
+    "clarify": 0.2658,
+    "reject": 0.2197
+   },
+   "top": "answer",
+   "confidence": 0.5145,
+   "correct": false,
+   "latency_ms": 2307.8,
+   "tokens": 253,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R09",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.54085,
+    "clarify": 0.21588,
+    "reject": 0.24328
+   },
+   "top": "answer",
+   "confidence": 0.54085,
+   "correct": false,
+   "latency_ms": 1389.2,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R10",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.7512,
+    "clarify": 0.1344,
+    "reject": 0.1144
+   },
+   "top": "answer",
+   "confidence": 0.7512,
+   "correct": false,
+   "latency_ms": 1523.7,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R11",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.4216,
+    "clarify": 0.3008,
+    "reject": 0.2776
+   },
+   "top": "answer",
+   "confidence": 0.4216,
+   "correct": false,
+   "latency_ms": 1779.8,
+   "tokens": 262,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "gate-R12",
+   "task": "gate",
+   "gold": "reject",
+   "probs": {
+    "answer": 0.40786,
+    "clarify": 0.25077,
+    "reject": 0.34137
+   },
+   "top": "answer",
+   "confidence": 0.40786,
+   "correct": false,
+   "latency_ms": 1484.4,
+   "tokens": 254,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-01",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6846,
+    "no": 0.3154
+   },
+   "top": "yes",
+   "confidence": 0.6846,
+   "correct": true,
+   "latency_ms": 507.7,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-02",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.2625,
+    "no": 0.7375
+   },
+   "top": "no",
+   "confidence": 0.7375,
+   "correct": false,
+   "latency_ms": 482.5,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-03",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.551,
+    "no": 0.449
+   },
+   "top": "yes",
+   "confidence": 0.551,
+   "correct": true,
+   "latency_ms": 681.3,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-04",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3434,
+    "no": 0.6566
+   },
+   "top": "no",
+   "confidence": 0.6566,
+   "correct": false,
+   "latency_ms": 778.9,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-05",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7616,
+    "no": 0.2384
+   },
+   "top": "yes",
+   "confidence": 0.7616,
+   "correct": true,
+   "latency_ms": 653.7,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-06",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8573,
+    "no": 0.1427
+   },
+   "top": "yes",
+   "confidence": 0.8573,
+   "correct": true,
+   "latency_ms": 510.0,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-07",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9056,
+    "no": 0.0944
+   },
+   "top": "yes",
+   "confidence": 0.9056,
+   "correct": true,
+   "latency_ms": 503.6,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-08",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7822,
+    "no": 0.2178
+   },
+   "top": "yes",
+   "confidence": 0.7822,
+   "correct": true,
+   "latency_ms": 530.4,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-09",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3013,
+    "no": 0.6987
+   },
+   "top": "no",
+   "confidence": 0.6987,
+   "correct": false,
+   "latency_ms": 608.0,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-10",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.3699,
+    "no": 0.6301
+   },
+   "top": "no",
+   "confidence": 0.6301,
+   "correct": false,
+   "latency_ms": 600.8,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-11",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6174,
+    "no": 0.3826
+   },
+   "top": "yes",
+   "confidence": 0.6174,
+   "correct": true,
+   "latency_ms": 561.9,
+   "tokens": 90,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-12",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7863,
+    "no": 0.2137
+   },
+   "top": "yes",
+   "confidence": 0.7863,
+   "correct": true,
+   "latency_ms": 574.9,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-13",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7295,
+    "no": 0.2705
+   },
+   "top": "yes",
+   "confidence": 0.7295,
+   "correct": true,
+   "latency_ms": 701.8,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-14",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6615,
+    "no": 0.3385
+   },
+   "top": "yes",
+   "confidence": 0.6615,
+   "correct": true,
+   "latency_ms": 674.7,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-15",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8423,
+    "no": 0.1577
+   },
+   "top": "yes",
+   "confidence": 0.8423,
+   "correct": true,
+   "latency_ms": 523.0,
+   "tokens": 93,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-16",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5329,
+    "no": 0.4671
+   },
+   "top": "yes",
+   "confidence": 0.5329,
+   "correct": true,
+   "latency_ms": 521.3,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-17",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.5814,
+    "no": 0.4186
+   },
+   "top": "yes",
+   "confidence": 0.5814,
+   "correct": true,
+   "latency_ms": 575.3,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-18",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7095,
+    "no": 0.2905
+   },
+   "top": "yes",
+   "confidence": 0.7095,
+   "correct": true,
+   "latency_ms": 541.7,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-19",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2052,
+    "no": 0.7948
+   },
+   "top": "no",
+   "confidence": 0.7948,
+   "correct": true,
+   "latency_ms": 503.6,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-20",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.76,
+    "no": 0.24
+   },
+   "top": "yes",
+   "confidence": 0.76,
+   "correct": false,
+   "latency_ms": 526.1,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-21",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.505,
+    "no": 0.495
+   },
+   "top": "yes",
+   "confidence": 0.505,
+   "correct": false,
+   "latency_ms": 523.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-22",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5125,
+    "no": 0.4875
+   },
+   "top": "yes",
+   "confidence": 0.5125,
+   "correct": false,
+   "latency_ms": 1585.0,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-23",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3624,
+    "no": 0.6376
+   },
+   "top": "no",
+   "confidence": 0.6376,
+   "correct": true,
+   "latency_ms": 430.3,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-24",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.6388,
+    "no": 0.3612
+   },
+   "top": "yes",
+   "confidence": 0.6388,
+   "correct": false,
+   "latency_ms": 463.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-25",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2338,
+    "no": 0.7662
+   },
+   "top": "no",
+   "confidence": 0.7662,
+   "correct": true,
+   "latency_ms": 471.7,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-26",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.6834,
+    "no": 0.3166
+   },
+   "top": "yes",
+   "confidence": 0.6834,
+   "correct": false,
+   "latency_ms": 493.8,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-27",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4377,
+    "no": 0.5623
+   },
+   "top": "no",
+   "confidence": 0.5623,
+   "correct": true,
+   "latency_ms": 513.2,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-28",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3754,
+    "no": 0.6246
+   },
+   "top": "no",
+   "confidence": 0.6246,
+   "correct": true,
+   "latency_ms": 431.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-29",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.7357,
+    "no": 0.2643
+   },
+   "top": "yes",
+   "confidence": 0.7357,
+   "correct": false,
+   "latency_ms": 449.9,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-30",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.4413,
+    "no": 0.5587
+   },
+   "top": "no",
+   "confidence": 0.5587,
+   "correct": true,
+   "latency_ms": 470.0,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-31",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8056,
+    "no": 0.1944
+   },
+   "top": "yes",
+   "confidence": 0.8056,
+   "correct": true,
+   "latency_ms": 540.1,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-32",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.1897,
+    "no": 0.8103
+   },
+   "top": "no",
+   "confidence": 0.8103,
+   "correct": false,
+   "latency_ms": 450.4,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-33",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.653,
+    "no": 0.347
+   },
+   "top": "yes",
+   "confidence": 0.653,
+   "correct": true,
+   "latency_ms": 479.5,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-34",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7136,
+    "no": 0.2864
+   },
+   "top": "yes",
+   "confidence": 0.7136,
+   "correct": true,
+   "latency_ms": 420.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-35",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4864,
+    "no": 0.5136
+   },
+   "top": "no",
+   "confidence": 0.5136,
+   "correct": false,
+   "latency_ms": 497.3,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-36",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.8261,
+    "no": 0.1739
+   },
+   "top": "yes",
+   "confidence": 0.8261,
+   "correct": false,
+   "latency_ms": 428.9,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-37",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.7794,
+    "no": 0.2206
+   },
+   "top": "yes",
+   "confidence": 0.7794,
+   "correct": false,
+   "latency_ms": 422.4,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-38",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.7711,
+    "no": 0.2289
+   },
+   "top": "yes",
+   "confidence": 0.7711,
+   "correct": false,
+   "latency_ms": 435.8,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-39",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1951,
+    "no": 0.8049
+   },
+   "top": "no",
+   "confidence": 0.8049,
+   "correct": true,
+   "latency_ms": 495.2,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-40",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.5916,
+    "no": 0.4084
+   },
+   "top": "yes",
+   "confidence": 0.5916,
+   "correct": false,
+   "latency_ms": 529.2,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-41",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.4033,
+    "no": 0.5967
+   },
+   "top": "no",
+   "confidence": 0.5967,
+   "correct": false,
+   "latency_ms": 463.9,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-42",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.893,
+    "no": 0.107
+   },
+   "top": "yes",
+   "confidence": 0.893,
+   "correct": false,
+   "latency_ms": 1155.2,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-43",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.8844,
+    "no": 0.1156
+   },
+   "top": "yes",
+   "confidence": 0.8844,
+   "correct": false,
+   "latency_ms": 523.6,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-44",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8397,
+    "no": 0.1603
+   },
+   "top": "yes",
+   "confidence": 0.8397,
+   "correct": true,
+   "latency_ms": 540.3,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-45",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7648,
+    "no": 0.2352
+   },
+   "top": "yes",
+   "confidence": 0.7648,
+   "correct": true,
+   "latency_ms": 544.7,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-46",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.881,
+    "no": 0.119
+   },
+   "top": "yes",
+   "confidence": 0.881,
+   "correct": false,
+   "latency_ms": 502.9,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-47",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9043,
+    "no": 0.0957
+   },
+   "top": "yes",
+   "confidence": 0.9043,
+   "correct": true,
+   "latency_ms": 537.2,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-48",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6665,
+    "no": 0.3335
+   },
+   "top": "yes",
+   "confidence": 0.6665,
+   "correct": true,
+   "latency_ms": 521.4,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-49",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.8594,
+    "no": 0.1406
+   },
+   "top": "yes",
+   "confidence": 0.8594,
+   "correct": false,
+   "latency_ms": 534.7,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-50",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8986,
+    "no": 0.1014
+   },
+   "top": "yes",
+   "confidence": 0.8986,
+   "correct": true,
+   "latency_ms": 581.6,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-51",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9156,
+    "no": 0.0844
+   },
+   "top": "yes",
+   "confidence": 0.9156,
+   "correct": true,
+   "latency_ms": 512.4,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-52",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.882,
+    "no": 0.118
+   },
+   "top": "yes",
+   "confidence": 0.882,
+   "correct": false,
+   "latency_ms": 616.1,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-53",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8828,
+    "no": 0.1172
+   },
+   "top": "yes",
+   "confidence": 0.8828,
+   "correct": true,
+   "latency_ms": 617.4,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-54",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7874,
+    "no": 0.2126
+   },
+   "top": "yes",
+   "confidence": 0.7874,
+   "correct": true,
+   "latency_ms": 495.2,
+   "tokens": 92,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-55",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.8155,
+    "no": 0.1845
+   },
+   "top": "yes",
+   "confidence": 0.8155,
+   "correct": false,
+   "latency_ms": 556.6,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-56",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8249,
+    "no": 0.1751
+   },
+   "top": "yes",
+   "confidence": 0.8249,
+   "correct": true,
+   "latency_ms": 563.1,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-57",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.6588,
+    "no": 0.3412
+   },
+   "top": "yes",
+   "confidence": 0.6588,
+   "correct": false,
+   "latency_ms": 576.8,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-58",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9065,
+    "no": 0.0935
+   },
+   "top": "yes",
+   "confidence": 0.9065,
+   "correct": true,
+   "latency_ms": 534.2,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-59",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8787,
+    "no": 0.1213
+   },
+   "top": "yes",
+   "confidence": 0.8787,
+   "correct": true,
+   "latency_ms": 844.5,
+   "tokens": 84,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-60",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8529,
+    "no": 0.1471
+   },
+   "top": "yes",
+   "confidence": 0.8529,
+   "correct": true,
+   "latency_ms": 1012.6,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-61",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.837,
+    "no": 0.163
+   },
+   "top": "yes",
+   "confidence": 0.837,
+   "correct": true,
+   "latency_ms": 774.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-62",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9095,
+    "no": 0.0905
+   },
+   "top": "yes",
+   "confidence": 0.9095,
+   "correct": true,
+   "latency_ms": 755.6,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-63",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9195,
+    "no": 0.0805
+   },
+   "top": "yes",
+   "confidence": 0.9195,
+   "correct": true,
+   "latency_ms": 520.7,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-64",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.9155,
+    "no": 0.0845
+   },
+   "top": "yes",
+   "confidence": 0.9155,
+   "correct": false,
+   "latency_ms": 548.7,
+   "tokens": 101,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-65",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.9027,
+    "no": 0.0973
+   },
+   "top": "yes",
+   "confidence": 0.9027,
+   "correct": false,
+   "latency_ms": 577.0,
+   "tokens": 94,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-66",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9169,
+    "no": 0.0831
+   },
+   "top": "yes",
+   "confidence": 0.9169,
+   "correct": true,
+   "latency_ms": 524.1,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-67",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7184,
+    "no": 0.2816
+   },
+   "top": "yes",
+   "confidence": 0.7184,
+   "correct": true,
+   "latency_ms": 520.3,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-68",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8897,
+    "no": 0.1103
+   },
+   "top": "yes",
+   "confidence": 0.8897,
+   "correct": true,
+   "latency_ms": 515.5,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-69",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8834,
+    "no": 0.1166
+   },
+   "top": "yes",
+   "confidence": 0.8834,
+   "correct": true,
+   "latency_ms": 719.6,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-70",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6,
+    "no": 0.4
+   },
+   "top": "yes",
+   "confidence": 0.6,
+   "correct": true,
+   "latency_ms": 647.2,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-71",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.6156,
+    "no": 0.3844
+   },
+   "top": "yes",
+   "confidence": 0.6156,
+   "correct": true,
+   "latency_ms": 522.8,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-72",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.6896,
+    "no": 0.3104
+   },
+   "top": "yes",
+   "confidence": 0.6896,
+   "correct": false,
+   "latency_ms": 523.6,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-73",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.7434,
+    "no": 0.2566
+   },
+   "top": "yes",
+   "confidence": 0.7434,
+   "correct": true,
+   "latency_ms": 551.8,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-74",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9262,
+    "no": 0.0738
+   },
+   "top": "yes",
+   "confidence": 0.9262,
+   "correct": true,
+   "latency_ms": 440.8,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-75",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.9471,
+    "no": 0.0529
+   },
+   "top": "yes",
+   "confidence": 0.9471,
+   "correct": true,
+   "latency_ms": 539.6,
+   "tokens": 87,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-76",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3199,
+    "no": 0.6801
+   },
+   "top": "no",
+   "confidence": 0.6801,
+   "correct": true,
+   "latency_ms": 567.4,
+   "tokens": 89,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-77",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3358,
+    "no": 0.6642
+   },
+   "top": "no",
+   "confidence": 0.6642,
+   "correct": true,
+   "latency_ms": 544.8,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-78",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.9,
+    "no": 0.1
+   },
+   "top": "yes",
+   "confidence": 0.9,
+   "correct": false,
+   "latency_ms": 1772.9,
+   "tokens": 85,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-79",
+   "task": "entity",
+   "gold": "yes",
+   "probs": {
+    "yes": 0.8032,
+    "no": 0.1968
+   },
+   "top": "yes",
+   "confidence": 0.8032,
+   "correct": true,
+   "latency_ms": 454.9,
+   "tokens": 88,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-80",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.2545,
+    "no": 0.7455
+   },
+   "top": "no",
+   "confidence": 0.7455,
+   "correct": true,
+   "latency_ms": 445.3,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-81",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.1495,
+    "no": 0.8505
+   },
+   "top": "no",
+   "confidence": 0.8505,
+   "correct": true,
+   "latency_ms": 435.6,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "ent-82",
+   "task": "entity",
+   "gold": "no",
+   "probs": {
+    "yes": 0.3192,
+    "no": 0.6808
+   },
+   "top": "no",
+   "confidence": 0.6808,
+   "correct": true,
+   "latency_ms": 473.8,
+   "tokens": 86,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-iso3_country",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "country": 0.9971,
+    "continent": 0.0002,
+    "subsector": 0.0008,
+    "region": 0.0004,
+    "year": 0.0004,
+    "none of these": 0.0011
+   },
+   "top": "country",
+   "confidence": 0.9971,
+   "correct": true,
+   "latency_ms": 545.4,
+   "tokens": 125,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-start_time",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "year": 0.76272,
+    "subsector": 0.0425,
+    "region": 0.0084,
+    "month": 0.06989,
+    "country": 0.0212,
+    "none of these": 0.09529
+   },
+   "top": "year",
+   "confidence": 0.76272,
+   "correct": false,
+   "latency_ms": 555.8,
+   "tokens": 133,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-sector_subtype",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "month": 0.0151,
+    "subsector": 0.9064,
+    "macrosector": 0.0388,
+    "country": 0.0079,
+    "region": 0.0046,
+    "none of these": 0.0272
+   },
+   "top": "subsector",
+   "confidence": 0.9064,
+   "correct": true,
+   "latency_ms": 983.6,
+   "tokens": 131,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2_t",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "N2O": 0.0001,
+    "CO2e (100-year)": 0.0005,
+    "CH4": 0.0001,
+    "CO2": 0.9989,
+    "CO": 0.0002,
+    "none of these": 0.0002
+   },
+   "top": "CO2",
+   "confidence": 0.9989,
+   "correct": true,
+   "latency_ms": 608.1,
+   "tokens": 132,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-ch4_t",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CH4": 0.9573,
+    "N2O": 0.0057,
+    "NMVOCs": 0.006,
+    "CO2": 0.0095,
+    "CO2e (100-year)": 0.005,
+    "none of these": 0.0165
+   },
+   "top": "CH4",
+   "confidence": 0.9573,
+   "correct": true,
+   "latency_ms": 635.5,
+   "tokens": 138,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-n2o_t",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "NOx": 0.88051,
+    "NH3": 0.0007,
+    "CO2": 0.09999,
+    "N2O": 0.0156,
+    "CH4": 0.0009,
+    "none of these": 0.0023
+   },
+   "top": "NOx",
+   "confidence": 0.88051,
+   "correct": false,
+   "latency_ms": 622.7,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2e_100yr",
+   "task": "mapping",
+   "gold": "CO2e (100-year)",
+   "probs": {
+    "N2O": 0.0018,
+    "CH4": 0.0031,
+    "CO2e (20-year)": 0.06299,
+    "CO2e (100-year)": 0.80152,
+    "CO2": 0.11779,
+    "none of these": 0.0128
+   },
+   "top": "CO2e (100-year)",
+   "confidence": 0.80152,
+   "correct": true,
+   "latency_ms": 721.6,
+   "tokens": 148,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-co2e_20yr",
+   "task": "mapping",
+   "gold": "CO2e (20-year)",
+   "probs": {
+    "CO2e (20-year)": 0.90971,
+    "N2O": 0.0027,
+    "CO2": 0.049,
+    "CH4": 0.0019,
+    "CO2e (100-year)": 0.0262,
+    "none of these": 0.0105
+   },
+   "top": "CO2e (20-year)",
+   "confidence": 0.90971,
+   "correct": true,
+   "latency_ms": 681.0,
+   "tokens": 148,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-facility_id",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.09851,
+    "region": 0.11041,
+    "CO2": 0.29793,
+    "country": 0.14311,
+    "none of these": 0.35004
+   },
+   "top": "none of these",
+   "confidence": 0.35004,
+   "correct": true,
+   "latency_ms": 656.1,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-lat",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "PM10": 0.0656,
+    "region": 0.0708,
+    "continent": 0.0636,
+    "country": 0.1424,
+    "none of these": 0.6576
+   },
+   "top": "none of these",
+   "confidence": 0.6576,
+   "correct": true,
+   "latency_ms": 644.4,
+   "tokens": 120,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S1-lon",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "continent": 0.0418,
+    "region": 0.07641,
+    "NOx": 0.09151,
+    "country": 0.08681,
+    "none of these": 0.70347
+   },
+   "top": "none of these",
+   "confidence": 0.70347,
+   "correct": true,
+   "latency_ms": 687.3,
+   "tokens": 112,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-country",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.0004,
+    "country": 0.9926,
+    "year": 0.0016,
+    "continent": 0.0003,
+    "subsector": 0.0006,
+    "none of these": 0.0045
+   },
+   "top": "country",
+   "confidence": 0.9926,
+   "correct": true,
+   "latency_ms": 722.2,
+   "tokens": 120,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-iso_code",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.0389,
+    "continent": 0.0108,
+    "subsector": 0.0415,
+    "country": 0.3512,
+    "year": 0.0529,
+    "none of these": 0.5047
+   },
+   "top": "none of these",
+   "confidence": 0.5047,
+   "correct": false,
+   "latency_ms": 659.0,
+   "tokens": 122,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.0001,
+    "macrosector": 0.0003,
+    "region": 0.0001,
+    "year": 0.9989,
+    "month": 0.0001,
+    "none of these": 0.0005
+   },
+   "top": "year",
+   "confidence": 0.9989,
+   "correct": true,
+   "latency_ms": 784.5,
+   "tokens": 122,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-co2",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO": 0.0001,
+    "CH4": 0.0,
+    "CO2": 0.9997,
+    "CO2e (100-year)": 0.0001,
+    "N2O": 0.0,
+    "none of these": 0.0001
+   },
+   "top": "CO2",
+   "confidence": 0.9997,
+   "correct": true,
+   "latency_ms": 765.5,
+   "tokens": 132,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-methane",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CO2": 0.0004,
+    "CH4": 0.999,
+    "CO2e (100-year)": 0.0002,
+    "N2O": 0.0001,
+    "NMVOCs": 0.0001,
+    "none of these": 0.0002
+   },
+   "top": "CH4",
+   "confidence": 0.999,
+   "correct": true,
+   "latency_ms": 757.9,
+   "tokens": 140,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nitrous_oxide",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "NH3": 0.0,
+    "N2O": 0.9987,
+    "CO2": 0.0003,
+    "NOx": 0.0007,
+    "CH4": 0.0001,
+    "none of these": 0.0002
+   },
+   "top": "N2O",
+   "confidence": 0.9987,
+   "correct": true,
+   "latency_ms": 796.6,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nox_emissions",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "NOx": 0.993,
+    "N2O": 0.0057,
+    "CO": 0.0002,
+    "NH3": 0.0002,
+    "SOx": 0.0005,
+    "none of these": 0.0004
+   },
+   "top": "NOx",
+   "confidence": 0.993,
+   "correct": true,
+   "latency_ms": 1035.0,
+   "tokens": 121,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-so2_emissions",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "SOx": 0.0001,
+    "NOx": 0.0001,
+    "SO2": 0.9992,
+    "CO": 0.0002,
+    "NH3": 0.0001,
+    "none of these": 0.0003
+   },
+   "top": "SO2",
+   "confidence": 0.9992,
+   "correct": true,
+   "latency_ms": 532.2,
+   "tokens": 120,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-co_emissions",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.0015,
+    "NMVOCs": 0.0012,
+    "CO2": 0.79942,
+    "NOx": 0.0014,
+    "CO": 0.19218,
+    "none of these": 0.0043
+   },
+   "top": "CO2",
+   "confidence": 0.79942,
+   "correct": false,
+   "latency_ms": 510.0,
+   "tokens": 128,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-bc_emissions",
+   "task": "mapping",
+   "gold": "BC",
+   "probs": {
+    "OC": 0.0019,
+    "PM2.5": 0.0009,
+    "BC": 0.0558,
+    "CO": 0.017,
+    "CO2": 0.9117,
+    "none of these": 0.0127
+   },
+   "top": "CO2",
+   "confidence": 0.9117,
+   "correct": false,
+   "latency_ms": 610.2,
+   "tokens": 129,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-oc_emissions",
+   "task": "mapping",
+   "gold": "OC",
+   "probs": {
+    "BC": 0.001,
+    "OC": 0.9704,
+    "PM10": 0.0002,
+    "CO": 0.023,
+    "NMVOCs": 0.0017,
+    "none of these": 0.0037
+   },
+   "top": "OC",
+   "confidence": 0.9704,
+   "correct": true,
+   "latency_ms": 569.9,
+   "tokens": 131,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nh3_emissions",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "N2O": 0.07079,
+    "NH3": 0.45005,
+    "CH4": 0.0177,
+    "NMVOCs": 0.0408,
+    "NOx": 0.0444,
+    "none of these": 0.37626
+   },
+   "top": "NH3",
+   "confidence": 0.45005,
+   "correct": true,
+   "latency_ms": 663.7,
+   "tokens": 126,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-nmvoc_emissions",
+   "task": "mapping",
+   "gold": "NMVOCs",
+   "probs": {
+    "CH4": 0.0153,
+    "NMVOCs": 0.58824,
+    "CO": 0.0282,
+    "NOx": 0.27427,
+    "OC": 0.0075,
+    "none of these": 0.08649
+   },
+   "top": "NMVOCs",
+   "confidence": 0.58824,
+   "correct": true,
+   "latency_ms": 705.6,
+   "tokens": 125,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S2-population",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.1265,
+    "CO2": 0.1322,
+    "country": 0.1063,
+    "NOx": 0.0977,
+    "none of these": 0.5373
+   },
+   "top": "none of these",
+   "confidence": 0.5373,
+   "correct": true,
+   "latency_ms": 620.3,
+   "tokens": 110,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-country_code",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "continent": 0.0003,
+    "year": 0.0008,
+    "country": 0.9954,
+    "region": 0.0005,
+    "subsector": 0.001,
+    "none of these": 0.002
+   },
+   "top": "country",
+   "confidence": 0.9954,
+   "correct": true,
+   "latency_ms": 535.2,
+   "tokens": 120,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-reporting_year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.0002,
+    "month": 0.0001,
+    "macrosector": 0.0012,
+    "region": 0.0002,
+    "year": 0.9966,
+    "none of these": 0.0017
+   },
+   "top": "year",
+   "confidence": 0.9966,
+   "correct": true,
+   "latency_ms": 530.0,
+   "tokens": 123,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nfr_sector",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "macrosector": 0.2163,
+    "region": 0.0104,
+    "month": 0.0061,
+    "country": 0.0114,
+    "subsector": 0.6293,
+    "none of these": 0.1265
+   },
+   "top": "subsector",
+   "confidence": 0.6293,
+   "correct": true,
+   "latency_ms": 578.2,
+   "tokens": 134,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pm25_kt",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "PM10": 0.2379,
+    "PM2.5": 0.137,
+    "NOx": 0.1489,
+    "OC": 0.0492,
+    "BC": 0.0678,
+    "none of these": 0.3592
+   },
+   "top": "none of these",
+   "confidence": 0.3592,
+   "correct": false,
+   "latency_ms": 574.3,
+   "tokens": 136,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pm10_kt",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "NOx": 0.0417,
+    "PM2.5": 0.0903,
+    "SO2": 0.034,
+    "PM10": 0.6715,
+    "BC": 0.0132,
+    "none of these": 0.1493
+   },
+   "top": "PM10",
+   "confidence": 0.6715,
+   "correct": true,
+   "latency_ms": 638.0,
+   "tokens": 138,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nox_kt",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "NOx": 0.7839,
+    "SOx": 0.0542,
+    "CO": 0.0104,
+    "N2O": 0.0529,
+    "NH3": 0.0059,
+    "none of these": 0.0927
+   },
+   "top": "NOx",
+   "confidence": 0.7839,
+   "correct": true,
+   "latency_ms": 587.3,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-sox_kt",
+   "task": "mapping",
+   "gold": "SOx",
+   "probs": {
+    "SO2": 0.0901,
+    "SOx": 0.7875,
+    "NH3": 0.0048,
+    "NOx": 0.0338,
+    "CO": 0.0077,
+    "none of these": 0.0761
+   },
+   "top": "SOx",
+   "confidence": 0.7875,
+   "correct": true,
+   "latency_ms": 623.1,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nh3_kt",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "CH4": 0.0327,
+    "NH3": 0.1814,
+    "NOx": 0.06,
+    "NMVOCs": 0.1535,
+    "N2O": 0.2824,
+    "none of these": 0.29
+   },
+   "top": "none of these",
+   "confidence": 0.29,
+   "correct": false,
+   "latency_ms": 647.2,
+   "tokens": 124,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-nmvoc_kt",
+   "task": "mapping",
+   "gold": "NMVOCs",
+   "probs": {
+    "NMVOCs": 0.73303,
+    "OC": 0.0063,
+    "CH4": 0.0058,
+    "NOx": 0.21218,
+    "CO": 0.0063,
+    "none of these": 0.0364
+   },
+   "top": "NMVOCs",
+   "confidence": 0.73303,
+   "correct": true,
+   "latency_ms": 641.1,
+   "tokens": 123,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-co_kt",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.0327,
+    "NMVOCs": 0.0123,
+    "CO": 0.77658,
+    "CO2": 0.14221,
+    "NOx": 0.0112,
+    "none of these": 0.025
+   },
+   "top": "CO",
+   "confidence": 0.77658,
+   "correct": true,
+   "latency_ms": 636.3,
+   "tokens": 126,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-as_t",
+   "task": "mapping",
+   "gold": "As",
+   "probs": {
+    "Pb": 0.0001,
+    "Hg": 0.0003,
+    "As": 0.995,
+    "Cd": 0.0003,
+    "Se": 0.0003,
+    "none of these": 0.004
+   },
+   "top": "As",
+   "confidence": 0.995,
+   "correct": true,
+   "latency_ms": 529.4,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cd_t",
+   "task": "mapping",
+   "gold": "Cd",
+   "probs": {
+    "Hg": 0.0001,
+    "As": 0.0001,
+    "Cu": 0.0001,
+    "Cr": 0.0001,
+    "Cd": 0.9983,
+    "none of these": 0.0013
+   },
+   "top": "Cd",
+   "confidence": 0.9983,
+   "correct": true,
+   "latency_ms": 523.8,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cr_t",
+   "task": "mapping",
+   "gold": "Cr",
+   "probs": {
+    "Cu": 0.0001,
+    "Ni": 0.0002,
+    "Cr": 0.996,
+    "Cd": 0.0003,
+    "Zn": 0.0002,
+    "none of these": 0.0032
+   },
+   "top": "Cr",
+   "confidence": 0.996,
+   "correct": true,
+   "latency_ms": 527.9,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-cu_t",
+   "task": "mapping",
+   "gold": "Cu",
+   "probs": {
+    "Cr": 0.0007,
+    "Cd": 0.0015,
+    "Ni": 0.0008,
+    "Zn": 0.0025,
+    "Cu": 0.9712,
+    "none of these": 0.0233
+   },
+   "top": "Cu",
+   "confidence": 0.9712,
+   "correct": true,
+   "latency_ms": 555.7,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-hg_t",
+   "task": "mapping",
+   "gold": "Hg",
+   "probs": {
+    "As": 0.0016,
+    "Pb": 0.0005,
+    "Cd": 0.0014,
+    "Hg": 0.9632,
+    "Ni": 0.0004,
+    "none of these": 0.0329
+   },
+   "top": "Hg",
+   "confidence": 0.9632,
+   "correct": true,
+   "latency_ms": 559.1,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-ni_t",
+   "task": "mapping",
+   "gold": "Ni",
+   "probs": {
+    "Pb": 0.0003,
+    "Zn": 0.0013,
+    "Cr": 0.0004,
+    "Cu": 0.0004,
+    "Ni": 0.9809,
+    "none of these": 0.0167
+   },
+   "top": "Ni",
+   "confidence": 0.9809,
+   "correct": true,
+   "latency_ms": 1130.6,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-pb_t",
+   "task": "mapping",
+   "gold": "Pb",
+   "probs": {
+    "Zn": 0.0038,
+    "Pb": 0.70383,
+    "Hg": 0.007,
+    "Cd": 0.0095,
+    "Ni": 0.0043,
+    "none of these": 0.27157
+   },
+   "top": "Pb",
+   "confidence": 0.70383,
+   "correct": true,
+   "latency_ms": 540.4,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-se_t",
+   "task": "mapping",
+   "gold": "Se",
+   "probs": {
+    "As": 0.0001,
+    "Zn": 0.0,
+    "Cd": 0.0001,
+    "Se": 0.9993,
+    "Pb": 0.0,
+    "none of these": 0.0005
+   },
+   "top": "Se",
+   "confidence": 0.9993,
+   "correct": true,
+   "latency_ms": 526.1,
+   "tokens": 107,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-zn_t",
+   "task": "mapping",
+   "gold": "Zn",
+   "probs": {
+    "Cu": 0.0002,
+    "Cr": 0.0003,
+    "Ni": 0.0003,
+    "Zn": 0.9765,
+    "Pb": 0.0003,
+    "none of these": 0.0224
+   },
+   "top": "Zn",
+   "confidence": 0.9765,
+   "correct": true,
+   "latency_ms": 602.9,
+   "tokens": 106,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S3-notation_key",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.0748,
+    "country": 0.1133,
+    "subsector": 0.1646,
+    "NOx": 0.4501,
+    "none of these": 0.1972
+   },
+   "top": "NOx",
+   "confidence": 0.4501,
+   "correct": false,
+   "latency_ms": 631.0,
+   "tokens": 111,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-nuts2_region",
+   "task": "mapping",
+   "gold": "region",
+   "probs": {
+    "region": 0.15882,
+    "continent": 0.0048,
+    "subsector": 0.0217,
+    "month": 0.19922,
+    "country": 0.0144,
+    "none of these": 0.60106
+   },
+   "top": "none of these",
+   "confidence": 0.60106,
+   "correct": false,
+   "latency_ms": 674.5,
+   "tokens": 123,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-date_month",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "month": 0.9942,
+    "country": 0.0003,
+    "subsector": 0.0004,
+    "year": 0.0023,
+    "region": 0.0002,
+    "none of these": 0.0026
+   },
+   "top": "month",
+   "confidence": 0.9942,
+   "correct": true,
+   "latency_ms": 728.5,
+   "tokens": 126,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-pm25_ugm3",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "PM10": 0.104,
+    "OC": 0.0301,
+    "BC": 0.0333,
+    "NOx": 0.4617,
+    "PM2.5": 0.0709,
+    "none of these": 0.3
+   },
+   "top": "NOx",
+   "confidence": 0.4617,
+   "correct": false,
+   "latency_ms": 766.7,
+   "tokens": 134,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-pm10_ugm3",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "BC": 0.0047,
+    "NOx": 0.0052,
+    "PM2.5": 0.0169,
+    "PM10": 0.8838,
+    "SO2": 0.0137,
+    "none of these": 0.0757
+   },
+   "top": "PM10",
+   "confidence": 0.8838,
+   "correct": true,
+   "latency_ms": 768.9,
+   "tokens": 136,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-nox_ugm3",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "SOx": 0.0197,
+    "N2O": 0.1571,
+    "NOx": 0.817,
+    "CO": 0.0024,
+    "NH3": 0.0008,
+    "none of these": 0.003
+   },
+   "top": "NOx",
+   "confidence": 0.817,
+   "correct": true,
+   "latency_ms": 703.3,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-so2_ugm3",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "SO2": 0.9997,
+    "NOx": 0.0,
+    "SOx": 0.0001,
+    "CO": 0.0001,
+    "NH3": 0.0,
+    "none of these": 0.0001
+   },
+   "top": "SO2",
+   "confidence": 0.9997,
+   "correct": true,
+   "latency_ms": 629.8,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-co_mgm3",
+   "task": "mapping",
+   "gold": "CO",
+   "probs": {
+    "SO2": 0.0224,
+    "CO": 0.7674,
+    "NOx": 0.005,
+    "CO2": 0.1374,
+    "NMVOCs": 0.0199,
+    "none of these": 0.0479
+   },
+   "top": "CO",
+   "confidence": 0.7674,
+   "correct": true,
+   "latency_ms": 788.6,
+   "tokens": 122,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S4-station_count",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "PM10": 0.0428,
+    "region": 0.041,
+    "month": 0.1653,
+    "CO": 0.3885,
+    "none of these": 0.3624
+   },
+   "top": "CO",
+   "confidence": 0.3885,
+   "correct": false,
+   "latency_ms": 702.3,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-continent",
+   "task": "mapping",
+   "gold": "continent",
+   "probs": {
+    "year": 0.0002,
+    "country": 0.0001,
+    "region": 0.0002,
+    "macrosector": 0.0004,
+    "continent": 0.9971,
+    "none of these": 0.002
+   },
+   "top": "continent",
+   "confidence": 0.9971,
+   "correct": true,
+   "latency_ms": 709.8,
+   "tokens": 114,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "region": 0.0,
+    "month": 0.0,
+    "macrosector": 0.0002,
+    "country": 0.0,
+    "year": 0.9991,
+    "none of these": 0.0007
+   },
+   "top": "year",
+   "confidence": 0.9991,
+   "correct": true,
+   "latency_ms": 667.2,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-sector_group",
+   "task": "mapping",
+   "gold": "macrosector",
+   "probs": {
+    "country": 0.0025,
+    "subsector": 0.68573,
+    "macrosector": 0.25747,
+    "year": 0.006,
+    "continent": 0.0084,
+    "none of these": 0.0399
+   },
+   "top": "subsector",
+   "confidence": 0.68573,
+   "correct": false,
+   "latency_ms": 916.3,
+   "tokens": 117,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-co2_mt",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO2e (100-year)": 0.0314,
+    "CO": 0.007,
+    "N2O": 0.0048,
+    "CH4": 0.077,
+    "CO2": 0.869,
+    "none of these": 0.0108
+   },
+   "top": "CO2",
+   "confidence": 0.869,
+   "correct": true,
+   "latency_ms": 686.0,
+   "tokens": 131,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-ch4_mt",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "CO2e (100-year)": 0.0139,
+    "N2O": 0.007,
+    "CO2": 0.0124,
+    "CH4": 0.94621,
+    "NMVOCs": 0.0054,
+    "none of these": 0.0151
+   },
+   "top": "CH4",
+   "confidence": 0.94621,
+   "correct": true,
+   "latency_ms": 756.8,
+   "tokens": 136,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-n2o_mt",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "CH4": 0.0012,
+    "NH3": 0.0008,
+    "N2O": 0.9467,
+    "NOx": 0.011,
+    "CO2": 0.0377,
+    "none of these": 0.0026
+   },
+   "top": "N2O",
+   "confidence": 0.9467,
+   "correct": true,
+   "latency_ms": 664.4,
+   "tokens": 115,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S5-ghg_co2e_100",
+   "task": "mapping",
+   "gold": "CO2e (100-year)",
+   "probs": {
+    "CO2e (20-year)": 0.0023,
+    "CO2": 0.0031,
+    "CH4": 0.0006,
+    "N2O": 0.0004,
+    "CO2e (100-year)": 0.993,
+    "none of these": 0.0006
+   },
+   "top": "CO2e (100-year)",
+   "confidence": 0.993,
+   "correct": true,
+   "latency_ms": 805.5,
+   "tokens": 149,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-nation",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "region": 0.0455,
+    "continent": 0.0187,
+    "country": 0.4999,
+    "year": 0.0108,
+    "subsector": 0.016,
+    "none of these": 0.4091
+   },
+   "top": "country",
+   "confidence": 0.4999,
+   "correct": true,
+   "latency_ms": 699.6,
+   "tokens": 120,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-survey_year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "country": 0.0009,
+    "year": 0.9922,
+    "month": 0.0003,
+    "region": 0.0004,
+    "macrosector": 0.0003,
+    "none of these": 0.0059
+   },
+   "top": "year",
+   "confidence": 0.9922,
+   "correct": true,
+   "latency_ms": 661.4,
+   "tokens": 125,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-sector",
+   "task": "mapping",
+   "gold": "macrosector",
+   "probs": {
+    "subsector": 0.80132,
+    "year": 0.0037,
+    "continent": 0.0049,
+    "macrosector": 0.13519,
+    "country": 0.0084,
+    "none of these": 0.0465
+   },
+   "top": "subsector",
+   "confidence": 0.80132,
+   "correct": false,
+   "latency_ms": 842.8,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-pm2_5",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "OC": 0.0014,
+    "BC": 0.91222,
+    "PM10": 0.0038,
+    "PM2.5": 0.07678,
+    "NOx": 0.0009,
+    "none of these": 0.0049
+   },
+   "top": "BC",
+   "confidence": 0.91222,
+   "correct": false,
+   "latency_ms": 819.4,
+   "tokens": 137,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-pm_10",
+   "task": "mapping",
+   "gold": "PM10",
+   "probs": {
+    "NOx": 0.0036,
+    "SO2": 0.0039,
+    "BC": 0.40366,
+    "PM10": 0.55914,
+    "PM2.5": 0.0138,
+    "none of these": 0.0159
+   },
+   "top": "PM10",
+   "confidence": 0.55914,
+   "correct": true,
+   "latency_ms": 689.1,
+   "tokens": 138,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S6-black_carbon",
+   "task": "mapping",
+   "gold": "BC",
+   "probs": {
+    "CO2": 0.0099,
+    "PM2.5": 0.008,
+    "BC": 0.9569,
+    "CO": 0.0022,
+    "OC": 0.0051,
+    "none of these": 0.0179
+   },
+   "top": "BC",
+   "confidence": 0.9569,
+   "correct": true,
+   "latency_ms": 668.0,
+   "tokens": 128,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-country_iso",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "country": 0.9985,
+    "subsector": 0.0002,
+    "year": 0.0002,
+    "region": 0.0002,
+    "continent": 0.0001,
+    "none of these": 0.0008
+   },
+   "top": "country",
+   "confidence": 0.9985,
+   "correct": true,
+   "latency_ms": 677.9,
+   "tokens": 119,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-month",
+   "task": "mapping",
+   "gold": "month",
+   "probs": {
+    "year": 0.0029,
+    "region": 0.0003,
+    "month": 0.9925,
+    "country": 0.0013,
+    "subsector": 0.0011,
+    "none of these": 0.0019
+   },
+   "top": "month",
+   "confidence": 0.9925,
+   "correct": true,
+   "latency_ms": 714.1,
+   "tokens": 124,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-transport_mode",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "macrosector": 0.30903,
+    "country": 0.0245,
+    "month": 0.40684,
+    "subsector": 0.15582,
+    "region": 0.0065,
+    "none of these": 0.09731
+   },
+   "top": "month",
+   "confidence": 0.40684,
+   "correct": false,
+   "latency_ms": 878.9,
+   "tokens": 125,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-co2_tonnes",
+   "task": "mapping",
+   "gold": "CO2",
+   "probs": {
+    "CO": 0.0004,
+    "N2O": 0.0004,
+    "CO2e (100-year)": 0.0008,
+    "CO2": 0.9951,
+    "CH4": 0.0005,
+    "none of these": 0.0028
+   },
+   "top": "CO2",
+   "confidence": 0.9951,
+   "correct": true,
+   "latency_ms": 2927.4,
+   "tokens": 129,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-nox_tonnes",
+   "task": "mapping",
+   "gold": "NOx",
+   "probs": {
+    "SOx": 0.0028,
+    "NOx": 0.9853,
+    "CO": 0.0007,
+    "N2O": 0.0088,
+    "NH3": 0.0004,
+    "none of these": 0.002
+   },
+   "top": "NOx",
+   "confidence": 0.9853,
+   "correct": true,
+   "latency_ms": 496.6,
+   "tokens": 114,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-so2_tonnes",
+   "task": "mapping",
+   "gold": "SO2",
+   "probs": {
+    "NH3": 0.0,
+    "SOx": 0.0007,
+    "SO2": 0.9989,
+    "NOx": 0.0001,
+    "CO": 0.0001,
+    "none of these": 0.0002
+   },
+   "top": "SO2",
+   "confidence": 0.9989,
+   "correct": true,
+   "latency_ms": 501.1,
+   "tokens": 114,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S7-pm25_tonnes",
+   "task": "mapping",
+   "gold": "PM2.5",
+   "probs": {
+    "BC": 0.05051,
+    "PM10": 0.14231,
+    "NOx": 0.16992,
+    "PM2.5": 0.07151,
+    "OC": 0.0255,
+    "none of these": 0.54025
+   },
+   "top": "none of these",
+   "confidence": 0.54025,
+   "correct": false,
+   "latency_ms": 592.7,
+   "tokens": 130,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-area",
+   "task": "mapping",
+   "gold": "country",
+   "probs": {
+    "year": 0.0056,
+    "region": 0.0233,
+    "country": 0.8162,
+    "continent": 0.0195,
+    "subsector": 0.0147,
+    "none of these": 0.1207
+   },
+   "top": "country",
+   "confidence": 0.8162,
+   "correct": true,
+   "latency_ms": 578.9,
+   "tokens": 118,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-year",
+   "task": "mapping",
+   "gold": "year",
+   "probs": {
+    "year": 0.9981,
+    "month": 0.0001,
+    "country": 0.0002,
+    "region": 0.0001,
+    "macrosector": 0.0002,
+    "none of these": 0.0013
+   },
+   "top": "year",
+   "confidence": 0.9981,
+   "correct": true,
+   "latency_ms": 546.4,
+   "tokens": 119,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-item",
+   "task": "mapping",
+   "gold": "subsector",
+   "probs": {
+    "subsector": 0.1274,
+    "country": 0.04,
+    "month": 0.0103,
+    "macrosector": 0.033,
+    "region": 0.006,
+    "none of these": 0.7833
+   },
+   "top": "none of these",
+   "confidence": 0.7833,
+   "correct": false,
+   "latency_ms": 579.4,
+   "tokens": 128,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-ch4_kt",
+   "task": "mapping",
+   "gold": "CH4",
+   "probs": {
+    "NMVOCs": 0.0295,
+    "N2O": 0.0158,
+    "CO2": 0.0199,
+    "CH4": 0.8142,
+    "CO2e (100-year)": 0.0248,
+    "none of these": 0.0958
+   },
+   "top": "CH4",
+   "confidence": 0.8142,
+   "correct": true,
+   "latency_ms": 582.0,
+   "tokens": 138,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-n2o_kt",
+   "task": "mapping",
+   "gold": "N2O",
+   "probs": {
+    "CO2": 0.0127,
+    "CH4": 0.0007,
+    "NH3": 0.0007,
+    "N2O": 0.9795,
+    "NOx": 0.004,
+    "none of these": 0.0024
+   },
+   "top": "N2O",
+   "confidence": 0.9795,
+   "correct": true,
+   "latency_ms": 1054.8,
+   "tokens": 116,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-nh3_kt",
+   "task": "mapping",
+   "gold": "NH3",
+   "probs": {
+    "NH3": 0.87701,
+    "CH4": 0.0067,
+    "NOx": 0.0126,
+    "NMVOCs": 0.0277,
+    "N2O": 0.0179,
+    "none of these": 0.05809
+   },
+   "top": "NH3",
+   "confidence": 0.87701,
+   "correct": true,
+   "latency_ms": 568.7,
+   "tokens": 122,
+   "cost_usd": 0.0
+  },
+  {
+   "id": "map-S8-element_code",
+   "task": "mapping",
+   "gold": "none of these",
+   "probs": {
+    "year": 0.08659,
+    "macrosector": 0.15688,
+    "subsector": 0.20958,
+    "CH4": 0.12959,
+    "none of these": 0.41736
+   },
+   "top": "none of these",
+   "confidence": 0.41736,
+   "correct": true,
+   "latency_ms": 514.2,
+   "tokens": 110,
+   "cost_usd": 0.0
+  }
+ ],
+ "reruns": [
+  {
+   "tasks": [
+    "relevance"
+   ],
+   "items": 132,
+   "finished": "2026-09-29T19:27:45+00:00",
+   "seconds": 68.4,
+   "reason": "Question reworded so that the word emissions alone no longer implies every pollutant.",
+   "before": {
+    "relevance": {
+     "accuracy": 0.7575757575757576,
+     "ece": 0.07891212121212118
+    }
+   }
+  }
+ ]
+}

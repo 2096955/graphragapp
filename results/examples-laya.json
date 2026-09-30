@@ -1,0 +1,2515 @@
+{
+ "backend": "laya",
+ "label": "Laya",
+ "model": "convaiinnovations/laya (english)",
+ "runs": [
+  {
+   "request": "I want to analyse particulate matter (PM2.5 and PM10) by country and year",
+   "preference": "European countries, last 3 years",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1140.8768060000511,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.4987,
+       "clarify": 0.2503,
+       "reject": 0.251
+      },
+      "top": "answer",
+      "confidence": 0.4987
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 4087.6939330000823,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "PM2_5",
+      "PM10"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.2875,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.1765,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.1531,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1956,
+       "selected": false
+      },
+      {
+       "node": "pollutant:PM2_5",
+       "label": "PM2.5",
+       "kind": "pollutant",
+       "p": 0.444,
+       "selected": false
+      },
+      {
+       "node": "pollutant:PM10",
+       "label": "PM10",
+       "kind": "pollutant",
+       "p": 0.6971,
+       "selected": true
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": [
+      "PM10"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1234.2673960001775,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.0406,
+        "country": 0.5297,
+        "continent": 0.0231,
+        "none": 0.4066
+       },
+       "top": "country",
+       "confidence": 0.5297
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.0426,
+        "year": 0.5938,
+        "none": 0.3636
+       },
+       "top": "year",
+       "confidence": 0.5938
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.1122,
+        "macrosector": 0.1511,
+        "none": 0.7367
+       },
+       "top": "none",
+       "confidence": 0.7367
+      }
+     },
+     "query": {
+      "pollutants": [
+       "PM10"
+      ],
+      "levels": {
+       "GEO": "country",
+       "TIME": "year"
+      }
+     }
+    },
+    {
+     "stage": "discover",
+     "title": "Discovery",
+     "latency_ms": 61.4080569998805,
+     "solutions": 3
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "A",
+      "B",
+      "C"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.07349200041062431,
+     "by": "template"
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "PM10"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year"
+    }
+   },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S3",
+       "name": "European Air Emissions Reporting",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "PM10"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 57,
+       "France": 24,
+       "Germany": 58,
+       "Spain": 39,
+       "Portugal": 51,
+       "Poland": 26,
+       "United Kingdom": 20
+      },
+      "TIME.year": {
+       "2015": 13,
+       "2016": 26,
+       "2018": 29,
+       "2019": 36,
+       "2020": 23,
+       "2021": 20,
+       "2022": 28,
+       "2023": 26,
+       "2024": 38
+      }
+     },
+     "cells": 63,
+     "notes": [
+      "European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors"
+     ],
+     "id": "A",
+     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). Pollutants: PM10. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.099,
+       "1": 0.3442,
+       "2": 0.3197,
+       "3": 0.2371
+      },
+      "top": "1",
+      "confidence": 0.3442,
+      "score": 1.6949,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S4",
+       "name": "Regional Air Monitoring Network",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "PM10"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 170,
+       "France": 61,
+       "Germany": 116,
+       "Spain": 54
+      },
+      "TIME.year": {
+       "2019": 288,
+       "2020": 295,
+       "2021": 239,
+       "2022": 284,
+       "2023": 253,
+       "2024": 343,
+       "2025": 243
+      }
+     },
+     "cells": 28,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 4 countries: Italy, France, Germany, Spain. Years: 2019 to 2025 (7 covered). Pollutants: PM10.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.13,
+       "1": 0.3499,
+       "2": 0.2957,
+       "3": 0.2244
+      },
+      "top": "1",
+      "confidence": 0.3499,
+      "score": 1.6145,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S6",
+       "name": "Asia-Pacific Particulate Survey",
+       "publisher": "research",
+       "updated": 2023,
+       "provides": [
+        "PM10"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "China": 26,
+       "India": 61,
+       "Japan": 43,
+       "Australia": 40
+      },
+      "TIME.year": {
+       "2017": 16,
+       "2018": 18,
+       "2019": 25,
+       "2020": 24,
+       "2021": 21,
+       "2022": 30
+      }
+     },
+     "cells": 24,
+     "notes": [
+      "Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors"
+     ],
+     "id": "C",
+     "summary": "Sources: Asia-Pacific Particulate Survey (research, updated 2023). 4 countries: China, India, Japan, Australia. Years: 2017 to 2022 (6 covered). Pollutants: PM10. Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.265,
+       "1": 0.3233,
+       "2": 0.2266,
+       "3": 0.1851
+      },
+      "top": "1",
+      "confidence": 0.3233,
+      "score": 1.3318,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
+   "subgraph": {
+    "nodes": [
+     {
+      "id": "P:PM10",
+      "kind": "pollutant",
+      "label": "PM10"
+     },
+     {
+      "id": "L:GEO.region",
+      "kind": "level",
+      "label": "region",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:GEO.country",
+      "kind": "level",
+      "label": "country",
+      "dim": "GEO",
+      "selected": true
+     },
+     {
+      "id": "L:GEO.continent",
+      "kind": "level",
+      "label": "continent",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.month",
+      "kind": "level",
+      "label": "month",
+      "dim": "TIME",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.year",
+      "kind": "level",
+      "label": "year",
+      "dim": "TIME",
+      "selected": true
+     },
+     {
+      "id": "L:SECTOR.subsector",
+      "kind": "level",
+      "label": "subsector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "L:SECTOR.macrosector",
+      "kind": "level",
+      "label": "macrosector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "S:S3",
+      "kind": "source",
+      "label": "European Air Emissions Reporting"
+     },
+     {
+      "id": "S:S4",
+      "kind": "source",
+      "label": "Regional Air Monitoring Network"
+     },
+     {
+      "id": "S:S6",
+      "kind": "source",
+      "label": "Asia-Pacific Particulate Survey"
+     }
+    ],
+    "edges": [
+     {
+      "from": "L:GEO.region",
+      "to": "L:GEO.country",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:GEO.country",
+      "to": "L:GEO.continent",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:TIME.month",
+      "to": "L:TIME.year",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:SECTOR.subsector",
+      "to": "L:SECTOR.macrosector",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "S:S3",
+      "to": "P:PM10",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S4",
+      "to": "P:PM10",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:GEO.region",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:TIME.month",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "P:PM10",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S6",
+      "to": "L:SECTOR.macrosector",
+      "kind": "at_level"
+     }
+    ]
+   },
+   "explanation": {
+    "by": "template",
+    "text": "3 solutions hold PM10 by country and year.\nFirst: A, European Air Emissions Reporting, covering 7 countries, 2015 to 2024. Preference fit 1.7 of 3 (34% confident in its most likely level). Caution: European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.\nThen: B, Regional Air Monitoring Network, covering 4 countries, 2019 to 2025. Preference fit 1.6 of 3 (35% confident in its most likely level).\nThen: C, Asia-Pacific Particulate Survey, covering 4 countries, 2017 to 2022. Preference fit 1.3 of 3 (32% confident in its most likely level). Caution: Asia-Pacific Particulate Survey is summed over sector but covers only 5 of 8 macrosectors."
+   },
+   "outcome": "answer",
+   "message": null,
+   "totals": {
+    "decisions": 13,
+    "calls": 6,
+    "latency_ms": 8229.8,
+    "cost_usd": 0.0,
+    "wall_ms": 8296.0
+   }
+  },
+  {
+   "request": "Greenhouse gas emissions from road transport by country and month",
+   "preference": "The most recent data available",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1116.9421280001188,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.4532,
+       "clarify": 0.2997,
+       "reject": 0.2471
+      },
+      "top": "answer",
+      "confidence": 0.4532
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 2447.997500999918,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "CO2"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.239,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.3074,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.1214,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1772,
+       "selected": false
+      },
+      {
+       "node": "pollutant:CO2",
+       "label": "CO2",
+       "kind": "pollutant",
+       "p": 0.3283,
+       "selected": false
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": []
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1206.3349809995998,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.0152,
+        "country": 0.8898,
+        "continent": 0.0173,
+        "none": 0.0777
+       },
+       "top": "country",
+       "confidence": 0.8898
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.9294,
+        "year": 0.0317,
+        "none": 0.0389
+       },
+       "top": "month",
+       "confidence": 0.9294
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.2907,
+        "macrosector": 0.2534,
+        "none": 0.4559
+       },
+       "top": "none",
+       "confidence": 0.4559
+      }
+     },
+     "query": {
+      "pollutants": [],
+      "levels": {
+       "GEO": "country",
+       "TIME": "month"
+      }
+     }
+    }
+   ],
+   "query": {
+    "pollutants": [],
+    "levels": {
+     "GEO": "country",
+     "TIME": "month"
+    }
+   },
+   "outcome": "clarify",
+   "message": "The gate said answer, but no a pollutant passed the threshold. Ask the user for a pollutant.",
+   "totals": {
+    "decisions": 9,
+    "calls": 3,
+    "latency_ms": 4771.3,
+    "cost_usd": 0.0,
+    "wall_ms": 4772.3
+   }
+  },
+  {
+   "request": "Ammonia from agriculture by country and year",
+   "preference": "As many countries as possible",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1064.2898440000863,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.4225,
+       "clarify": 0.303,
+       "reject": 0.2745
+      },
+      "top": "answer",
+      "confidence": 0.4225
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 2391.6847280002003,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "NH3"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.3001,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.123,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.159,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1659,
+       "selected": false
+      },
+      {
+       "node": "pollutant:NH3",
+       "label": "NH3",
+       "kind": "pollutant",
+       "p": 0.7045,
+       "selected": true
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": [
+      "NH3"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1144.6663609999632,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.05421,
+        "country": 0.52225,
+        "continent": 0.0355,
+        "none": 0.38804
+       },
+       "top": "country",
+       "confidence": 0.52225
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.07281,
+        "year": 0.56486,
+        "none": 0.36234
+       },
+       "top": "year",
+       "confidence": 0.56486
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.0878,
+        "macrosector": 0.3923,
+        "none": 0.5199
+       },
+       "top": "none",
+       "confidence": 0.5199
+      }
+     },
+     "query": {
+      "pollutants": [
+       "NH3"
+      ],
+      "levels": {
+       "GEO": "country",
+       "TIME": "year"
+      }
+     }
+    },
+    {
+     "stage": "discover",
+     "title": "Discovery",
+     "latency_ms": 36.459016999742744,
+     "solutions": 3
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "C",
+      "A",
+      "B"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.052212999889889034,
+     "by": "template"
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "NH3"
+    ],
+    "levels": {
+     "GEO": "country",
+     "TIME": "year"
+    }
+   },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S8",
+       "name": "Agricultural Emissions Database",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 34,
+       "France": 56,
+       "Germany": 16,
+       "Spain": 23,
+       "Portugal": 25,
+       "Poland": 30,
+       "United Kingdom": 57,
+       "United States": 47,
+       "Brazil": 53,
+       "China": 25,
+       "India": 62,
+       "Japan": 35,
+       "Australia": 19,
+       "South Africa": 38,
+       "Nigeria": 51
+      },
+      "TIME.year": {
+       "2015": 30,
+       "2016": 20,
+       "2017": 36,
+       "2018": 27,
+       "2019": 26,
+       "2020": 37,
+       "2021": 37,
+       "2022": 18,
+       "2023": 21,
+       "2024": 23,
+       "2025": 16
+      }
+     },
+     "cells": 165,
+     "notes": [
+      "Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning"
+     ],
+     "id": "C",
+     "summary": "Sources: Agricultural Emissions Database (official, updated 2025). 15 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom, United States and 7 more. Years: 2015 to 2025 (11 covered). Pollutants: NH3. Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0729,
+       "1": 0.1735,
+       "2": 0.3781,
+       "3": 0.3755
+      },
+      "top": "2",
+      "confidence": 0.3781,
+      "score": 2.0562,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S2",
+       "name": "National Emissions Compendium",
+       "publisher": "official",
+       "updated": 2024,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 53,
+       "Spain": 32,
+       "Portugal": 57,
+       "Poland": 25,
+       "United States": 35,
+       "Brazil": 36,
+       "China": 54,
+       "India": 56,
+       "Japan": 26,
+       "Australia": 61,
+       "South Africa": 45,
+       "Nigeria": 43
+      },
+      "TIME.year": {
+       "2015": 28,
+       "2016": 14,
+       "2017": 32,
+       "2018": 29,
+       "2019": 30,
+       "2020": 18,
+       "2021": 29,
+       "2022": 20,
+       "2023": 20
+      }
+     },
+     "cells": 108,
+     "notes": [],
+     "id": "A",
+     "summary": "Sources: National Emissions Compendium (official, updated 2024). 12 countries: Italy, Spain, Portugal, Poland, United States, Brazil, China, India and 4 more. Years: 2015 to 2023 (9 covered). Pollutants: NH3.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.0868,
+       "1": 0.3013,
+       "2": 0.3874,
+       "3": 0.2245
+      },
+      "top": "2",
+      "confidence": 0.3874,
+      "score": 1.7496,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S3",
+       "name": "European Air Emissions Reporting",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NH3"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.country": {
+       "Italy": 57,
+       "France": 24,
+       "Germany": 58,
+       "Spain": 39,
+       "Portugal": 51,
+       "Poland": 26,
+       "United Kingdom": 20
+      },
+      "TIME.year": {
+       "2015": 13,
+       "2016": 26,
+       "2018": 29,
+       "2019": 36,
+       "2020": 23,
+       "2021": 20,
+       "2022": 28,
+       "2023": 26,
+       "2024": 38
+      }
+     },
+     "cells": 63,
+     "notes": [
+      "European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors"
+     ],
+     "id": "B",
+     "summary": "Sources: European Air Emissions Reporting (official, updated 2025). 7 countries: Italy, France, Germany, Spain, Portugal, Poland, United Kingdom. Years: 2015 to 2024 (9 covered). Pollutants: NH3. European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.12069,
+       "1": 0.32927,
+       "2": 0.31787,
+       "3": 0.23218
+      },
+      "top": "1",
+      "confidence": 0.32927,
+      "score": 1.6615,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
+   "subgraph": {
+    "nodes": [
+     {
+      "id": "P:NH3",
+      "kind": "pollutant",
+      "label": "NH3"
+     },
+     {
+      "id": "L:GEO.region",
+      "kind": "level",
+      "label": "region",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:GEO.country",
+      "kind": "level",
+      "label": "country",
+      "dim": "GEO",
+      "selected": true
+     },
+     {
+      "id": "L:GEO.continent",
+      "kind": "level",
+      "label": "continent",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.month",
+      "kind": "level",
+      "label": "month",
+      "dim": "TIME",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.year",
+      "kind": "level",
+      "label": "year",
+      "dim": "TIME",
+      "selected": true
+     },
+     {
+      "id": "L:SECTOR.subsector",
+      "kind": "level",
+      "label": "subsector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "L:SECTOR.macrosector",
+      "kind": "level",
+      "label": "macrosector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "S:S2",
+      "kind": "source",
+      "label": "National Emissions Compendium"
+     },
+     {
+      "id": "S:S3",
+      "kind": "source",
+      "label": "European Air Emissions Reporting"
+     },
+     {
+      "id": "S:S8",
+      "kind": "source",
+      "label": "Agricultural Emissions Database"
+     }
+    ],
+    "edges": [
+     {
+      "from": "L:GEO.region",
+      "to": "L:GEO.country",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:GEO.country",
+      "to": "L:GEO.continent",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:TIME.month",
+      "to": "L:TIME.year",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:SECTOR.subsector",
+      "to": "L:SECTOR.macrosector",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "S:S2",
+      "to": "P:NH3",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S2",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S2",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "P:NH3",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S3",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "P:NH3",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     }
+    ]
+   },
+   "explanation": {
+    "by": "template",
+    "text": "3 solutions hold NH3 by country and year.\nFirst: C, Agricultural Emissions Database, covering 15 countries, 2015 to 2025. Preference fit 2.1 of 3 (38% confident in its most likely level). Caution: Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.\nThen: A, National Emissions Compendium, covering 12 countries, 2015 to 2023. Preference fit 1.7 of 3 (39% confident in its most likely level).\nThen: B, European Air Emissions Reporting, covering 7 countries, 2015 to 2024. Preference fit 1.7 of 3 (33% confident in its most likely level). Caution: European Air Emissions Reporting is summed over sector but covers only 9 of 13 subsectors."
+   },
+   "outcome": "answer",
+   "message": null,
+   "totals": {
+    "decisions": 12,
+    "calls": 6,
+    "latency_ms": 6457.1,
+    "cost_usd": 0.0,
+    "wall_ms": 6494.9
+   }
+  },
+  {
+   "request": "Monthly NOx emissions by region for the last five years",
+   "preference": "Italian regions",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1062.9936850000377,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.4116,
+       "clarify": 0.3647,
+       "reject": 0.2237
+      },
+      "top": "answer",
+      "confidence": 0.4116
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 3009.5261300002676,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "NOx",
+      "CO2"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.2738,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.1406,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.0803,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1345,
+       "selected": false
+      },
+      {
+       "node": "pollutant:NOx",
+       "label": "NOx",
+       "kind": "pollutant",
+       "p": 0.7548,
+       "selected": true
+      },
+      {
+       "node": "pollutant:CO2",
+       "label": "CO2",
+       "kind": "pollutant",
+       "p": 0.0272,
+       "selected": false
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": [
+      "NOx"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 936.2054319999515,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.85521,
+        "country": 0.0107,
+        "continent": 0.0107,
+        "none": 0.12339
+       },
+       "top": "region",
+       "confidence": 0.85521
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.975,
+        "year": 0.0195,
+        "none": 0.0055
+       },
+       "top": "month",
+       "confidence": 0.975
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.1196,
+        "macrosector": 0.1219,
+        "none": 0.7585
+       },
+       "top": "none",
+       "confidence": 0.7585
+      }
+     },
+     "query": {
+      "pollutants": [
+       "NOx"
+      ],
+      "levels": {
+       "GEO": "region",
+       "TIME": "month"
+      }
+     }
+    },
+    {
+     "stage": "discover",
+     "title": "Discovery",
+     "latency_ms": 26.97007200004009,
+     "solutions": 1
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "A"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.03238399995098007,
+     "by": "template"
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "NOx"
+    ],
+    "levels": {
+     "GEO": "region",
+     "TIME": "month"
+    }
+   },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S4",
+       "name": "Regional Air Monitoring Network",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "NOx"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.region": {
+       "Veneto": 54,
+       "Lazio": 56,
+       "Lombardy": 60,
+       "Ile-de-France": 35,
+       "Auvergne-Rhone-Alpes": 26,
+       "Brandenburg": 58,
+       "Bavaria": 58,
+       "Andalusia": 54
+      },
+      "TIME.month": {
+       "2019-01": 38,
+       "2019-03": 34,
+       "2019-05": 17,
+       "2019-06": 36,
+       "2019-07": 29,
+       "2019-08": 26,
+       "2019-09": 35,
+       "2019-10": 12,
+       "2019-11": 25,
+       "2019-12": 36,
+       "2020-01": 30,
+       "2020-02": 24,
+       "2020-03": 26,
+       "2020-04": 31,
+       "2020-05": 23,
+       "2020-06": 28,
+       "2020-07": 36,
+       "2020-08": 12,
+       "2020-09": 23,
+       "2020-10": 12,
+       "2020-11": 39,
+       "2020-12": 11,
+       "2021-01": 30,
+       "2021-02": 23,
+       "2021-03": 28,
+       "2021-04": 24,
+       "2021-05": 11,
+       "2021-06": 28,
+       "2021-07": 25,
+       "2021-08": 29,
+       "2021-10": 11,
+       "2021-12": 30,
+       "2022-01": 14,
+       "2022-02": 25,
+       "2022-03": 12,
+       "2022-04": 19,
+       "2022-05": 31,
+       "2022-06": 18,
+       "2022-07": 38,
+       "2022-08": 29,
+       "2022-09": 30,
+       "2022-10": 30,
+       "2022-11": 10,
+       "2022-12": 28,
+       "2023-01": 15,
+       "2023-02": 27,
+       "2023-03": 28,
+       "2023-04": 30,
+       "2023-05": 22,
+       "2023-06": 17,
+       "2023-07": 19,
+       "2023-08": 31,
+       "2023-09": 24,
+       "2023-10": 16,
+       "2023-11": 12,
+       "2023-12": 12,
+       "2024-01": 19,
+       "2024-02": 34,
+       "2024-03": 21,
+       "2024-04": 27,
+       "2024-05": 32,
+       "2024-06": 26,
+       "2024-07": 23,
+       "2024-08": 32,
+       "2024-09": 33,
+       "2024-10": 39,
+       "2024-11": 18,
+       "2024-12": 39,
+       "2025-01": 32,
+       "2025-02": 26,
+       "2025-03": 35,
+       "2025-04": 23,
+       "2025-05": 23,
+       "2025-06": 39,
+       "2025-07": 28,
+       "2025-08": 37
+      }
+     },
+     "cells": 608,
+     "notes": [],
+     "id": "A",
+     "summary": "Sources: Regional Air Monitoring Network (official, updated 2025). 8 regions: Veneto, Lazio, Lombardy, Ile-de-France, Auvergne-Rhone-Alpes, Brandenburg, Bavaria, Andalusia. Months: 2019-01 to 2025-08 (76 covered). Pollutants: NOx.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.072,
+       "1": 0.2599,
+       "2": 0.4161,
+       "3": 0.252
+      },
+      "top": "2",
+      "confidence": 0.4161,
+      "score": 1.8481,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
+   "subgraph": {
+    "nodes": [
+     {
+      "id": "P:NOx",
+      "kind": "pollutant",
+      "label": "NOx"
+     },
+     {
+      "id": "L:GEO.region",
+      "kind": "level",
+      "label": "region",
+      "dim": "GEO",
+      "selected": true
+     },
+     {
+      "id": "L:GEO.country",
+      "kind": "level",
+      "label": "country",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:GEO.continent",
+      "kind": "level",
+      "label": "continent",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.month",
+      "kind": "level",
+      "label": "month",
+      "dim": "TIME",
+      "selected": true
+     },
+     {
+      "id": "L:TIME.year",
+      "kind": "level",
+      "label": "year",
+      "dim": "TIME",
+      "selected": false
+     },
+     {
+      "id": "L:SECTOR.subsector",
+      "kind": "level",
+      "label": "subsector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "L:SECTOR.macrosector",
+      "kind": "level",
+      "label": "macrosector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "S:S4",
+      "kind": "source",
+      "label": "Regional Air Monitoring Network"
+     }
+    ],
+    "edges": [
+     {
+      "from": "L:GEO.region",
+      "to": "L:GEO.country",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:GEO.country",
+      "to": "L:GEO.continent",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:TIME.month",
+      "to": "L:TIME.year",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:SECTOR.subsector",
+      "to": "L:SECTOR.macrosector",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "S:S4",
+      "to": "P:NOx",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:GEO.region",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S4",
+      "to": "L:TIME.month",
+      "kind": "at_level"
+     }
+    ]
+   },
+   "explanation": {
+    "by": "template",
+    "text": "1 solution hold NOx by region and month.\nFirst: A, Regional Air Monitoring Network, covering 8 regions, 2019-01 to 2025-08. Preference fit 1.8 of 3 (42% confident in its most likely level)."
+   },
+   "outcome": "answer",
+   "message": null,
+   "totals": {
+    "decisions": 11,
+    "calls": 4,
+    "latency_ms": 5545.9,
+    "cost_usd": 0.0,
+    "wall_ms": 5574.0
+   }
+  },
+  {
+   "request": "Compare methane emissions across continents by year",
+   "preference": "Official sources only",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1059.28032599968,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.5574,
+       "clarify": 0.2112,
+       "reject": 0.2314
+      },
+      "top": "answer",
+      "confidence": 0.5574
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 2987.2393849996115,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "CH4",
+      "CO2"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.2734,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.2193,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.0927,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1001,
+       "selected": false
+      },
+      {
+       "node": "pollutant:CH4",
+       "label": "CH4",
+       "kind": "pollutant",
+       "p": 0.5557,
+       "selected": true
+      },
+      {
+       "node": "pollutant:CO2",
+       "label": "CO2",
+       "kind": "pollutant",
+       "p": 0.0463,
+       "selected": false
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": [
+      "CH4"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1060.0900790000196,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.0294,
+        "country": 0.0228,
+        "continent": 0.6889,
+        "none": 0.2589
+       },
+       "top": "continent",
+       "confidence": 0.6889
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.0227,
+        "year": 0.6758,
+        "none": 0.3015
+       },
+       "top": "year",
+       "confidence": 0.6758
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.051,
+        "macrosector": 0.0979,
+        "none": 0.8511
+       },
+       "top": "none",
+       "confidence": 0.8511
+      }
+     },
+     "query": {
+      "pollutants": [
+       "CH4"
+      ],
+      "levels": {
+       "GEO": "continent",
+       "TIME": "year"
+      }
+     }
+    },
+    {
+     "stage": "discover",
+     "title": "Discovery",
+     "latency_ms": 64.60946200013495,
+     "solutions": 4
+    },
+    {
+     "stage": "rank",
+     "title": "Ranking",
+     "by": "preference fit",
+     "order": [
+      "D",
+      "B",
+      "A",
+      "C"
+     ]
+    },
+    {
+     "stage": "explain",
+     "title": "Explanation",
+     "latency_ms": 0.05225300037636771,
+     "by": "template"
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "CH4"
+    ],
+    "levels": {
+     "GEO": "continent",
+     "TIME": "year"
+    }
+   },
+   "solutions": [
+    {
+     "sources": [
+      {
+       "id": "S8",
+       "name": "Agricultural Emissions Database",
+       "publisher": "official",
+       "updated": 2025,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 241,
+       "Americas": 100,
+       "Asia": 122,
+       "Africa": 89,
+       "Oceania": 19
+      },
+      "TIME.year": {
+       "2015": 30,
+       "2016": 20,
+       "2017": 36,
+       "2018": 27,
+       "2019": 26,
+       "2020": 37,
+       "2021": 37,
+       "2022": 18,
+       "2023": 21,
+       "2024": 23,
+       "2025": 16
+      }
+     },
+     "cells": 55,
+     "notes": [
+      "Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning"
+     ],
+     "id": "D",
+     "summary": "Sources: Agricultural Emissions Database (official, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2025 (11 covered). Pollutants: CH4. Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.1099,
+       "1": 0.2032,
+       "2": 0.4157,
+       "3": 0.2712
+      },
+      "top": "2",
+      "confidence": 0.4157,
+      "score": 1.8482,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S2",
+       "name": "National Emissions Compendium",
+       "publisher": "official",
+       "updated": 2024,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 167,
+       "Americas": 71,
+       "Asia": 136,
+       "Africa": 88,
+       "Oceania": 61
+      },
+      "TIME.year": {
+       "2015": 28,
+       "2016": 14,
+       "2017": 32,
+       "2018": 29,
+       "2019": 30,
+       "2020": 18,
+       "2021": 29,
+       "2022": 20,
+       "2023": 20
+      }
+     },
+     "cells": 45,
+     "notes": [],
+     "id": "B",
+     "summary": "Sources: National Emissions Compendium (official, updated 2024). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2023 (9 covered). Pollutants: CH4.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.1005,
+       "1": 0.271,
+       "2": 0.4091,
+       "3": 0.2194
+      },
+      "top": "2",
+      "confidence": 0.4091,
+      "score": 1.7474,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S1",
+       "name": "Global Facility Emissions Inventory",
+       "publisher": "research",
+       "updated": 2025,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 312,
+       "Americas": 17,
+       "Asia": 74,
+       "Africa": 75,
+       "Oceania": 53
+      },
+      "TIME.year": {
+       "2021": 263,
+       "2022": 262,
+       "2023": 235,
+       "2024": 292,
+       "2025": 127
+      }
+     },
+     "cells": 25,
+     "notes": [
+      "Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors"
+     ],
+     "id": "A",
+     "summary": "Sources: Global Facility Emissions Inventory (research, updated 2025). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2021 to 2025 (5 covered). Pollutants: CH4. Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.3548,
+       "1": 0.505,
+       "2": 0.0937,
+       "3": 0.0465
+      },
+      "top": "1",
+      "confidence": 0.505,
+      "score": 0.8319,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    },
+    {
+     "sources": [
+      {
+       "id": "S5",
+       "name": "Continental Climate Summary",
+       "publisher": "research",
+       "updated": 2024,
+       "provides": [
+        "CH4"
+       ]
+      }
+     ],
+     "profiles": {
+      "GEO.continent": {
+       "Europe": 26,
+       "Americas": 20,
+       "Asia": 24,
+       "Africa": 45,
+       "Oceania": 30
+      },
+      "TIME.year": {
+       "2015": 38,
+       "2016": 28,
+       "2017": 37,
+       "2018": 28,
+       "2019": 27,
+       "2020": 21,
+       "2021": 22,
+       "2022": 11,
+       "2023": 31,
+       "2024": 29
+      }
+     },
+     "cells": 50,
+     "notes": [],
+     "id": "C",
+     "summary": "Sources: Continental Climate Summary (research, updated 2024). 5 continents: Europe, Americas, Asia, Africa, Oceania. Years: 2015 to 2024 (10 covered). Pollutants: CH4.",
+     "fit": {
+      "type": "score",
+      "probabilities": {
+       "0": 0.4625,
+       "1": 0.4047,
+       "2": 0.0876,
+       "3": 0.0452
+      },
+      "top": "0",
+      "confidence": 0.4625,
+      "score": 0.7155,
+      "legend": {
+       "0": "It does not match the preference.",
+       "1": "It partly matches the preference.",
+       "2": "It mostly matches the preference.",
+       "3": "It fully matches the preference."
+      }
+     }
+    }
+   ],
+   "subgraph": {
+    "nodes": [
+     {
+      "id": "P:CH4",
+      "kind": "pollutant",
+      "label": "CH4"
+     },
+     {
+      "id": "L:GEO.region",
+      "kind": "level",
+      "label": "region",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:GEO.country",
+      "kind": "level",
+      "label": "country",
+      "dim": "GEO",
+      "selected": false
+     },
+     {
+      "id": "L:GEO.continent",
+      "kind": "level",
+      "label": "continent",
+      "dim": "GEO",
+      "selected": true
+     },
+     {
+      "id": "L:TIME.month",
+      "kind": "level",
+      "label": "month",
+      "dim": "TIME",
+      "selected": false
+     },
+     {
+      "id": "L:TIME.year",
+      "kind": "level",
+      "label": "year",
+      "dim": "TIME",
+      "selected": true
+     },
+     {
+      "id": "L:SECTOR.subsector",
+      "kind": "level",
+      "label": "subsector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "L:SECTOR.macrosector",
+      "kind": "level",
+      "label": "macrosector",
+      "dim": "SECTOR",
+      "selected": false
+     },
+     {
+      "id": "S:S1",
+      "kind": "source",
+      "label": "Global Facility Emissions Inventory"
+     },
+     {
+      "id": "S:S2",
+      "kind": "source",
+      "label": "National Emissions Compendium"
+     },
+     {
+      "id": "S:S5",
+      "kind": "source",
+      "label": "Continental Climate Summary"
+     },
+     {
+      "id": "S:S8",
+      "kind": "source",
+      "label": "Agricultural Emissions Database"
+     }
+    ],
+    "edges": [
+     {
+      "from": "L:GEO.region",
+      "to": "L:GEO.country",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:GEO.country",
+      "to": "L:GEO.continent",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:TIME.month",
+      "to": "L:TIME.year",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "L:SECTOR.subsector",
+      "to": "L:SECTOR.macrosector",
+      "kind": "rolls_up"
+     },
+     {
+      "from": "S:S1",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:TIME.month",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S1",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S2",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S2",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S2",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S5",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S5",
+      "to": "L:GEO.continent",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S5",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S5",
+      "to": "L:SECTOR.macrosector",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "P:CH4",
+      "kind": "provides"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:GEO.country",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:TIME.year",
+      "kind": "at_level"
+     },
+     {
+      "from": "S:S8",
+      "to": "L:SECTOR.subsector",
+      "kind": "at_level"
+     }
+    ]
+   },
+   "explanation": {
+    "by": "template",
+    "text": "4 solutions hold CH4 by continent and year.\nFirst: D, Agricultural Emissions Database, covering 5 continents, 2015 to 2025. Preference fit 1.8 of 3 (42% confident in its most likely level). Caution: Agricultural Emissions Database is summed over sector but covers only Livestock and Crop residue burning.\nThen: B, National Emissions Compendium, covering 5 continents, 2015 to 2023. Preference fit 1.7 of 3 (41% confident in its most likely level).\nThen: A, Global Facility Emissions Inventory, covering 5 continents, 2021 to 2025. Preference fit 0.8 of 3 (50% confident in its most likely level). Caution: Global Facility Emissions Inventory is summed over sector but covers only 12 of 13 subsectors.\n1 more solution rank lower."
+   },
+   "outcome": "answer",
+   "message": null,
+   "totals": {
+    "decisions": 14,
+    "calls": 7,
+    "latency_ms": 7491.0,
+    "cost_usd": 0.0,
+    "wall_ms": 7557.0
+   }
+  },
+  {
+   "request": "Emissions data please",
+   "preference": "",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1123.0665510001927,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.5167,
+       "clarify": 0.2443,
+       "reject": 0.239
+      },
+      "top": "answer",
+      "confidence": 0.5167
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 2205.9463260002303,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "CO2"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.6273,
+       "selected": true
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.2279,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.1926,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.2264,
+       "selected": false
+      },
+      {
+       "node": "pollutant:CO2",
+       "label": "CO2",
+       "kind": "pollutant",
+       "p": 0.1718,
+       "selected": false
+      }
+     ],
+     "groups_expanded": [
+      "all"
+     ],
+     "pollutants": [
+      "CO2",
+      "CO2e100",
+      "CO2e20",
+      "CH4",
+      "N2O",
+      "PM2_5",
+      "PM10",
+      "NOx",
+      "SO2",
+      "SOx",
+      "NH3",
+      "CO",
+      "NMVOCs",
+      "BC",
+      "OC",
+      "AS",
+      "CD",
+      "CR",
+      "CU",
+      "HG",
+      "NI",
+      "PB",
+      "SE",
+      "ZN"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1072.3845319998873,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.0409,
+        "country": 0.0353,
+        "continent": 0.0367,
+        "none": 0.8871
+       },
+       "top": "none",
+       "confidence": 0.8871
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.1244,
+        "year": 0.086,
+        "none": 0.7896
+       },
+       "top": "none",
+       "confidence": 0.7896
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.0506,
+        "macrosector": 0.1016,
+        "none": 0.8478
+       },
+       "top": "none",
+       "confidence": 0.8478
+      }
+     },
+     "query": {
+      "pollutants": [
+       "CO2",
+       "CO2e100",
+       "CO2e20",
+       "CH4",
+       "N2O",
+       "PM2_5",
+       "PM10",
+       "NOx",
+       "SO2",
+       "SOx",
+       "NH3",
+       "CO",
+       "NMVOCs",
+       "BC",
+       "OC",
+       "AS",
+       "CD",
+       "CR",
+       "CU",
+       "HG",
+       "NI",
+       "PB",
+       "SE",
+       "ZN"
+      ],
+      "levels": {}
+     }
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "CO2",
+     "CO2e100",
+     "CO2e20",
+     "CH4",
+     "N2O",
+     "PM2_5",
+     "PM10",
+     "NOx",
+     "SO2",
+     "SOx",
+     "NH3",
+     "CO",
+     "NMVOCs",
+     "BC",
+     "OC",
+     "AS",
+     "CD",
+     "CR",
+     "CU",
+     "HG",
+     "NI",
+     "PB",
+     "SE",
+     "ZN"
+    ],
+    "levels": {}
+   },
+   "outcome": "clarify",
+   "message": "The gate said answer, but no a breakdown passed the threshold. Ask the user for a breakdown.",
+   "totals": {
+    "decisions": 9,
+    "calls": 3,
+    "latency_ms": 4401.4,
+    "cost_usd": 0.0,
+    "wall_ms": 4407.7
+   }
+  },
+  {
+   "request": "Daily PM2.5 for Milan",
+   "preference": "",
+   "backend": "laya",
+   "backend_label": "Laya",
+   "model": "convaiinnovations/laya (english)",
+   "residency": "local",
+   "stages": [
+    {
+     "stage": "gate",
+     "title": "Answer, clarify or reject",
+     "latency_ms": 1102.1405339997727,
+     "question": {
+      "type": "choice",
+      "instructions": "Can the data catalogue answer this request as written?",
+      "criteria": {
+       "answer": "It names at least one pollutant, or asks for pollution, emissions or data in general, and at least one breakdown the catalogue holds: region, country or continent; month or year from 2015 to 2025; subsector or macrosector. A named place, period or sector counts as a breakdown.",
+       "clarify": "It is about air pollution data but names no pollutant and no general term such as pollution or emissions, or it gives no breakdown at all.",
+       "reject": "It is off-topic, or it needs something the catalogue does not hold: cities, streets, stations, days, hours, weeks, years outside 2015 to 2025, forecasts, pollutants such as ozone, or other kinds of pollution such as water or noise."
+      }
+     },
+     "answer": {
+      "type": "choice",
+      "probabilities": {
+       "answer": 0.5078,
+       "clarify": 0.2297,
+       "reject": 0.2625
+      },
+      "top": "answer",
+      "confidence": 0.5078
+     }
+    },
+    {
+     "stage": "enrich",
+     "title": "Pollutants",
+     "latency_ms": 2365.1763139996547,
+     "threshold": 0.5,
+     "graph_candidates": [
+      "PM2_5"
+     ],
+     "nodes": [
+      {
+       "node": "group:all",
+       "label": "All pollutants",
+       "kind": "group",
+       "p": 0.3422,
+       "selected": false
+      },
+      {
+       "node": "group:ghg",
+       "label": "Greenhouse gases",
+       "kind": "group",
+       "p": 0.1287,
+       "selected": false
+      },
+      {
+       "node": "group:pm",
+       "label": "Particulate matter",
+       "kind": "group",
+       "p": 0.2234,
+       "selected": false
+      },
+      {
+       "node": "group:metal",
+       "label": "Heavy metals",
+       "kind": "group",
+       "p": 0.1983,
+       "selected": false
+      },
+      {
+       "node": "pollutant:PM2_5",
+       "label": "PM2.5",
+       "kind": "pollutant",
+       "p": 0.7065,
+       "selected": true
+      }
+     ],
+     "groups_expanded": [],
+     "pollutants": [
+      "PM2_5"
+     ]
+    },
+    {
+     "stage": "query",
+     "title": "Breakdown",
+     "latency_ms": 1025.9378109999489,
+     "answers": {
+      "GEO": {
+       "type": "choice",
+       "probabilities": {
+        "region": 0.1745,
+        "country": 0.0732,
+        "continent": 0.0368,
+        "none": 0.7155
+       },
+       "top": "none",
+       "confidence": 0.7155
+      },
+      "TIME": {
+       "type": "choice",
+       "probabilities": {
+        "month": 0.08379,
+        "year": 0.024,
+        "none": 0.89221
+       },
+       "top": "none",
+       "confidence": 0.89221
+      },
+      "SECTOR": {
+       "type": "choice",
+       "probabilities": {
+        "subsector": 0.1359,
+        "macrosector": 0.154,
+        "none": 0.7101
+       },
+       "top": "none",
+       "confidence": 0.7101
+      }
+     },
+     "query": {
+      "pollutants": [
+       "PM2_5"
+      ],
+      "levels": {}
+     }
+    }
+   ],
+   "query": {
+    "pollutants": [
+     "PM2_5"
+    ],
+    "levels": {}
+   },
+   "outcome": "clarify",
+   "message": "The gate said answer, but no a breakdown passed the threshold. Ask the user for a breakdown.",
+   "totals": {
+    "decisions": 9,
+    "calls": 3,
+    "latency_ms": 4493.3,
+    "cost_usd": 0.0,
+    "wall_ms": 4493.9
+   }
+  }
+ ]
+}

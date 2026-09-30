@@ -1,7 +1,5 @@
-streamlit
-langchain
-openai
-neo4j
-pandas
-numpy
-python-dotenv
+# API, graph and the hosted Jev backend. Versions are the ones tested.
+fastapi==0.142.0
+uvicorn[standard]==0.54.0
+httpx==0.28.1
+kuzu==0.11.3

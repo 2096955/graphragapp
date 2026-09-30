@@ -1,0 +1,84 @@
+"""Bake the recorded results into the page, so it works with no backend at all.
+
+    python -m scripts.build_page            # web/template.html + results/*.json -> web/index.html
+
+Metrics are recomputed from the saved records, so a change to the metric code shows up
+without rerunning any model.
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from app import domain as d  # noqa: E402
+from app import evaluation as ev  # noqa: E402
+from app.testset import REQUESTS, TASKS, build, gold_query  # noqa: E402
+
+ORDER = ["catalogue", "laya", "anyjev", "jev", "uniform"]
+
+
+def compact_items(items: list[dict]) -> tuple[list, dict]:
+    """Share identical question objects between items."""
+    qtable, keys, out = {}, {}, []
+    for it in items:
+        q = it["questions"][it["question"]]
+        sig = json.dumps(q, sort_keys=True)
+        if sig not in keys:
+            keys[sig] = f"q{len(keys)}"
+            qtable[keys[sig]] = q
+        out.append({"id": it["id"], "task": it["task"], "state": it["state"], "q": keys[sig], "gold": it["gold"],
+                    "meta": it["meta"]})
+    return out, qtable
+
+
+def main() -> None:
+    current_items = build()
+    items, qtable = compact_items(current_items)
+    results, examples = {}, {}
+    for f in sorted((ROOT / "results").glob("*.json")):
+        data = json.loads(f.read_text())
+        if f.name.startswith("examples-"):
+            data["legacy"] = data.get("pipeline_version") != "1.1.0"
+            examples[data["backend"]] = data
+            continue
+        if f.name.endswith("-partial.json"):
+            continue
+        recs = data["records"]
+        data["metrics"] = ev.clean(ev.metrics(recs))
+        data["legacy"] = data.get("pipeline_version") != "1.1.0"
+        data["records"] = [{k: r.get(k) for k in ("id", "task", "gold", "top", "confidence", "probs", "latency_ms", "error") if k in r}
+                           for r in recs]
+        results[data["backend"]] = data
+    catalogue = {
+        "pollutants": [{"id": p.id, "label": p.label, "name": p.name} for p in d.POLLUTANTS],
+        "groups": {g: m["label"] for g, m in d.GROUPS.items()},
+        "dimensions": d.DIMENSIONS,
+        "sources": [{"id": s.id, "name": s.name, "publisher": s.publisher, "updated": s.updated, "levels": s.levels,
+                     "pollutants": s.pollutants} for s in d.SOURCES],
+        "summary": d.CATALOGUE_SUMMARY,
+    }
+    gates = {it["meta"]["request"]: it["gold"] for it in current_items if it["task"] == "gate"}
+    gold = {r[1]: {"id": r[0], "gate": gates[r[0]], **(gold_query(r[0]) or {})} for r in REQUESTS}
+    payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
+               "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold}
+    blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
+    tpl = (ROOT / "web" / "template.html").read_text()
+    marker = "/*__DATA__*/"
+    if marker not in tpl:
+        sys.exit("template.html has no /*__DATA__*/ marker")
+    page = tpl.replace(marker, blob)
+    (ROOT / "web" / "index.html").write_text(page)
+    # The same page without its document shell, for hosts that supply their own (claude.ai artifacts).
+    head = page[page.index("<title>"):page.index("</head>")]
+    body = page[page.index("<body>") + len("<body>"):page.rindex("</body>")]
+    (ROOT / "web" / "fragment.html").write_text(head.strip() + "\n" + body.strip() + "\n")
+    print(f"web/index.html and web/fragment.html: {len(items)} items, results for {', '.join(results) or 'none'}, "
+          f"examples for {', '.join(examples) or 'none'}, {len(blob) / 1024:.0f} KB of data")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,8 @@
 .streamlit/secrets.toml
 .env
+.venv
+tests/_results/
+*.kuzu
 .test_azure.py
 .test_bloom.py
 .test_neo4j.py

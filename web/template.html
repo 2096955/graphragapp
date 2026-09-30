@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GraphRAG Decisions Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: one 1120px column. The pipeline splits into a decision rail and a graph panel on wide
+   screens; the benchmark reads summary first (calibration records), then detail (charts, items). */
+:root{
+  --bg:#edf1f4; --paper:#ffffff; --ink:#16202b; --ink-2:#39475a; --muted:#5a6878; --line:#cfd8e1;
+  --grid:#e4e9ee; --axis:#b6c1cc; --code:#f4f6f9; --wash:#e6edf4; --wash-2:#f6f8fa;
+  --laya:#2a78d6; --anyjev:#eb6834; --jev:#1baf7a; --uniform:#8a96a3;
+  --good:#0ca30c; --bad:#d03b3b; --good-ink:#006300; --bad-ink:#b3261e; --hold:#aab5c1;
+  --font:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r:12px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10151c; --paper:#182029; --ink:#e6edf3; --ink-2:#c3cdd8; --muted:#9aa8b6; --line:#2c3845;
+  --grid:#222c38; --axis:#3d4a59; --code:#121920; --wash:#223040; --wash-2:#1c2530;
+  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --uniform:#6b7785;
+  --good-ink:#4cc76a; --bad-ink:#ff8a80; --hold:#4a5766; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#10151c; --paper:#182029; --ink:#e6edf3; --ink-2:#c3cdd8; --muted:#9aa8b6; --line:#2c3845;
+  --grid:#222c38; --axis:#3d4a59; --code:#121920; --wash:#223040; --wash-2:#1c2530;
+  --laya:#3987e5; --anyjev:#d95926; --jev:#199e70; --uniform:#6b7785;
+  --good-ink:#4cc76a; --bad-ink:#ff8a80; --hold:#4a5766; color-scheme:dark;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-font-smoothing:antialiased}
+main{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:8px 72px}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,5.2vw,3.25rem);line-height:1.04;letter-spacing:-.025em;font-weight:700;max-width:18ch}
+h2{font-size:1.75rem;line-height:1.15;letter-spacing:-.015em;font-weight:700}
+h3{font-size:1.06rem;line-height:1.3;font-weight:600}
+p{margin:0;max-width:68ch}
+a{color:var(--ink);text-underline-offset:3px}
+code,pre,textarea.code{font-family:var(--mono);font-size:.84rem}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.num{font-variant-numeric:tabular-nums}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------------------------------------------------------------- top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.nav{display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0}
+.nav a{text-decoration:none;color:var(--muted);padding:5px 9px;border-radius:7px;font-size:.92rem}
+.nav a:hover{color:var(--ink);background:var(--wash)}
+.mode{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);border-radius:999px;
+  padding:5px 12px;font-size:.88rem;cursor:pointer;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--hold);flex:none}
+.mode[data-live="1"] .dot{background:var(--good)}
+
+.connect{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:0 14px}
+.connect-in{display:grid;gap:10px;grid-template-columns:1fr;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper)}
+@media(min-width:760px){.connect-in{grid-template-columns:2fr 1.2fr auto auto;align-items:end}}
+.field{display:grid;gap:4px;min-width:0}
+.field label{font-size:.82rem;color:var(--muted)}
+input[type=text],input[type=url],input[type=password],select,textarea{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 10px;min-width:0;width:100%}
+textarea{resize:vertical}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.msg{font-size:.88rem;color:var(--muted);grid-column:1/-1}
+.msg.err{color:var(--bad-ink)}
+
+/* ---------------------------------------------------------------- intro */
+.intro{display:grid;gap:18px;padding-block:44px 28px}
+.lede{font-size:1.14rem;color:var(--ink-2);max-width:64ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.9rem;color:var(--muted)}
+.facts b{color:var(--ink);font-weight:600}
+
+section{padding-block:36px}
+.sec-head{display:grid;gap:8px;margin-bottom:22px}
+.sec-head p{color:var(--ink-2)}
+
+/* ---------------------------------------------------------------- controls */
+.controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:end;margin-bottom:16px}
+.controls .field{flex:1 1 240px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;background:var(--paper);padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;border-radius:6px;padding:6px 11px;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:7px;font-size:.92rem}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:disabled{opacity:.45;cursor:not-allowed}
+.swatch{width:10px;height:10px;border-radius:3px;flex:none;background:var(--c)}
+.label-row{display:grid;gap:4px}
+.label-row>span{font-size:.82rem;color:var(--muted)}
+
+/* ---------------------------------------------------------------- pipeline */
+.trace{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:980px){.trace{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.rail{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:stage;min-width:0}
+.stage{position:relative;padding:0 0 18px 42px;min-width:0}
+.stage::before{counter-increment:stage;content:counter(stage);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;font-size:.8rem;font-weight:600;color:var(--muted)}
+.stage::after{content:"";position:absolute;left:14px;top:30px;bottom:2px;width:1px;background:var(--line)}
+.stage:last-child::after{display:none}
+.stage h3{margin:3px 0 4px}
+.stage .why{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+.stage.stop::before{border-color:var(--ink);color:var(--ink)}
+.probs{display:grid;grid-template-columns:minmax(64px,max-content) minmax(80px,1fr) 3em;gap:6px 10px;align-items:center;font-size:.9rem}
+.prow{display:contents}
+.prow .lab{min-width:0;overflow-wrap:anywhere}
+.prow.top .lab{font-weight:600}
+.bar{position:relative;height:10px;background:var(--wash);border-radius:3px}
+.bar>i{position:absolute;inset:0 auto 0 0;border-radius:3px;background:var(--hold)}
+.prow.top .bar>i{background:var(--c,var(--ink))}
+.bar .thr{position:absolute;top:-4px;bottom:-4px;width:1px;background:var(--ink)}
+.prow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.tag{display:inline-block;font-size:.74rem;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:1px;white-space:nowrap}
+.dims{display:grid;gap:12px}
+.dims h4{font-size:.85rem;font-weight:600;margin:0 0 4px;color:var(--ink-2)}
+.query{font-family:var(--mono);font-size:.84rem;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-x:auto;white-space:nowrap}
+.stopnote{border-left:3px solid var(--ink);padding:6px 0 6px 12px;color:var(--ink-2)}
+.side{display:grid;gap:18px;min-width:0;align-content:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.graph svg{width:100%;height:auto;display:block}
+.graph text{font-family:var(--font);fill:var(--ink)}
+.gnode rect{fill:var(--paper);stroke:var(--line);stroke-width:1}
+.gnode.sel rect{fill:var(--wash);stroke:var(--ink);stroke-width:1.5}
+.gnode.win rect{stroke:var(--c);stroke-width:2.5}
+.gnode.dim{opacity:.35}
+.gedge{fill:none;stroke:var(--axis);stroke-width:1.2}
+.gedge.win{stroke:var(--ink);stroke-width:1.6}
+.gedge.dim{opacity:.25}
+.scroll-hint{display:none}
+@media(max-width:560px){.scroll-hint{display:block}}
+.gkey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--muted);margin-top:8px}
+.gkey span{display:inline-flex;align-items:center;gap:6px}
+.gkey i{display:inline-block;width:14px;height:10px;border-radius:3px;border:1px solid var(--line);background:var(--paper)}
+.gkey i.sel{background:var(--wash);border:1.5px solid var(--ink)}
+.gkey i.win{border:2.5px solid var(--c)}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.82rem}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.sols{display:grid;gap:0}
+.solr{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px 10px;padding:10px 6px;border-top:1px solid var(--line);border-radius:6px}
+.solr:hover,.solr.hl{background:var(--wash-2)}
+.solr>b{grid-row:span 3}
+.solr .src{min-width:0}
+.solr .meta{font-size:.88rem;color:var(--ink-2)}
+.solr .note{font-size:.84rem;color:var(--muted);grid-column:2}
+@media(min-width:620px){.solr{grid-template-columns:22px minmax(0,1fr) minmax(150px,200px)}.solr .fit{grid-column:3;grid-row:1 / span 2}}
+.fit{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.explain{white-space:pre-line;color:var(--ink-2);font-size:.95rem}
+.totals{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem;color:var(--muted);margin-top:4px}
+.totals b{color:var(--ink);font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--ink-2);white-space:nowrap;background:var(--paper)}
+.pill.hosted{border-color:var(--ink)}
+
+/* ---------------------------------------------------------------- benchmark */
+.records{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.rec{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px;align-content:start;min-width:0}
+.rec.ref{background:transparent}
+.rec-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rec-h h3{margin-right:auto}
+.rec .model{font-size:.84rem;color:var(--muted)}
+.hero{display:grid;gap:0}
+.hero b{font-size:2.3rem;line-height:1;font-weight:700;letter-spacing:-.02em}
+.hero span{font-size:.84rem;color:var(--muted)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:.9rem;margin:0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.rec .foot{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.empty{color:var(--ink-2);font-size:.92rem}
+.chart-grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.chart-grid.two{grid-template-columns:1fr 1fr}}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart text{font-family:var(--font);fill:var(--ink-2);font-size:12px}
+.chart .axis-t{fill:var(--muted)}
+.chart .gridl{stroke:var(--grid);stroke-width:1}
+.chart .base{stroke:var(--axis);stroke-width:1}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--ink-2);margin:4px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:3px;background:var(--c)}
+.legend i.line{height:2px;width:16px;border-radius:2px}
+.legend i.tick{width:2px;height:12px;border-radius:0;background:var(--ink)}
+.mults{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(250px,340px))}
+.mult h4{margin:0 0 2px;font-size:.95rem;display:flex;gap:8px;align-items:center}
+.mult p{font-size:.84rem;color:var(--muted);margin-bottom:6px}
+.filterrow{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:22px 0 12px}
+.filterrow>span{font-size:.88rem;color:var(--muted)}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;font-size:.84rem;box-shadow:0 6px 24px rgba(15,25,40,.14);max-width:260px}
+.tip b{font-weight:700;font-variant-numeric:tabular-nums}
+.tip .k{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.tip .k i{display:inline-block;width:12px;height:2px;background:var(--c)}
+.thr-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:900px){.thr-grid{grid-template-columns:1.3fr 1fr}}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.readouts div{display:grid}
+.readouts b{font-size:1.5rem;font-weight:700;line-height:1.1}
+.readouts span{font-size:.8rem;color:var(--muted)}
+.stack{display:flex;gap:2px;height:14px;margin:12px 0 6px}
+.stack i{display:block;height:100%;border-radius:3px}
+.skey{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted)}
+.skey span{display:inline-flex;gap:6px;align-items:center}
+.skey i{width:10px;height:10px;border-radius:3px;display:inline-block;background:var(--c)}
+input[type=range]{width:100%;accent-color:var(--ink)}
+.progress{height:6px;background:var(--wash);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ink);width:0}
+
+/* ---------------------------------------------------------------- test set */
+.items{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden}
+.item{border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%;padding:12px 14px;cursor:pointer}
+.item>button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.item>button:hover{background:var(--wash-2)}
+@media(min-width:820px){.item>button{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1.3fr)}}
+.it-text{min-width:0;overflow-wrap:anywhere}
+.it-text small{display:block;color:var(--muted);font-size:.8rem}
+.gold{font-size:.88rem}
+.gold small{display:block;color:var(--muted);font-size:.78rem}
+.verdicts{display:grid;gap:3px;font-size:.86rem}
+.verdict{display:flex;gap:8px;align-items:center;min-width:0}
+.verdict .swatch{width:8px;height:8px}
+.verdict .ans{min-width:0;overflow-wrap:anywhere}
+.mark{font-weight:700;width:1.1em;flex:none}
+.mark.ok{color:var(--good-ink)}
+.mark.no{color:var(--bad-ink)}
+.detail{padding:0 14px 14px;display:grid;gap:10px}
+.detail pre{margin:0;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.more{margin-top:12px}
+
+/* ---------------------------------------------------------------- playground & run */
+.play{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:900px){.play{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.play form{display:grid;gap:12px}
+.checks{display:flex;flex-wrap:wrap;gap:8px 14px}
+.checks label{display:inline-flex;gap:6px;align-items:center;font-size:.92rem}
+.answers{display:grid;gap:14px;align-content:start}
+.answer h4{margin:0 0 6px;font-size:.95rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:18px;counter-reset:step}
+.steps li{display:grid;gap:8px;padding-left:40px;position:relative;min-width:0}
+.steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:600;color:var(--muted);background:var(--paper)}
+pre.cmd{margin:0;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;line-height:1.5}
+.copyrow{position:relative;min-width:0}
+.copyrow .btn{position:absolute;top:6px;right:6px;padding:3px 9px;font-size:.78rem}
+footer{border-top:1px solid var(--line);padding-top:22px;margin-top:20px;display:grid;gap:10px;font-size:.88rem;color:var(--muted)}
+footer p{max-width:90ch}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#intro">GraphRAG Decisions Lab</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
+    </nav>
+    <button class="mode" id="modeBtn" type="button" aria-expanded="false" aria-controls="connect"><span class="dot"></span><span id="modeText">Recorded results</span></button>
+  </div>
+  <div class="connect" id="connect" hidden>
+    <form class="connect-in" id="connectForm">
+      <div class="field"><label for="apiUrl">Backend address</label><input id="apiUrl" type="url" placeholder="Blank for this page's own server" autocomplete="url"></div>
+      <div class="field"><label for="apiToken">Token (if the server sets API_TOKEN)</label><input id="apiToken" type="password" autocomplete="off"></div>
+      <button class="btn" type="submit" id="connectBtn">Connect</button>
+      <button class="btn ghost" type="button" id="disconnectBtn" hidden>Use recorded results</button>
+      <p class="msg" id="connectMsg">Opened from your backend's own address, the page connects by itself. Otherwise enter the address here.</p>
+    </form>
+  </div>
+</header>
+
+<main>
+<section class="intro" id="intro">
+  <h1>Typed decisions for graph-based dataset discovery</h1>
+  <p class="lede">Finding datasets in a catalogue takes many small calls: can this request be answered, which pollutants and breakdowns does it mean, how well does each dataset fit. This lab puts a decision model on each of those calls. <b>Kuzu</b> holds the two-layer graph. <b>Jev is the typed decision layer</b>, not the database &mdash; Catalogue rules, Laya, AnyJev and TypeSafe Jev answer the small fixed questions; the graph only proposes candidates. For a comparison of graph databases, open the <a href="/field-guide">field guide</a>. This lab&rsquo;s <code>/api/compare</code> compares decision backends, not those engines.</p>
+  <div class="facts" id="facts"></div>
+</section>
+
+<section id="pipeline">
+  <div class="sec-head">
+    <h2>The pipeline</h2>
+    <p>The discovery method from Diamantini et al. (2026), with a decision model making each call. The graph proposes candidates and finds datasets; the model never writes text, and the explanation never makes a decision.</p>
+  </div>
+  <div class="controls">
+    <div class="field" id="reqField">
+      <label for="reqSel">Request</label>
+      <select id="reqSel"></select>
+      <input id="reqText" type="text" maxlength="500" hidden list="reqList" placeholder="Ask the catalogue for data">
+      <datalist id="reqList"></datalist>
+    </div>
+    <div class="field" style="flex:1 1 200px"><label for="prefText">Preference</label><input id="prefText" type="text" maxlength="300" placeholder="For example: European countries, last 3 years"></div>
+    <div class="label-row"><span id="bkLabel">Decision model</span><div class="seg" id="bkSeg" role="group" aria-labelledby="bkLabel"></div></div>
+    <button class="btn" id="runBtn" type="button" hidden>Run</button>
+  </div>
+  <p class="msg" id="pipeMsg" style="margin-bottom:12px"></p>
+  <div id="trace"></div>
+</section>
+
+<section id="bench">
+  <div class="sec-head">
+    <h2>Can the probabilities be trusted?</h2>
+    <p>Recorded model runs are legacy experiments on 448 decisions. The current test set also covers whole-group selection and preference scoring. Empirical coverage searches a threshold on the same labels; it is not a deployment error guarantee. Grouped holdout results keep threshold selection separate from evaluation.</p>
+  </div>
+  <div class="records" id="records"></div>
+
+  <div class="panel chart" style="margin-top:14px">
+    <h3>Accuracy by task</h3>
+    <p class="small muted" style="margin:2px 0 6px">The tick marks what you would get by always giving the same answer, the task's most common one.</p>
+    <div class="legend" id="accLegend"></div>
+    <div id="accChart"></div>
+  </div>
+
+  <div class="filterrow">
+    <span id="scopeLabel">Show</span>
+    <div class="seg" id="scopeSeg" role="group" aria-labelledby="scopeLabel"></div>
+  </div>
+
+  <div class="panel chart">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
+      <h3>Stated confidence against actual accuracy</h3>
+      <div class="seg" id="calSeg" role="group" aria-label="Calibration">
+        <button type="button" data-v="raw" aria-pressed="true">As measured</button>
+        <button type="button" data-v="scaled" aria-pressed="false">After calibrating on labels</button>
+      </div>
+    </div>
+    <p class="small muted" style="margin:6px 0 12px" id="calNote"></p>
+    <div class="mults" id="relMults"></div>
+  </div>
+
+  <div class="thr-grid" style="margin-top:14px">
+    <div class="panel chart">
+      <h3>Empirical Selective Coverage</h3>
+      <p class="small muted" style="margin:2px 0 6px">Observed error among the most confident recorded decisions. Thresholds and errors use the same labels; this is not a production guarantee.</p>
+      <div class="legend" id="covLegend"></div>
+      <div id="covChart"></div>
+    </div>
+    <div class="panel">
+      <h3>Pick a threshold</h3>
+      <p class="small muted" style="margin:2px 0 12px">Decisions at or above the threshold are acted on; the rest go to a person.</p>
+      <div class="seg" id="thrSeg" role="group" aria-label="Model" style="margin-bottom:12px"></div>
+      <label class="small muted" for="thrRange">Confidence threshold <b id="thrVal" class="num" style="color:var(--ink)"></b></label>
+      <input id="thrRange" type="range" min="0.30" max="0.99" step="0.01" value="0.80">
+      <div class="readouts" style="margin-top:12px">
+        <div><b id="roAuto" class="num"></b><span>selected in sample</span></div>
+        <div><b id="roErr" class="num"></b><span>wrong among those</span></div>
+        <div><b id="roHuman" class="num"></b><span>sent to a person</span></div>
+      </div>
+      <div class="stack" id="thrStack" aria-hidden="true"></div>
+      <div class="skey"><span><i style="--c:var(--good)"></i>Automated, right</span><span><i style="--c:var(--bad)"></i>Automated, wrong</span><span><i style="--c:var(--hold)"></i>Sent to a person</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="testset">
+  <div class="sec-head">
+    <h2>The test set</h2>
+    <p>Every label was written by hand against published rules. The 22 requests marked "paper" are the test requests from the paper's Table 1, including its typos. Open any item to see exactly what each model was given.</p>
+  </div>
+  <div class="filterrow" style="margin-top:0">
+    <div class="field" style="flex:0 1 220px"><label for="tsTask">Task</label><select id="tsTask"></select></div>
+    <div class="field" style="flex:0 1 240px"><label for="tsShow">Show</label><select id="tsShow"></select></div>
+    <div class="field" style="flex:1 1 220px"><label for="tsQuery">Search</label><input id="tsQuery" type="text" placeholder="Words in the request, name or column"></div>
+  </div>
+  <p class="small muted" id="tsCount" style="margin-bottom:10px"></p>
+  <div class="items" id="tsItems"></div>
+  <button class="btn ghost more" id="tsMore" type="button">Show more</button>
+</section>
+
+<section id="playground">
+  <div class="sec-head">
+    <h2>Playground</h2>
+    <p>Ask your own typed question and compare the models' answers side by side.</p>
+  </div>
+  <div class="play">
+    <form id="playForm" class="panel">
+      <div class="field"><label for="plState">State: the text or JSON the question is about</label><textarea id="plState" class="code" rows="4"></textarea></div>
+      <div class="field"><label for="plType">Question type</label>
+        <select id="plType"><option value="noul">Yes or no</option><option value="choice">Choose one option</option><option value="score">Score on a scale</option></select></div>
+      <div class="field"><label for="plIns">Question</label><input id="plIns" type="text" maxlength="400"></div>
+      <div class="field" id="plOptField"><label for="plOpts" id="plOptLabel">Options, one per line, as "name: when it applies"</label><textarea id="plOpts" rows="4"></textarea></div>
+      <div class="field"><span class="small muted">Models</span><div class="checks" id="plChecks"></div></div>
+      <button class="btn" type="submit" id="plRun">Ask</button>
+      <p class="msg" id="plMsg"></p>
+    </form>
+    <div class="answers" id="plAnswers"></div>
+  </div>
+</section>
+
+<section id="run">
+  <div class="sec-head">
+    <h2>Run it on your own server</h2>
+    <p>The backend is one Python service. It serves this page, the API and the graph, and keeps any API key on the server.</p>
+  </div>
+  <ol class="steps" id="steps"></ol>
+  <div class="panel" style="margin-top:22px">
+    <h3 style="margin-bottom:8px">API</h3>
+    <div class="tbl-wrap"><table id="apiTable"></table></div>
+  </div>
+</section>
+
+<footer>
+  <p><b style="color:var(--ink)">Sources.</b> Pipeline and the 22 paper requests: Diamantini, Mele, Mircoli, Potena, Rossetti and Storti, "A Graph RAG Approach to Enhance Explainability in Dataset Discovery", <i>Data Science and Engineering</i> 11:30 to 52 (2026), <a href="https://doi.org/10.1007/s41019-025-00313-x">doi:10.1007/s41019-025-00313-x</a>, as re-implemented in <a href="https://github.com/Syntran-Labs/paper-rag-graph-4-datasets">Syntran-Labs/paper-rag-graph-4-datasets</a> (MIT). Models: <a href="https://huggingface.co/convaiinnovations/laya">Laya</a> (Apache 2.0), <a href="https://github.com/nokia-applied-research/AnyJev">AnyJev</a> (Apache 2.0) on <a href="https://huggingface.co/Qwen/Qwen3-1.7B">Qwen3-1.7B</a>, <a href="https://docs.typesafe.ai/">TypeSafe Jev</a> (commercial API) &mdash; the typed decision layer, not the database. Graph: <a href="https://kuzudb.github.io/">Kuzu</a> 0.11.3, archived upstream. Graph-database comparison: <a href="/field-guide">Graphs for agent context: a field guide</a>.</p>
+  <p><b style="color:var(--ink)">Read the numbers with care.</b> The catalogue and its eight sources are synthetic. Labels are hand-written against LABELLING.md in the repository and should be reviewed before anyone relies on them. Recorded runs are on CPU; latency on a GPU will be far lower. Each model's own published benchmarks are self-reported.</p>
+</footer>
+</main>
+
+<div class="tip" id="tip" hidden></div>
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const META = {
+  catalogue: {label: "Catalogue rules", color: "var(--uniform)"},
+  laya:    {label: "Laya", color: "var(--laya)"},
+  anyjev:  {label: "AnyJev", color: "var(--anyjev)"},
+  jev:     {label: "TypeSafe Jev", color: "var(--jev)"},
+  uniform: {label: "Equal odds", color: "var(--uniform)"},
+};
+const MODELS = ["laya", "anyjev", "jev"];                // compared models; "uniform" is a reference only
+const TASK_ORDER = ["gate", "group", "relevance", "level", "fit", "mapping", "entity"];
+const TASK_SHORT = {gate: "Answer, clarify or reject", relevance: "Pollutant relevance", level: "Breakdown level",
+                    mapping: "Column mapping", entity: "Entity match", group: "Whole-group selection", fit: "Preference fit"};
+const DIM_NAME = {GEO: "Geography", TIME: "Time", SECTOR: "Sector"};
+const ITEM = Object.fromEntries(DATA.items.map(i => [i.id, i]));
+const POL = Object.fromEntries(DATA.catalogue.pollutants.map(p => [p.id, p]));
+const S = {live: false, api: "", token: "", health: null, backend: null, example: 0, liveTrace: null,
+           scope: "all", calib: "raw", thrModel: null, thr: 0.8, tsTask: "all", tsShow: "all", tsQuery: "", tsLimit: 30, open: new Set()};
+
+/* ------------------------------------------------------------------ helpers */
+const $ = (sel, root = document) => root.querySelector(sel);
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null || v === false) continue;
+    if (k === "class") e.className = v;
+    else if (k === "style") e.style.cssText = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (k === "text") e.textContent = v;
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat(Infinity)) if (c != null && c !== false) e.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return e;
+}
+const NS = "http://www.w3.org/2000/svg";
+function sv(tag, attrs, ...kids) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) if (v != null) e.setAttribute(k, v);
+  for (const c of kids.flat(Infinity)) if (c != null && c !== false) e.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return e;
+}
+const pct = (x, d = 0) => x == null || Number.isNaN(x) ? "n/a" : (x * 100).toFixed(d) + "%";
+const fix = (x, d = 3) => x == null || Number.isNaN(x) ? "n/a" : Number(x).toFixed(d);
+const ms = x => x == null ? "n/a" : x >= 1000 ? (x / 1000).toFixed(1) + " s" : Math.round(x) + " ms";
+const usd = x => x == null ? "n/a" : x === 0 ? "$0" : x < 0.01 ? "$" + x.toFixed(4) : "$" + x.toFixed(2);
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const plural = (lvl, n) => `${n} ${n === 1 ? lvl : lvl.endsWith("y") ? lvl.slice(0, -1) + "ies" : lvl + "s"}`;
+function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } }
+function recall(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function seg(root, options, current, onPick) {
+  root.replaceChildren(...options.map(o => h("button", {type: "button", "aria-pressed": String(o.value === current), disabled: o.disabled,
+    title: o.title, onclick: () => onPick(o.value)}, o.color ? h("span", {class: "swatch", style: `--c:${o.color}`}) : null, o.label)));
+}
+const tip = $("#tip");
+function showTip(ev, node) { tip.replaceChildren(node); tip.hidden = false; moveTip(ev); }
+function moveTip(ev) {
+  const r = tip.getBoundingClientRect(), x = ev.clientX + 14, y = ev.clientY + 14;
+  tip.style.left = Math.min(x, innerWidth - r.width - 8) + "px";
+  tip.style.top = Math.min(y, innerHeight - r.height - 8) + "px";
+}
+function hideTip() { tip.hidden = true; }
+function hasResults(b) { return !!(DATA.results[b] && DATA.results[b].records && DATA.results[b].records.length); }
+
+/* ------------------------------------------------------------------ connection */
+async function api(path, opts = {}) {
+  const url = (S.api ? S.api.replace(/\/$/, "") + "/" : "") + path.replace(/^\//, "");
+  const headers = {"Content-Type": "application/json"};
+  if (S.token) headers.Authorization = "Bearer " + S.token;
+  const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), opts.timeout || 180000);
+  try {
+    const r = await fetch(url, {method: opts.body ? "POST" : "GET", headers, body: opts.body ? JSON.stringify(opts.body) : undefined, signal: ctl.signal});
+    const body = await r.json().catch(() => ({}));
+    if (r.status === 401) throw new Error("This server needs a token. Open the connection panel at the top of the page and enter it.");
+    if (!r.ok) throw new Error(body.detail ? (typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail)) : "HTTP " + r.status);
+    return body;
+  } finally { clearTimeout(timer); }
+}
+async function tryConnect(base, token, quiet) {
+  const prev = {api: S.api, token: S.token};
+  S.api = base; S.token = token;
+  try {
+    const hl = await api("api/health", {timeout: quiet ? 2500 : 10000});
+    if (!hl.ok) throw new Error("The server did not report ok.");
+    S.health = hl; S.live = true;
+    try { const res = await api("api/results"); if (res && Object.keys(res).length) DATA.results = {...DATA.results, ...res}; } catch (e) { /* keep recorded */ }
+    if (base) store("gd.api", base);        // the address only; the token is never stored
+    setMode(); renderAll();
+    return true;
+  } catch (e) {
+    S.api = prev.api; S.token = prev.token;
+    if (!quiet) {
+      const blocked = e.name === "TypeError" || e.name === "AbortError";
+      $("#connectMsg").className = "msg err";
+      $("#connectMsg").textContent = blocked
+        ? "Could not reach that address. Check it is running and allows this page's origin (ALLOWED_ORIGINS). Some viewers block calls to other sites; if so, open the page from the backend's own address instead."
+        : "The server answered: " + e.message;
+    }
+    return false;
+  }
+}
+function setMode() {
+  const b = $("#modeBtn");
+  b.dataset.live = S.live ? "1" : "0";
+  if (S.live) {
+    const host = S.api ? S.api.replace(/^https?:\/\//, "").replace(/\/$/, "") : location.host || "this server";
+    $("#modeText").textContent = "Live: " + host;
+    $("#connectMsg").className = "msg";
+    $("#connectMsg").textContent = `Connected to version ${S.health.version}. ${S.health.auth_required ? "The server requires a token." : "The server does not require a token."}`;
+  } else {
+    $("#modeText").textContent = "Recorded results";
+  }
+  $("#disconnectBtn").hidden = !S.live;
+}
+$("#modeBtn").addEventListener("click", () => {
+  const c = $("#connect"); c.hidden = !c.hidden; $("#modeBtn").setAttribute("aria-expanded", String(!c.hidden));
+  if (!c.hidden) $("#apiUrl").focus();
+});
+$("#connectForm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const url = $("#apiUrl").value.trim();
+  const sameOrigin = !url && location.protocol.startsWith("http");
+  if (!sameOrigin && !/^https?:\/\//.test(url)) { $("#connectMsg").className = "msg err"; $("#connectMsg").textContent = "Enter the full address, starting with https://"; return; }
+  $("#connectBtn").disabled = true; $("#connectMsg").className = "msg"; $("#connectMsg").textContent = "Connecting...";
+  await tryConnect(url, $("#apiToken").value.trim(), false);
+  $("#connectBtn").disabled = false;
+});
+$("#disconnectBtn").addEventListener("click", () => { S.live = false; S.api = ""; S.health = null; S.liveTrace = null; store("gd.api", null); setMode(); renderAll(); });
+
+/* ------------------------------------------------------------------ intro facts */
+function renderFacts() {
+  const any = MODELS.find(hasResults);
+  const r = any ? DATA.results[any] : null;
+  const when = r && r.finished ? new Date(r.finished).toLocaleDateString("en-GB", {day: "numeric", month: "long", year: "numeric"}) : null;
+  const measured = MODELS.filter(hasResults).map(b => META[b].label);
+  $("#facts").replaceChildren(
+    h("span", {}, h("b", {}, DATA.items.length), " labelled decisions in ", Object.keys(DATA.tasks).length, " tasks"),
+    h("span", {}, h("b", {}, "Kuzu"), " is the graph. ", h("b", {}, "Jev"), " is the typed decision layer, not a database"),
+    h("span", {}, h("b", {}, DATA.catalogue.pollutants.length), " pollutants, ", h("b", {}, DATA.catalogue.sources.length), " synthetic sources in the graph"),
+    measured.length ? h("span", {}, "Measured: ", h("b", {}, measured.join(", ")), when ? ` on ${when}` : "") : null,
+    r ? h("span", {}, r.hardware.replace(/^CPU only: /, "CPU only, ")) : null);
+}
+
+/* ------------------------------------------------------------------ pipeline */
+function pipelineModels() {
+  if (S.live) return (S.health.backends || []).filter(b => b.name !== "uniform").map(b => ({value: b.name, label: META[b.name] ? META[b.name].label : b.label,
+    color: META[b.name] && META[b.name].color, disabled: !b.available, title: b.available ? b.description : b.reason}));
+  return ["catalogue", ...MODELS].map(b => ({value: b, label: META[b].label, color: META[b].color, disabled: !DATA.examples[b],
+    title: DATA.examples[b] ? "" : "No recorded run. Connect a backend with this model to try it."}));
+}
+function renderPipelineControls() {
+  const opts = pipelineModels();
+  if (!S.backend || !opts.find(o => o.value === S.backend && !o.disabled)) S.backend = (opts.find(o => !o.disabled) || {}).value || null;
+  seg($("#bkSeg"), opts, S.backend, v => { S.backend = v; S.liveTrace = null; renderPipelineControls(); renderTrace(); });
+  const ex = examplesFor(S.backend);
+  $("#reqSel").hidden = S.live; $("#reqText").hidden = !S.live; $("#runBtn").hidden = !S.live;
+  $("#reqField label").setAttribute("for", S.live ? "reqText" : "reqSel");
+  $("#prefText").disabled = !S.live;
+  if (!S.live) {
+    $("#reqSel").replaceChildren(...ex.map((r, i) => h("option", {value: i, selected: i === S.example}, r.request)));
+    const run = ex[S.example];
+    $("#prefText").value = run ? run.preference : "";
+    $("#pipeMsg").textContent = ex.length ? (DATA.examples[S.backend].legacy ? "Legacy pipeline traces, before corrections. Connect for current behaviour." : "Corrected catalogue-rules runs. Connect to ask your own request.") : "";
+  } else {
+    $("#reqList").replaceChildren(...allExampleRequests().map(r => h("option", {value: r})));
+    if (!$("#reqText").value) $("#reqText").value = allExampleRequests()[0] || "";
+    $("#pipeMsg").textContent = "Live: requests run on the connected backend.";
+  }
+}
+function allExampleRequests() {
+  const seen = new Set();
+  for (const b of Object.values(DATA.examples)) for (const r of b.runs) seen.add(r.request);
+  return [...seen];
+}
+function examplesFor(b) { return (DATA.examples[b] && DATA.examples[b].runs) || []; }
+$("#reqSel").addEventListener("change", e => { S.example = Number(e.target.value); renderPipelineControls(); renderTrace(); });
+$("#runBtn").addEventListener("click", runLive);
+$("#reqText").addEventListener("keydown", e => { if (e.key === "Enter") runLive(); });
+async function runLive() {
+  const req = $("#reqText").value.trim();
+  if (!req) { $("#pipeMsg").textContent = "Type a request first."; return; }
+  $("#runBtn").disabled = true; $("#pipeMsg").textContent = `Running on ${META[S.backend] ? META[S.backend].label : S.backend}...`;
+  try {
+    S.liveTrace = await api("api/pipeline", {body: {backend: S.backend, request: req, preference: $("#prefText").value.trim() || null}});
+    $("#pipeMsg").textContent = "Live run on the connected backend.";
+    renderTrace();
+  } catch (e) { $("#pipeMsg").textContent = "The run failed: " + e.message; }
+  $("#runBtn").disabled = false;
+}
+function currentTrace() {
+  if (S.live) return S.liveTrace;
+  return examplesFor(S.backend)[S.example] || null;
+}
+function probRows(probs, top, color, labelFor, threshold) {
+  return h("div", {class: "probs"}, Object.entries(probs).map(([k, p]) => h("div", {class: "prow" + (k === top ? " top" : "")},
+    h("span", {class: "lab"}, labelFor ? labelFor(k) : k),
+    h("span", {class: "bar", style: `--c:${color}`}, h("i", {style: `width:${clamp(p * 100, 0, 100)}%`}),
+      threshold != null ? h("span", {class: "thr", style: `left:${threshold * 100}%`, title: "Threshold"}) : null),
+    h("span", {class: "v"}, p.toFixed(2)))));
+}
+function renderTrace() {
+  const box = $("#trace");
+  const t = currentTrace();
+  if (!t) {
+    box.replaceChildren(h("div", {class: "panel empty"}, S.live ? "Type a request and press Run." : "No recorded run for this model. Choose another, or connect a backend."));
+    return;
+  }
+  const color = (META[t.backend] || META.laya).color;
+  const byStage = Object.fromEntries(t.stages.map(s => [s.stage, s]));
+  const rail = h("ol", {class: "rail"});
+  const g = byStage.gate;
+  rail.append(h("li", {class: "stage" + (t.outcome === "clarify" || t.outcome === "reject" ? " stop" : "")},
+    h("h3", {}, "Gate"),
+    h("p", {class: "why"}, "Can the catalogue answer this request as written?"),
+    probRows(g.answer.probabilities, g.answer.top, color),
+    labelNote(t, "gate"),
+    t.outcome !== "answer" && !byStage.enrich ? h("p", {class: "stopnote", style: "margin-top:10px"}, t.message) : null));
+  if (byStage.enrich) {
+    const e = byStage.enrich;
+    const nodes = [...e.nodes].sort((a, b) => b.p - a.p);
+    const labelOf = {};
+    for (const n of nodes) labelOf[n.node] = n.label + (n.kind === "group" ? " (group)" : "");
+    const probs = Object.fromEntries(nodes.map(n => [n.node, n.p]));
+    rail.append(h("li", {class: "stage"},
+      h("h3", {}, "Pollutants"),
+      h("p", {class: "why"}, `The graph proposed ${e.graph_candidates.length} pollutant${e.graph_candidates.length === 1 ? "" : "s"}. Explicit group names are validated against the catalogue; model decisions below the acceptance threshold require review.`),
+      h("div", {class: "probs"}, nodes.map(n => h("div", {class: "prow" + (n.selected ? " top" : "")},
+        h("span", {class: "lab"}, labelOf[n.node]),
+        h("span", {class: "bar", style: `--c:${color}`}, h("i", {style: `width:${clamp(n.p * 100, 0, 100)}%`}), h("span", {class: "thr", style: `left:${e.threshold * 100}%`})),
+        h("span", {class: "v"}, n.p.toFixed(2))))),
+      e.groups_expanded.length ? h("p", {class: "small muted", style: "margin-top:8px"},
+        "The graph expands ", e.groups_expanded.map(gid => DATA.catalogue.groups[gid]).join(" and "), " to its members.") : null));
+  }
+  if (byStage.query) {
+    const q = byStage.query;
+    rail.append(h("li", {class: "stage"},
+      h("h3", {}, "Breakdown"),
+      h("p", {class: "why"}, "One choice per dimension, including none."),
+      h("div", {class: "dims"}, Object.entries(q.answers).map(([dim, a]) => h("div", {},
+        h("h4", {}, DIM_NAME[dim] || dim), probRows(a.probabilities, a.top, color)))),
+      h("p", {class: "small muted", style: "margin:12px 0 6px"}, "The structured query, in the paper's notation (Definition 5):"),
+      h("div", {class: "query"}, queryText(t.query)),
+      t.query && t.query.filters && Object.keys(t.query.filters).length ? h("pre", {class: "small", style: "white-space:pre-wrap;overflow-wrap:anywhere"}, JSON.stringify(t.query.filters, null, 2)) : null,
+      labelNote(t, "query")));
+  }
+  if (byStage.discover) {
+    const d = byStage.discover;
+    rail.append(h("li", {class: t.outcome === "no_data" ? "stage stop" : "stage"},
+      h("h3", {}, "Discovery"),
+      h("p", {class: "why"}, "Graph only, no model. Minimal sets of sources that together hold every requested pollutant at levels that roll up to the query's."),
+      h("p", {}, d.solutions ? `${d.solutions} solution${d.solutions === 1 ? "" : "s"} found; the join size of each is estimated by histogram intersection.` : ""),
+      t.outcome === "no_data" ? h("p", {class: "stopnote", style: "margin-top:10px"}, t.message) : null));
+  }
+  if ((t.outcome === "clarify" || t.outcome === "review") && byStage.enrich) rail.append(h("li", {class: "stage stop"}, h("h3", {}, "Review Required"), h("p", {class: "stopnote"}, t.message)));
+
+  const side = h("div", {class: "side"});
+  if (t.subgraph) side.append(graphPanel(t, color));
+  if (t.solutions) side.append(solutionsPanel(t, color));
+  if (t.explanation) side.append(h("div", {class: "panel"}, h("h3", {style: "margin-bottom:6px"}, "Explanation ", h("span", {class: "tag"}, "written by " + t.explanation.by)),
+    h("p", {class: "explain"}, t.explanation.text)));
+  if (!side.children.length) side.append(h("div", {class: "panel empty"},
+    t.outcome === "review" ? "The request stopped at an uncertain decision. No automatic answer was approved." :
+    t.outcome === "reject" ? "The gate rejected the request, so the graph was never queried. A rejection costs one decision." :
+    "The gate asked for clarification, so the graph was never queried. The user would be asked for a pollutant and a breakdown."));
+
+  const tt = t.totals;
+  const res = t.residency === "hosted" ? h("span", {class: "pill hosted"}, "Request text sent to TypeSafe") : h("span", {class: "pill"}, "Stays on the backend's server");
+  box.replaceChildren(h("div", {class: "trace"}, rail, side),
+    h("p", {class: "totals"}, h("span", {}, h("b", {}, tt.decisions), " decisions in ", h("b", {}, tt.calls), " model calls"),
+      h("span", {}, h("b", {}, ms(tt.latency_ms)), " of model time on ", S.live ? "the connected backend" : "CPU"),
+      h("span", {}, "API cost ", h("b", {}, usd(tt.cost_usd))), res,
+      h("span", {}, t.backend_label + ": " + t.model)));
+}
+function labelNote(t, what) {
+  const g = DATA.gold && DATA.gold[t.request];
+  if (!g) return null;
+  if (what === "gate") {
+    const ok = g.gate === t.stages[0].answer.top;
+    return h("p", {class: "small", style: "margin-top:8px"}, h("span", {class: "mark " + (ok ? "ok" : "no")}, ok ? "✓ " : "✗ "),
+      `Labelled answer: ${g.gate}. This request is item ${g.id} in the test set.`);
+  }
+  if (!g.pollutants || !t.query) return null;
+  const same = JSON.stringify(g.pollutants) === JSON.stringify(t.query.pollutants) && JSON.stringify(g.levels) === JSON.stringify(t.query.levels);
+  return h("div", {style: "margin-top:8px"}, h("p", {class: "small"}, h("span", {class: "mark " + (same ? "ok" : "no")}, same ? "✓ " : "✗ "),
+    same ? "Matches the labelled query." : "The labelled query is:"), same ? null : h("div", {class: "query"}, queryText(g)));
+}
+function queryText(q) {
+  const pols = q.pollutants.map(p => POL[p] ? POL[p].label : p);
+  const shown = pols.length > 6 ? pols.slice(0, 6).join(", ") + `, ... (${pols.length} in all)` : pols.join(", ");
+  const lv = Object.entries(q.levels).map(([d, l]) => `${d}.${l}`).join(", ");
+  return `Q = <{${shown}}, {${lv}}>`;
+}
+function graphPanel(t, color) {
+  const sg = t.subgraph, W = 528, rowH = 30, nodeH = 22;
+  const pols = sg.nodes.filter(n => n.kind === "pollutant");
+  const srcs = sg.nodes.filter(n => n.kind === "source");
+  const levels = sg.nodes.filter(n => n.kind === "level");
+  const shownPols = pols.length > 10 ? pols.slice(0, 9) : pols;
+  const win = new Set(t.solutions && t.solutions[0] ? t.solutions[0].sources.map(s => "S:" + s.id) : []);
+  const levelRows = [];
+  let dimPrev = null;
+  for (const l of levels) { if (l.dim !== dimPrev) { levelRows.push({head: l.dim}); dimPrev = l.dim; } levelRows.push(l); }
+  const rows = Math.max(shownPols.length + (pols.length > shownPols.length ? 1 : 0), srcs.length, levelRows.length);
+  const H = rows * rowH + 34;
+  const col = {p: {x: 0, w: 104}, s: {x: 160, w: 200}, l: {x: 406, w: 100}};
+  const pos = {};
+  const y0 = 30;
+  const center = (n, i) => y0 + (rows - n) * rowH / 2 + i * rowH;
+  shownPols.forEach((n, i) => pos[n.id] = {x: col.p.x, y: center(shownPols.length, i), w: col.p.w});
+  srcs.forEach((n, i) => pos[n.id] = {x: col.s.x, y: center(srcs.length, i), w: col.s.w});
+  levelRows.forEach((n, i) => { if (!n.head) pos[n.id] = {x: col.l.x, y: y0 + i * rowH, w: col.l.w}; else n.y = y0 + i * rowH; });
+  const svg = sv("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Graph: sources in the middle, the pollutants they provide on the left, and the levels they hold on the right"});
+  svg.append(sv("text", {x: col.p.x, y: 14, class: "axis-t", "font-size": 12, fill: "var(--muted)"}, "Pollutants"),
+             sv("text", {x: col.s.x, y: 14, "font-size": 12, fill: "var(--muted)"}, "Sources"),
+             sv("text", {x: col.l.x, y: 14, "font-size": 12, fill: "var(--muted)"}, "Levels"));
+  const edges = sv("g", {});
+  svg.append(edges);
+  for (const e of sg.edges) {
+    const a = pos[e.from], b = pos[e.to];
+    if (!a || !b) continue;
+    const isWin = win.has(e.from);
+    let d;
+    if (e.kind === "rolls_up") {
+      const x = b.x + b.w + 8;
+      d = `M${a.x + a.w} ${a.y + nodeH / 2} C${x + 10} ${a.y + nodeH / 2} ${x + 10} ${b.y + nodeH / 2} ${b.x + b.w} ${b.y + nodeH / 2}`;
+    } else if (e.kind === "provides") {
+      const x1 = a.x, x2 = b.x + b.w;
+      d = `M${x1} ${a.y + nodeH / 2} C${(x1 + x2) / 2} ${a.y + nodeH / 2} ${(x1 + x2) / 2} ${b.y + nodeH / 2} ${x2} ${b.y + nodeH / 2}`;
+    } else {
+      const x1 = a.x + a.w, x2 = b.x;
+      d = `M${x1} ${a.y + nodeH / 2} C${(x1 + x2) / 2} ${a.y + nodeH / 2} ${(x1 + x2) / 2} ${b.y + nodeH / 2} ${x2} ${b.y + nodeH / 2}`;
+    }
+    edges.append(sv("path", {d, class: "gedge" + (isWin ? " win" : ""), "data-from": e.from, "stroke-dasharray": e.kind === "rolls_up" ? null : null}));
+  }
+  const nodeG = (n, p, cls, text) => {
+    const g = sv("g", {class: "gnode " + cls, "data-id": n.id, style: `--c:${color}`});
+    g.append(sv("rect", {x: p.x, y: p.y, width: p.w, height: nodeH, rx: 6}),
+             sv("text", {x: p.x + 8, y: p.y + 15, "font-size": 12, "font-weight": cls.includes("win") || cls.includes("sel") ? 600 : 400}, text));
+    return g;
+  };
+  for (const n of shownPols) svg.append(nodeG(n, pos[n.id], "sel", n.label));
+  if (pols.length > shownPols.length) {
+    const i = shownPols.length, p = {x: col.p.x, y: center(shownPols.length + 1, i), w: col.p.w};
+    svg.append(sv("text", {x: p.x + 8, y: p.y + 15, "font-size": 12, fill: "var(--muted)"}, `and ${pols.length - shownPols.length} more`));
+  }
+  for (const n of srcs) svg.append(nodeG(n, pos[n.id], win.has(n.id) ? "win" : "", n.label.length > 29 ? n.label.slice(0, 28) + "..." : n.label));
+  for (const n of levelRows) {
+    if (n.head) svg.append(sv("text", {x: col.l.x, y: n.y + 15, "font-size": 11, fill: "var(--muted)", "font-weight": 600}, DIM_NAME[n.head]));
+    else svg.append(nodeG(n, pos[n.id], n.selected ? "sel" : "", n.label));
+  }
+  const wrap = h("div", {class: "panel graph"}, h("h3", {style: "margin-bottom:8px"}, "In the graph"), h("p", {class: "small muted scroll-hint", style: "margin-bottom:6px"}, "Scroll sideways to see the levels."),
+    h("div", {style: "overflow-x:auto"}, h("div", {style: "min-width:500px"}, svg)),
+    h("div", {class: "gkey"}, h("span", {}, h("i", {class: "sel"}), "In the query"), h("span", {}, h("i", {class: "win", style: `--c:${color}`}), "Top-ranked solution"),
+      h("span", {}, "Lines: source provides a pollutant, or holds a level; right-hand curves roll a level up to the next")));
+  wrap.dataset.graph = "1";
+  return wrap;
+}
+function coverText(sol) {
+  return Object.entries(sol.profiles).map(([key, prof]) => {
+    const [dim, lvl] = key.split("."), mem = Object.keys(prof);
+    if (!mem.length) return `no ${lvl}`;
+    if (dim === "TIME") return mem.length > 1 ? `${mem[0]} to ${mem[mem.length - 1]}` : mem[0];
+    return plural(lvl, mem.length);
+  }).join(", ");
+}
+function solutionsPanel(t, color) {
+  const rows = t.solutions.map((sol, i) => {
+    const row = h("div", {class: "solr"},
+      h("b", {}, sol.id),
+      h("div", {class: "src"}, sol.sources.map(s => h("div", {}, s.name, h("span", {class: "tag"}, `${s.publisher}, ${s.updated}`)))),
+      h("div", {class: "meta"}, `Covers ${coverText(sol)}; up to ${sol.cells.toLocaleString("en-GB")} cells`),
+      sol.fit ? h("div", {class: "fit", title: "Preference fit, 0 to 3"},
+        h("span", {class: "bar", style: `--c:${color}`}, h("i", {style: `width:${sol.fit.score / 3 * 100}%;background:${i === 0 ? color : "var(--hold)"}`})),
+        h("span", {class: "num"}, sol.fit.score.toFixed(1) + " of 3")) : h("div", {class: "fit muted small"}, "no preference"),
+      sol.notes.length ? h("p", {class: "note"}, sol.notes.join(". ") + ".") : null);
+    row.addEventListener("mouseenter", () => hlSources(row, sol, true));
+    row.addEventListener("mouseleave", () => hlSources(row, sol, false));
+    return row;
+  });
+  return h("div", {class: "panel"}, h("h3", {style: "margin-bottom:4px"}, "Ranked solutions"),
+    h("p", {class: "small muted", style: "margin-bottom:8px"}, t.preference ? `Scored against "${t.preference}" on a 0 to 3 scale; the score is the probability-weighted level.` : "No preference given, so ranked by coverage."),
+    h("div", {class: "sols"}, rows));
+}
+function hlSources(tr, sol, on) {
+  tr.classList.toggle("hl", on);
+  const ids = new Set(sol.sources.map(s => "S:" + s.id));
+  document.querySelectorAll("#trace .gnode").forEach(g => { if (g.dataset.id.startsWith("S:")) g.classList.toggle("dim", on && !ids.has(g.dataset.id)); });
+  document.querySelectorAll("#trace .gedge").forEach(e => { if (e.dataset.from.startsWith("S:")) e.classList.toggle("dim", on && !ids.has(e.dataset.from)); });
+}
+
+/* ------------------------------------------------------------------ benchmark */
+function recsFor(b, scope, includeErrors = false) {
+  const r = DATA.results[b];
+  if (!r) return [];
+  return r.records.filter(x => (includeErrors || !x.error) && ITEM[x.id] && (scope === "all" || ITEM[x.id].task === scope))
+    .map(x => ({...x, gold: x.gold || ITEM[x.id].gold, task: x.task || ITEM[x.id].task, correct: x.top === (x.gold || ITEM[x.id].gold)}));
+}
+function mScope(b, scope) {
+  const m = DATA.results[b] && DATA.results[b].metrics;
+  if (!m) return null;
+  return scope === "all" ? m.overall : m.tasks[scope];
+}
+function majorityBaseline(task) {
+  const c = {};
+  let n = 0;
+  for (const it of DATA.items) if (it.task === task) { c[it.gold] = (c[it.gold] || 0) + 1; n++; }
+  return n ? Math.max(...Object.values(c)) / n : null;
+}
+function renderRecords() {
+  const cards = [];
+  const liveNames = S.live ? new Set((S.health.backends || []).map(b => b.name)) : null;
+  for (const b of [...MODELS, "uniform"]) {
+    const res = DATA.results[b], m = res && res.metrics && res.metrics.overall;
+    const liveB = S.live ? (S.health.backends || []).find(x => x.name === b) : null;
+    const runBtn = S.live && liveB && liveB.available && S.health.eval_enabled && b !== "uniform"
+      ? h("button", {class: "btn ghost", type: "button", onclick: e => startEval(b, e.currentTarget)}, res ? "Run again on this server" : "Run the benchmark on this server") : null;
+    if (!m) {
+      if (b === "uniform") continue;
+      cards.push(h("article", {class: "rec"},
+        h("div", {class: "rec-h"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("h3", {}, META[b].label),
+          b === "jev" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local")),
+        h("p", {class: "empty"}, b === "jev"
+          ? "Not measured yet. Jev is a paid hosted API: set TYPESAFE_API_KEY on the backend, then run the current benchmark."
+          : "Not measured yet. Run the benchmark on a backend that has this model installed."),
+        runBtn, h("div", {class: "evalprog", hidden: true})));
+      continue;
+    }
+    const isRef = b === "uniform";
+    cards.push(h("article", {class: "rec" + (isRef ? " ref" : "")},
+      h("div", {class: "rec-h"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("h3", {}, isRef ? "Equal odds (reference)" : META[b].label),
+        res.residency === "hosted" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local")),
+      h("div", {class: "model"}, isRef ? "Equal probability reference, not a deployment policy." : res.model,
+        res.legacy ? h("span", {class: "pill", style: "margin-left:6px"}, "Legacy run") : null),
+      isRef ? h("div", {class: "hero"}, h("b", {}, fix(m.ece)), h("span", {}, "calibration error, lower than either model"))
+            : h("div", {class: "hero"}, h("b", {}, pct(m.accuracy, 1)), h("span", {}, "right on the labelled set")),
+      h("dl", {class: "kv"},
+        isRef ? null : h("dt", {}, "Calibration error"), isRef ? null : h("dd", {}, fix(m.ece)),
+        isRef ? null : h("dt", {}, "After calibrating on labels"), isRef ? null : h("dd", {}, fix(m.ece_recalibrated)),
+        h("dt", {}, "In-sample coverage at 5% error"), h("dd", {}, pct(m.coverage_at_5.coverage)),
+        h("dt", {}, "Grouped holdout coverage"), h("dd", {}, pct(m.heldout_at_5 && m.heldout_at_5.coverage)),
+        h("dt", {}, "Grouped holdout error"), h("dd", {}, pct(m.heldout_at_5 && m.heldout_at_5.observed_risk)),
+        isRef ? null : h("dt", {}, "Median time per decision"), isRef ? null : h("dd", {}, ms(m.latency_ms_p50)),
+        isRef ? null : h("dt", {}, "API cost per 1,000"), isRef ? null : h("dd", {}, usd(m.cost_usd_per_1k))),
+      runBtn, h("div", {class: "evalprog", hidden: true}),
+      h("p", {class: "foot"}, `${m.n} decisions${m.errors ? `, ${m.errors} failed` : ""}. ${res.hardware}. ${res.finished ? new Date(res.finished).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"}) : ""}`,
+        ...(res.reruns || []).map(rr => h("span", {style: "display:block;margin-top:4px"}, `${rr.tasks.map(t => TASK_SHORT[t]).join(", ")} rerun: ${rr.reason}` +
+          (rr.before && rr.tasks.length === 1 && rr.before[rr.tasks[0]] ? ` Before: ${pct(rr.before[rr.tasks[0]].accuracy)} right.` : ""))))));
+  }
+  $("#records").replaceChildren(...cards);
+}
+async function startEval(b, btn) {
+  const prog = btn.parentElement.querySelector(".evalprog");
+  btn.disabled = true; prog.hidden = false;
+  prog.replaceChildren(h("div", {class: "progress"}, h("i", {})), h("p", {class: "small muted", style: "margin-top:6px"}, "Starting..."));
+  try {
+    const job = await api("api/eval", {body: {backend: b}});
+    for (;;) {
+      await new Promise(r => setTimeout(r, 2000));
+      const st = await api("api/eval/" + job.id);
+      prog.querySelector("i").style.width = (st.done / st.total * 100) + "%";
+      prog.querySelector("p").textContent = `${st.done} of ${st.total} decisions`;
+      if (st.state !== "running") {
+        if (st.state !== "finished") throw new Error(st.error || st.state);
+        const res = await api("api/results"); DATA.results = {...DATA.results, ...res};
+        renderBench(); renderFacts(); renderTestset();
+        return;
+      }
+    }
+  } catch (e) { prog.querySelector("p").textContent = "The run failed: " + e.message; btn.disabled = false; }
+}
+function measured() { return MODELS.filter(hasResults); }
+function renderAccuracy() {
+  const bs = measured();
+  $("#accLegend").replaceChildren(...bs.map(b => h("span", {}, h("i", {style: `--c:${META[b].color}`}), META[b].label)),
+    h("span", {}, h("i", {class: "tick"}), "Always giving the task's most common answer"));
+  if (!bs.length) { $("#accChart").replaceChildren(h("p", {class: "empty"}, "No results yet.")); return; }
+  const cw = $("#accChart").clientWidth || 720, narrow = cw < 560;
+  const W = Math.round(clamp(cw, 300, 900)), L = narrow ? 4 : 170, R = 48, barH = 12, gap = 4, head = narrow ? 18 : 0, groupGap = narrow ? 16 : 18;
+  const groupH = bs.length * barH + (bs.length - 1) * gap;
+  const H = 24 + TASK_ORDER.length * (head + groupH + groupGap);
+  const x = v => L + v * (W - L - R);
+  const svg = sv("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Accuracy by task for each model"});
+  for (const v of [0, .25, .5, .75, 1]) svg.append(sv("line", {x1: x(v), x2: x(v), y1: 16, y2: H - 4, class: v ? "gridl" : "base"}),
+    sv("text", {x: x(v), y: 11, "text-anchor": v === 0 && narrow ? "start" : "middle", class: "axis-t"}, pct(v)));
+  TASK_ORDER.forEach((task, ti) => {
+    const top = 24 + ti * (head + groupH + groupGap), gy = top + head;
+    svg.append(narrow ? sv("text", {x: L, y: top + 12, fill: "var(--ink)"}, TASK_SHORT[task])
+                      : sv("text", {x: L - 12, y: gy + groupH / 2 + 4, "text-anchor": "end", fill: "var(--ink)"}, TASK_SHORT[task]));
+    bs.forEach((b, bi) => {
+      const m = DATA.results[b].metrics.tasks[task], y = gy + bi * (barH + gap), w = m.n ? Math.max(5, x(m.accuracy) - L) : 0;
+      const bar = sv("path", {d: `M${L} ${y} h${w - 4} a4 4 0 0 1 4 4 v${barH - 8} a4 4 0 0 1 -4 4 h${-(w - 4)} z`, fill: META[b].color, tabindex: 0,
+        "aria-label": `${META[b].label}, ${TASK_SHORT[task]}: ${pct(m.accuracy, 1)}`});
+      const tipNode = () => h("div", {}, h("div", {}, h("b", {}, pct(m.accuracy, 1)), " right"), h("div", {class: "k", style: `--c:${META[b].color}`}, h("i", {}), `${META[b].label}, ${TASK_SHORT[task]}`),
+        h("div", {class: "small muted"}, `${m.n} decisions, calibration error ${fix(m.ece)}`));
+      bar.addEventListener("pointermove", ev => showTip(ev, tipNode())); bar.addEventListener("pointerleave", hideTip);
+      bar.addEventListener("focus", ev => { const r = ev.target.getBoundingClientRect(); showTip({clientX: r.right, clientY: r.top}, tipNode()); });
+      bar.addEventListener("blur", hideTip);
+      svg.append(bar, sv("text", {x: x(m.accuracy) + 6, y: y + barH - 2, "font-size": 11.5, fill: "var(--ink-2)", class: "num"}, pct(m.accuracy)));
+    });
+    const base = majorityBaseline(task);
+    if (base != null) svg.append(sv("line", {x1: x(base), x2: x(base), y1: gy - 4, y2: gy + groupH + 4, stroke: "var(--ink)", "stroke-width": 2}));
+  });
+  $("#accChart").replaceChildren(svg);
+}
+function renderScope() {
+  seg($("#scopeSeg"), [{value: "all", label: "All tasks"}, ...TASK_ORDER.map(t => ({value: t, label: TASK_SHORT[t]}))], S.scope,
+    v => { S.scope = v; renderScope(); renderReliability(); renderCoverage(); renderThreshold(); });
+}
+document.querySelectorAll("#calSeg button").forEach(b => b.addEventListener("click", () => {
+  S.calib = b.dataset.v; document.querySelectorAll("#calSeg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); renderReliability();
+}));
+function renderReliability() {
+  const bs = measured();
+  $("#calNote").textContent = S.calib === "raw"
+    ? "Each dot is a group of decisions with similar stated confidence. On the diagonal, confidence matches accuracy; below it, the model is overconfident. Dot area shows how many decisions fall in the group."
+    : "Temperature scaling fitted on disjoint request/source groups, per task. It changes uncertainty, not task accuracy. Legacy runs omit the new group and preference tasks; deployable artifacts require a fresh benchmark with current question signatures.";
+  $("#relMults").replaceChildren(...(bs.length ? bs.map(b => relChart(b)) : [h("p", {class: "empty"}, "No results yet.")]));
+}
+function relChart(b) {
+  const m = mScope(b, S.scope);
+  const bins = (S.calib === "raw" ? m.reliability : m.reliability_recalibrated) || [];
+  const e = S.calib === "raw" ? m.ece : m.ece_recalibrated;
+  const W = 300, H = 300, L = 36, T = 10, R = 12, B = 64;
+  const pw = W - L - R, ph = H - T - B - 36;
+  const x = v => L + v * pw, y = v => T + (1 - v) * ph;
+  const svg = sv("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": `${META[b].label} reliability diagram`});
+  for (const v of [0, .25, .5, .75, 1]) {
+    svg.append(sv("line", {x1: L, x2: L + pw, y1: y(v), y2: y(v), class: v ? "gridl" : "base"}),
+      sv("text", {x: L - 6, y: y(v) + 4, "text-anchor": "end", class: "axis-t", "font-size": 11}, v.toFixed(2).replace(/0$/, "").replace(/\.0?$/, "")),
+      sv("text", {x: x(v), y: T + ph + 16, "text-anchor": "middle", class: "axis-t", "font-size": 11}, v.toFixed(2).replace(/0$/, "").replace(/\.0?$/, "")));
+  }
+  svg.append(sv("line", {x1: x(0), y1: y(0), x2: x(1), y2: y(1), stroke: "var(--axis)", "stroke-width": 1}),
+    sv("text", {x: L + pw / 2, y: T + ph + 32, "text-anchor": "middle", class: "axis-t", "font-size": 11}, "Stated confidence"),
+    sv("text", {x: 12, y: T + ph / 2, "text-anchor": "middle", class: "axis-t", "font-size": 11, transform: `rotate(-90 12 ${T + ph / 2})`}, "Accuracy"));
+  const filled = bins.filter(bn => bn.n);
+  const maxN = Math.max(1, ...filled.map(bn => bn.n));
+  for (const bn of filled) svg.append(sv("line", {x1: x(bn.confidence), x2: x(bn.confidence), y1: y(bn.confidence), y2: y(bn.accuracy), stroke: "var(--hold)", "stroke-width": 2}));
+  if (filled.length > 1) svg.append(sv("polyline", {points: filled.map(bn => `${x(bn.confidence)},${y(bn.accuracy)}`).join(" "), fill: "none", stroke: META[b].color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round"}));
+  for (const bn of filled) {
+    const r = 4 + 7 * Math.sqrt(bn.n / maxN);
+    const c = sv("circle", {cx: x(bn.confidence), cy: y(bn.accuracy), r, fill: META[b].color, stroke: "var(--paper)", "stroke-width": 2, tabindex: 0,
+      "aria-label": `${bn.n} decisions at confidence ${bn.confidence.toFixed(2)}, accuracy ${pct(bn.accuracy)}`});
+    const node = () => h("div", {}, h("div", {}, h("b", {}, pct(bn.accuracy)), " right"), h("div", {class: "small muted"}, `${bn.n} decisions stated ${bn.lo.toFixed(1)} to ${bn.hi.toFixed(1)}, average ${bn.confidence.toFixed(2)}`));
+    c.addEventListener("pointermove", ev => showTip(ev, node())); c.addEventListener("pointerleave", hideTip);
+    c.addEventListener("focus", ev => { const rr = ev.target.getBoundingClientRect(); showTip({clientX: rr.right, clientY: rr.top}, node()); }); c.addEventListener("blur", hideTip);
+    svg.append(c);
+  }
+  const hy = T + ph + 40, hh = 22, bw = pw / 10;
+  svg.append(sv("text", {x: L - 6, y: hy + hh - 4, "text-anchor": "end", class: "axis-t", "font-size": 10}, "n"));
+  bins.forEach((bn, i) => { if (bn.n) { const hgt = Math.max(2, hh * bn.n / maxN); svg.append(sv("rect", {x: L + i * bw + 1, y: hy + hh - hgt, width: bw - 2, height: hgt, rx: 2, fill: "var(--hold)"})); } });
+  svg.append(sv("line", {x1: L, x2: L + pw, y1: hy + hh, y2: hy + hh, class: "base"}));
+  return h("div", {class: "mult"}, h("h4", {}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), META[b].label),
+    h("p", {}, `Calibration error ${fix(e)} over ${m.n} decisions`), svg);
+}
+function riskCurve(recs) {
+  const sorted = recs.filter(r => !r.error).sort((a, b) => b.confidence - a.confidence);
+  const pts = [{cov: 0, risk: 0, thr: 1}];
+  let wrong = 0;
+  sorted.forEach((r, i) => { wrong += r.correct ? 0 : 1; if (i === sorted.length - 1 || sorted[i + 1].confidence < r.confidence) pts.push({cov: (i + 1) / recs.length, risk: wrong / (i + 1), thr: r.confidence}); });
+  return pts;
+}
+function renderCoverage() {
+  const bs = measured();
+  $("#covLegend").replaceChildren(...bs.map(b => h("span", {}, h("i", {class: "line", style: `--c:${META[b].color}`}), META[b].label)),
+    h("span", {}, h("i", {class: "tick", style: "height:2px;width:16px"}), "5% reference error"));
+  if (!bs.length) { $("#covChart").replaceChildren(h("p", {class: "empty"}, "No results yet.")); return; }
+  const curves = Object.fromEntries(bs.map(b => [b, riskCurve(recsFor(b, S.scope, true))]));
+  const maxRisk = Math.min(1, Math.max(0.1, ...Object.values(curves).flat().filter(p => p.cov >= 0.1).map(p => p.risk)) * 1.08);
+  const cw = $("#covChart").clientWidth || 560;
+  const W = Math.round(clamp(cw, 300, 760)), H = cw < 480 ? 260 : 300, L = 40, R = 62, T = 12, B = 40;
+  const x = v => L + v * (W - L - R), y = v => T + (1 - v / maxRisk) * (H - T - B);
+  const svg = sv("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Observed error against the in-sample share selected"});
+  const step = maxRisk > 0.4 ? 0.1 : 0.05;
+  for (let v = 0; v <= maxRisk + 1e-9; v += step) svg.append(sv("line", {x1: L, x2: W - R, y1: y(v), y2: y(v), class: v ? "gridl" : "base"}),
+    sv("text", {x: L - 6, y: y(v) + 4, "text-anchor": "end", class: "axis-t"}, pct(v)));
+  for (const v of [0, .25, .5, .75, 1]) svg.append(sv("text", {x: x(v), y: H - B + 16, "text-anchor": "middle", class: "axis-t"}, pct(v)));
+  svg.append(sv("text", {x: L + (W - L - R) / 2, y: H - 6, "text-anchor": "middle", class: "axis-t"}, W < 420 ? "In-sample share selected" : "In-sample share selected, most confident first"));
+  svg.append(sv("line", {x1: L, x2: W - R, y1: y(0.05), y2: y(0.05), stroke: "var(--ink)", "stroke-width": 1.5}),
+    sv("text", {x: W - R + 6, y: y(0.05) + 4, class: "axis-t", "font-size": 11}, "5%"));
+  for (const b of bs) {
+    const pts = curves[b].filter(p => p.cov > 0);
+    if (!pts.length) continue;
+    const clip = pts.map(p => `${x(p.cov)},${y(Math.min(p.risk, maxRisk))}`).join(" ");
+    svg.append(sv("polyline", {points: clip, fill: "none", stroke: META[b].color, "stroke-width": 2, "stroke-linejoin": "round"}));
+    const last = pts[pts.length - 1];
+    svg.append(sv("text", {x: x(last.cov) + 6, y: y(Math.min(last.risk, maxRisk)) + 4, "font-size": 11.5, fill: "var(--ink-2)"}, META[b].label));
+  }
+  const tb = S.thrModel;
+  if (tb && curves[tb]) {
+    const p = pointAt(curves[tb], S.thr);
+    if (p.cov > 0) svg.append(sv("circle", {cx: x(p.cov), cy: y(Math.min(p.risk, maxRisk)), r: 5, fill: META[tb].color, stroke: "var(--paper)", "stroke-width": 2}));
+  }
+  const cross = sv("line", {y1: T, y2: H - B, stroke: "var(--axis)", "stroke-width": 1, visibility: "hidden"});
+  const hit = sv("rect", {x: L, y: T, width: W - L - R, height: H - T - B, fill: "transparent"});
+  svg.append(cross, hit);
+  hit.addEventListener("pointermove", ev => {
+    const box = svg.getBoundingClientRect(), vx = (ev.clientX - box.left) / box.width * W, cov = clamp((vx - L) / (W - L - R), 0, 1);
+    cross.setAttribute("x1", x(cov)); cross.setAttribute("x2", x(cov)); cross.setAttribute("visibility", "visible");
+    showTip(ev, h("div", {}, h("div", {class: "small muted"}, `Selecting the top ${pct(cov)} in sample`), ...bs.map(b => {
+      const p = curves[b].reduce((best, q) => Math.abs(q.cov - cov) < Math.abs(best.cov - cov) ? q : best, curves[b][0]);
+      return h("div", {class: "k", style: `--c:${META[b].color}`}, h("i", {}), h("b", {style: "color:var(--ink)"}, pct(p.risk, 1)), `wrong, ${META[b].label}`);
+    })));
+  });
+  hit.addEventListener("pointerleave", () => { cross.setAttribute("visibility", "hidden"); hideTip(); });
+  $("#covChart").replaceChildren(svg);
+}
+function pointAt(curve, thr) {
+  let p = curve[0];
+  for (const q of curve) if (q.thr >= thr) p = q;
+  return p;
+}
+function renderThreshold() {
+  const bs = measured();
+  if (!S.thrModel || !bs.includes(S.thrModel)) S.thrModel = bs[0] || null;
+  seg($("#thrSeg"), bs.map(b => ({value: b, label: META[b].label, color: META[b].color})), S.thrModel, v => { S.thrModel = v; renderThreshold(); renderCoverage(); });
+  $("#thrVal").textContent = S.thr.toFixed(2);
+  if (!S.thrModel) return;
+  const recs = recsFor(S.thrModel, S.scope, true);
+  const auto = recs.filter(r => !r.error && r.confidence >= S.thr), wrong = auto.filter(r => !r.correct).length;
+  $("#roAuto").textContent = recs.length ? pct(auto.length / recs.length) : "n/a";
+  $("#roErr").textContent = auto.length ? pct(wrong / auto.length, 1) : "n/a";
+  $("#roHuman").textContent = (recs.length - auto.length).toLocaleString("en-GB");
+  const parts = [[auto.length - wrong, "var(--good)"], [wrong, "var(--bad)"], [recs.length - auto.length, "var(--hold)"]];
+  $("#thrStack").replaceChildren(...parts.filter(p => p[0]).map(([n, c]) => h("i", {style: `flex:${n};background:${c}`, title: String(n)})));
+}
+$("#thrRange").addEventListener("input", e => { S.thr = Number(e.target.value); renderThreshold(); renderCoverage(); });
+function renderBench() { renderRecords(); renderAccuracy(); renderScope(); renderReliability(); renderThreshold(); renderCoverage(); }
+let lastW = innerWidth, rsz = 0;
+addEventListener("resize", () => { clearTimeout(rsz); rsz = setTimeout(() => { if (Math.abs(innerWidth - lastW) > 40) { lastW = innerWidth; renderAccuracy(); renderCoverage(); } }, 150); });
+
+/* ------------------------------------------------------------------ test set */
+function itemText(it) {
+  const s = it.state;
+  if (s.request) return {main: s.request, sub: it.task === "relevance" ? DATA.questions[it.q].instructions.replace("Does the request ask for data on ", "Asks for ").replace(/\?$/, "?") :
+    it.task === "level" ? `${DIM_NAME[it.meta.dim]} breakdown` : "Answer, clarify or reject"};
+  if (s["name A"]) return {main: `${s["name A"]}  /  ${s["name B"]}`, sub: `Same thing? (${s.kind})`};
+  return {main: `${s.column}: ${s["sample values"].join(", ")}`, sub: s.source.split(":")[0]};
+}
+function renderTsFilters() {
+  $("#tsTask").replaceChildren(h("option", {value: "all"}, "All tasks"), ...TASK_ORDER.map(t => h("option", {value: t, selected: t === S.tsTask}, TASK_SHORT[t])));
+  const bs = measured();
+  const opts = [["all", "All items"], ...bs.map(b => ["wrong:" + b, `${META[b].label} got wrong`])];
+  if (bs.length > 1) opts.push(["disagree", "Models disagree"]);
+  $("#tsShow").replaceChildren(...opts.map(([v, l]) => h("option", {value: v, selected: v === S.tsShow}, l)));
+}
+$("#tsTask").addEventListener("change", e => { S.tsTask = e.target.value; S.tsLimit = 30; renderTestset(); });
+$("#tsShow").addEventListener("change", e => { S.tsShow = e.target.value; S.tsLimit = 30; renderTestset(); });
+$("#tsQuery").addEventListener("input", e => { S.tsQuery = e.target.value.trim().toLowerCase(); S.tsLimit = 30; renderTestset(); });
+$("#tsMore").addEventListener("click", () => { S.tsLimit += 40; renderTestset(); });
+function recIndex() {
+  const idx = {};
+  for (const b of measured()) { idx[b] = {}; for (const r of DATA.results[b].records) idx[b][r.id] = r; }
+  return idx;
+}
+function renderTestset() {
+  const idx = recIndex(), bs = measured();
+  let list = DATA.items.filter(it => S.tsTask === "all" || it.task === S.tsTask);
+  if (S.tsShow.startsWith("wrong:")) { const b = S.tsShow.slice(6); list = list.filter(it => idx[b] && idx[b][it.id] && idx[b][it.id].top !== it.gold); }
+  if (S.tsShow === "disagree") list = list.filter(it => new Set(bs.map(b => idx[b][it.id] && idx[b][it.id].top)).size > 1);
+  if (S.tsQuery) list = list.filter(it => JSON.stringify(it.state).toLowerCase().includes(S.tsQuery));
+  $("#tsCount").textContent = `${list.length} of ${DATA.items.length} items`;
+  const shown = list.slice(0, S.tsLimit);
+  $("#tsItems").replaceChildren(...(shown.length ? shown.map(it => itemRow(it, idx, bs)) : [h("p", {class: "empty", style: "padding:14px"}, "No items match. Clear the search or pick another filter.")]));
+  $("#tsMore").hidden = list.length <= S.tsLimit;
+}
+function itemRow(it, idx, bs) {
+  const t = itemText(it), open = S.open.has(it.id);
+  const q = DATA.questions[it.q];
+  const src = it.meta.source === "paper" ? h("span", {class: "tag"}, "paper") : null;
+  const btn = h("button", {type: "button", "aria-expanded": String(open), onclick: () => { open ? S.open.delete(it.id) : S.open.add(it.id); renderTestset(); }},
+    h("div", {class: "it-text"}, t.main, src, h("small", {}, TASK_SHORT[it.task] + ": " + t.sub)),
+    h("div", {class: "gold"}, h("small", {}, "Label"), it.gold),
+    h("div", {class: "verdicts"}, bs.map(b => {
+      const r = idx[b][it.id];
+      if (!r || r.error) return h("div", {class: "verdict"}, h("span", {class: "swatch", style: `--c:${META[b].color}`}), `${META[b].label}: no answer`);
+      const originalGold = r.gold || it.gold;
+      const ok = r.top === originalGold;
+      return h("div", {class: "verdict"}, h("span", {class: "mark " + (ok ? "ok" : "no"), "aria-label": ok ? "right" : "wrong"}, ok ? "✓" : "✗"),
+        h("span", {class: "swatch", style: `--c:${META[b].color}`}), h("span", {class: "ans"}, `${META[b].label}: ${r.top} at ${r.confidence.toFixed(2)}` + (originalGold !== it.gold ? ` (legacy label: ${originalGold})` : "")));
+    })));
+  const row = h("div", {class: "item"}, btn);
+  if (open) row.append(h("div", {class: "detail"},
+    h("div", {}, h("div", {class: "small muted", style: "margin-bottom:4px"}, "State"), h("pre", {}, JSON.stringify(it.state, null, 2))),
+    h("div", {}, h("div", {class: "small muted", style: "margin-bottom:4px"}, "Question"), h("pre", {}, JSON.stringify(q, null, 2))),
+    ...bs.filter(b => idx[b][it.id] && idx[b][it.id].probs).map(b => h("div", {}, h("div", {class: "small muted", style: "margin-bottom:4px"}, META[b].label),
+      probRows(idx[b][it.id].probs, idx[b][it.id].top, META[b].color)))));
+  return row;
+}
+
+/* ------------------------------------------------------------------ playground */
+const PLAY_ITEM = "ent-09";
+function renderPlayground() {
+  const it = ITEM[PLAY_ITEM], q = DATA.questions[it.q];
+  if (!$("#plState").value) {
+    $("#plState").value = JSON.stringify(it.state, null, 1);
+    $("#plIns").value = q.instructions;
+    $("#plType").value = q.type;
+    $("#plOpts").value = [q.criteria.true ? "true: " + q.criteria.true : "", q.criteria.false ? "false: " + q.criteria.false : ""].filter(Boolean).join("\n");
+    syncOptLabel();
+  }
+  const models = S.live ? (S.health.backends || []).filter(b => b.available && b.name !== "catalogue") : [];
+  $("#plChecks").replaceChildren(...(S.live ? models.map(b => h("label", {}, h("input", {type: "checkbox", value: b.name, checked: b.name !== "uniform" || models.length === 1}),
+    h("span", {class: "swatch", style: `--c:${(META[b.name] || META.uniform).color}`}), (META[b.name] || {label: b.label}).label))
+    : [h("span", {class: "small muted"}, "Connect a backend to choose models.")]));
+  for (const id of ["plState", "plType", "plIns", "plOpts", "plRun"]) $("#" + id).disabled = !S.live;
+  if (!S.live) {
+    $("#plMsg").textContent = "Showing the recorded answers to this test item. Connect a backend to ask your own question.";
+    const idx = recIndex();
+    $("#plAnswers").replaceChildren(...measured().map(b => answerCard(b, {answers: {same: normAnswer(idx[b][PLAY_ITEM])}, latency_ms: idx[b][PLAY_ITEM] && idx[b][PLAY_ITEM].latency_ms, residency: DATA.results[b].residency, cost_usd: 0}, "same")));
+  }
+}
+function normAnswer(r) { return r ? {probabilities: r.probs, top: r.top, confidence: r.confidence} : null; }
+function answerCard(b, res, name) {
+  const m = META[b] || {label: b, color: "var(--uniform)"};
+  if (res.error) return h("div", {class: "panel answer"}, h("h4", {}, h("span", {class: "swatch", style: `--c:${m.color}`}), m.label), h("p", {class: "msg err"}, res.error));
+  const a = res.answers[name];
+  if (!a) return h("div", {class: "panel answer"}, h("h4", {}, m.label), h("p", {class: "empty"}, "No answer recorded."));
+  const labelFor = k => k === "yes" ? "Yes" : k === "no" ? "No" : k;
+  return h("div", {class: "panel answer"},
+    h("h4", {}, h("span", {class: "swatch", style: `--c:${m.color}`}), m.label, h("span", {class: "tag"}, ms(res.latency_ms)),
+      res.residency === "hosted" ? h("span", {class: "tag"}, "sent to TypeSafe") : h("span", {class: "tag"}, "local"),
+      res.cost_usd ? h("span", {class: "tag"}, usd(res.cost_usd)) : null),
+    probRows(a.probabilities, a.top, m.color, labelFor));
+}
+function syncOptLabel() {
+  const t = $("#plType").value;
+  $("#plOptLabel").textContent = t === "noul" ? 'Optional: "true: ..." and "false: ..." lines saying what counts as yes and no'
+    : t === "choice" ? 'Options, one per line, as "name: when it applies"' : "Levels from lowest to highest, one per line";
+}
+$("#plType").addEventListener("change", syncOptLabel);
+$("#playForm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  if (!S.live) return;
+  const type = $("#plType").value, lines = $("#plOpts").value.split("\n").map(l => l.trim()).filter(Boolean);
+  let state = $("#plState").value.trim();
+  try { state = JSON.parse(state); } catch (e) { /* plain text state */ }
+  const q = {type, instructions: $("#plIns").value.trim() || undefined};
+  if (type === "choice") q.criteria = Object.fromEntries(lines.map(l => { const i = l.indexOf(":"); return i > 0 ? [l.slice(0, i).trim(), l.slice(i + 1).trim() || null] : [l, null]; }));
+  if (type === "score") q.criteria = lines;
+  if (type === "noul") { const c = {}; for (const l of lines) { const m = l.match(/^(true|false)\s*:\s*(.+)$/i); if (m) c[m[1].toLowerCase()] = m[2]; } if (Object.keys(c).length) q.criteria = c; }
+  const bs = [...document.querySelectorAll("#plChecks input:checked")].map(i => i.value);
+  if (!bs.length) { $("#plMsg").textContent = "Tick at least one model."; return; }
+  $("#plRun").disabled = true; $("#plMsg").textContent = "Asking...";
+  try {
+    const out = await api("api/compare", {body: {backends: bs, state, questions: {q}}});
+    $("#plAnswers").replaceChildren(...out.results.map(r => answerCard(r.backend, r, "q")));
+    $("#plMsg").textContent = "Live answers from the connected backend.";
+  } catch (e) { $("#plMsg").textContent = "The request failed: " + e.message; }
+  $("#plRun").disabled = false;
+});
+
+/* ------------------------------------------------------------------ run it */
+let framed = true;
+try { framed = window.top !== window; } catch (e) { /* cross-origin frame */ }
+const ORIGIN_HINT = location.protocol.startsWith("http") && !framed ? location.origin : "https://your-team.github.io";
+const STEPS = [
+  ["Start the service", "Catalogue rules work without model weights. Laya and AnyJev are optional and need additional memory and model downloads.",
+   "docker build --build-arg LOCAL_MODELS=false -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token graphrag-decisions"],
+  ["Add the hosted model, if you want it", "Jev is optional. The key stays on the server and is never sent to the page.",
+   "-e TYPESAFE_API_KEY=... -e BACKENDS=catalogue,jev,uniform"],
+  ["Open the page from the server", "The service serves the Decisions Lab at its root and the graph-database field guide at /field-guide. The lab and the API share an address, so the page connects by itself.",
+   "open http://localhost:8000/\nopen http://localhost:8000/field-guide"],
+  ["Run the benchmark", "From the page (the Run button on each card), or on the command line. Results land in results/ and appear on the page.",
+   "python -m scripts.run_benchmark --backend laya\npython -m scripts.run_benchmark --backend jev"],
+  ["Host the page elsewhere, if you prefer", "Put web/index.html on GitHub Pages or an intranet site and allow that origin on the server. Then use the connect button at the top.",
+   `-e ALLOWED_ORIGINS=${ORIGIN_HINT}`],
+];
+const API_ROWS = [
+  ["GET", "/api/health", "Version, graph size, which models are available and why not"],
+  ["POST", "/api/decide", "One model: { backend, state, questions } in Jev's question format"],
+  ["POST", "/api/compare", "Same typed question on up to four decision backends (not graph databases)"],
+  ["POST", "/api/pipeline", "The whole discovery pipeline for { backend, request, preference }"],
+  ["GET", "/api/testset", "The current labelled items"],
+  ["GET", "/api/results", "Saved benchmark results, with every decision"],
+  ["POST", "/api/eval", "Start a benchmark run; poll GET /api/eval/{id}"],
+  ["GET", "/api/docs", "Interactive API documentation"],
+];
+function renderRun() {
+  $("#steps").replaceChildren(...STEPS.map(([t, d, c]) => h("li", {}, h("h3", {}, t), h("p", {class: "muted small"}, d),
+    h("div", {class: "copyrow"}, h("pre", {class: "cmd"}, h("code", {}, c)), h("button", {class: "btn ghost", type: "button", onclick: e => copy(c, e.currentTarget)}, "Copy")))));
+  $("#apiTable").replaceChildren(h("thead", {}, h("tr", {}, h("th", {}, "Method"), h("th", {}, "Path"), h("th", {}, "What it does"))),
+    h("tbody", {}, API_ROWS.map(([m, p, d]) => h("tr", {}, h("td", {}, m), h("td", {}, h("code", {}, p)), h("td", {}, d)))));
+}
+async function copy(text, btn) {
+  try { await navigator.clipboard.writeText(text); btn.textContent = "Copied"; }
+  catch (e) { const pre = btn.parentElement.querySelector("pre"); const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected"; }
+  setTimeout(() => { btn.textContent = "Copy"; }, 1600);
+}
+
+/* ------------------------------------------------------------------ start */
+function renderAll() { renderFacts(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
+renderRun();
+renderAll();
+(async () => {
+  if (location.protocol.startsWith("http") && await tryConnect("", "", true)) return;
+  const saved = recall("gd.api");
+  if (saved) { $("#apiUrl").value = saved; await tryConnect(saved, "", true); }
+})();
+</script>
+</body>
+</html>
