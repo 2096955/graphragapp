@@ -594,6 +594,7 @@ async function tryConnect(base, token, quiet) {
 }
 function setMode() {
   const b = $("#modeBtn");
+  if (!b) return;
   b.dataset.live = S.live ? "1" : "0";
   if (S.live) {
     const host = S.api ? S.api.replace(/^https?:\/\//, "").replace(/\/$/, "") : location.host || "this server";
@@ -1246,6 +1247,7 @@ $("#playForm").addEventListener("submit", async ev => {
 
 /* ------------------------------------------------------------------ watts–strogatz */
 function renderWatts() {
+  if (!$("#wsParams")) return;
   const ws = DATA.watts_strogatz;
   if (!ws || !ws.example) {
     $("#wsParams").textContent = "Cited small-world visual is missing from the baked page.";
