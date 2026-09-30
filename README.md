@@ -2,20 +2,21 @@
 
 Anthony Lui's graph demo: typed decisions over a synthetic two-layer Kuzu graph, plus a field guide that compares graph databases.
 
-**Jev is the typed decision layer, not the database.** Kuzu holds the graph and proposes candidate datasets. Catalogue rules, Laya, AnyJev and TypeSafe Jev make the small fixed choices. An optional LLM only explains scores that were already logged.
+**Jev is the typed decision layer, not the database.** Kuzu holds the graph. Catalogue rules, Laya, AnyJev and TypeSafe Jev make the small fixed choices. An optional LLM only explains scores that were already logged.
 
-## Two pages
+## Worked example: a compliance agent in front of another agent
 
-| Page | URL | What it is |
-|---|---|---|
-| **Decisions Lab** | `/` | Dataset-discovery pipeline, benchmark, playground. `/api/compare` compares **decision backends** (Catalogue rules, Laya, AnyJev, TypeSafe Jev, uniform). |
-| **Field guide** | `/field-guide` | *Graphs for agent context: a field guide.* Compares **graph databases**: Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB Gremlin, and Kuzu. |
+A legal and compliance agent sits in front of a research agent. It filters PII and confidential data before anything is served onward.
 
-Catalogue mode already works with no API keys. TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`, which is unset here. Do not put keys in the repo.
+| Layer | Role |
+|---|---|
+| **Jev** (or Catalogue rules / Laya / AnyJev) | Typed decision: release, redact, or block |
+| **Kuzu** | Records each decision. The same pattern repeating updates the pattern node, so a second attempt to inject PII is graph state, not a one-off score |
+| **Arize** | Eval and cost view: traces, whether the filter was right, and what the decision cost |
 
-## Run it (catalogue mode, no keys)
+In a Watts–Strogatz small-world graph, two hops reach most nodes. That is why a short expansion from the matched pattern is enough context: prior attempts, the filter decision, and the downstream agent.
 
-Python 3.11 or newer:
+### What you should see (no keys)
 
 ```bash
 python -m venv .venv
@@ -24,10 +25,30 @@ pip install -r requirements.txt
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-Then open:
+Open http://localhost:8000/#compliance and press **Run the example (no keys)**.
 
-- http://localhost:8000/ — Decisions Lab. Choose **Catalogue rules**. Try `Annual CO2 for Australia in 2024`, `PM10 levels in Lombardy each month`, or `Ammonia from agriculture by country and year`.
-- http://localhost:8000/field-guide — graph-database comparison.
+1. First payload contains `alex.rivera@example.test`. Catalogue rules **redact** the email. The graph creates a pattern node with **1 attempt**.
+2. The second payload tries to circumvent the filter with the same email. Catalogue rules **block** it. The same pattern node now shows **2 attempts**. That is the graph update.
+3. The Arize panel shows two traces, filter correctness, and **$0** cost. Credentials are unset, so this is the sample eval fixture plus the traces just recorded. Set `ARIZE_SPACE_ID` and `ARIZE_API_KEY` on the server (never in the repo) if you want live export. Do not commit a `.env`.
+
+TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`. A live call against `https://api.typesafe.ai/v1/systemone` with `jev-latest` (served as `jev-1.13.0`) already succeeded elsewhere. This clone does not invent a key and does not need one.
+
+```bash
+curl -s localhost:8000/api/compliance/example -H 'Content-Type: application/json' -d '{"backend":"catalogue"}'
+```
+
+## Two pages
+
+| Page | URL | What it is |
+|---|---|---|
+| **Decisions Lab** | `/` | Compliance example, dataset-discovery pipeline, benchmark, playground. `/api/compare` compares **decision backends**. |
+| **Field guide** | `/field-guide` | *Graphs for agent context: a field guide.* Compares **graph databases**: Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB Gremlin, and Kuzu. |
+
+Catalogue mode already works with no API keys.
+
+## Run the catalogue discovery demo
+
+Same server as above. On http://localhost:8000/ choose **Catalogue rules**. Try `Annual CO2 for Australia in 2024`, `PM10 levels in Lombardy each month`, or `Ammonia from agriculture by country and year`.
 
 ```bash
 pip install -r requirements-dev.txt
@@ -118,6 +139,8 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 | `MIN_CONFIDENCE` | `0.8` | Heuristic fallback acceptance threshold |
 | `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` | none | Optional OpenAI-compatible endpoint for explanations |
 | `PRELOAD` | `false` | Load local models at start-up |
+| `ARIZE_SPACE_ID`, `ARIZE_API_KEY` | none | Optional. When both are set, compliance traces export to Arize. Unset: the example still runs and shows the sample eval fixture. |
+| `ARIZE_PROJECT` | `graphrag-compliance` | Arize project name for those traces |
 
 ### API
 
@@ -130,6 +153,10 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 | GET | `/api/testset` | The current 584 labelled items |
 | GET | `/api/results` | Saved benchmark results, every decision included |
 | POST | `/api/eval` | Start a benchmark run; poll `GET /api/eval/{id}` |
+| POST | `/api/compliance/example` | Worked PII filter: first attempt plus the repeat. Catalogue needs no keys |
+| POST | `/api/compliance/filter` | One payload through the compliance agent |
+| GET | `/api/compliance/eval` | Arize eval and cost view (sample fixture if no Arize key) |
+| GET | `/api/compliance/graph` | Pattern, attempt and decision nodes after the filter |
 | GET | `/api/docs` | Interactive documentation |
 
 The field guide is not this API. It is the `/field-guide` page.
@@ -162,7 +189,10 @@ python -m scripts.build_page
 ```
 app/                 HTTP API, Kuzu graph, pipeline, decision backends
   decisions/         one interface: catalogue, Laya, AnyJev, TypeSafe Jev, uniform
-  graph.py           two-layer knowledge graph in Kuzu
+  graph.py           two-layer catalogue graph in Kuzu (read-only after build)
+  compliance.py      worked example: legal/compliance agent in front of another agent
+  compliance_graph.py writable Kuzu store for filter decisions and repeated patterns
+  arize_eval.py      Arize eval/cost export, or the sample fixture when no key is set
   main.py            serves the lab, the field guide, and the API
 scripts/             run_benchmark, record_examples, merge_results, build_page
 results/             recorded runs

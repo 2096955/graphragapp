@@ -37,6 +37,10 @@ class Settings:
     eval_enabled: bool
     calibration_dir: str
     min_confidence: float
+    arize_space_id: str | None
+    arize_api_key: str | None
+    arize_project: str
+    arize_endpoint: str
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -66,4 +70,8 @@ class Settings:
             eval_enabled=_bool(e("EVAL_ENABLED"), token is not None),
             calibration_dir=e("CALIBRATION_DIR", "calibration"),
             min_confidence=float(e("MIN_CONFIDENCE", "0.8")),
+            arize_space_id=(e("ARIZE_SPACE_ID") or e("ARIZE_SPACE_KEY") or "").strip() or None,
+            arize_api_key=(e("ARIZE_API_KEY") or "").strip() or None,
+            arize_project=e("ARIZE_PROJECT", "graphrag-compliance"),
+            arize_endpoint=e("ARIZE_OTLP_ENDPOINT", "https://otlp.arize.com/v1/traces"),
         )

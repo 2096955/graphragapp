@@ -251,6 +251,21 @@ pre.cmd{margin:0;background:var(--code);border:1px solid var(--line);border-radi
 .copyrow .btn{position:absolute;top:6px;right:6px;padding:3px 9px;font-size:.78rem}
 footer{border-top:1px solid var(--line);padding-top:22px;margin-top:20px;display:grid;gap:10px;font-size:.88rem;color:var(--muted)}
 footer p{max-width:90ch}
+.comp-grid{display:grid;gap:14px}
+@media(min-width:900px){.comp-grid{grid-template-columns:1fr 1fr}}
+.comp-step h3{margin:0 0 8px;font-size:1rem}
+.comp-payload{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.9rem;margin:0 0 10px}
+.action{display:inline-block;font-weight:700;font-size:.85rem;padding:3px 9px;border-radius:99px;color:#fff}
+.action.release{background:var(--jev)}
+.action.redact{background:var(--anyjev)}
+.action.block{background:var(--bad-ink,#b3261e)}
+.comp-graph{display:grid;gap:8px}
+.comp-node{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:.9rem}
+.comp-node b{font-weight:600}
+.comp-node.repeat{border-color:var(--ink)}
+.attempts{font-variant-numeric:tabular-nums;font-weight:700}
+.comp-eval{display:grid;gap:8px}
+.comp-eval .readouts{margin-top:0}
 </style>
 </head>
 <body>
@@ -258,7 +273,7 @@ footer p{max-width:90ch}
   <div class="top-in">
     <a class="brand" href="#intro">GraphRAG Decisions Lab</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
+      <a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="/field-guide">Field guide</a>
     </nav>
     <button class="mode" id="modeBtn" type="button" aria-expanded="false" aria-controls="connect"><span class="dot"></span><span id="modeText">Recorded results</span></button>
   </div>
@@ -278,6 +293,39 @@ footer p{max-width:90ch}
   <h1>Typed decisions for graph-based dataset discovery</h1>
   <p class="lede">Finding datasets in a catalogue takes many small calls: can this request be answered, which pollutants and breakdowns does it mean, how well does each dataset fit. This lab puts a decision model on each of those calls. <b>Kuzu</b> holds the two-layer graph. <b>Jev is the typed decision layer</b>, not the database &mdash; Catalogue rules, Laya, AnyJev and TypeSafe Jev answer the small fixed questions; the graph only proposes candidates. For a comparison of graph databases, open the <a href="/field-guide">field guide</a>. This lab&rsquo;s <code>/api/compare</code> compares decision backends, not those engines.</p>
   <div class="facts" id="facts"></div>
+</section>
+
+<section id="compliance">
+  <div class="sec-head">
+    <h2>Worked example: compliance filter</h2>
+    <p>A legal and compliance agent sits in front of a research agent. <b>Jev</b> (or Catalogue rules when no key is set) decides release, redact or block. <b>Kuzu</b> records the decision and increments the pattern node when the same email is injected again. <b>Arize</b> is the eval and cost view: traces, whether the filter was right, and what the decision cost. In a Watts–Strogatz small-world graph, two hops reach most nodes, so a short expansion from the matched pattern is enough context.</p>
+  </div>
+  <div class="controls">
+    <button class="btn" id="compExampleBtn" type="button">Run the example (no keys)</button>
+    <p class="msg" id="compMsg">Catalogue rules. No API key. The recorded walkthrough is already on the page; Run refreshes it from this server.</p>
+  </div>
+  <div class="comp-grid">
+    <div id="compSteps"></div>
+    <div>
+      <div class="panel" style="margin-bottom:14px">
+        <h3 style="margin:0 0 8px">Graph state</h3>
+        <p class="small muted" id="compGraphNote" style="margin:0 0 10px"></p>
+        <div class="comp-graph" id="compGraph"></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin:0 0 8px">Arize eval and cost</h3>
+        <p class="small muted" id="compEvalNote" style="margin:0 0 10px"></p>
+        <div class="comp-eval" id="compEval"></div>
+      </div>
+    </div>
+  </div>
+  <form class="controls" id="compFilterForm" style="margin-top:16px">
+    <div class="field" style="flex:1 1 360px">
+      <label for="compPayload">Try another payload</label>
+      <input id="compPayload" type="text" maxlength="2000" placeholder="Type a message the downstream agent should not see">
+    </div>
+    <button class="btn ghost" id="compFilterBtn" type="submit">Filter</button>
+  </form>
 </section>
 
 <section id="pipeline">
@@ -548,6 +596,7 @@ function renderFacts() {
   $("#facts").replaceChildren(
     h("span", {}, h("b", {}, DATA.items.length), " labelled decisions in ", Object.keys(DATA.tasks).length, " tasks"),
     h("span", {}, h("b", {}, "Kuzu"), " is the graph. ", h("b", {}, "Jev"), " is the typed decision layer, not a database"),
+    h("span", {}, "Worked example: a compliance agent filters PII before another agent sees it"),
     h("span", {}, h("b", {}, DATA.catalogue.pollutants.length), " pollutants, ", h("b", {}, DATA.catalogue.sources.length), " synthetic sources in the graph"),
     measured.length ? h("span", {}, "Measured: ", h("b", {}, measured.join(", ")), when ? ` on ${when}` : "") : null,
     r ? h("span", {}, r.hardware.replace(/^CPU only: /, "CPU only, ")) : null);
@@ -1161,6 +1210,87 @@ $("#playForm").addEventListener("submit", async ev => {
   $("#plRun").disabled = false;
 });
 
+/* ------------------------------------------------------------------ compliance example */
+function actionPill(action) {
+  return h("span", {class: "action " + (action || "")}, action || "—");
+}
+function renderCompliance(data) {
+  const ex = data || DATA.compliance;
+  if (!ex) {
+    $("#compSteps").replaceChildren(h("p", {class: "muted"}, "Connect the server and press Run the example."));
+    return;
+  }
+  $("#compSteps").replaceChildren(...(ex.steps || []).map((st, i) => h("div", {class: "panel", style: "margin-bottom:14px"},
+    h("h3", {}, (i + 1) + ". " + st.title),
+    h("p", {class: "comp-payload"}, st.payload),
+    h("p", {}, actionPill(st.action), " ",
+      st.pattern && st.pattern.repeated ? h("b", {}, " Repeat: pattern attempts now " + st.pattern.attempts)
+        : h("span", {class: "small muted"}, st.pattern ? ("Pattern attempts: " + st.pattern.attempts) : "")),
+    st.served_onward == null
+      ? h("p", {class: "small muted"}, "Nothing served onward.")
+      : h("p", {class: "small muted"}, "Served onward: ", st.served_onward))));
+  const g = ex.graph || {};
+  $("#compGraphNote").textContent = g.note || "";
+  const patterns = (g.nodes || []).filter(n => n.kind === "Pattern");
+  const attempts = (g.nodes || []).filter(n => n.kind === "Attempt");
+  $("#compGraph").replaceChildren(
+    ...patterns.map(p => h("div", {class: "comp-node" + (p.attempts > 1 ? " repeat" : "")},
+      h("b", {}, p.label || p.id), actionPill(p.last_action),
+      h("span", {class: "attempts"}, p.attempts + (p.attempts === 1 ? " attempt" : " attempts")))),
+    h("p", {class: "small muted"}, attempts.length + " recorded attempts, " + (g.edges || []).length + " edges."),
+    ...(g.hops || []).length ? [h("p", {class: "small muted"},
+      "Two-hop neighbourhood: " + (g.hops || []).map(x => (x.kind || x.id) + " (hop " + x.hop + ")").join(", ") + ".")] : []
+  );
+  const evl = ex.eval || {};
+  const sum = evl.summary || {};
+  $("#compEvalNote").textContent = (evl.source === "live" ? "Live Arize export. " : "Arize credentials unset; sample eval fixture. ") + (sum.note || "");
+  $("#compEval").replaceChildren(
+    h("div", {class: "readouts"},
+      h("div", {}, h("b", {class: "num"}, sum.decisions == null ? "—" : String(sum.decisions)), h("span", {}, "decisions")),
+      h("div", {}, h("b", {class: "num"}, sum.filter_correct == null ? "—" : pct(sum.filter_correct, 0)), h("span", {}, "filter right")),
+      h("div", {}, h("b", {class: "num"}, sum.cost_usd == null ? "—" : usd(sum.cost_usd)), h("span", {}, "decision cost"))),
+    ...(evl.traces || []).map(t => h("div", {class: "comp-node"},
+      actionPill(t.action), h("span", {}, t.correct ? "right" : "wrong vs gold"),
+      h("span", {class: "small muted"}, t.repeated ? "repeat" : "first"),
+      h("span", {class: "small muted"}, usd(t.cost_usd))))
+  );
+}
+$("#compExampleBtn").addEventListener("click", async () => {
+  if (!S.live) {
+    renderCompliance(DATA.compliance);
+    $("#compMsg").textContent = "Showing the baked catalogue-rules walkthrough. Connect this server and press Run to refresh the live graph.";
+    return;
+  }
+  $("#compExampleBtn").disabled = true;
+  $("#compMsg").textContent = "Running catalogue rules on the two fixture payloads...";
+  try {
+    const out = await api("api/compliance/example", {body: {backend: "catalogue"}});
+    DATA.compliance = out;
+    renderCompliance(out);
+    $("#compMsg").className = "msg";
+    $("#compMsg").textContent = out.steps && out.steps[1] && out.steps[1].pattern && out.steps[1].pattern.repeated
+      ? "Repeat is on the graph: the email pattern now has two attempts."
+      : "Example finished.";
+  } catch (e) { $("#compMsg").className = "msg err"; $("#compMsg").textContent = e.message; }
+  $("#compExampleBtn").disabled = false;
+});
+$("#compFilterForm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const payload = $("#compPayload").value.trim();
+  if (!payload) return;
+  if (!S.live) { $("#compMsg").textContent = "Connect the server to filter a live payload."; return; }
+  try {
+    const out = await api("api/compliance/filter", {body: {backend: "catalogue", payload}});
+    $("#compMsg").className = "msg";
+    $("#compMsg").textContent = out.pattern.repeated
+      ? "Same pattern again: attempts are now " + out.pattern.attempts + "."
+      : "Filter: " + out.action + ".";
+    const evl = await api("api/compliance/eval");
+    const graph = await api("api/compliance/graph");
+    renderCompliance({steps: (DATA.compliance && DATA.compliance.steps || []).concat([{title: "Live payload", payload, ...out}]), graph, eval: evl});
+  } catch (e) { $("#compMsg").className = "msg err"; $("#compMsg").textContent = e.message; }
+});
+
 /* ------------------------------------------------------------------ run it */
 let framed = true;
 try { framed = window.top !== window; } catch (e) { /* cross-origin frame */ }
@@ -1170,8 +1300,8 @@ const STEPS = [
    "docker build --build-arg LOCAL_MODELS=false -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token graphrag-decisions"],
   ["Add the hosted model, if you want it", "Jev is optional. The key stays on the server and is never sent to the page.",
    "-e TYPESAFE_API_KEY=... -e BACKENDS=catalogue,jev,uniform"],
-  ["Open the page from the server", "The service serves the Decisions Lab at its root and the graph-database field guide at /field-guide. The lab and the API share an address, so the page connects by itself.",
-   "open http://localhost:8000/\nopen http://localhost:8000/field-guide"],
+  ["Open the page from the server", "The Decisions Lab, the compliance example and the field guide share this address. Catalogue rules run the filter with no keys.",
+   "open http://localhost:8000/\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/field-guide"],
   ["Run the benchmark", "From the page (the Run button on each card), or on the command line. Results land in results/ and appear on the page.",
    "python -m scripts.run_benchmark --backend laya\npython -m scripts.run_benchmark --backend jev"],
   ["Host the page elsewhere, if you prefer", "Put web/index.html on GitHub Pages or an intranet site and allow that origin on the server. Then use the connect button at the top.",
@@ -1185,6 +1315,10 @@ const API_ROWS = [
   ["GET", "/api/testset", "The current labelled items"],
   ["GET", "/api/results", "Saved benchmark results, with every decision"],
   ["POST", "/api/eval", "Start a benchmark run; poll GET /api/eval/{id}"],
+  ["POST", "/api/compliance/example", "Worked PII filter: first attempt plus repeat, no keys on catalogue"],
+  ["POST", "/api/compliance/filter", "One payload through the compliance agent"],
+  ["GET", "/api/compliance/eval", "Arize eval and cost view (sample fixture if no Arize key)"],
+  ["GET", "/api/compliance/graph", "Pattern, attempt and decision nodes after the filter"],
   ["GET", "/api/docs", "Interactive API documentation"],
 ];
 function renderRun() {
@@ -1200,7 +1334,7 @@ async function copy(text, btn) {
 }
 
 /* ------------------------------------------------------------------ start */
-function renderAll() { renderFacts(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
+function renderAll() { renderFacts(); renderCompliance(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
 renderRun();
 renderAll();
 (async () => {

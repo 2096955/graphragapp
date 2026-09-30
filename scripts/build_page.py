@@ -16,6 +16,10 @@ sys.path.insert(0, str(ROOT))
 
 from app import domain as d  # noqa: E402
 from app import evaluation as ev  # noqa: E402
+from app.arize_eval import ArizeEval  # noqa: E402
+from app.compliance import run_example  # noqa: E402
+from app.compliance_graph import ComplianceGraph  # noqa: E402
+from app.decisions import CatalogueBackend  # noqa: E402
 from app.testset import REQUESTS, TASKS, build, gold_query  # noqa: E402
 
 ORDER = ["catalogue", "laya", "anyjev", "jev", "uniform"]
@@ -41,6 +45,8 @@ def main() -> None:
     results, examples = {}, {}
     for f in sorted((ROOT / "results").glob("*.json")):
         data = json.loads(f.read_text())
+        if f.name.startswith("compliance"):
+            continue
         if f.name.startswith("examples-"):
             data["legacy"] = data.get("pipeline_version") != "1.1.0"
             examples[data["backend"]] = data
@@ -63,8 +69,13 @@ def main() -> None:
     }
     gates = {it["meta"]["request"]: it["gold"] for it in current_items if it["task"] == "gate"}
     gold = {r[1]: {"id": r[0], "gate": gates[r[0]], **(gold_query(r[0]) or {})} for r in REQUESTS}
+    store = ComplianceGraph()
+    try:
+        compliance = run_example(CatalogueBackend(), store, ArizeEval(None, None))
+    finally:
+        store.close()
     payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
-               "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold}
+               "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance}
     blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "web" / "template.html").read_text()
     marker = "/*__DATA__*/"

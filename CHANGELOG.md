@@ -1,5 +1,19 @@
 # Version 1.1.0
 
+## Worked example: compliance filter
+
+- Added a legal/compliance agent in front of a downstream research agent. Jev (or
+  Catalogue rules with no keys) answers one typed question: release, redact, or block.
+- The knowledge graph records each decision. A repeated email or circumvention
+  increments the pattern node, so the repeat is graph state, not a one-off score.
+- Two hops from the matched pattern reach prior attempts, the filter decision, and
+  both agents (Watts–Strogatz: in a small-world graph that short expansion is enough).
+- Arize is the eval and cost view. Live export runs only when `ARIZE_SPACE_ID` and
+  `ARIZE_API_KEY` are set. Without them the example still runs and shows the sample
+  fixture plus locally recorded traces. Catalogue mode costs $0.
+- TypeSafe Jev stays optional behind `TYPESAFE_API_KEY`. No secrets or `.env` files
+  are in the repository.
+
 ## Application Corrections
 
 - Added a working Catalogue rules backend that needs no model weights or API key.

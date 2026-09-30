@@ -22,6 +22,9 @@ from pydantic import BaseModel, Field
 
 from . import domain as d
 from . import evaluation as ev
+from .arize_eval import ArizeEval
+from .compliance import filter_payload, run_example
+from .compliance_graph import ComplianceGraph
 from .config import Settings
 from .decisions import BackendUnavailable, DecisionError, build_backends
 from .explain import Explainer
@@ -34,6 +37,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 settings = Settings.from_env()
 graph = Graph()
+compliance_graph = ComplianceGraph()
+arize = ArizeEval(settings.arize_space_id, settings.arize_api_key, settings.arize_project,
+                  settings.arize_endpoint)
 backends = build_backends(settings)
 explainer = Explainer(settings.llm_base_url, settings.llm_api_key, settings.llm_model)
 pipeline = Pipeline(graph, explainer, settings.min_confidence)
@@ -131,12 +137,24 @@ class EvalIn(BaseModel):
     limit: int = Field(default=0, ge=0, le=500)
 
 
+class ComplianceFilterIn(BaseModel):
+    backend: str = "catalogue"
+    payload: str = Field(min_length=1, max_length=2000)
+
+
+class ComplianceExampleIn(BaseModel):
+    backend: str = "catalogue"
+
+
 # ------------------------------------------------------------------------------ routes
 @app.get("/api/health")
 def health():
     return {"ok": True, "version": VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
             "auth_required": settings.api_token is not None, "eval_enabled": settings.eval_enabled,
-            "llm_explainer": explainer.llm_available, "items": len(ITEMS)}
+            "llm_explainer": explainer.llm_available, "items": len(ITEMS),
+            "compliance": compliance_graph.counts(),
+            "arize": {"configured": arize.configured, "source": "live" if arize.configured else "sample",
+                      "project": arize.project}}
 
 
 @app.get("/api/catalogue")
@@ -174,6 +192,37 @@ def compare(body: CompareIn):
 @app.post("/api/pipeline", dependencies=[Depends(guard)])
 def run_pipeline(body: PipelineIn):
     return pipeline.run(backend_or_404(body.backend), body.request.strip(), (body.preference or "").strip() or None, body.use_llm)
+
+
+@app.post("/api/compliance/filter", dependencies=[Depends(guard)])
+def compliance_filter(body: ComplianceFilterIn):
+    b = backend_or_404(body.backend)
+    ok, why = b.available()
+    if not ok:
+        raise HTTPException(503, why)
+    try:
+        return filter_payload(b, body.payload.strip(), compliance_graph, arize)
+    except ValueError as e:
+        raise HTTPException(422, str(e)) from None
+
+
+@app.post("/api/compliance/example", dependencies=[Depends(guard)])
+def compliance_example(body: ComplianceExampleIn):
+    b = backend_or_404(body.backend)
+    ok, why = b.available()
+    if not ok:
+        raise HTTPException(503, why)
+    return run_example(b, compliance_graph, arize)
+
+
+@app.get("/api/compliance/graph")
+def compliance_graph_view():
+    return compliance_graph.snapshot()
+
+
+@app.get("/api/compliance/eval")
+def compliance_eval():
+    return arize.view()
 
 
 @app.get("/api/testset")
