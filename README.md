@@ -11,14 +11,14 @@ A legal and compliance agent sits in front of a research agent. It filters PII a
 | Layer | Role |
 |---|---|
 | **Jev** (or Catalogue rules / Laya / AnyJev) | Typed decision: release, redact, or block |
-| **Kuzu** | Records each decision. The same pattern repeating updates the pattern node, so a second attempt to inject PII is graph state, not a one-off score |
+| **Kuzu** | Records a hashed pattern identity, the decision, and the attempt count. Never raw PII. The same pattern repeating updates the pattern node; recording the same payload is idempotent |
 | **Arize** | Eval and cost view: traces, whether the filter was right, and what the decision cost |
 
 ### Watts–Strogatz: two hops are enough
 
-Rewiring a locally clustered ring collapses average path length while clustering stays high. Two hops reach most of a real knowledge graph, so retrieval should be bounded by tokens or rank, not by hop count. The compliance filter uses that fact: a short expansion from the matched pattern is enough context (prior attempts, the filter decision, the downstream agent).
+The Watts–Strogatz figures are a synthetic N=500 visual, not a measurement of this catalogue graph. Token-bounded retrieval is the design claim, not a measured p95.
 
-The on-screen example is the visual from the lab notes. It is baked into the page and served at `GET /api/watts-strogatz`. No keys.
+Rewiring a locally clustered ring collapses average path length while clustering stays high. That is why the compliance filter expands a short neighbourhood from the matched pattern (prior attempts, the filter decision, the downstream agent). The on-screen example is the visual from the lab notes. It is baked into the page and served at `GET /api/watts-strogatz`. No keys.
 
 | Parameter | Value |
 |---|---|
@@ -57,10 +57,19 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 Open http://localhost:8000/#compliance and press **Run the example (no keys)**.
 
-1. First payload contains `alex.rivera@example.test`. Catalogue rules **redact** the email. The graph creates a pattern node with **1 attempt**.
-2. The second payload tries to circumvent the filter with the same email. Catalogue rules **block** it. The same pattern node now shows **2 attempts**. That is the graph update.
-3. The Arize panel shows two traces, filter correctness, and **$0** cost. Credentials are unset, so this is the sample eval fixture plus the traces just recorded.
-4. Open http://localhost:8000/#small-world. You should see the N=500 ring: 75% of nodes in two hops, path length 2.06, clustering 0.464, and the MathWorks check table.
+1. First payload contains `alex.rivera@example.test`. Catalogue rules **redact** the email. The graph creates a pattern node with **1 attempt**. Kuzu stores a hashed pattern identity, the decision, and the attempt count — not the raw email.
+2. The second payload tries to circumvent the filter with the same email (the same pattern identity). Catalogue rules **block** it. The same pattern node now shows **2 attempts**. Recording the same payload again is idempotent.
+3. If the decision backend errors, the filter **fails closed** and blocks the payload; it does not release it.
+4. The Arize panel shows two traces, filter correctness, and **$0** cost. Credentials are unset, so this is the sample eval fixture plus the traces just recorded. The sample does not store raw PII.
+5. Open http://localhost:8000/#small-world. You should see the synthetic N=500 visual: 75% of nodes in two hops, path length 2.06, clustering 0.464, and the MathWorks check table.
+
+### What is still not production
+
+This compliance example is a lab walkthrough, not a production filter.
+
+- No measured redaction precision.
+- No retention policy.
+- No live Arize export unless the env vars are set.
 
 ### Arize (eval and cost)
 

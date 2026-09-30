@@ -4,8 +4,9 @@ The catalogue graph in graph.py stays read-only. This store is the memory of the
 compliance agent: patterns, attempts, and decisions. A repeated injection updates
 the pattern node instead of disappearing as a one-off score.
 
-Two hops from a pattern reach its attempts and decisions. That is the Watts–Strogatz
-point: in a small-world graph a short expansion is enough context.
+Two hops from a pattern reach its attempts and decisions. The Watts–Strogatz
+figures are a synthetic N=500 visual, not a measurement of this catalogue graph.
+Token-bounded retrieval is the design claim, not a measured p95.
 """
 from __future__ import annotations
 
@@ -19,7 +20,7 @@ import kuzu
 SCHEMA = [
     "CREATE NODE TABLE Agent(id STRING PRIMARY KEY, role STRING, label STRING)",
     "CREATE NODE TABLE Pattern(id STRING PRIMARY KEY, kind STRING, label STRING, attempts INT64, last_action STRING)",
-    "CREATE NODE TABLE Attempt(id STRING PRIMARY KEY, at STRING, payload STRING, action STRING, backend STRING)",
+    "CREATE NODE TABLE Attempt(id STRING PRIMARY KEY, at STRING, action STRING, backend STRING)",
     "CREATE NODE TABLE Decision(id STRING PRIMARY KEY, action STRING, confidence DOUBLE, cost_usd DOUBLE, model STRING)",
     "CREATE REL TABLE SITS_IN_FRONT_OF(FROM Agent TO Agent)",
     "CREATE REL TABLE WATCHES(FROM Agent TO Pattern)",
@@ -82,12 +83,20 @@ class ComplianceGraph:
             rows.append(tuple(res.get_next()))
         return rows
 
-    def record(self, *, attempt_id: str, at: str, payload: str, action: str, backend: str,
+    def record(self, *, attempt_id: str, at: str, action: str, backend: str,
                pattern_id: str, pattern_kind: str, pattern_label: str, decision_id: str,
                confidence: float, cost_usd: float, model: str) -> dict:
-        """Attach an attempt to a pattern. A known pattern increments attempts."""
+        """Attach an attempt to a pattern. Same attempt_id is idempotent.
+
+        Stores the pattern identity, the decision, and the attempt count. Does not
+        store the raw payload.
+        """
         with self._lock:
+            existing = self._q("MATCH (t:Attempt {id: $id}) RETURN t.id", {"id": attempt_id})
             found = self._q("MATCH (p:Pattern {id: $id}) RETURN p.attempts", {"id": pattern_id})
+            if existing:
+                attempts = int(found[0][0]) if found else 0
+                return {"pattern_id": pattern_id, "attempts": attempts, "repeated": attempts > 1}
             if found:
                 attempts = int(found[0][0]) + 1
                 self._conn.execute(
@@ -102,8 +111,8 @@ class ComplianceGraph:
                     "MATCH (a:Agent {id: 'compliance'}), (p:Pattern {id: $p}) CREATE (a)-[:WATCHES]->(p)",
                     {"p": pattern_id})
             self._conn.execute(
-                "CREATE (:Attempt {id: $id, at: $at, payload: $p, action: $a, backend: $b})",
-                {"id": attempt_id, "at": at, "p": payload, "a": action, "b": backend})
+                "CREATE (:Attempt {id: $id, at: $at, action: $a, backend: $b})",
+                {"id": attempt_id, "at": at, "a": action, "b": backend})
             self._conn.execute(
                 "CREATE (:Decision {id: $id, action: $a, confidence: $c, cost_usd: $usd, model: $m})",
                 {"id": decision_id, "a": action, "c": confidence, "usd": cost_usd, "m": model})
@@ -134,7 +143,7 @@ class ComplianceGraph:
             for kind, q in (
                 ("Agent", "MATCH (n:Agent) RETURN n.id, n.role, n.label"),
                 ("Pattern", "MATCH (n:Pattern) RETURN n.id, n.kind, n.label, n.attempts, n.last_action"),
-                ("Attempt", "MATCH (n:Attempt) RETURN n.id, n.at, n.payload, n.action, n.backend"),
+                ("Attempt", "MATCH (n:Attempt) RETURN n.id, n.at, n.action, n.backend"),
                 ("Decision", "MATCH (n:Decision) RETURN n.id, n.action, n.confidence, n.cost_usd, n.model"),
             ):
                 for row in self._q(q):
@@ -144,7 +153,7 @@ class ComplianceGraph:
                     elif kind == "Pattern":
                         node.update(pattern_kind=row[1], label=row[2], attempts=int(row[3]), last_action=row[4])
                     elif kind == "Attempt":
-                        node.update(at=row[1], payload=row[2], action=row[3], backend=row[4], label=row[3])
+                        node.update(at=row[1], action=row[2], backend=row[3], label=row[2])
                     else:
                         node.update(action=row[1], confidence=float(row[2]), cost_usd=float(row[3]),
                                     model=row[4], label=row[1])
@@ -162,9 +171,9 @@ class ComplianceGraph:
         hops = two_hop(nodes, edges, focus) if focus else []
         return {"nodes": nodes, "edges": edges, "hops": hops, "focus": focus,
                 "note": ("Two hops from the matched pattern reach prior attempts, the filter "
-                         "decision, and the downstream agent. Rewiring a clustered ring collapses "
-                         "path length while clustering stays high, so retrieval should be bounded "
-                         "by tokens or rank, not by hop count.")}
+                         "decision, and the downstream agent. The Watts–Strogatz figures are a "
+                         "synthetic N=500 visual, not a measurement of this catalogue graph. "
+                         "Token-bounded retrieval is the design claim, not a measured p95.")}
 
 
 def two_hop(nodes: list[dict], edges: list[dict], start: str, hops: int = 2) -> list[dict]:

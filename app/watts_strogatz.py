@@ -4,9 +4,8 @@ The on-screen figures are the visual from Anthony's notes (N=500, K=25, p=0.15,
 seed 1). They are not recomputed at serve time, so a clone sees the same numbers
 without NetworkX, MATLAB, or a key.
 
-Claim: rewiring a locally clustered ring collapses average path length while
-clustering stays high. Two hops therefore reach most of a real knowledge graph,
-and retrieval should be bounded by tokens or rank, not by hop count.
+These figures are a synthetic N=500 visual, not a measurement of this catalogue
+graph. Token-bounded retrieval is the design claim, not a measured p95.
 
 Citations:
 - D. J. Watts and S. H. Strogatz, Collective dynamics of small-world networks,
@@ -66,9 +65,9 @@ EXAMPLE: dict[str, Any] = {
 }
 
 CLAIM = (
-    "Rewiring a locally clustered ring collapses average path length while clustering "
-    "stays high. Two hops reach most of a real knowledge graph, so retrieval should be "
-    "bounded by tokens or rank, not by hop count."
+    "These Watts–Strogatz figures are a synthetic N=500 visual, not a measurement "
+    "of this catalogue graph. Token-bounded retrieval is the design claim, not a "
+    "measured p95."
 )
 
 
@@ -79,9 +78,10 @@ def example() -> dict[str, Any]:
         "example": EXAMPLE,
         "citations": [NATURE, MATHWORKS],
         "why_here": (
-            "The compliance graph only needs a short expansion from the matched pattern: "
-            "prior attempts, the filter decision, and the downstream agent. That is the "
-            "same two-hop neighbourhood this ring demonstrates."
+            "The compliance graph only expands a short neighbourhood from the matched "
+            "pattern: prior attempts, the filter decision, and the downstream agent. "
+            "The ring is a cited visual for that design, not a measurement of the "
+            "catalogue graph, and not a measured p95."
         ),
     }
 

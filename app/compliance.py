@@ -3,9 +3,14 @@
 Jev (or Catalogue rules / Laya / AnyJev) answers one typed question: release, redact,
 or block. The knowledge graph records each decision. A repeated pattern updates the
 pattern node so circumvention is graph state, not a one-off score.
+
+Kuzu stores a stable pattern identity (a hash), the decision, and the attempt
+count — never raw PII. Recording the same payload is idempotent. If the decision
+backend errors, the filter fails closed and blocks.
 """
 from __future__ import annotations
 
+import hashlib
 import re
 import uuid
 from datetime import datetime, timezone
@@ -53,6 +58,19 @@ CONFIDENTIAL_RE = re.compile(
     re.I,
 )
 
+PATTERN_LABELS = {
+    "pii.email": "email [redacted]",
+    "pii.ssn": "ssn [redacted]",
+    "confidential": "confidential memo",
+    "circumvent": "filter circumvention",
+    "clean": "no PII",
+}
+
+
+def fingerprint(value: str) -> str:
+    """Stable identity for a pattern key or payload. Never the raw value."""
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
 
 def classify(payload: str) -> dict[str, Any]:
     """Detect synthetic PII / circumvention. Used by Catalogue rules and as gold labels."""
@@ -71,15 +89,15 @@ def classify(payload: str) -> dict[str, Any]:
     else:
         action = "release"
     if emails:
-        kind, key, label = "pii.email", emails[0], f"email {emails[0]}"
+        kind, key = "pii.email", emails[0]
     elif ssns:
-        kind, key, label = "pii.ssn", ssns[0], f"ssn {ssns[0]}"
+        kind, key = "pii.ssn", ssns[0]
     elif confidential:
-        kind, key, label = "confidential", "memo", "confidential memo"
+        kind, key = "confidential", "memo"
     elif circumvent:
-        kind, key, label = "circumvent", "generic", "filter circumvention"
+        kind, key = "circumvent", "generic"
     else:
-        kind, key, label = "clean", "none", "no PII"
+        kind, key = "clean", "none"
     return {
         "action": action,
         "pii": pii,
@@ -87,10 +105,22 @@ def classify(payload: str) -> dict[str, Any]:
         "confidential": confidential,
         "emails": emails,
         "ssns": ssns,
-        "pattern_id": f"{kind}:{key}",
+        "pattern_id": f"{kind}:{fingerprint(key)[:24]}",
         "pattern_kind": kind,
-        "pattern_label": label,
+        "pattern_label": PATTERN_LABELS[kind],
     }
+
+
+def fail_closed_result(backend: Backend, error: Exception) -> DecisionResult:
+    """Block when the decision backend cannot answer. Release is not the fallback."""
+    labels = list(FILTER["criteria"])
+    probs = {k: float(k == "block") for k in labels}
+    return DecisionResult(
+        backend.name, backend.model or backend.name,
+        {"filter": Answer("choice", probs)}, 0.0, None, 0.0,
+        getattr(backend, "residency", "local"),
+        {"by": "fail-closed", "error": type(error).__name__},
+    )
 
 
 def rule_result(payload: str) -> DecisionResult:
@@ -114,19 +144,27 @@ def decide_filter(backend: Backend, payload: str) -> DecisionResult:
 
 def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
                    exporter=None) -> dict[str, Any]:
-    """Decide, write the graph, and optionally send an Arize trace."""
+    """Decide, write the graph, and optionally send an Arize trace.
+
+    The graph and Arize traces store a pattern identity, the decision, and the
+    attempt count. Raw PII is not persisted. A backend error blocks the payload.
+    """
     text = (payload or "").strip()
     if not text:
         raise ValueError("payload is empty")
     found = classify(text)
-    result = decide_filter(backend, text)
-    action = result.answers["filter"].top
+    try:
+        result = decide_filter(backend, text)
+        action = result.answers["filter"].top
+    except Exception as exc:
+        result = fail_closed_result(backend, exc)
+        action = "block"
     confidence = result.answers["filter"].confidence
-    attempt_id = uuid.uuid4().hex[:12]
+    attempt_id = fingerprint(text)
     decision_id = uuid.uuid4().hex[:12]
     at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     graph = store.record(
-        attempt_id=attempt_id, at=at, payload=text, action=action, backend=result.backend,
+        attempt_id=attempt_id, at=at, action=action, backend=result.backend,
         pattern_id=found["pattern_id"], pattern_kind=found["pattern_kind"],
         pattern_label=found["pattern_label"], decision_id=decision_id,
         confidence=confidence, cost_usd=result.cost_usd, model=result.model,
@@ -134,9 +172,8 @@ def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
     snap = store.snapshot(focus=found["pattern_id"])
     correct = action == found["action"]
     trace = {
-        "id": attempt_id,
+        "id": attempt_id[:12],
         "name": "compliance.filter",
-        "payload": text,
         "action": action,
         "gold": found["action"],
         "correct": correct,
@@ -196,15 +233,16 @@ def run_example(backend: Backend, store: ComplianceGraph, exporter=None) -> dict
         "title": "Compliance agent in front of another agent",
         "story": (
             "A legal and compliance agent sits in front of a research agent. Jev, or Catalogue "
-            "rules when no key is set, decides release / redact / block. Kuzu records each "
-            "decision. The same email injected again updates the pattern node, so the repeat "
-            "is graph state. Arize is the eval and cost view."
+            "rules when no key is set, decides release / redact / block. A backend error fails "
+            "closed and blocks. Kuzu stores a pattern identity, the decision, and the attempt "
+            "count — not raw PII. The same pattern identity is a repeat; the same payload is "
+            "idempotent. Arize is the eval and cost view."
         ),
         "watts_strogatz": (
-            "Rewiring a locally clustered ring collapses path length while clustering stays "
-            "high, so two hops reach most of a real knowledge graph. Retrieval should be "
-            "bounded by tokens or rank, not by hop count. The on-screen example is N=500, "
-            "K=25, p=0.15, seed 1: 373 of 500 nodes (75%) sit within two hops of node 0."
+            "The Watts–Strogatz figures are a synthetic N=500 visual, not a measurement of "
+            "this catalogue graph. Token-bounded retrieval is the design claim, not a "
+            "measured p95. The on-screen example is N=500, K=25, p=0.15, seed 1: 373 of "
+            "500 nodes (75%) sit within two hops of node 0."
         ),
         "backend": backend.name,
         "steps": [
