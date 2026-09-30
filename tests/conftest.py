@@ -6,7 +6,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # Tests never load model weights or call a vendor: only the uniform baseline and an
 # unconfigured Jev backend are built, plus the oracle backend defined below.
 os.environ["BACKENDS"] = "catalogue,uniform,jev"
-os.environ.pop("TYPESAFE_API_KEY", None)
+for _var in ("TYPESAFE_API_KEY", "OPENROUTER_API_KEY", "JEV_PROVIDER", "JEV_MODEL", "FALKORDB_URL", "CLAIMS_GRAPH"):
+    os.environ.pop(_var, None)   # no vendor keys, and the claims graph on its default engine
 os.environ.pop("API_TOKEN", None)
 os.environ.pop("ARIZE_API_KEY", None)
 os.environ.pop("ARIZE_SPACE_ID", None)

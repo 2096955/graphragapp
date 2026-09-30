@@ -41,18 +41,29 @@ class Settings:
     arize_api_key: str | None
     arize_project: str
     arize_endpoint: str
+    jev_provider: str = "typesafe"
+    openrouter_api_key: str | None = None
 
     @classmethod
     def from_env(cls) -> "Settings":
         e = os.environ.get
         token = (e("API_TOKEN") or "").strip() or None
+        typesafe_key = (e("TYPESAFE_API_KEY") or "").strip() or None
+        openrouter_key = (e("OPENROUTER_API_KEY") or "").strip() or None
+        # Jev through TypeSafe's own API, or through OpenRouter's Decisions API when only that key is set.
+        provider = ((e("JEV_PROVIDER") or "").strip().lower()
+                    or ("openrouter" if openrouter_key and not typesafe_key else "typesafe"))
+        model = (e("JEV_MODEL") or "").strip()
+        if provider == "openrouter":
+            # A TypeSafe model name (the old .env.example set jev-latest) becomes OpenRouter's.
+            model = "~typesafe/jev-latest" if model in ("", "jev-latest") else model if "/" in model else f"typesafe/{model}"
         return cls(
             backends=_list(e("BACKENDS"), "laya,laya-typed,anyjev,jev,catalogue,uniform"),
             api_token=token,
             allowed_origins=_list(e("ALLOWED_ORIGINS"), ""),
-            typesafe_api_key=(e("TYPESAFE_API_KEY") or "").strip() or None,
+            typesafe_api_key=typesafe_key,
             typesafe_base_url=e("TYPESAFE_BASE_URL", "https://api.typesafe.ai"),
-            jev_model=e("JEV_MODEL", "jev-latest"),
+            jev_model=model or "jev-latest",
             jev_price_per_mtok=float(e("JEV_PRICE_PER_MTOK", "0.042")),
             device=e("DEVICE", "cpu"),
             laya_checkpoint=e("LAYA_CHECKPOINT", "english"),
@@ -74,4 +85,6 @@ class Settings:
             arize_api_key=(e("ARIZE_API_KEY") or "").strip() or None,
             arize_project=(e("ARIZE_PROJECT_NAME") or e("ARIZE_PROJECT") or "graphrag-compliance").strip(),
             arize_endpoint=e("ARIZE_OTLP_ENDPOINT", "https://otlp.arize.com/v1/traces"),
+            jev_provider=provider,
+            openrouter_api_key=openrouter_key,
         )

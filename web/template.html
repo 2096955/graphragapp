@@ -285,6 +285,30 @@ footer p{max-width:90ch}
 .comp-node.repeat{border-color:var(--ink)}
 .attempts{font-variant-numeric:tabular-nums;font-weight:700}
 .comp-eval{display:grid;gap:8px}
+
+/* ---------------------------------------------------------------- claims graph */
+.cl-grid{display:grid;gap:14px;margin-bottom:14px}
+@media(min-width:900px){.cl-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+.cl-grid>div{display:grid;gap:14px;align-content:start;min-width:0}
+.cl-stack{display:grid;gap:14px}
+.cl-stack>div{display:grid;gap:14px;min-width:0}
+.cl-counts{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+.cl-timeline{list-style:none;margin:12px 0 0;padding:0 0 0 18px;border-left:2px solid var(--line);display:grid;gap:14px}
+.cl-step{position:relative}
+.cl-step::before{content:"";position:absolute;left:-25px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.cl-when{font-size:.82rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.cl-statement{margin:4px 0 2px;font-weight:600}
+.cl-quote{margin:0;font-size:.88rem;color:var(--ink-2)}
+.cl-quote::before{content:"\201C"}.cl-quote::after{content:"\201D"}
+.cl-change{display:inline-flex;gap:5px;align-items:center;font-size:.78rem;font-weight:600;border-radius:999px;padding:1px 8px;border:1px solid var(--line)}
+.cl-change.stronger,.cl-change.opposite{border-color:var(--ink)}
+.cl-change.missing{color:var(--muted);font-weight:400}
+.cl-who{display:grid;gap:10px;margin-top:10px}
+.cl-person b{font-weight:600}
+.cl-person ul{margin:4px 0 0;padding-left:18px;font-size:.88rem;color:var(--ink-2)}
+.cl-review{display:grid;gap:8px;margin-top:8px}
+.cl-item{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.88rem;display:grid;gap:4px}
+.cl-item .acts{display:flex;gap:8px;flex-wrap:wrap}
 .comp-eval .readouts{margin-top:0}
 .ws-grid{display:grid;gap:14px}
 @media(min-width:900px){.ws-grid{grid-template-columns:1.2fr .8fr}}
@@ -304,7 +328,7 @@ footer p{max-width:90ch}
   <div class="top-in">
     <a class="brand" href="#intro">GraphRAG Decisions Lab</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#small-world">Small world</a><a href="#compliance">Compliance</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="field-guide.html">Field guide</a><a href="small-world.html">Small-world lab</a>
+      <a href="#small-world">Small world</a><a href="#compliance">Compliance</a><a href="#claims">Claims</a><a href="#pipeline">Pipeline</a><a href="#bench">Benchmark</a><a href="#testset">Test set</a><a href="#playground">Playground</a><a href="#run">Run it</a><a href="field-guide.html">Field guide</a><a href="small-world.html">Small-world lab</a>
     </nav>
     <button class="mode" id="modeBtn" type="button" aria-expanded="false" aria-controls="connect"><span class="dot"></span><span id="modeText">Recorded results</span></button>
   </div>
@@ -384,6 +408,55 @@ footer p{max-width:90ch}
     </div>
     <button class="btn ghost" id="compFilterBtn" type="submit">Filter</button>
   </form>
+</section>
+
+<section id="claims">
+  <div class="sec-head">
+    <h2>Worked example: a claims graph</h2>
+    <p>Who said what, where and when. Extraction proposes claims from twelve publications by three regulators, an industry body and a consumer group, all invented. A typed decision checks each claim before it is written: does the quote support it, is it the same claim as an earlier one, and how did the same person's position change. A claim whose quote is not in the document is rejected before any model sees it, and anything a model is unsure about waits for a person. The graph then answers questions about structure directly, each with the quote, the document and the date: who has said something about a point, how a position changed, and what was said as of a date. It is only as good as the decisions that built it, so switch between builds to see what each model would have written.</p>
+  </div>
+  <div class="controls">
+    <div class="label-row"><span id="clBuildLabel">Graph as built by</span><div class="seg" id="clBuildSeg" role="group" aria-labelledby="clBuildLabel"></div></div>
+    <p class="msg" id="clMsg"></p>
+  </div>
+  <div class="cl-grid">
+    <div>
+      <div class="panel">
+        <h3 style="margin:0 0 8px">How a position changed</h3>
+        <div class="seg" id="clTlSeg" role="group" aria-label="Whose position"></div>
+        <ol class="cl-timeline" id="clTimeline"></ol>
+      </div>
+    </div>
+    <div>
+      <div class="panel">
+        <h3 style="margin:0 0 8px">Who has said something about it</h3>
+        <div class="seg" id="clWhoSeg" role="group" aria-label="Point"></div>
+        <div class="cl-who" id="clWho"></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin:0 0 4px">Waiting for a person</h3>
+        <p class="small muted" id="clReviewNote" style="margin:0"></p>
+        <div class="cl-review" id="clReview"></div>
+      </div>
+    </div>
+  </div>
+  <div class="cl-stack">
+    <div>
+      <div class="panel">
+        <h3 style="margin:0 0 4px">Labelled check: 70 decisions</h3>
+        <p class="small muted" style="margin:0 0 10px">Hand-written labels (LABELLING.md, section 9): 22 does-the-quote-support-it, 39 same-claim pairs and 9 position changes. At a 0.8 threshold each answer is decided and right, decided and wrong, or sent to a person. A wrong yes or a wrong change label writes something false (an unsupported claim, a false merge); a wrong no leaves something true out.</p>
+        <div class="tbl-wrap" id="clCheck"></div>
+        <p class="small muted" id="clCheckNote" style="margin:8px 0 0"></p>
+      </div>
+    </div>
+    <div>
+      <div class="panel">
+        <h3 style="margin:0 0 4px">Graph against text retrieval</h3>
+        <p class="small muted" id="clRetrievalNote" style="margin:0 0 10px"></p>
+        <div class="tbl-wrap" id="clRetrieval"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="pipeline">
@@ -971,9 +1044,9 @@ function renderRecords() {
     const where = b === "jev" ? h("span", {class: "pill hosted"}, "Hosted") : h("span", {class: "pill"}, "Local");
     if (!m) {
       cards.push(h("article", {class: "rec"}, head,
-        h("div", {class: "model"}, b === "jev" ? "TypeSafe API " : "Local model ", where),
+        h("div", {class: "model"}, b === "jev" ? "Hosted API (TypeSafe or OpenRouter) " : "Local model ", where),
         h("p", {class: "empty"}, b === "jev"
-          ? "Not measured yet. Jev is a paid hosted API: set TYPESAFE_API_KEY on the backend, then run the benchmark."
+          ? "Not measured yet. Jev is a paid hosted API: set TYPESAFE_API_KEY or OPENROUTER_API_KEY on the backend, then run the benchmark."
           : "Not measured yet. Run the benchmark on a backend that has this model installed."),
         runBtn, h("div", {class: "evalprog", hidden: true})));
       continue;
@@ -1482,7 +1555,7 @@ const STEPS = [
   ["Or start small", "Catalogue rules need no model weights. They answer requests written in catalogue terms, reject what the catalogue cannot hold, ask for clarification when they cannot read a request, and send preferences they cannot score to review.",
    "docker build --build-arg LOCAL_MODELS=false -t graphrag-decisions .\ndocker run -p 8000:8000 -e API_TOKEN=choose-a-token \\\n  -e BACKENDS=catalogue,jev,uniform graphrag-decisions"],
   ["Add the hosted model, if you want it", "Jev is optional. The key stays on the server and is never sent to the page.",
-   "-e TYPESAFE_API_KEY=..."],
+   "-e TYPESAFE_API_KEY=... (or OPENROUTER_API_KEY=...)"],
   ["Open the pages from the server", "The Decisions Lab, the compliance example, the small-world lab and the field guide share this address, so the pages and the API connect by themselves. Catalogue rules need no keys.",
    "open http://localhost:8000/\nopen http://localhost:8000/#compliance\nopen http://localhost:8000/small-world\nopen http://localhost:8000/field-guide"],
   ["Run the benchmark", "From the page (the Run button on each card), or on the command line. Results land in results/ and appear on the page.",
@@ -1503,6 +1576,12 @@ const API_ROWS = [
   ["POST", "/api/compliance/check", "Score one backend on the 30 hand-labelled payloads"],
   ["GET", "/api/compliance/eval", "Arize eval and cost view (sample fixture if Arize is not configured)"],
   ["GET", "/api/compliance/graph", "Pattern, attempt and decision nodes after the filter"],
+  ["GET", "/api/claims", "The claims graph as built, the review queue and the build's decisions"],
+  ["POST", "/api/claims/build", "Rebuild the claims graph with one backend making every typed decision"],
+  ["POST", "/api/claims/review", "A person decides one review item: supported, same claim, or which change"],
+  ["GET", "/api/claims/who, /api/claims/timeline", "Who spoke on a point; one person's positions in order, optionally as of a date"],
+  ["GET", "/api/claims/search", "The same question through BM25, dense, hybrid or the graph"],
+  ["POST", "/api/claims/check", "Score one backend on the 70 labelled claims decisions"],
   ["GET", "/api/watts-strogatz", "The small-world example (N=500, K=25, p=0.15) with its sources. No keys"],
   ["GET", "/api/docs", "Interactive API documentation"],
 ];
@@ -1519,7 +1598,139 @@ async function copy(text, btn) {
 }
 
 /* ------------------------------------------------------------------ start */
-function renderAll() { renderFacts(); renderWatts(); renderCompliance(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
+/* ------------------------------------------------------------------ claims graph */
+const CL = DATA.claims || {};
+const CL_EXTRACTED = Object.fromEntries((CL.extracted || []).map(c => [c.id, c]));
+const CL_BUILD_ORDER = [["labels", "Correct decisions"], ["catalogue", "Catalogue rules"], ["laya", "Laya"],
+                        ["laya-typed", "Laya typed-decisions"], ["anyjev", "AnyJev"]];
+const CL_TIMELINES = [["oyelaran", "human-review", "Oyelaran, human review"], ["oyelaran", "register", "Oyelaran, model registers"],
+                      ["castellane", "use", "Castellane, generative AI"], ["quist", "human-review", "Quist, human review"],
+                      ["fairweather", "human-review", "Fairweather, human review"]];
+const CL_ASPECTS = [["human-review", "Human review"], ["register", "Model registers"], ["accountability", "Vendor models"],
+                    ["use", "Customer data in AI"], ["notice", "Telling customers"], ["explanation", "Explaining declines"]];
+const CL_CHANGE = {stronger: "↑ stronger", weaker: "↓ weaker", same: "= same position", opposite: "⇄ opposite"};
+const CL_KIND = {supports: "Does the quote support the claim?", same_claim: "Same claim?", shift: "How did the position change?"};
+const CLS = {build: "labels", tl: 0, aspect: "human-review", live: null, busy: false};
+
+function clBuild() {
+  if (S.live && CLS.live) return CLS.live;
+  return (CL.builds || {})[CLS.build] || null;
+}
+function clMissing(build, ids) {
+  const rejected = Object.fromEntries((build.rejected || []).map(r => [r.claim, r.why]));
+  const waiting = new Set((build.review || []).filter(r => r.kind === "supports").map(r => r.claims[0]));
+  return ids.map(id => `${(CL_EXTRACTED[id] || {}).date || ""} (${id}), ${rejected[id] ? "rejected: " + rejected[id] : waiting.has(id) ? "waiting for a person" : "not written"}`);
+}
+function renderClaims() {
+  if (!CL.builds && !S.live) { $("#claims").hidden = true; return; }
+  const liveOpts = S.live ? (S.health.backends || []).filter(b => b.available).map(b => ({value: b.name, label: META[b.name] ? META[b.name].label : b.label})) : null;
+  const opts = liveOpts || CL_BUILD_ORDER.filter(([k]) => (CL.builds || {})[k]).map(([k, l]) => ({value: k, label: l}));
+  seg($("#clBuildSeg"), opts, S.live ? (CLS.live && CLS.live.built_with) : CLS.build, async v => {
+    if (!S.live) { CLS.build = v; renderClaims(); return; }
+    if (CLS.busy) return;
+    CLS.busy = true; $("#clMsg").textContent = "Rebuilding the claims graph on the server...";
+    try { await api("api/claims/build", {body: {backend: v}}); CLS.live = await api("api/claims"); $("#clMsg").textContent = ""; }
+    catch (e) { $("#clMsg").textContent = "Rebuild failed: " + e.message; }
+    finally { CLS.busy = false; renderClaims(); }
+  });
+  if (S.live && !CLS.live && !CLS.busy) {
+    CLS.busy = true;
+    api("api/claims").then(r => { CLS.live = r; }).catch(() => {}).finally(() => { CLS.busy = false; renderClaims(); });
+  }
+  const b = clBuild();
+  if (!b) { $("#clTimeline").replaceChildren(); $("#clMsg").textContent = S.live ? "Loading the claims graph..." : "No recorded build."; return; }
+  const c = b.counts || {};
+  const n = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+  $("#clMsg").textContent = `${n(c.Claim || 0, "claim", "claims")} written, ${n(c.SAME_AS || 0, "pair", "pairs")} marked as the same claim, ${n(c.SHIFT || 0, "position change", "position changes")}; ` +
+    `${n((b.review || []).length, "decision", "decisions")} waiting for a person; ${n((b.rejected || []).length, "extracted claim", "extracted claims")} rejected. ` +
+    (CLS.build === "labels" && !S.live ? "This build answers every question from the hand-written labels: the graph as it should be." :
+     b.engine ? `Stored in ${b.engine.includes("not usable") ? b.engine : b.engine.split(" (")[0]}.` : "");
+  // Timeline
+  seg($("#clTlSeg"), CL_TIMELINES.map(([, , l], i) => ({value: i, label: l})), CLS.tl, v => { CLS.tl = v; renderClaims(); });
+  const [person, aspect] = CL_TIMELINES[CLS.tl];
+  const steps = (b.claims || []).filter(x => x.person === person && x.aspect === aspect).sort((x, y) => x.date.localeCompare(y.date));
+  const shifts = Object.fromEntries((b.shifts || []).map(s => [s.later, s]));
+  const full = ((CL.builds || {}).labels || {claims: []}).claims.filter(x => x.person === person && x.aspect === aspect).map(x => x.id);
+  const missing = full.filter(id => !steps.some(s => s.id === id));
+  $("#clTimeline").replaceChildren(...steps.map((s, i) => {
+    const sh = shifts[s.id];
+    const change = i === 0 ? null : sh ? h("span", {class: "cl-change " + sh.label}, CL_CHANGE[sh.label] || sh.label, sh.decided_by === "person" ? " (person)" : sh.confidence < 1 ? ` (${fix(sh.confidence, 2)})` : "")
+      : h("span", {class: "cl-change missing"}, "change not decided");
+    return h("li", {class: "cl-step"},
+      h("div", {class: "cl-when"}, h("b", {}, s.date), h("span", {}, `${s.title} · ${s.publisher}`), change),
+      h("p", {class: "cl-statement"}, s.statement),
+      h("p", {class: "cl-quote"}, s.quote));
+  }), ...(missing.length ? [h("li", {class: "small muted", style: "list-style:none"}, "Not in this graph: " + clMissing(b, missing).join("; ") + ".")] : []),
+  ...(!steps.length && !missing.length ? [h("li", {class: "small muted"}, "No claims.")] : []));
+  // Who
+  seg($("#clWhoSeg"), CL_ASPECTS.map(([v, l]) => ({value: v, label: l})), CLS.aspect, v => { CLS.aspect = v; renderClaims(); });
+  const people = {};
+  for (const x of (b.claims || []).filter(x => x.aspect === CLS.aspect).sort((p, q) => p.date.localeCompare(q.date))) {
+    (people[x.person] = people[x.person] || {name: x.person_name, publisher: x.publisher, kind: x.publisher_kind, claims: []}).claims.push(x);
+  }
+  const same = (b.same_as || []);
+  const byId = Object.fromEntries((b.claims || []).map(x => [x.id, x]));
+  const sameAs = x => same.filter(s => s.a === x.id).map(s => byId[s.b]).filter(Boolean)
+    .map(o => o.person === x.person ? o.date : `${o.person_name}, ${o.date}`);
+  $("#clWho").replaceChildren(...Object.values(people).map(p => h("div", {class: "cl-person"},
+    h("b", {}, p.name), " ", h("span", {class: "small muted"}, `${p.publisher}, ${p.kind}`),
+    h("ul", {}, ...p.claims.map(x => h("li", {}, h("b", {class: "num"}, x.date), " ", x.statement,
+      sameAs(x).length ? h("span", {class: "small muted"}, " (same claim as " + sameAs(x).join("; ") + ")") : null))))),
+    ...(Object.keys(people).length ? [] : [h("p", {class: "small muted"}, "Nobody in this graph.")]));
+  // Review
+  const review = b.review || [];
+  $("#clReviewNote").textContent = review.length ? `The model was below ${b.threshold ?? 0.8} on these, so nothing was written. ${S.live ? "Your answer is kept and the graph is rebuilt with it, so an accepted claim gets its own questions; links and changes you decide are marked as a person's." : "Connect to a lab server at the top of the page to decide them."}`
+    : CLS.build === "catalogue" && !S.live ? "Nothing: the rules are never unsure, so their mistakes go straight into the graph." : "Nothing is waiting.";
+  $("#clReview").replaceChildren(...review.slice(0, 12).map(r => h("div", {class: "cl-item"},
+    h("div", {}, h("b", {}, CL_KIND[r.kind] || r.kind), " ", h("span", {class: "small muted"}, `model said ${r.answer == null ? "nothing (error)" : r.answer} at ${(Math.floor(r.confidence * 100) / 100).toFixed(2)}`)),
+    ...r.claims.map(id => h("div", {class: "small"}, h("b", {}, id), " ", (CL_EXTRACTED[id] || {}).statement || "")),
+    S.live ? h("div", {class: "acts"}, ...clActions(r)) : null)),
+    ...(review.length > 12 ? [h("p", {class: "small muted"}, `and ${review.length - 12} more.`)] : []));
+  // Check
+  const chk = (CL.check || {}).backends || {};
+  const order = ["catalogue", "laya", "laya-typed", "anyjev", "uniform"].filter(k => chk[k]);
+  const cols = [["right", "Right"], ["decided_right", "Decided and right"], ["written_wrongly", "Wrote something false"],
+                ["left_out_wrongly", "Left out something true"], ["to_review", "Sent to a person"]];
+  $("#clCheck").replaceChildren(order.length ? h("table", {class: "grid"},
+    h("thead", {}, h("tr", {}, h("th", {}, "Backend"), ...cols.map(([, l]) => h("th", {class: "num"}, l)))),
+    h("tbody", {}, ...order.map(k => { const r = chk[k];
+      return h("tr", {}, h("td", {}, r.label || k), ...cols.map(([f]) => h("td", {class: "num"}, f === "right" ? `${r.right} of ${r.n}` : String(r[f] ?? "")))); })))
+    : h("p", {class: "small muted"}, "No recorded check."));
+  const base = (CL.check || {}).most_common;
+  const beat = base ? order.filter(k => chk[k].right > base.right).map(k => chk[k].label || k) : [];
+  const level = base ? order.filter(k => chk[k].right === base.right).map(k => chk[k].label || k) : [];
+  $("#clCheckNote").textContent = base ? `Always giving each question's most common answer (${Object.values(base.by_kind).map(v => v.answer).join(", ")}) scores ${base.right} of ${base.n}. ` +
+    (beat.length ? `Above that: ${beat.join(", ")}.` : "No backend here does better.") + (level.length ? ` Level with it: ${level.join(", ")}.` : "") : "";
+  // Retrieval
+  const rt = CL.retrieval;
+  if (rt) {
+    const kinds = [["who", "Who has said something"], ["timeline", "How a position changed"], ["publisher", "One publisher on a topic"],
+                   ["as_of", "As of a date"], ["same", "The same claim, worded differently"], ["content", "Content no claim covers"]];
+    const asof = (rt.questions || []).find(q => q.kind === "as_of");
+    const leaks = asof ? Object.entries(asof.methods).map(([m, e]) => `${m.replace("Graph, ", "graph ")} ${e.later_than_as_of}`).join("; ") : "";
+    $("#clRetrievalNote").textContent = `Recall at ${rt.k} passages on 10 labelled questions: the share of the right claims whose passage came back. ` +
+      `Passages carry their publisher, speaker and date, so the text methods can match names. For the as-of question, passages dated after the date among those returned: ${leaks}. ` +
+      `Dense uses ${rt.embed_model ? rt.embed_model.split("/").pop() : "no model"}; hybrid fuses it with BM25. ` +
+      "The graph's questions are turned into queries by keyword rules written for these ten questions, so its columns are a best case.";
+    $("#clRetrieval").replaceChildren(h("table", {class: "grid"},
+      h("thead", {}, h("tr", {}, h("th", {}, "Question"), ...rt.methods.map(m => h("th", {class: "num"}, m.replace("Graph, ", "Graph: "))))),
+      h("tbody", {}, ...kinds.filter(([k]) => rt.by_kind[k]).map(([k, l]) => h("tr", {}, h("td", {}, l), ...rt.methods.map(m => h("td", {class: "num"}, pct(rt.by_kind[k][m], 0))))),
+        h("tr", {}, h("td", {}, h("b", {}, "All 10")), ...rt.methods.map(m => h("td", {class: "num"}, h("b", {}, pct(rt.summary[m], 0))))))));
+  }
+}
+function clActions(r) {
+  const b = (label, accept, value) => h("button", {class: "btn ghost", type: "button", onclick: () => clResolve(r.id, accept, value)}, label);
+  if (r.kind === "supports") return [b("Supported: write it", true), b("Not supported: drop it", false)];
+  if (r.kind === "same_claim") return [b("Same claim: link them", true), b("Different claims", false)];
+  return [...Object.entries(CL_CHANGE).map(([k, l]) => b(l, true, k)), b("Drop it", false)];
+}
+async function clResolve(id, accept, label) {
+  try { await api("api/claims/review", {body: label ? {id, accept, label} : {id, accept}}); CLS.live = await api("api/claims"); }
+  catch (e) { $("#clMsg").textContent = "Could not record that: " + e.message; }
+  renderClaims();
+}
+
+function renderAll() { renderFacts(); renderWatts(); renderCompliance(); renderClaims(); renderPipelineControls(); renderTrace(); renderBench(); renderTsFilters(); renderTestset(); renderPlayground(); }
 renderRun();
 renderAll();
 (async () => {

@@ -41,13 +41,39 @@ def compact_items(items: list[dict]) -> tuple[list, dict]:
     return out, qtable
 
 
+def claims_payload() -> dict:
+    """Recorded claims-graph builds, the labelled check and the retrieval comparison, trimmed for the page."""
+    from app.claims import claim_records
+    res = ROOT / "results"
+    out: dict = {"extracted": [{k: c[k] for k in ("id", "statement", "date", "person", "aspect")} for c in claim_records()]}
+    builds = res / "claims-builds.json"
+    if builds.exists():
+        keep = ("backend", "label", "threshold", "engine", "counts", "rejected", "review", "claims", "same_as", "shifts")
+        out["builds"] = {k: {f: v.get(f) for f in keep} for k, v in json.loads(builds.read_text())["builds"].items()}
+    check = res / "claims-check.json"
+    if check.exists():
+        saved = json.loads(check.read_text())
+        keep = ("label", "right", "n", "summary", "threshold", "decided_right", "written_wrongly", "left_out_wrongly",
+                "to_review")
+        out["check"] = {"backends": {k: {f: v[f] for f in keep} for k, v in saved["backends"].items()},
+                        "most_common": saved.get("most_common")}
+    retrieval = res / "claims-retrieval.json"
+    if retrieval.exists():
+        r = json.loads(retrieval.read_text())
+        for q in r["questions"]:
+            for m in q["methods"].values():
+                m.pop("retrieved", None)
+        out["retrieval"] = r
+    return out
+
+
 def main() -> None:
     current_items = build()
     items, qtable = compact_items(current_items)
     results, examples = {}, {}
     for f in sorted((ROOT / "results").glob("*.json")):
         data = json.loads(f.read_text())
-        if f.name.startswith("compliance") or f.name.startswith("watts"):
+        if f.name.startswith(("compliance", "watts", "claims")):
             continue
         if f.name.startswith("examples-"):
             if data.get("pipeline_version") != PIPELINE_VERSION:
@@ -91,7 +117,7 @@ def main() -> None:
             for k, v in saved.get("backends", {}).items()]
     payload = {"tasks": TASKS, "items": items, "questions": qtable, "results": results, "examples": examples,
                "catalogue": catalogue, "order": [b for b in ORDER], "gold": gold, "compliance": compliance,
-               "compliance_check": compliance_check, "watts_strogatz": watts_example()}
+               "compliance_check": compliance_check, "watts_strogatz": watts_example(), "claims": claims_payload()}
     blob = json.dumps(ev.clean(payload), separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
     tpl = (ROOT / "web" / "template.html").read_text()
     marker = "/*__DATA__*/"

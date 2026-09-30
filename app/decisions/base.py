@@ -29,6 +29,11 @@ class BackendUnavailable(DecisionError):
     """The backend is not configured or not installed."""
 
 
+class TransientError(DecisionError):
+    """A failure worth retrying: a timeout, a rate limit or a server error. Anything else that
+    raises DecisionError is treated as permanent: retrying the same request gets the same answer."""
+
+
 def validate_questions(questions: dict[str, Any], max_questions: int = 32) -> None:
     if not isinstance(questions, dict) or not questions:
         raise DecisionError("questions must be a non-empty object keyed by question name")

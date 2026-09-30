@@ -113,7 +113,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
   <div>
     <h1>Graphs for agent context: a field guide</h1>
     <p class="lede">Vector search finds passages that look similar. A graph finds facts that are connected. Tap any node to see what an agent can reach in one, two or three hops.</p>
-    <p class="note">Covers Neo4j, FalkorDB, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB and Kuzu. Prices and status as at 25 September 2026.</p>
+    <p class="note">Covers Neo4j, FalkorDB, Memgraph, Neptune, Spanner Graph, PuppyGraph, Fabric graph, MongoDB Atlas, Cosmos DB and Kuzu. Prices and status as at 25 September 2026; Memgraph checked on 30 September 2026.</p>
   </div>
   <div class="panel graphbox">
     <svg id="heroGraph" viewBox="0 0 360 350" role="img" aria-label="Example knowledge graph. Select a node to highlight its neighbourhood."></svg>
@@ -151,10 +151,11 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
 <p>Each lab runs in your browser on a small example graph. Change the settings, or open the code, edit it and run your version.</p>
 
 <div class="panel lab" id="labA">
-  <h3>Lab 1: keyword retrieval against graph retrieval</h3>
-  <p class="note">Keyword search returns nodes whose text shares words with the question. Graph retrieval starts at the entities named in the question and follows relationships.</p>
+  <h3>Lab 1: hybrid text retrieval against graph retrieval</h3>
+  <p class="note">The text baseline is what most teams already run: BM25 over each node's text, fused with dense similarity from a small embedding model (all-MiniLM-L6-v2) by reciprocal rank fusion. Dense similarities are precomputed for the questions in the list; for a question you type yourself, the text side falls back to BM25 alone. Graph retrieval starts at the entities named in the question and follows relationships.</p>
   <div class="params">
-    <label style="flex:1 1 100%">Question <input id="aQ" style="width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)" value="What is John Doe's role in ACME's renewable energy projects?"></label>
+    <label style="flex:1 1 100%">Question <input id="aQ" style="width:100%;font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)" value="What is John Doe's role in ACME's renewable energy projects?" list="aQList"></label>
+    <datalist id="aQList"><option value="What is John Doe's role in ACME's renewable energy projects?"></option><option value="Which customers were affected by Outage 14?"></option><option value="Which clause governs the supplier of Wind Project Beta?"></option><option value="What does the 2025 strategic plan cover?"></option></datalist>
     <label>Hops <input id="aK" type="number" min="1" max="4" value="2" style="width:64px"></label>
     <button class="primary" data-run="A">Run</button>
   </div>
@@ -165,7 +166,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
 
 <div class="panel lab" id="labB">
   <h3>Lab 2: fit the best context into a token budget</h3>
-  <p class="note">Personalised PageRank ranks nodes by how central they are to a starting entity, then the highest-ranked text is packed into the budget. Jev's real budget is 32,000 tokens; this example graph is tiny, so the budget is scaled down.</p>
+  <p class="note">Personalised PageRank ranks nodes by how central they are to a starting entity, then the highest-ranked text is packed into the budget. Jev takes about 64,000 tokens a request, of which about 32,000 for the state and the longest question; this example graph is tiny, so the budget is scaled down.</p>
   <div class="params">
     <label>Start at <select id="bSeed"></select></label>
     <label>Budget <input id="bBudget" type="range" min="20" max="200" step="5" value="70"> <strong id="bBudgetV">70</strong> tokens</label>
@@ -204,7 +205,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
 <footer>
   <h3>Sources and caveats</h3>
   <p class="note">Prices are vendor list prices checked on 25 September 2026 and change often; confirm with each vendor's calculator before quoting to a client. Performance claims for PuppyGraph, FalkorDB and Jev are vendor-reported. Kuzu was archived in October 2025; the forks named here are community-maintained. Grades are the author's judgement against the stated weights.</p>
-  <p class="note">Vendor pages: <a href="https://neo4j.com/pricing/">Neo4j</a>, <a href="https://www.falkordb.com/plans/">FalkorDB</a>, <a href="https://aws.amazon.com/neptune/pricing/">Neptune</a>, <a href="https://cloud.google.com/spanner/pricing">Spanner</a>, <a href="https://www.puppygraph.com/pricing">PuppyGraph</a>, <a href="https://learn.microsoft.com/en-us/fabric/graph/overview">Fabric graph</a>, <a href="https://www.mongodb.com/pricing">MongoDB</a>, <a href="https://www.puppygraph.com/blog/what-is-kuzudb">Kuzu status</a>.</p>
+  <p class="note">Vendor pages: <a href="https://neo4j.com/pricing/">Neo4j</a>, <a href="https://www.falkordb.com/plans/">FalkorDB</a>, <a href="https://memgraph.com/pricing">Memgraph</a> (<a href="https://github.com/memgraph/memgraph/blob/master/licenses/BSL.txt">Community licence</a>: BSL 1.1, production use for internal purposes, no database-as-a-service; each version becomes Apache 2.0 on the change date in its licence, at most four years after its release), <a href="https://aws.amazon.com/neptune/pricing/">Neptune</a>, <a href="https://cloud.google.com/spanner/pricing">Spanner</a>, <a href="https://www.puppygraph.com/pricing">PuppyGraph</a>, <a href="https://learn.microsoft.com/en-us/fabric/graph/overview">Fabric graph</a>, <a href="https://www.mongodb.com/pricing">MongoDB</a>, <a href="https://www.puppygraph.com/blog/what-is-kuzudb">Kuzu status</a>.</p>
   <p class="note">The explain-it-by-building-it style follows Tivadar Danka&rsquo;s newsletter <a href="https://thepalindrome.org/">The Palindrome</a>. The animations, code and figures on this page are original.</p>
 </footer>
 </main>
@@ -269,6 +270,7 @@ const GV={"A":4,"A-":3.7,"B+":3.3,"B":3,"B-":2.7,"C+":2.3,"C":2,"C-":1.7,"D":1,"
 const E=[
  {n:"Neo4j",cat:"native",shared:"A-",embed:null,d:5,o:5,c:2,v:5,cost:4670,note:"Business Critical, 32 GB"},
  {n:"FalkorDB",cat:"native",shared:"B+",embed:"B",d:4,o:3,c:4,v:3,cost:350,note:"Pro, 8 GB with HA"},
+ {n:"Memgraph",cat:"native",shared:"B",embed:null,d:4,o:3,c:3,v:3,cost:null,note:"Community free for internal use (BSL); Enterprise on request; Cloud priced by calculator"},
  {n:"Neptune",cat:"native",shared:"B",embed:null,d:3,o:5,c:3,v:5,cost:460,note:"Two db.r6g.large, before storage and I/O"},
  {n:"Spanner Graph",cat:"over",shared:"B",embed:null,d:3,o:5,c:3,v:5,cost:120,hi:1200,note:"Enterprise edition, 0.1 to 1 node"},
  {n:"PuppyGraph",cat:"over",shared:"B",prov:true,embed:null,d:4,o:3,c:4,v:3,cost:null,note:"Priced on server CPU and memory; quote only"},
@@ -319,12 +321,23 @@ drawGrades();
 })();
 
 /* ---------- Labs ---------- */
+// Cosine similarity of each node's text to the preset questions (all-MiniLM-L6-v2), precomputed.
+const DENSE={"What is John Doe's role in ACME's renewable energy projects?":{"john":0.565,"solar":0.308,"acme":0.559,"wind":0.28,"renew":0.551,"plan":0.387,"supplier":0.281,"clause":0.01,"api":0.036,"outage":0.042,"custy":0.089,"custz":0.075},"Which customers were affected by Outage 14?":{"john":-0.026,"solar":0.159,"acme":0.136,"wind":0.055,"renew":-0.024,"plan":-0.01,"supplier":0.148,"clause":0.324,"api":0.104,"outage":0.578,"custy":0.327,"custz":0.341},"Which clause governs the supplier of Wind Project Beta?":{"john":0.139,"solar":0.334,"acme":0.229,"wind":0.613,"renew":0.317,"plan":0.309,"supplier":0.458,"clause":0.207,"api":0.047,"outage":0.115,"custy":0.115,"custz":0.127},"What does the 2025 strategic plan cover?":{"john":0.087,"solar":0.251,"acme":0.189,"wind":0.357,"renew":0.431,"plan":0.718,"supplier":0.123,"clause":0.114,"api":-0.019,"outage":-0.01,"custy":0.145,"custz":0.162}};
 function labA(G, question, hops){
-  // Keyword retrieval: score nodes by words shared with the question
-  const stop=new Set(["what","is","the","in","of","and","a","role","s"]);
-  const words=question.toLowerCase().replace(/'s\b/g,"").match(/[a-z0-9]+/g).filter(w=>!stop.has(w));
-  const keyword=G.nodes.map(n=>({n,score:words.filter(w=>n.text.toLowerCase().includes(w)).length}))
-    .filter(r=>r.score>0).sort((a,b)=>b.score-a.score).map(r=>`${r.n.label} (${r.score} shared words): ${r.n.text}`);
+  // Hybrid text retrieval: BM25 over each node's text, fused with dense similarity by
+  // reciprocal rank fusion (1 / (60 + rank) from each ranking). DENSE holds similarities from
+  // all-MiniLM-L6-v2 for the preset questions; for any other question only BM25 is used.
+  const stop=new Set(["what","is","the","in","of","and","a","s","which","by","does","were","was","to"]);
+  const tok=s=>(s.toLowerCase().replace(/'s\b/g,"").match(/[a-z0-9]+/g)||[]).filter(w=>!stop.has(w));
+  const docs=G.nodes.map(n=>tok(n.text)),q=tok(question),N=docs.length;
+  const avg=docs.reduce((s,d)=>s+d.length,0)/N,df=w=>docs.filter(d=>d.includes(w)).length;
+  const bm25=docs.map(d=>q.reduce((s,w)=>{const tf=d.filter(x=>x===w).length;if(!tf)return s;
+    const idf=Math.log(1+(N-df(w)+0.5)/(df(w)+0.5));return s+idf*tf*2.5/(tf+1.5*(0.25+0.75*d.length/avg))},0));
+  const dense=DENSE[question]||null;
+  const ranks=sc=>{const r={};sc.map((s,i)=>[s,i]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]).forEach(([,i],k)=>r[i]=k+1);return r};
+  const rb=ranks(bm25),rd=dense?ranks(G.nodes.map(n=>dense[n.id]||0)):{};
+  const text=G.nodes.map((n,i)=>({n,s:(rb[i]?1/(60+rb[i]):0)+(rd[i]?1/(60+rd[i]):0)})).filter(x=>x.s>0)
+    .sort((a,b)=>b.s-a.s).slice(0,5).map(x=>`${x.n.label}: ${x.n.text}`);
 
   // Graph retrieval: start at entities named in the question, follow edges
   const seeds=G.nodes.filter(n=>question.toLowerCase().includes(n.label.toLowerCase())).map(n=>n.id);
@@ -337,7 +350,7 @@ function labA(G, question, hops){
       const p=f.path+step+G.node(nb.id).label;paths.push(p);
       if(!seen.has(nb.id)){seen.add(nb.id);next.push({id:nb.id,prev:f.id,path:p})}}
     frontier=next}
-  return {seeds:seeds.map(id=>G.node(id).label),keyword,paths:[...new Set(paths)]};
+  return {seeds:seeds.map(id=>G.node(id).label),text,hybrid:!!dense,paths:[...new Set(paths)]};
 }
 function labB(G, seed, budget){
   // Personalised PageRank from the seed node, then pack text into the budget
@@ -373,8 +386,8 @@ const FN={A:labA,B:labB,C:labC};
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function renderA(r){
   document.getElementById("aOut").innerHTML=
-   `<strong>Keyword retrieval</strong> found ${r.keyword.length} fragments:`+r.keyword.map(x=>`<span class="path">${esc(x)}</span>`).join("")+
-   `<p class="note" style="margin-top:8px">None of these says how John Doe relates to ACME. The link lives in the relationships, not the text.</p>`+
+   `<strong>${r.hybrid?"Hybrid text retrieval (BM25 and dense)":"BM25 text retrieval"}</strong> returned its top ${r.text.length} fragment${r.text.length===1?"":"s"}:`+r.text.map(x=>`<span class="path">${esc(x)}</span>`).join("")+
+   `<p class="note" style="margin-top:8px">These are the fragments that look most like the question. None states a relationship that spans two facts, such as who leads a project another company owns; that lives in the edges, not in any one text.</p>`+
    `<strong>Graph retrieval</strong> from ${esc(r.seeds.join(", ")||"no named entities")} found ${r.paths.length} paths:`+r.paths.map(x=>`<span class="path">${esc(x)}</span>`).join("");
 }
 function renderB(r){
@@ -413,7 +426,7 @@ run("A",FN.A);run("B",FN.B);run("C",FN.C);
 
 /* ---------- Snippets ---------- */
 const SNIPS=[
- {t:"Cypher",who:"Neo4j, FalkorDB, Kuzu, Neptune (openCypher), PuppyGraph",c:`MATCH (p:Person {name: 'John Doe'})-[:LEADS]->(proj:Project)<-[:OWNS]-(c:Company)
+ {t:"Cypher",who:"Neo4j, FalkorDB, Memgraph, Kuzu, Neptune (openCypher), PuppyGraph",c:`MATCH (p:Person {name: 'John Doe'})-[:LEADS]->(proj:Project)<-[:OWNS]-(c:Company)
 RETURN p.name, proj.name, c.name;`},
  {t:"Gremlin",who:"Neptune, Cosmos DB, PuppyGraph",c:`g.V().has('Person', 'name', 'John Doe')
   .out('LEADS').as('project')
@@ -465,6 +478,7 @@ document.getElementById("snipCopy").onclick=e=>copyText(SNIPS[cur].c,e.target);
 const RUNS=[
  {n:"Neo4j",cat:"native",c:"docker run -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/change-me neo4j:5",note:"Browser UI on localhost:7474."},
  {n:"FalkorDB",cat:"native",c:"docker run -p 6379:6379 -p 3000:3000 -it --rm falkordb/falkordb:latest",note:"Browser UI on localhost:3000."},
+ {n:"Memgraph",cat:"native",c:"docker run -p 7687:7687 -p 7444:7444 --name memgraph memgraph/memgraph-mage",note:"Includes the MAGE algorithms. The Memgraph Lab UI is a separate image: docker run -d -p 3000:3000 --name lab memgraph/lab. On Mac and Windows add -e QUICK_CONNECT_MG_HOST=host.docker.internal."},
  {n:"MongoDB",cat:"doc",c:"docker run -p 27017:27017 mongo:8",note:"Local server; Atlas Vector Search needs Atlas or the Atlas CLI local deployment."},
  {n:"Kuzu",cat:"embed",c:"pip install kuzu==0.11.3",note:"Final upstream release. Use a community fork for anything you will keep."},
  {n:"PuppyGraph",cat:"over",c:"docker run -p 8081:8081 -p 8182:8182 -p 7687:7687 -d --name puppy --rm puppygraph/puppygraph:stable",note:"Free Developer edition, single node. Check docs.puppygraph.com for the current image tag."}

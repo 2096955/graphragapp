@@ -29,6 +29,7 @@ SAMPLE_PATH = ROOT / "results" / "compliance-arize-sample.json"
 OTLP_HTTP = "https://otlp.arize.com/v1/traces"
 OTLP_GRPC = "https://otlp.arize.com/v1"
 REGISTER = "register(space_id, api_key, project_name=...)"
+EXPORT_ATTEMPTS = 3
 
 
 def load_sample() -> dict[str, Any]:
@@ -54,12 +55,13 @@ class ArizeEval:
     """Collects filter traces. Exports to Arize only when both credentials are present."""
 
     def __init__(self, space_id: str | None, api_key: str | None, project: str = "graphrag-compliance",
-                 endpoint: str = OTLP_HTTP, transport: httpx.BaseTransport | None = None):
+                 endpoint: str = OTLP_HTTP, transport: httpx.BaseTransport | None = None, sleep=time.sleep):
         self.space_id = (space_id or "").strip() or None
         self.api_key = (api_key or "").strip() or None
         self.project = project
         self.endpoint = endpoint.rstrip("/")
         self._client = httpx.Client(timeout=8.0, transport=transport)
+        self._sleep = sleep
         self.traces: list[dict[str, Any]] = []
         self.last_export: dict[str, Any] | None = None
 
@@ -166,8 +168,17 @@ class ArizeEval:
             }],
         }
         headers = {"Content-Type": "application/json", "space_id": self.space_id or "", "api_key": self.api_key or ""}
-        try:
-            resp = self._client.post(self.endpoint, json=body, headers=headers)
-            return {"ok": resp.status_code < 300, "status": resp.status_code}
-        except httpx.HTTPError as e:
-            return {"ok": False, "status": 0, "error": type(e).__name__}
+        # Retry timeouts, rate limits and server errors a couple of times; a 4xx other than 429
+        # means the request itself is wrong, and sending it again would not help.
+        out: dict[str, Any] = {"ok": False, "status": 0}
+        for attempt in range(1, EXPORT_ATTEMPTS + 1):
+            try:
+                resp = self._client.post(self.endpoint, json=body, headers=headers)
+                out = {"ok": resp.status_code < 300, "status": resp.status_code, "attempts": attempt}
+                if resp.status_code not in (429, 500, 502, 503, 504):
+                    return out
+            except httpx.HTTPError as e:
+                out = {"ok": False, "status": 0, "error": type(e).__name__, "attempts": attempt}
+            if attempt < EXPORT_ATTEMPTS:
+                self._sleep(0.25 * 2 ** (attempt - 1))
+        return out

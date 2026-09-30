@@ -1,0 +1,4646 @@
+{
+ "backends": {
+  "catalogue": {
+   "backend": "catalogue",
+   "model": "catalogue-rules-v1",
+   "threshold": 0.8,
+   "n": 70,
+   "right": 59,
+   "summary": {
+    "supports": {
+     "n": 22,
+     "right": 17,
+     "decided": 22,
+     "wrong_decided": 5
+    },
+    "same_claim": {
+     "n": 39,
+     "right": 37,
+     "decided": 39,
+     "wrong_decided": 2
+    },
+    "shift": {
+     "n": 9,
+     "right": 5,
+     "decided": 9,
+     "wrong_decided": 4
+    }
+   },
+   "decided_right": 59,
+   "written_wrongly": 5,
+   "left_out_wrongly": 6,
+   "to_review": 0,
+   "rows": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "yes",
+     "confidence": 1.0,
+     "gold": "yes",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "answer": "no",
+     "confidence": 1.0,
+     "gold": "no",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "gold": "stronger",
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "gold": "stronger",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "answer": "stronger",
+     "confidence": 1.0,
+     "gold": "stronger",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "gold": "weaker",
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "gold": "same",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "gold": "same",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "gold": "same",
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "answer": "opposite",
+     "confidence": 1.0,
+     "gold": "stronger",
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "answer": "same",
+     "confidence": 1.0,
+     "gold": "opposite",
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    }
+   ],
+   "label": "Catalogue rules",
+   "finished": "2026-09-30T12:44:11+00:00",
+   "hardware": "x86_64 cpu"
+  },
+  "uniform": {
+   "backend": "uniform",
+   "model": "none",
+   "threshold": 0.8,
+   "n": 70,
+   "right": 27,
+   "summary": {
+    "supports": {
+     "n": 22,
+     "right": 20,
+     "decided": 0,
+     "wrong_decided": 0
+    },
+    "same_claim": {
+     "n": 39,
+     "right": 4,
+     "decided": 0,
+     "wrong_decided": 0
+    },
+    "shift": {
+     "n": 9,
+     "right": 3,
+     "decided": 0,
+     "wrong_decided": 0
+    }
+   },
+   "written_wrongly": 0,
+   "rows": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "stronger",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "stronger",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "stronger",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "weaker",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "same",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "same",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "same",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "stronger",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "opposite",
+     "answer": "same",
+     "confidence": 0.25,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    }
+   ],
+   "label": "Uniform baseline",
+   "finished": "2026-09-30T11:36:55+00:00",
+   "hardware": "x86_64 cpu",
+   "decided_right": 0,
+   "left_out_wrongly": 0,
+   "to_review": 70
+  },
+  "laya": {
+   "backend": "laya",
+   "model": "convaiinnovations/laya (english)",
+   "threshold": 0.8,
+   "n": 70,
+   "right": 55,
+   "summary": {
+    "supports": {
+     "n": 22,
+     "right": 16,
+     "decided": 12,
+     "wrong_decided": 1
+    },
+    "same_claim": {
+     "n": 39,
+     "right": 35,
+     "decided": 30,
+     "wrong_decided": 2
+    },
+    "shift": {
+     "n": 9,
+     "right": 4,
+     "decided": 0,
+     "wrong_decided": 0
+    }
+   },
+   "written_wrongly": 2,
+   "rows": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.8211,
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6053,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.5622,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5823,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6743,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.69,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9155,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.84,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7247,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.7527,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9342,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6849,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8362,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.822,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8979,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.708,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.6067,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8057,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9766,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.892,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8019,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.866,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7464,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6417,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8519,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8673,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8905,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.89,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7471,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8173,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8361,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8303,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8496,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8259,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9231,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.891,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.8668,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.917,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.5004,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9175,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8553,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9199,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.882,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8706,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.5425,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.898,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9029,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9334,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9204,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8893,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9566,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8054,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7453,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9535,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9323,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6247,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 1.0,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7643,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.919,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5208,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8381,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "stronger",
+     "answer": "opposite",
+     "confidence": 0.6729,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.4932,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.6211,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "weaker",
+     "answer": "opposite",
+     "confidence": 0.3502,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.4668,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.4915,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.4117,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.3663,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "opposite",
+     "answer": "opposite",
+     "confidence": 0.3578,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    }
+   ],
+   "label": "Laya",
+   "finished": "2026-09-30T11:37:59+00:00",
+   "hardware": "x86_64 cpu",
+   "decided_right": 39,
+   "left_out_wrongly": 1,
+   "to_review": 28
+  },
+  "laya-typed": {
+   "backend": "laya-typed",
+   "model": "convaiinnovations/laya (typed-decisions)",
+   "threshold": 0.8,
+   "n": 70,
+   "right": 53,
+   "summary": {
+    "supports": {
+     "n": 22,
+     "right": 15,
+     "decided": 0,
+     "wrong_decided": 0
+    },
+    "same_claim": {
+     "n": 39,
+     "right": 34,
+     "decided": 8,
+     "wrong_decided": 0
+    },
+    "shift": {
+     "n": 9,
+     "right": 4,
+     "decided": 0,
+     "wrong_decided": 0
+    }
+   },
+   "written_wrongly": 0,
+   "rows": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.67,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5309,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.5869,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5502,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.517,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.6812,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6499,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.634,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.5425,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.7006,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7496,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5263,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6383,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6882,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6628,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.6246,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.6424,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6638,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7823,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7058,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.739,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7905,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5377,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.74,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7758,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7284,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.775,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7128,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7373,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8074,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6976,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6917,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6858,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7224,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8632,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.723,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6666,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7651,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6017,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.794,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7514,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7588,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6096,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7052,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.5095,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7937,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7767,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8264,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8307,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8417,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.8732,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7238,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6551,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.803,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.793,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5666,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8492,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.6477,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7046,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5001,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7689,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.4318,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.5062,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.5025,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "weaker",
+     "answer": "stronger",
+     "confidence": 0.349,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.4631,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.5117,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "same",
+     "answer": "stronger",
+     "confidence": 0.4197,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.5075,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "opposite",
+     "answer": "stronger",
+     "confidence": 0.3955,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    }
+   ],
+   "label": "Laya typed-decisions",
+   "finished": "2026-09-30T11:38:49+00:00",
+   "hardware": "x86_64 cpu",
+   "decided_right": 8,
+   "left_out_wrongly": 0,
+   "to_review": 62
+  },
+  "anyjev": {
+   "backend": "anyjev",
+   "model": "Qwen/Qwen3-1.7B (L0)",
+   "threshold": 0.8,
+   "n": 70,
+   "right": 24,
+   "summary": {
+    "supports": {
+     "n": 22,
+     "right": 13,
+     "decided": 12,
+     "wrong_decided": 5
+    },
+    "same_claim": {
+     "n": 39,
+     "right": 9,
+     "decided": 22,
+     "wrong_decided": 17
+    },
+    "shift": {
+     "n": 9,
+     "right": 2,
+     "decided": 7,
+     "wrong_decided": 5
+    }
+   },
+   "written_wrongly": 23,
+   "rows": [
+    {
+     "kind": "supports",
+     "claims": [
+      "C01"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7982,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C02"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.974,
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C03"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9325,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C04"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6792,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C05"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.9975,
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.7773,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C07"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.7311,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C08"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9783,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C09"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6889,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C10"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.7539,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C11"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.998,
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C12"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.6411,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C13"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6275,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C14"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9352,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C15"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.6559,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8768,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.9993,
+     "right": false,
+     "decided": true,
+     "outcome": "left out something true"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8022,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C19"
+     ],
+     "gold": "yes",
+     "answer": "no",
+     "confidence": 0.5564,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "C20"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8005,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X01"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9777,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "supports",
+     "claims": [
+      "X02"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.8413,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C04"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9997,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9707,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9149,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9241,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9149,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9983,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C01",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.989,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C10"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7918,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.5081,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C02",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.8861,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C03",
+      "C06"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9775,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C05"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9996,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.844,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9968,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9957,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9959,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C04",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9503,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C09"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.9916,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.7732,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5609,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9898,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C05",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9717,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C14"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5743,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6922,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.9849,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C11"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6372,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C17"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5793,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6941,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.7642,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C12"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.7142,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C10",
+      "C18"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.7131,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.8564,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.9246,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C11",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.535,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "yes",
+     "answer": "yes",
+     "confidence": 0.5372,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C14",
+      "C15"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.5079,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C19"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.8818,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C17",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "no",
+     "confidence": 0.7476,
+     "right": true,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "same_claim",
+     "claims": [
+      "C19",
+      "C20"
+     ],
+     "gold": "no",
+     "answer": "yes",
+     "confidence": 0.6019,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C01",
+      "C05"
+     ],
+     "gold": "stronger",
+     "answer": "weaker",
+     "confidence": 1.0,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C05",
+      "C11"
+     ],
+     "gold": "stronger",
+     "answer": "weaker",
+     "confidence": 1.0,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C02",
+      "C12"
+     ],
+     "gold": "stronger",
+     "answer": "stronger",
+     "confidence": 0.9396,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C07",
+      "C15"
+     ],
+     "gold": "weaker",
+     "answer": "weaker",
+     "confidence": 1.0,
+     "right": true,
+     "decided": true,
+     "outcome": "right"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C08",
+      "C16"
+     ],
+     "gold": "same",
+     "answer": "weaker",
+     "confidence": 1.0,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C11",
+      "C17"
+     ],
+     "gold": "same",
+     "answer": "weaker",
+     "confidence": 1.0,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C12",
+      "C18"
+     ],
+     "gold": "same",
+     "answer": "weaker",
+     "confidence": 0.9999,
+     "right": false,
+     "decided": true,
+     "outcome": "wrote something false"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C04",
+      "C19"
+     ],
+     "gold": "stronger",
+     "answer": "weaker",
+     "confidence": 0.5813,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    },
+    {
+     "kind": "shift",
+     "claims": [
+      "C09",
+      "C20"
+     ],
+     "gold": "opposite",
+     "answer": "weaker",
+     "confidence": 0.6798,
+     "right": false,
+     "decided": false,
+     "outcome": "to review"
+    }
+   ],
+   "label": "AnyJev",
+   "finished": "2026-09-30T12:07:06+00:00",
+   "hardware": "x86_64 cpu",
+   "decided_right": 14,
+   "left_out_wrongly": 4,
+   "to_review": 29
+  }
+ },
+ "note": "Hand-labelled decisions for the claims example (app/claims_labels.py, LABELLING.md section 9). A check, not a benchmark. Decided means confidence at or above 0.8. most_common is the score of always giving each question's most common label.",
+ "most_common": {
+  "by_kind": {
+   "supports": {
+    "answer": "yes",
+    "right": 20,
+    "n": 22
+   },
+   "same_claim": {
+    "answer": "no",
+    "right": 35,
+    "n": 39
+   },
+   "shift": {
+    "answer": "stronger",
+    "right": 4,
+    "n": 9
+   }
+  },
+  "right": 59,
+  "n": 70
+ }
+}

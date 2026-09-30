@@ -1,3 +1,76 @@
+# Version 1.4.0
+
+Ideas taken from The Neural Maze's Substack Brain course and from IndyDevDan's ten levels of Jev,
+rebuilt for this lab. No code copied.
+
+## Claims graph
+
+- A second worked example: who said what, where and when, over twelve invented publications by
+  three regulators, an industry body and a consumer group. Extraction is recorded, so it runs
+  with no keys. A claim whose quote is not word for word in its document is rejected before any
+  model sees it. Typed questions then decide whether the quote supports the claim, whether it is
+  the same claim as an earlier one, and how the same person's position changed. Anything below
+  the threshold waits in a review queue; nothing uncertain is written.
+- Queries: who spoke on a point, one person's positions in order with how each changed, and what
+  was said as of a date, each with the quote, the document and the date.
+- A person's answer to a review item is kept and the graph rebuilt with it, reusing the model's
+  earlier answers, so an accepted claim gets its own same-claim and change questions. A fresh
+  build forgets those answers.
+- Runs on a FalkorDB server (`FALKORDB_URL`; the `falkordb` client is now in `requirements.txt`)
+  or on embedded FalkorDB (`falkordblite`, Python 3.12+), and falls back to embedded Kuzu, also
+  when the server cannot be reached. On a server the lab keeps one graph, `graphs_lab_claims`,
+  which it deletes and rebuilds at start-up. Same Cypher; a test checks that both engines build
+  the same graph. The tests never touch `FALKORDB_URL`; `TEST_FALKORDB_URL` points them at a test
+  server.
+- 70 hand-labelled decisions (LABELLING.md, section 9), recorded for the rules, both Laya
+  checkpoints and AnyJev: `python -m scripts.claims_check`, `POST /api/claims/check`. At the 0.8
+  threshold each answer is counted as decided and right, wrote something false, left out
+  something true, or sent to a person, next to the score of always giving the most common answer
+  (59 of 70). No backend beats that. The catalogue rules, which use only ordinary words of
+  obligation and negation, tie it; AnyJev would have written 23 false entries, 17 of them merges
+  of different claims. `--rescore` scores saved answers against the current labels.
+- New routes under `/api/claims`, and a section on the lab page.
+
+## Graph against hybrid retrieval
+
+- BM25, dense (all-MiniLM-L6-v2), hybrid (reciprocal rank fusion) and graph retrieval on the
+  same 10 labelled questions, recorded in `results/claims-retrieval.json`.
+- The field guide's Lab 1 now compares graph retrieval with hybrid text retrieval instead of
+  keyword overlap, which flattered the graph.
+
+## Resumable benchmark runs
+
+- Every decision is appended to a progress file as it is made; rerunning the same command skips
+  the decisions already made. Transient errors (timeouts, rate limits, server errors) are retried
+  with backoff; other errors are recorded and tried again on the next run. Page-started runs
+  resume the same way. The Arize export retries rate limits and server errors, not bad requests.
+
+## Ten levels of Jev
+
+- The README maps the lab onto the ten levels of Jev (github.com/disler/ten-levels-of-jev, MIT):
+  where each level appears here, which one does not (should I compact), and what the lab adds,
+  which is how to set the threshold that level 4 leaves to your code.
+- The Jev backend also reaches Jev through OpenRouter's Decisions API, as ten levels of Jev does:
+  `OPENROUTER_API_KEY`, and `JEV_PROVIDER` when both keys are set. A TypeSafe model name in
+  `JEV_MODEL` (the old `.env.example` set `jev-latest`) is translated to OpenRouter's. A cost the
+  provider reports is used instead of the estimate from `JEV_PRICE_PER_MTOK`, and HTTP 529
+  (overloaded) is retried. Tested against mock responses in the documented format; no key was
+  used. The tests clear both keys, so they never call a vendor.
+
+## MCP server
+
+- `app/mcp_server.py`: health, decide, compare, discover, claims_who, claims_timeline and search
+  as MCP tools over the HTTP API, for Claude Code and Cursor. Tested with MCP SDK 1.27.0 and 2.2.0.
+
+## Field guide
+
+- Memgraph added: grade B for a shared service; community edition free for internal use under
+  BSL 1.1; Enterprise on request and Cloud priced by Memgraph's calculator; a local run command,
+  and a row in the README's algorithms table (personalised PageRank through its NetworkX wrapper, or
+  cuGraph on a GPU; the native PageRank takes no seed).
+  The three README charts are now drawn from the page's own engine table by
+  `scripts/field_guide_charts.py`.
+
 # Version 1.3.0
 
 Reworked as a knowledge-repository piece: a field guide to graph databases for agent context,

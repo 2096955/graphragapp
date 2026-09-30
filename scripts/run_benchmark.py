@@ -2,9 +2,13 @@
 
     python -m scripts.run_benchmark --backend laya
     python -m scripts.run_benchmark --backend anyjev --tasks gate,entity --limit 40
-    python -m scripts.run_benchmark --backend jev          # needs TYPESAFE_API_KEY
+    python -m scripts.run_benchmark --backend jev          # needs TYPESAFE_API_KEY or OPENROUTER_API_KEY
 
-Results go to results/<backend>.json; the page reads them from there.
+Results go to results/<backend>.json; the page reads them from there. Each decision is also
+appended to results/<backend>.progress.jsonl as it is made. If a run stops halfway (a crash, a
+rate limit, Ctrl-C), run the same command again: it skips the decisions already made, so a paid
+run is not paid for twice. The progress file is removed once a run finishes without errors.
+Use --fresh to delete it and start again.
 """
 from __future__ import annotations
 
@@ -48,6 +52,7 @@ def main() -> None:
     ap.add_argument("--tasks", default="")
     ap.add_argument("--limit", type=int, default=0, help="items per task, 0 for all")
     ap.add_argument("--out", default="")
+    ap.add_argument("--fresh", action="store_true", help="delete the decisions saved by an interrupted run and start again")
     a = ap.parse_args()
 
     settings = replace(Settings.from_env(), backends=[a.backend])
@@ -72,9 +77,20 @@ def main() -> None:
         if i % 25 == 0 or i == n:
             print(f"  {i}/{n}", flush=True)
 
-    recs, secs = ev.timed_run(backend, items, progress=progress)
     out = a.out or os.path.join(settings.results_dir, f"{a.backend}.json")
+    checkpoint = Path(out).with_suffix(".progress.jsonl")
+    if a.fresh and checkpoint.exists():
+        checkpoint.unlink()
+    already = len(ev.load_checkpoint(checkpoint, backend, items))
+    if already:
+        print(f"resuming: {already} of {len(items)} decisions already made; delete {checkpoint} or pass --fresh to start again")
+    recs, secs = ev.timed_run(backend, items, progress=progress, checkpoint=checkpoint)
     res = ev.save(out, backend, recs, hardware(), secs)
+    failed = sum(1 for r in recs if "error" in r)
+    if failed:
+        print(f"{failed} decisions failed; run the same command again to retry only those")
+    else:
+        checkpoint.unlink(missing_ok=True)
     m = res["metrics"]["overall"]
     print(f"accuracy {m['accuracy']:.3f}  ECE {m['ece']:.3f} -> {m['ece_recalibrated']:.3f} after temperature scaling  "
           f"p50 {m['latency_ms_p50']:.0f} ms  saved {out}")

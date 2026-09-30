@@ -212,6 +212,88 @@ fail-closed rules, with no confidence threshold. Recorded with
 Thirty payloads is a check, not a benchmark. It shows that none of these models is a PII filter
 out of the box, and that a threshold only protects you when a model is unsure when it is wrong.
 
+## Claims graph: 70 labelled decisions
+
+The typed checks in the claims example (LABELLING.md, section 9), recorded with
+`python -m scripts.claims_check` in [`results/claims-check.json`](results/claims-check.json).
+`--rescore` scores the saved answers against the current labels without asking the models again.
+Each cell is right / decided / wrong among those decided; decided means confidence of 0.8 or more.
+
+| Backend | Quote supports (22) | Same claim (39) | Position change (9) | Right of 70 |
+|---|---|---|---|---|
+| Always the most common answer | 20 (yes) | 35 (no) | 4 (stronger) | 59 |
+| Catalogue rules | 17 / 22 / 5 | 37 / 39 / 2 | 5 / 9 / 4 | 59 |
+| Laya | 16 / 12 / 1 | 35 / 30 / 2 | 4 / 0 / 0 | 55 |
+| Laya typed-decisions | 15 / 0 / 0 | 34 / 8 / 0 | 4 / 0 / 0 | 53 |
+| AnyJev | 13 / 12 / 5 | 9 / 22 / 17 | 2 / 7 / 5 | 24 |
+| Uniform model | 20 / 0 / 0 | 4 / 0 / 0 | 3 / 0 / 0 | 27 |
+
+What a 0.8 threshold does with each backend's 70 answers. A wrong answer writes something false
+when it is a yes (an unsupported claim, a false merge) or a change label; a wrong no leaves
+something true out of the graph.
+
+| Backend | Decided and right | Wrote something false | Left out something true | Sent to a person |
+|---|---|---|---|---|
+| Catalogue rules | 59 | 5 | 6 | 0 |
+| Laya | 39 | 2 | 1 | 28 |
+| Laya typed-decisions | 8 | 0 | 0 | 62 |
+| AnyJev | 14 | 23 | 4 | 29 |
+| Uniform model | 0 | 0 | 0 | 70 |
+
+- The catalogue rules use the ordinary words of obligation (must, shall, required; should,
+  expected, recommended; may, can, encouraged) and the usual negation cues (not, no, never, none,
+  without, cannot), none of them chosen from this corpus. They are never unsure, so nothing they
+  decide goes to a person. They rejected five supported claims (C01, C03, C10, C13, C14), missed
+  one true merge (C11 and C17), and merged C09 with C20, which take opposite positions: "opposes
+  any requirement" and "now supports a requirement" look alike to rules that do not read
+  "opposes" or "supports". For the same reason they labelled C09 to C20 "same". They labelled
+  three changes "opposite" (C01 to C05, C07 to C15, C04 to C19) because one statement in each pair
+  contains "no" or "not": a negation word is not a reversed position.
+- An earlier version of the rules also counted six words that appear in this corpus
+  (enforcement, deserve, support, oppose, unnecessary and stop) and scored 62. Rules written with
+  the test text in view flatter themselves.
+- Laya's two false writes are merges of C04 with C11 and with C17, at 0.89 and 0.87. It rejected
+  one supported claim, C01, at 0.82. All nine position changes were below the threshold (0.35 to
+  0.67).
+- Laya typed-decisions reached 0.8 only on eight same-claim pairs, all right. Everything else was
+  below: at most 0.79 on quote support and 0.51 on position changes.
+- AnyJev (Qwen3-1.7B, L0) said yes to 34 of the 39 same-claim questions; its 17 false merges had
+  confidence 0.88 to 1.00, median 0.97. It said "weaker" to 8 of the 9 position changes and got 7 wrong, five of them at 1.00. It
+  accepted X02, a claim that contradicts its quote, at 0.84, and said no to 8 of the 20 supported
+  claims, four of them at 0.97 or more.
+- Seventy decisions over one invented corpus is a check, not a benchmark.
+
+## Claims graph: graph against text retrieval
+
+Recall at 10 passages on 10 labelled questions, recorded in
+[`results/claims-retrieval.json`](results/claims-retrieval.json). Passages are sentences prefixed
+with their publisher, speaker, date and title. Dense uses all-MiniLM-L6-v2; hybrid is reciprocal
+rank fusion of BM25 and dense. The graph path parses each question with plain rules (person,
+publisher, point, date) and answers with one Cypher query; "correct decisions" is the graph built
+from the labels, "built by the rules" the graph the catalogue rules build. The keyword rules were
+written with these ten questions in view, so the graph columns are a best case: in production an
+LLM writes the query and can get it wrong. The same-claim and position-change decisions do not
+enter these figures; the quote-support decisions do, by deciding which claims exist.
+
+| Question | Kind | BM25 | Dense | Hybrid | Graph, correct decisions | Graph, built by the rules |
+|---|---|---|---|---|---|---|
+| R01: Who has said anything about human review of automated declines? | who | 75% | 75% | 63% | 100% | 88% |
+| R02: How has Nadia Oyelaran's view on human review of declines changed? | timeline | 50% | 75% | 75% | 100% | 75% |
+| R03: What has the Office of the Information Steward said about customer information in generative AI? | publisher | 100% | 100% | 100% | 100% | 100% |
+| R04: As of the start of 2025, what was the Information Steward's position on customer information in generative AI? | as-of | 100% | 100% | 100% | 100% | 100% |
+| R05: Who says an organisation stays accountable for decisions made with a vendor's model? | same | 50% | 100% | 50% | 100% | 50% |
+| R06: What have regulators said about keeping a register of models? | who | 100% | 100% | 100% | 100% | 100% |
+| R07: Has the Coral Sea Bankers' Forum changed its position on human review? | timeline | 100% | 100% | 100% | 100% | 100% |
+| R08: Who has asked for declined customers to be told why? | who | 100% | 100% | 100% | 100% | 0% |
+| R09: What did the Lantern Consumer Alliance's survey of borrowers find? | content | 100% | 100% | 100% | 0% | 0% |
+| R10: How many climate scenarios does the Meridian Prudential Authority use? | content | 100% | 100% | 100% | 0% | 0% |
+| **All 10** | | **88%** | **95%** | **89%** | **80%** | **61%** |
+
+For the as-of question, the text methods each returned five passages dated after the as-of date
+among their ten; the graph returned none. A vector store with a date filter would close that gap;
+what it would not give you is the order, the attribution and whether two statements are the same
+claim, which the graph returns directly.
+
 ## Not measured
 
 Jev (needs an API key), larger AnyJev models (Qwen3-4B needs more than this machine's 7 GB of
@@ -227,9 +309,15 @@ questions before choosing.
 python -m scripts.run_benchmark --backend laya          # or laya-typed, anyjev, jev
 python -m scripts.record_examples --backend laya        # one backend per process keeps memory down
 python -m scripts.compliance_check --backend catalogue --backend laya
+python -m scripts.claims_check --backend catalogue --backend uniform --backend laya --backend laya-typed
+python -m scripts.claims_check --backend anyjev         # a process of its own keeps memory down
+python -m scripts.claims_check --rescore                # after changing a claims label
+python -m scripts.claims_check --retrieval --build labels --build catalogue --build laya --build laya-typed
+python -m scripts.claims_check --build anyjev
 python -m scripts.build_page
 ```
 
 A full run takes about 5 minutes for each Laya checkpoint and 15 minutes for AnyJev on 2 CPU
 cores. The page shows only runs that asked every current question; after changing a question,
-run the benchmark again.
+run the benchmark again. On the same machine, AnyJev took about half an hour for the 70 claims
+decisions.

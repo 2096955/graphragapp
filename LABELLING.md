@@ -109,3 +109,30 @@ When a payload fits two rules, block wins over redact, and redact over release.
 Thirty payloads is a check, not a benchmark. It is there to show where exact rules stop working
 (paraphrase, obfuscation, bulk data) and to keep "whether the filter was right" honest: payloads
 outside this set have no label, and the eval view does not count them as right or wrong.
+
+## 9. Claims graph (70 decisions and 10 retrieval questions)
+
+Separate from the discovery test set. The corpus is `app/claims_corpus.py`: twelve publications
+from three regulators, an industry body and a consumer group, all invented, with every name and
+quote fictional. The labels are in `app/claims_labels.py`. Each claim has a topic and an aspect,
+the point it addresses, and claims are compared only within one aspect.
+
+- **Does the quote support the claim?** (22): yes when the quote says what the claim says, in
+  these or other words; no when the claim overstates, weakens or changes it. X01 turns
+  "we encourage" into "must", and X02 turns "must validate" into "may decide whether to
+  validate". X03 quotes text that is not in the document, so the mechanical check rejects it and
+  it is not labelled.
+- **Same claim?** (39 pairs: every pair on the same aspect from different documents): yes only
+  when both statements make the same claim with the same force. A statement that goes further,
+  or less far, is a different claim: "should give customers a way to ask for a review" and "must
+  review on request" are different claims. Four pairs are yes.
+- **How did the position change?** (9 pairs: consecutive claims by the same person on the same
+  aspect): same (the same position restated, including a proposal becoming final), stronger
+  (further in the same direction: encouraged, then expected, then required), weaker (relaxed:
+  should not, then may), opposite (reversed: opposes a requirement, then supports one).
+- **Retrieval questions** (10): gold is the set of claims that answer the question, or, for the
+  two questions no claim answers, a phrase from the passage that does. One question asks for a
+  position as of a date; claims made after that date are not part of its answer.
+
+Seventy decisions are a check, not a benchmark, and the corpus was written together with its
+labels, so treat the numbers as a demonstration of the method rather than a measurement.

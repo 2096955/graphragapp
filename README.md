@@ -45,15 +45,16 @@ at least twice as safe as it is.
 |---|---|---|
 | Read | [The field guide in brief](#the-field-guide-in-brief) and [what the lab found](#what-the-lab-found) | 10 minutes |
 | Run the lab, no keys | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/2096955/graphragapp) or [run it locally](#run-it) | 5 minutes |
+| Query it from Claude Code or Cursor | [The MCP server](#use-it-from-your-editor) | 5 minutes |
 | Use it on your own data | [Adapt it](#adapt-it-to-your-own-graph) | A day or two |
 
 ## The field guide in brief
 
-[`web/field-guide.html`](web/field-guide.html) compares nine graph engines for agent context and
+[`web/field-guide.html`](web/field-guide.html) compares ten graph engines for agent context and
 grades each against the job it is built for: a shared production service, or embedded
 per-session memory. Weights: traversal depth 30%, operations 25%, total cost 20%, vendor
 viability 15%, fit for decision-model state 10%. Grades are judgement against those weights, not
-measurement. Prices are USD list prices as at 25 September 2026.
+measurement. Prices are USD list prices as at 25 September 2026; Memgraph was added on 30 September.
 
 ![Grades by job](docs/images/field-guide-grades.png)
 
@@ -61,6 +62,7 @@ measurement. Prices are USD list prices as at 25 September 2026.
 |---|---|---|---|---|
 | Neo4j | Native graph | A- shared | 4,670 | Business Critical, 32 GB |
 | FalkorDB | Native graph | B+ shared, B embedded | 350 | Pro, 8 GB with HA |
+| Memgraph | Native graph | B shared | Not published | Community free for internal use (BSL 1.1); Enterprise (failover, access control) on request; Cloud priced by calculator, 14-day trial |
 | Amazon Neptune | Native graph | B shared | 460 | Two db.r6g.large, before storage and I/O |
 | Spanner Graph | Graph over existing data | B shared | 120 to 1,200 | Enterprise edition, 0.1 to 1 node |
 | PuppyGraph | Graph over existing data | B shared (provisional) | Quote only | Server CPU and memory |
@@ -85,7 +87,7 @@ Duplication and sync costs for native stores are not included, and are often the
 
 Lab 2 in the field guide ranks context with personalised PageRank (PageRank seeded from the
 entities in the question) and packs the top-ranked facts into a token budget. Few engines ship
-that built in. Checked against vendor documentation on 30 September 2026:
+that built in. Checked against vendor documentation on 30 September 2026 (Memgraph on 1 October):
 
 | Engine | Personalised PageRank | Other built-in algorithms | Vector search |
 |---|---|---|---|
@@ -94,6 +96,7 @@ that built in. Checked against vendor documentation on 30 September 2026:
 | Neptune Database | No | None | No |
 | Spanner Graph ([algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms)) | Yes (`source_nodes`), Preview | PageRank, betweenness, closeness, connected components, modularity clustering, label propagation, similarity, shortest path. Preview, Enterprise editions, run as batch jobs whose results are exported | Yes |
 | FalkorDB ([`algo.*`](https://docs.falkordb.com/algorithms/)) | No seed option documented | PageRank, label propagation, connected components, BFS, shortest paths, A*, betweenness, harmonic centrality, spanning forest, max flow | Yes |
+| Memgraph ([MAGE](https://memgraph.com/docs/advanced-algorithms/available-algorithms)) | Yes, outside the native `pagerank`: [`nxalg.pagerank`](https://memgraph.com/docs/advanced-algorithms/available-algorithms/nxalg) (NetworkX, sequential; `personalization` names a node property) or [`cugraph.personalized_pagerank`](https://memgraph.com/docs/advanced-algorithms/available-algorithms/cugraph) on an NVIDIA GPU | PageRank, Louvain and Leiden community detection, betweenness, Katz and degree centrality, node similarity, connected components, deep path traversal and shortest paths, node2vec, graph neural networks; the online versions are Enterprise only | Yes |
 | PuppyGraph ([algorithms](https://docs.puppygraph.com/graph-algorithms/)) | Not documented | PageRank, Louvain, Leiden, label propagation, connected components, shortest paths | Not documented |
 | Fabric graph | Not documented | GQL shortest path; no algorithm reference found | No |
 | MongoDB Atlas | No | `$graphLookup` recursion only | Yes |
@@ -108,9 +111,11 @@ algorithms do not help today.
 
 ![Tap a node in the field guide's example graph to see what an agent reaches in one, two or three hops](docs/images/field-guide-hops.gif)
 
-- **Three labs that run in the browser**, each with editable code: keyword retrieval against
-  graph retrieval; personalised PageRank into a token budget; and per-action thresholds under
-  growing overconfidence.
+- **Three labs that run in the browser**, each with editable code: hybrid text retrieval (BM25
+  plus dense similarity) against graph retrieval; personalised PageRank into a token budget; and
+  per-action thresholds under growing overconfidence. The browser cannot run an embedding model,
+  so the dense similarities for the four preset questions are precomputed by
+  `scripts/field_guide_dense.py`; any other question uses BM25 alone.
 - **One question in five dialects**: Cypher, Gremlin, GQL, MongoDB and Kuzu from Python.
 - **Local run commands** for every engine that has a local option.
 - Vendor claims (PuppyGraph and FalkorDB performance, Jev) are marked as vendor-reported.
@@ -133,9 +138,10 @@ In the 500-node Watts-Strogatz example (K = 25, rewiring probability 0.15), rewi
 12,500 edges takes two-hop reach from one node from 20% of the graph to 75%, while clustering only
 falls from 0.735 to 0.464. At about 60 tokens a node, two hops are about 22,380 tokens, 70% of a
 32,000-token budget, and three hops reach every node: about 29,940 tokens, leaving almost nothing
-for the question. So cap retrieval by tokens and rank what comes back. The figures are a synthetic example, not a measurement of the lab's
-catalogue graph; [`web/small-world.html`](web/small-world.html) reproduces MathWorks' published
-results and lets you try other settings.
+for the question. So cap retrieval by tokens and rank what comes back. The figures are a
+synthetic example, not a measurement of the lab's catalogue graph;
+[`web/small-world.html`](web/small-world.html) reproduces MathWorks' published results and lets
+you try other settings.
 
 ### Thresholds and review
 
@@ -152,10 +158,36 @@ the ones they are scored on.
 
 | Model | What it is | Measured here |
 |---|---|---|
-| [TypeSafe Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) | Commercial API, launched 15 September 2026. Answers typed questions with a probability per answer. TypeSafe says it is trained with reinforcement learning for calibrated decisions (RLCD) and prices input at $0.042 per million tokens, output free. | No: it needs an API key. The backend is built and uses Jev's request format, but nothing here tests TypeSafe's claims |
+| [TypeSafe Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) | Commercial API, launched 15 September 2026, also served through [OpenRouter's Decisions API](https://openrouter.ai/blog/tutorials/how-to-use-jev/). Answers typed questions with a probability per answer. TypeSafe says it is trained with reinforcement learning for calibrated decisions (RLCD) and prices input at $0.042 per million tokens, output free. | No: it needs a TypeSafe or OpenRouter key. The backend is built for either API and tested against mock responses in their documented format, but nothing here tests TypeSafe's claims |
 | [Laya](https://huggingface.co/convaiinnovations/laya) | Convai Innovations' open 421M-parameter decision model (Apache 2.0) that accepts Jev's request format. Two of its three checkpoints are measured: english (its default) and typed-decisions, fine-tuned on invoices, security incidents, customer service and agent traces | Yes, both checkpoints |
 | [AnyJev](https://github.com/nokia-applied-research/AnyJev) | Nokia's training-free layer that turns an open LLM into a typed decision model (Apache 2.0); here Qwen3-1.7B at level L0 | Yes |
-| Catalogue rules | Exact catalogue terms and no weights, so the lab runs with no model at all | Pipeline examples and the compliance check |
+| Catalogue rules | Exact catalogue terms and ordinary words of obligation and negation, no weights, so the lab runs with no model at all | Pipeline examples, the compliance check and the claims check |
+
+### The ten levels of Jev, and where this lab sits
+
+[Ten levels of Jev](https://github.com/disler/ten-levels-of-jev) (IndyDevDan, MIT) walks through
+ten ways to use a typed decision model, from one yes-or-no question in code to an agent that
+writes its own questions. It shows how to use the answers. This lab asks whether the probabilities
+can be trusted before you act on them, and pairs the questions with a graph.
+
+| Level | In ten levels of Jev | In this lab |
+|---|---|---|
+| 1. Single decisions | One noul: the smart if statement | Does the quote support the claim; is it the same claim; is a pollutant relevant; do two names match |
+| 2. Multiple choice | One declared option, several questions per call | Answer, clarify or reject; one breakdown level per dimension, all in one call; release, redact or block; how a position changed |
+| 3. Composite scoring | One score per factor, weights in code | Preference fit is one score question, and ranking sorts on it and then on coverage, with no weights |
+| 4. Confidence gating | The answer says what, confidence says whether | Every decision here. The lab chooses each task's threshold on other requests and shows what one threshold for everything gets wrong |
+| 5. Intent and model routing | One cheap decision in front of expensive things | The gate runs before discovery; the compliance filter runs before the research agent |
+| 6. Guardrail hooks | Jev in the tool-call hook, the agent never knows | The compliance filter screens what reaches the research agent, as a service call rather than a hook |
+| 7. Should I compact | Four questions after every turn | Not covered. The small-world example makes the neighbouring point: cap context by tokens, not hops |
+| 8. Cheap reads | A judgment about a file, never the file | The claims graph keeps its judgements (same claim, position change, with the confidence and who decided), so the next question reads an edge instead of two documents |
+| 9. Files at scale | Many files, one call each, in parallel | The graph cuts the fan-out: 39 same-claim questions instead of 190 for 20 claims. Benchmark runs of 584 decisions resume after a crash |
+| 10. Agentic Jev | One ask_jev tool over state, paths and a command | The MCP server's `decide` tool: Claude Code or Cursor writes its own typed questions for any backend here |
+
+Ten levels of Jev leaves the threshold to your code ("Jev returns the probability and your code
+owns the threshold"); most of what this lab found is about how to set it. Its offline mock, like
+the claims rules here, decides by word overlap, so it shows the shape of the answers, not their
+quality. Jev is served by TypeSafe's own API and by OpenRouter's Decisions API, and the Jev backend
+here takes a key for either.
 
 ### Where reinforcement learning fits
 
@@ -215,6 +247,108 @@ other requests, averaged over 50 splits. Full tables and method: [BENCHMARK.md](
 4. Log every decision with its probabilities and the reviewer's answer. That log is your
    evaluation set, your calibration set and, later, your training set.
 5. Compare accuracy with always giving the most common answer before claiming anything.
+6. Put a graph where the questions are about structure: who said what, in what order, and
+   whether two things are the same. For finding relevant text, dense or hybrid retrieval is hard
+   to beat, and the graph never knows more than your extraction put into it.
+
+## Worked example: a claims graph
+
+![The claims example built with correct decisions: how one person's position changed, with the quote, document and date for each step, and who else has spoken on the point](docs/images/lab-claims.png)
+
+Who said what, where and when. Twelve publications from three regulators, an industry body and
+a consumer group, all invented, cover four topics over three years, with positions that harden,
+relax and reverse. For each claim that extraction proposes:
+
+1. **A mechanical check.** The quote must appear word for word in the document, or the claim is
+   rejected before any model sees it. An extractor that invents a quote never reaches the graph.
+2. **Does the quote support the claim?** A typed yes-or-no question. No: rejected.
+3. **Is it the same claim as an earlier one?** The graph proposes candidates, earlier claims on
+   the same point from other documents, and a typed question decides. Yes: a `SAME_AS` edge.
+4. **How did the same person's position change?** Same, stronger, weaker or opposite, against
+   their previous claim on the point. The answer becomes a `SHIFT` edge.
+
+Anything a model is unsure about (below 0.8) is not written: it waits in a review queue until a
+person decides it. The graph then answers questions directly: who has said something about a
+point, how one person's position changed, and what was said as of a date, each with the quote,
+the document and the date. Extraction is recorded here, so the example runs with no keys; in
+production an LLM proposes the claims and the same checks apply.
+
+The graph runs on a FalkorDB server when `FALKORDB_URL` is set, on FalkorDB embedded in the
+process when `falkordblite` is installed (Python 3.12 or later), and on embedded Kuzu otherwise,
+including when the server cannot be reached; the page says which. On a server the lab keeps one
+graph, `graphs_lab_claims`, and deletes and rebuilds it at start-up. The Cypher is the same on
+all of them. A test builds the graph on FalkorDB and on Kuzu with three backends and a person's
+answers, and compares what the page and the API show; it needs falkordblite or a test server
+(`TEST_FALKORDB_URL`). It passed on Python 3.12 against embedded FalkorDB and against a FalkorDB
+server reached by URL. The recorded builds were made on Kuzu.
+
+**The labelled check**: 70 decisions, labelled by hand (LABELLING.md, section 9). At a 0.8
+threshold each decision ends one of four ways: decided and right; decided and wrong, writing
+something false (an unsupported claim, a false merge or a wrong change label); decided and wrong,
+leaving out something true (a supported claim rejected, a true merge missed); or sent to a person.
+
+| Backend | Right of 70 | Decided and right | Wrote something false | Left out something true | Sent to a person |
+|---|---|---|---|---|---|
+| Catalogue rules | 59 | 59 | 5 | 6 | 0 |
+| Laya | 55 | 39 | 2 | 1 | 28 |
+| Laya typed-decisions | 53 | 8 | 0 | 0 | 62 |
+| AnyJev | 24 | 14 | 23 | 4 | 29 |
+
+Always giving each question's most common answer (yes, no, stronger) scores 59 of 70.
+
+- **No backend beats that; the rules tie it.** They use word overlap and only ordinary words of
+  obligation and negation, and they are never unsure, so all eleven of their mistakes land: five supported
+  claims rejected, one true merge missed, a false merge of "opposes any requirement" with "now
+  supports a requirement", and four wrong change labels. Three of those say "opposite" because
+  one of the two statements contains "no" or "not".
+- **The threshold catches most of Laya's mistakes.** It decides 42 of 70 and gets 3 of those
+  wrong; 12 of its 15 wrong answers were below 0.8 and would go to a person. Typed-decisions is
+  right on the 8 it decides and sends the other 62 to a person.
+- **AnyJev is sure of itself when wrong.** It said yes to 34 of the 39 same-claim questions and
+  "weaker" to 8 of the 9 position changes. At the threshold it would write 17 false merges, 5
+  wrong change labels and one unsupported claim.
+
+A threshold protects the graph only when a model is unsure when it is wrong. Check that on labels
+of your own before a model writes anything.
+
+**Graph against text retrieval**: the same 10 questions through BM25, dense retrieval
+(all-MiniLM-L6-v2), hybrid (both, fused by reciprocal rank) and the claims graph. Recall is the
+share of the right claims whose passage came back in the top 10. Passages carry their publisher,
+speaker and date, as a careful RAG system would do. The graph turns each question into one Cypher
+query with keyword rules written for these ten questions (`app/retrieval.py`), so its column is
+the best case: in production an LLM writes the query, and it can get it wrong.
+
+| Question (how many) | BM25 | Dense | Hybrid | Graph, correct decisions | Graph, built by the rules |
+|---|---|---|---|---|---|
+| Who has said something (3) | 92% | 92% | 88% | 100% | 63% |
+| How a position changed (2) | 75% | 88% | 88% | 100% | 88% |
+| One publisher on a topic (1) | 100% | 100% | 100% | 100% | 100% |
+| As of a date (1) | 100% | 100% | 100% | 100% | 100% |
+| The same claim, worded differently (1) | 50% | 100% | 50% | 100% | 50% |
+| Content no claim covers (2) | 100% | 100% | 100% | 0% | 0% |
+| **All 10** | **88%** | **95%** | **89%** | **80%** | **61%** |
+
+- **On twelve documents, text retrieval finds most of the right passages.** Dense alone does best
+  here, and fusing it with BM25 costs a little on this corpus.
+- **The graph is exact where the question is about structure**: everyone who spoke on a point,
+  one person's positions in order, and what was said before a date. For the as-of question, every
+  text method returned five passages from after the date; the graph returned none.
+- **Its answers come from what extraction recorded**: speaker, publisher, point and date. It found
+  both wordings of the vendor-accountability claim because extraction gave them the same point,
+  not through the same-claim decisions. Those decisions and the position changes do not enter
+  these figures; the quote-support decisions do, by deciding which claims exist.
+- **The graph knows only what extraction put into it.** It scores nothing on the two questions no
+  extracted claim covers.
+- **It is only as good as the decisions that built it.** Built by the catalogue rules instead of
+  correct decisions, its recall falls from 80% to 61%, because every claim the rules wrongly
+  rejected is simply missing.
+
+Every publisher, person and quote here is invented: made-up quotes must never be attributed to
+real regulators. To point it at real publications, replace the corpus (`app/claims_corpus.py`)
+and its labels (`app/claims_labels.py`), have an LLM propose claims with verbatim quotes and write
+the graph queries in place of the keyword rules in `app/retrieval.py`, label a few dozen
+decisions, and check each publication's terms before storing its text. The page's lists of people
+and points, and the recorded builds in `scripts/claims_check.py`, name this corpus too.
 
 ## Worked example: a compliance filter
 
@@ -257,7 +391,7 @@ format but has not been tested against a live Arize space.
 
 | Page | Source | Served at | Hosted copy | What you can do |
 |---|---|---|---|---|
-| Decisions Lab | `web/template.html`, built into `web/index.html` | `/` | [claude.ai](https://claude.ai/artifact/DCNwze2sj8ua574gB5hHBs) | Step through the pipeline per model, benchmark charts, threshold picker, compliance example, playground |
+| Decisions Lab | `web/template.html`, built into `web/index.html` | `/` | [claude.ai](https://claude.ai/artifact/DCNwze2sj8ua574gB5hHBs) | Step through the pipeline per model, benchmark charts, threshold picker, compliance and claims examples, playground |
 | Field guide | `web/field-guide.html` | `/field-guide` | [claude.ai](https://claude.ai/artifact/UbBG78KRYTsNHMbgAoccDc) | Grades, costs, three browser labs, query snippets, local run commands |
 | Small-world graphs | `web/small-world.html` | `/small-world` | [claude.ai](https://claude.ai/artifact/9xTMnwrzm1WHUKbSFJ7Vq2) | Rewire a ring, watch path length and reach, run the sweep, export the graph |
 
@@ -267,8 +401,8 @@ claude.ai.
 
 ## Run it
 
-No keys and no model weights are needed for the catalogue rules, the compliance example, the
-small-world example and the recorded results.
+No keys and no model weights are needed for the catalogue rules, the compliance and claims
+examples, the small-world example and the recorded results.
 
 ```bash
 python -m venv .venv && . .venv/bin/activate
@@ -282,8 +416,8 @@ Open http://localhost:8000 and choose **Catalogue rules**. Try `Annual CO2 for A
 In a Codespace the packages are installed and the server starts by itself; open the forwarded
 port 8000.
 
-To add the local models (about 0.8 GB per Laya checkpoint and 4 GB for Qwen3-1.7B, downloaded on
-first use):
+To add the local models (about 0.8 GB per Laya checkpoint, 4 GB for Qwen3-1.7B and 90 MB for the
+embedding model behind dense and hybrid retrieval, downloaded on first use):
 
 ```bash
 pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
@@ -313,6 +447,19 @@ pytest
 
 No model weights, keys or network are needed.
 
+### Benchmark runs that survive a crash
+
+A benchmark run appends every decision to `results/<backend>.progress.jsonl` as it is made. If
+it stops halfway, run the same command again: it skips the decisions already made, so a paid run
+(Jev, 584 decisions) is not paid for twice. Timeouts, rate limits and server errors are retried
+with backoff; other errors are recorded once and tried again on the next run. The progress file
+is deleted when a run finishes without errors; pass `--fresh` to delete it and start again. Runs started from the
+page resume the same way.
+
+```bash
+python -m scripts.run_benchmark --backend jev        # stopped halfway? run it again
+```
+
 ### Configuration
 
 All optional. [`.env.example`](.env.example) lists every variable with notes; use it with
@@ -324,13 +471,16 @@ All optional. [`.env.example`](.env.example) lists every variable with notes; us
 | `API_TOKEN` | none | Bearer token required on every POST; also switches on benchmark runs from the page |
 | `ALLOWED_ORIGINS` | none | Browser origins allowed to call the API when the page is hosted elsewhere |
 | `TYPESAFE_API_KEY` | none | Enables TypeSafe Jev. Stays on the server |
-| `JEV_PRICE_PER_MTOK` | `0.042` | USD per million input tokens, for cost reporting |
+| `OPENROUTER_API_KEY` | none | Enables Jev through OpenRouter's Decisions API instead. Stays on the server |
+| `JEV_PROVIDER`, `JEV_MODEL` | from the keys; `jev-latest` or `~typesafe/jev-latest` | Which API serves Jev (`typesafe` or `openrouter`; TypeSafe first when both keys are set) and which model |
+| `JEV_PRICE_PER_MTOK` | `0.042` | USD per million input tokens, for cost reporting when the provider reports no cost |
 | `DEVICE` | `cpu` | `cuda` on a GPU |
 | `LAYA_CHECKPOINT` | `english` | Checkpoint for the `laya` backend; `laya-typed` is always typed-decisions |
 | `ANYJEV_MODEL`, `ANYJEV_LEVEL` | `Qwen/Qwen3-1.7B`, `L0` | AnyJev's model and calibration level |
 | `MIN_CONFIDENCE` | `0.8` | Below this, a decision sends the result to review. A rule of thumb, not a guarantee |
 | `CALIBRATION_DIR` | `calibration` | Per-task temperatures and thresholds made by `scripts.fit_calibration` |
 | `COMPLIANCE_HASH_KEY` | random per process | Key for the compliance pattern hashes. Set it so identities survive a restart |
+| `CLAIMS_GRAPH`, `FALKORDB_URL` | `auto`, none | Where the claims graph lives: FalkorDB when a URL is set or `falkordblite` is installed, else embedded Kuzu. With `auto`, an unreachable server also falls back to Kuzu |
 | `ARIZE_SPACE_ID`, `ARIZE_API_KEY`, `ARIZE_PROJECT_NAME` | none, none, `graphrag-compliance` | Arize export for the compliance filter |
 | `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY` | none | Optional OpenAI-compatible endpoint for explanations |
 | `PRELOAD` | `false` | Load local models at start-up |
@@ -351,6 +501,12 @@ All optional. [`.env.example`](.env.example) lists every variable with notes; us
 | POST | `/api/compliance/check` | Score one backend on the 30 labelled payloads |
 | GET | `/api/compliance/eval` | Arize eval and cost view, or the sample fixture |
 | GET | `/api/compliance/graph` | Pattern, attempt and decision nodes |
+| GET | `/api/claims` | The claims graph as built, the review queue and the build's decisions |
+| POST | `/api/claims/build` | Rebuild the claims graph with one backend making every typed decision |
+| POST | `/api/claims/review` | A person decides one review item: `{id, accept}`, plus `label` for a position change. The answer is kept and the graph rebuilt with it, so an accepted claim gets its own same-claim and change questions; links and changes a person decided are marked as such |
+| GET | `/api/claims/who`, `/api/claims/timeline` | Who spoke on a point; one person's positions in order, optionally as of a date |
+| GET | `/api/claims/search` | The same question through BM25, dense, hybrid or the graph |
+| POST | `/api/claims/check` | Score one backend on the 70 labelled claims decisions |
 | GET | `/api/watts-strogatz` | The small-world example with its sources |
 | GET | `/api/docs` | Interactive documentation |
 
@@ -371,6 +527,36 @@ curl -s localhost:8000/api/decide -H "Content-Type: application/json" -d '{
   load its own copy of the models.
 - Kuzu upstream is archived at 0.11.3. The graph is rebuilt in a temporary directory at every
   start, so nothing depends on its file format.
+
+## Use it from your editor
+
+`app/mcp_server.py` is a thin MCP server over the lab's HTTP API, so Claude Code, Cursor or any
+MCP client can ask typed questions, find datasets and query the claims graph. It loads no models
+and needs only the MCP SDK; point it at a running lab with `LAB_URL`, and set `API_TOKEN` if the
+lab uses one. The token stays in the server's environment and never reaches the model.
+
+```bash
+pip install -r requirements-mcp.txt
+claude mcp add graphs-lab -e LAB_URL=http://localhost:8000 -- python /path/to/repo/app/mcp_server.py
+```
+
+For Cursor, add it to `.cursor/mcp.json`:
+
+```json
+{"mcpServers": {"graphs-lab": {"command": "python", "args": ["/path/to/repo/app/mcp_server.py"],
+                              "env": {"LAB_URL": "http://localhost:8000"}}}}
+```
+
+| Tool | What it does |
+|---|---|
+| `health` | Which decision backends the lab has, and why any are unavailable |
+| `decide`, `compare` | Typed questions to one backend, or the same questions to up to four |
+| `discover` | Datasets for a request in the synthetic catalogue, with the outcome and review reasons |
+| `claims_who`, `claims_timeline` | Who spoke on a point; one person's positions in order, optionally as of a date |
+| `search` | A question through the graph, hybrid, BM25 or dense retrieval |
+
+Inside a pipeline, call the HTTP API or the Python functions directly; MCP earns its place at the
+edge, where people's own tools use the lab.
 
 ## Adapt it to your own graph
 
@@ -414,10 +600,17 @@ app/
   compliance.py        worked example: compliance filter in front of another agent
   compliance_labels.py the 30 hand-labelled payloads
   compliance_graph.py  Kuzu store for filter decisions and repeated patterns
+  claims.py            worked example: claims graph, its typed checks and the review queue
+  claims_corpus.py     the invented publications and the recorded extraction
+  claims_labels.py     the 70 labelled claims decisions and the 10 retrieval questions
+  claims_graph.py      claims store: FalkorDB, or embedded Kuzu when FalkorDB is not available
+  retrieval.py         BM25, dense, hybrid and graph retrieval over the claims corpus
+  mcp_server.py        MCP server over the HTTP API, for Claude Code and Cursor
   watts_strogatz.py    the small-world example and its sources
   arize_eval.py        Arize export, or the sample fixture without credentials
   main.py              HTTP API and the three pages
-scripts/               run_benchmark, record_examples, compliance_check, fit_calibration, build_page
+scripts/               run_benchmark, record_examples, compliance_check, claims_check, fit_calibration,
+                       field_guide_charts, field_guide_dense, build_page
 results/               recorded runs; legacy/ holds the version 1.0 runs
 web/                   template.html (edit this), index.html (built), field-guide.html, small-world.html
 labs/text2cypher-grpo/ GRPO lab: train a small model to write Cypher, with the graph as the reward
@@ -447,12 +640,25 @@ tests/                 no model weights, keys or network needed
   [TypeSafe Jev](https://docs.typesafe.ai/), commercial API; its request format is used here, and
   this project is not affiliated with TypeSafe. [Kuzu](https://kuzudb.github.io/), MIT, archived
   upstream.
+- The claims graph, the hybrid baseline, the resumable runs and the MCP server take their ideas
+  from The Neural Maze's
+  [Substack Brain course](https://github.com/neural-maze/substack-brain-course). No code is
+  copied: the course repository has no licence.
+- The level map and the OpenRouter route for Jev come from IndyDevDan's
+  [ten levels of Jev](https://github.com/disler/ten-levels-of-jev) (MIT). No code is copied: the
+  Jev backend here is Python, written against TypeSafe's and OpenRouter's documented request
+  format, and its handling of HTTP 529, the cap on Retry-After, the key and credit hints and the
+  use of a reported cost follow ten levels of Jev's client.
+- [FalkorDB](https://github.com/FalkorDB/FalkorDB) is under SSPLv1 and
+  [Memgraph](https://github.com/memgraph/memgraph) Community under BSL 1.1: check both with legal
+  before shipping them inside client work. The embedding model is
+  [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), Apache 2.0.
 - Written and maintained by Anthony Lui.
 
 ## Licence and data
 
 - **No licence has been chosen yet.** Until one is added, the default is all rights reserved.
   Check your organisation's policy before adding one or sharing the code outside it.
-- **All data is synthetic**: the catalogue, its sources and every number in it, and every name,
-  address and identifier in the compliance payloads. E-mail addresses use the reserved `.test`
-  domain.
+- **All data is synthetic**: the catalogue, its sources and every number in it; every name,
+  address and identifier in the compliance payloads; and every publisher, person and quote in the
+  claims corpus. E-mail addresses use the reserved `.test` domain.

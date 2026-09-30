@@ -14,35 +14,85 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
-from .decisions import Backend, DecisionError
+from .decisions import Backend, DecisionError, TransientError
 from .testset import TASKS
 from .calibration import question_key
 
 EPS = 1e-6
 
 
-def run(backend: Backend, items: list[dict], progress: Callable[[int, int], None] | None = None,
-        should_stop: Callable[[], bool] | None = None) -> list[dict]:
-    """One decision per item, sequentially, so latency is per decision on this hardware."""
-    records = []
-    for i, it in enumerate(items):
-        if should_stop and should_stop():
-            break
-        meta = it.get("meta", {})
-        rec = {"id": it["id"], "task": it["task"], "gold": it["gold"],
-               "group": meta.get("request") or meta.get("source_id") or it["id"],
-               "question_key": question_key(it["questions"][it["question"]])}
+RETRIES = 3            # attempts for a transient failure within one run
+BACKOFF_S = 2.0        # doubled after each attempt
+
+
+def load_checkpoint(path: str | Path | None, backend: Backend, items: list[dict]) -> dict[str, dict]:
+    """Decisions already made in an interrupted run, by item id. A line counts only if it came from
+    the same model and asked the item's current question; failed decisions are tried again."""
+    if not path or not Path(path).exists():
+        return {}
+    keys = {it["id"]: question_key(it["questions"][it["question"]]) for it in items}
+    done = {}
+    for line in Path(path).read_text().splitlines():
         try:
-            res = backend.decide(it["state"], it["questions"], calibrate=False)
-            ans = res.answers[it["question"]]
-            rec.update(probs={k: round(v, 5) for k, v in ans.probabilities.items()}, top=ans.top,
-                       confidence=round(ans.confidence, 5), correct=ans.top == it["gold"],
-                       latency_ms=round(res.latency_ms, 1), tokens=res.input_tokens, cost_usd=res.cost_usd)
-        except DecisionError as e:
-            rec.update(error=str(e)[:300])
-        records.append(rec)
-        if progress:
-            progress(i + 1, len(items))
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue           # a line cut short by the crash
+        if rec.get("model") == backend.model and keys.get(rec.get("id")) == rec.get("question_key") \
+                and "error" not in rec:
+            done[rec["id"]] = rec
+    return done
+
+
+def run(backend: Backend, items: list[dict], progress: Callable[[int, int], None] | None = None,
+        should_stop: Callable[[], bool] | None = None, checkpoint: str | Path | None = None,
+        sleep: Callable[[float], None] = time.sleep) -> list[dict]:
+    """One decision per item, sequentially, so latency is per decision on this hardware.
+
+    With a checkpoint file, each decision is appended as it is made, and a rerun skips the items
+    already decided, so a crash halfway through a paid run costs only the decision in flight.
+    Transient failures (timeouts, rate limits, server errors) are retried with backoff; other
+    errors are recorded once and tried again on the next run."""
+    done = load_checkpoint(checkpoint, backend, items)
+    log = open(checkpoint, "a", encoding="utf-8") if checkpoint else None
+    records = []
+    try:
+        for i, it in enumerate(items):
+            if should_stop and should_stop():
+                break
+            if it["id"] in done:
+                records.append({k: v for k, v in done[it["id"]].items() if k != "model"})
+                if progress:
+                    progress(i + 1, len(items))
+                continue
+            meta = it.get("meta", {})
+            rec = {"id": it["id"], "task": it["task"], "gold": it["gold"],
+                   "group": meta.get("request") or meta.get("source_id") or it["id"],
+                   "question_key": question_key(it["questions"][it["question"]])}
+            for attempt in range(RETRIES):
+                try:
+                    res = backend.decide(it["state"], it["questions"], calibrate=False)
+                    ans = res.answers[it["question"]]
+                    rec.update(probs={k: round(v, 5) for k, v in ans.probabilities.items()}, top=ans.top,
+                               confidence=round(ans.confidence, 5), correct=ans.top == it["gold"],
+                               latency_ms=round(res.latency_ms, 1), tokens=res.input_tokens, cost_usd=res.cost_usd)
+                    break
+                except TransientError as e:
+                    if attempt == RETRIES - 1:
+                        rec.update(error=str(e)[:300], transient=True)
+                    else:
+                        sleep(BACKOFF_S * 2 ** attempt)
+                except DecisionError as e:
+                    rec.update(error=str(e)[:300])
+                    break
+            records.append(rec)
+            if log:
+                log.write(json.dumps({**rec, "model": backend.model}) + "\n")
+                log.flush()
+            if progress:
+                progress(i + 1, len(items))
+    finally:
+        if log:
+            log.close()
     return records
 
 
