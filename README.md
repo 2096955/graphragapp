@@ -4,9 +4,9 @@ This project is a **knowledge repository and reference implementation** for comb
 
 The working claim:
 
-> Graph retrieval plus bounded questions is more reliable than free-form generation over an unbounded context. Jev (and the local backends that share its question format) is the decision layer. It is not the graph database, and it is not an agent framework.
+> Graph retrieval plus bounded questions is more reliable than free-form generation over an unbounded context. **Jev is the typed decision layer, not a graph database and not an agent framework.**
 
-Kuzu holds two graphs. Catalogue rules, Laya, AnyJev, and TypeSafe Jev answer small fixed questions. An optional LLM only explains scores that were already logged.
+Kuzu holds two graphs. Catalogue rules, Laya, AnyJev, and TypeSafe Jev answer the same small fixed questions. An optional LLM only explains scores that were already logged.
 
 The field guide at [`/field-guide`](web/field-guide.html) is a first-class entry: *Graphs for agent context*. Use it to choose graph infrastructure. Use the lab to see typed decisions sit on top of that infrastructure.
 
@@ -113,7 +113,11 @@ What you should see:
 
 Then, on http://localhost:8000/, choose **Catalogue rules** and try `Annual CO2 for Australia in 2024`. You should get an answerable query over the synthetic emissions catalogue.
 
-This compliance walkthrough is a lab, not a production filter: no independent redaction gold set, no retention policy, no live Arize export unless you set the env vars.
+This compliance walkthrough is a lab, not a production filter.
+
+- No measured redaction precision (the catalogue gold is the same regex as the decision).
+- No retention policy.
+- No live Arize export unless the env vars are set. Arize remains the optional eval and cost view.
 
 ## How it works
 
