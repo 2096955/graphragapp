@@ -70,8 +70,7 @@ def test_pages_and_field_guide_assets(client):
     assert guide.status_code == 200 and "Graphs for agent context" in guide.text
     assert "Jev is the typed decision layer" in guide.text
     assert "Neo4j" in guide.text and "Kuzu" in guide.text
-    css = client.get("/field-guide_files/css2")
-    assert css.status_code == 200 and css.content
+    assert "field-guide_files/css2" not in guide.text
 
 
 def test_eval_off_without_token(client):

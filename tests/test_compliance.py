@@ -153,25 +153,31 @@ def test_api_filter_then_repeat():
 
 def test_readme_explains_no_key_example():
     text = (Path(__file__).resolve().parents[1] / "README.md").read_text()
-    assert "Worked example: a compliance agent" in text
-    assert "Arize" in text and "eval and cost" in text
-    assert "TYPESAFE_API_KEY" in text
-    assert "Do not commit a `.env`" in text or "do not commit `.env`" in text
+    lowered = text.lower()
+    assert "typed decision layer" in lowered
+    assert "not a graph database" in lowered
     assert "uvicorn app.main:app" in text
+    assert "TYPESAFE_API_KEY" in text
+    assert "do not commit `.env`" in lowered
+    assert "Arize" in text and "eval and cost" in lowered
+    assert "fail closed" in lowered or "fails closed" in lowered
+    assert "synthetic n=500 visual" in lowered
+    assert "not a measurement of this catalogue graph" in lowered
+    assert "design claim" in lowered and "not a measured p95" in lowered
     assert "Collective dynamics of small-world networks" in text
     assert "Build Watts–Strogatz Small World Graph Model" in text
-    assert "ARIZE_PROJECT_NAME" in text
-    assert "AzureDev" in text
-    assert "register(space_id, api_key, project_name=" in text
-    assert "graph-demo" in text and ("must not be committed" in text or "do not commit it" in text)
     assert "22,380" in text and "373" in text
-    assert "synthetic N=500 visual" in text
-    assert "not a measurement of this catalogue graph" in text
-    assert "design claim" in text and "not a measured p95" in text
-    lowered = text.lower()
+    assert "rule-consistency" in lowered
+    assert "not anonymity" in lowered
     assert "no measured redaction precision" in lowered
     assert "no retention policy" in lowered
     assert "no live arize export unless" in lowered
+    assert "ARIZE_PROJECT_NAME" in text
+    assert "/field-guide" in text
+    assert "584" in text and "448" in text
+    assert "1.1.0" in text
+    assert "graph-demo" not in lowered
+    assert "AzureDev" not in text
 
 
 def test_pages_include_compliance_example():
