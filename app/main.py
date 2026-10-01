@@ -6,10 +6,8 @@ decision backends, not databases.
 """
 from __future__ import annotations
 
-import collections
 import json
 import threading
-import time
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -22,6 +20,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from . import domain as d
 from . import evaluation as ev
 from . import retrieval
+from .api_guard import RequestGuard
 from .api_models import (
     ClaimsBuildIn, ClaimsReviewIn, CompareIn, ComplianceExampleIn,
     ComplianceFilterIn, DecideIn, EvalIn, PipelineIn,
@@ -82,25 +81,9 @@ if settings.allowed_origins:
 
 
 # ------------------------------------------------------------------------------ guards
-_hits: dict[str, collections.deque] = collections.defaultdict(collections.deque)
-_hits_lock = threading.Lock()
-
-
-def guard(request: Request) -> None:
-    """Bearer token (when API_TOKEN is set) and a per-client rate limit on every POST."""
-    if settings.api_token:
-        auth = request.headers.get("authorization", "")
-        if auth != f"Bearer {settings.api_token}":
-            raise HTTPException(401, "Missing or wrong token. Send Authorization: Bearer <API_TOKEN>.")
-    ip = request.client.host if request.client else "unknown"
-    now = time.monotonic()
-    with _hits_lock:
-        q = _hits[ip]
-        while q and now - q[0] > 60:
-            q.popleft()
-        if len(q) >= settings.rate_limit_per_minute:
-            raise HTTPException(429, "Too many requests. Wait a minute and try again.")
-        q.append(now)
+guard = RequestGuard(settings)
+# Backwards-compatible alias used by tests and tiny scripts.
+_hits = guard.hits
 
 
 def backend_or_404(name: str):
