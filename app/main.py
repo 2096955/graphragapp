@@ -17,7 +17,6 @@ from typing import Any
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import domain as d
@@ -333,8 +332,3 @@ def page():
 @app.get("/field-guide.html", include_in_schema=False)
 def field_guide():
     return _page("field-guide.html", "Field guide is missing.")
-
-
-_files = ROOT / "web" / "field-guide_files"
-if _files.is_dir():
-    app.mount("/field-guide_files", StaticFiles(directory=_files), name="field-guide-files")
