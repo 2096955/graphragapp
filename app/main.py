@@ -6,23 +6,25 @@ decision backends, not databases.
 """
 from __future__ import annotations
 
-import collections
 import json
 import threading
-import time
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
-from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from pydantic import BaseModel, Field
 
 from . import domain as d
 from . import evaluation as ev
 from . import retrieval
+from .api_guard import RequestGuard
+from .api_models import (
+    ClaimsBuildIn, ClaimsReviewIn, CompareIn, ComplianceExampleIn,
+    ComplianceFilterIn, DecideIn, EvalIn, PipelineIn,
+)
 from .arize_eval import ArizeEval
 from .claims import ClaimsLab
 from .claims import check as claims_check
@@ -79,25 +81,9 @@ if settings.allowed_origins:
 
 
 # ------------------------------------------------------------------------------ guards
-_hits: dict[str, collections.deque] = collections.defaultdict(collections.deque)
-_hits_lock = threading.Lock()
-
-
-def guard(request: Request) -> None:
-    """Bearer token (when API_TOKEN is set) and a per-client rate limit on every POST."""
-    if settings.api_token:
-        auth = request.headers.get("authorization", "")
-        if auth != f"Bearer {settings.api_token}":
-            raise HTTPException(401, "Missing or wrong token. Send Authorization: Bearer <API_TOKEN>.")
-    ip = request.client.host if request.client else "unknown"
-    now = time.monotonic()
-    with _hits_lock:
-        q = _hits[ip]
-        while q and now - q[0] > 60:
-            q.popleft()
-        if len(q) >= settings.rate_limit_per_minute:
-            raise HTTPException(429, "Too many requests. Wait a minute and try again.")
-        q.append(now)
+guard = RequestGuard(settings)
+# Backwards-compatible alias used by tests and tiny scripts.
+_hits = guard.hits
 
 
 def backend_or_404(name: str):
@@ -119,52 +105,6 @@ def _unavailable(_, e):
 @app.exception_handler(DecisionError)
 def _decision(_, e):
     return JSONResponse({"detail": str(e)}, status_code=422)
-
-
-# ------------------------------------------------------------------------------ models
-class DecideIn(BaseModel):
-    backend: str
-    state: Any
-    questions: dict[str, dict]
-
-
-class CompareIn(BaseModel):
-    backends: list[str] = Field(min_length=1, max_length=4)
-    state: Any
-    questions: dict[str, dict]
-
-
-class PipelineIn(BaseModel):
-    backend: str
-    request: str = Field(min_length=1, max_length=500)
-    preference: str | None = Field(default=None, max_length=300)
-    use_llm: bool = False
-
-
-class EvalIn(BaseModel):
-    backend: str
-    tasks: list[str] | None = None
-    limit: int = Field(default=0, ge=0, le=500)
-
-
-class ComplianceFilterIn(BaseModel):
-    backend: str = "catalogue"
-    payload: str = Field(min_length=1, max_length=2000)
-
-
-class ComplianceExampleIn(BaseModel):
-    backend: str = "catalogue"
-
-
-class ClaimsBuildIn(BaseModel):
-    backend: str = "catalogue"
-    threshold: float | None = Field(default=None, ge=0.0, le=1.0)
-
-
-class ClaimsReviewIn(BaseModel):
-    id: str = Field(min_length=1, max_length=64)
-    accept: bool
-    label: str | None = None
 
 
 # ------------------------------------------------------------------------------ routes
