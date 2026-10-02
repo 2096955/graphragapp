@@ -1,3 +1,37 @@
+# Version 1.2.0
+
+## Production hardening
+
+- Added an explicit production profile. Startup now refuses to continue without
+  API_TOKEN and a random COMPLIANCE_HASH_KEY of at least 32 characters.
+- Replaced plain SHA-256 compliance identifiers with server-keyed HMAC-SHA256
+  pseudonymous identifiers.
+- Made configured compliance Kuzu storage persistent across process restarts;
+  opening an existing store no longer deletes it.
+- Disabled benchmark execution, the destructive compliance demo, and interactive
+  API docs by default in production.
+- Made hosted compliance default-deny unless ALLOW_HOSTED_COMPLIANCE=true is set
+  after an explicit data-residency review.
+- Protected internal graph, eval, result, test-set, and eval-status reads with the
+  configured bearer token.
+- Split request schemas and HTTP security out of app.main so the serving boundary
+  is easier to review and modify.
+- Added /api/ready, a hardened production Docker profile, CI, Dependabot,
+  SECURITY.md, PRODUCTION.md, and production regression tests.
+- CI validates Python compilation, the full pytest suite, and a production
+  container build with local model dependencies disabled.
+- GitHub Actions dependencies are pinned by immutable commit SHA.
+
+## Verification
+
+- 96 automated tests passed on Python 3.11 in GitHub Actions.
+- The production Docker image built successfully with LOCAL_MODELS=false.
+- Production-secret validation, HMAC key separation, compliance-store reopen,
+  internal-read authentication, and demo-disable behaviour are covered by
+  regression tests.
+
+---
+
 # Version 1.1.0
 
 ## Worked example: compliance filter
