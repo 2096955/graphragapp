@@ -65,14 +65,17 @@ class Settings:
 
         production = environment == "production"
         token = (e("API_TOKEN") or "").strip() or None
+        compliance_enabled = _bool(e("ENABLE_COMPLIANCE"), not production)
         configured_hash_key = (e("COMPLIANCE_HASH_KEY") or "").strip() or None
 
         if production and token is None:
             raise RuntimeError("API_TOKEN is required when APP_ENV=production.")
-        if production and (configured_hash_key is None or len(configured_hash_key) < 32):
+        if production and compliance_enabled and (
+            configured_hash_key is None or len(configured_hash_key) < 32
+        ):
             raise RuntimeError(
                 "COMPLIANCE_HASH_KEY must be set to a random value of at least 32 characters "
-                "when APP_ENV=production."
+                "when ENABLE_COMPLIANCE=true in production."
             )
 
         hash_key = configured_hash_key or secrets.token_urlsafe(32)
@@ -114,7 +117,7 @@ class Settings:
             eval_enabled=_bool(e("EVAL_ENABLED"), False),
             enable_docs=_bool(e("ENABLE_DOCS"), not production),
             enable_demo_endpoints=_bool(e("ENABLE_DEMO_ENDPOINTS"), not production),
-            compliance_enabled=_bool(e("ENABLE_COMPLIANCE"), not production),
+            compliance_enabled=compliance_enabled,
             allow_hosted_compliance=_bool(e("ALLOW_HOSTED_COMPLIANCE"), False),
             compliance_min_confidence=compliance_min_confidence,
             compliance_hash_key=hash_key,
