@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
     HF_HOME=/cache/huggingface HF_HUB_DISABLE_PROGRESS_BARS=1 TRANSFORMERS_VERBOSITY=error \
-    APP_ENV=production BACKENDS=catalogue,jev COMPLIANCE_DB_PATH=/data/compliance.kuzu \
-    EVAL_ENABLED=false ENABLE_DEMO_ENDPOINTS=false ENABLE_DOCS=false
+    APP_ENV=production BACKENDS=catalogue COMPLIANCE_DB_PATH=/data/compliance.kuzu \
+    ENABLE_COMPLIANCE=false EVAL_ENABLED=false ENABLE_DEMO_ENDPOINTS=false ENABLE_DOCS=false
 
 WORKDIR /app
 COPY requirements.txt requirements-local.txt ./
@@ -12,7 +12,7 @@ COPY requirements.txt requirements-local.txt ./
 #   --build-arg TORCH_INDEX=https://download.pytorch.org/whl/cu126
 # and run with --gpus all -e DEVICE=cuda.
 ARG TORCH_INDEX=https://download.pytorch.org/whl/cpu
-# Production defaults to the API plus hosted Jev. Opt in to local model weights.
+# Production defaults to the catalogue backend only. Opt in to hosted/local models explicitly.
 ARG LOCAL_MODELS=false
 RUN pip install -r requirements.txt && \
     if [ "$LOCAL_MODELS" = "true" ]; then \
