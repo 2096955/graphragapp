@@ -39,7 +39,9 @@ class Settings:
     eval_enabled: bool
     enable_docs: bool
     enable_demo_endpoints: bool
+    compliance_enabled: bool
     allow_hosted_compliance: bool
+    compliance_min_confidence: float | None
     compliance_hash_key: str
     compliance_hash_key_ephemeral: bool
     compliance_db_path: str | None
@@ -77,6 +79,14 @@ class Settings:
         compliance_path = (e("COMPLIANCE_DB_PATH") or "").strip() or (
             "data/compliance.kuzu" if production else None
         )
+        raw_compliance_confidence = (e("COMPLIANCE_MIN_CONFIDENCE") or "").strip()
+        compliance_min_confidence = (
+            float(raw_compliance_confidence)
+            if raw_compliance_confidence
+            else (0.95 if production else None)
+        )
+        if compliance_min_confidence is not None and not 0 <= compliance_min_confidence <= 1:
+            raise RuntimeError("COMPLIANCE_MIN_CONFIDENCE must be between 0 and 1.")
 
         return cls(
             environment=environment,
@@ -104,7 +114,9 @@ class Settings:
             eval_enabled=_bool(e("EVAL_ENABLED"), False),
             enable_docs=_bool(e("ENABLE_DOCS"), not production),
             enable_demo_endpoints=_bool(e("ENABLE_DEMO_ENDPOINTS"), not production),
+            compliance_enabled=_bool(e("ENABLE_COMPLIANCE"), not production),
             allow_hosted_compliance=_bool(e("ALLOW_HOSTED_COMPLIANCE"), False),
+            compliance_min_confidence=compliance_min_confidence,
             compliance_hash_key=hash_key,
             compliance_hash_key_ephemeral=configured_hash_key is None,
             compliance_db_path=compliance_path,
