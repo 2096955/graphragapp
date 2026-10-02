@@ -39,6 +39,7 @@ class Settings:
     eval_enabled: bool
     enable_docs: bool
     enable_demo_endpoints: bool
+    allow_hosted_compliance: bool
     compliance_hash_key: str
     compliance_hash_key_ephemeral: bool
     compliance_db_path: str | None
@@ -103,6 +104,7 @@ class Settings:
             eval_enabled=_bool(e("EVAL_ENABLED"), False),
             enable_docs=_bool(e("ENABLE_DOCS"), not production),
             enable_demo_endpoints=_bool(e("ENABLE_DEMO_ENDPOINTS"), not production),
+            allow_hosted_compliance=_bool(e("ALLOW_HOSTED_COMPLIANCE"), False),
             compliance_hash_key=hash_key,
             compliance_hash_key_ephemeral=configured_hash_key is None,
             compliance_db_path=compliance_path,
