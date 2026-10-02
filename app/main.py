@@ -195,6 +195,8 @@ def run_pipeline(body: PipelineIn):
 
 @app.post("/api/compliance/filter", dependencies=[Depends(guard)])
 def compliance_filter(body: ComplianceFilterIn):
+    if not settings.compliance_enabled:
+        raise HTTPException(403, "Compliance filtering is disabled in this environment.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
@@ -211,6 +213,8 @@ def compliance_filter(body: ComplianceFilterIn):
             compliance_graph,
             arize,
             settings.compliance_hash_key,
+            settings.compliance_min_confidence,
+            include_lab_labels=not settings.production,
         )
     except ValueError as e:
         raise HTTPException(422, str(e)) from None
@@ -218,6 +222,8 @@ def compliance_filter(body: ComplianceFilterIn):
 
 @app.post("/api/compliance/example", dependencies=[Depends(guard)])
 def compliance_example(body: ComplianceExampleIn):
+    if not settings.compliance_enabled:
+        raise HTTPException(403, "Compliance filtering is disabled in this environment.")
     if not settings.enable_demo_endpoints:
         raise HTTPException(403, "The destructive compliance demo is disabled in this environment.")
     b = backend_or_404(body.backend)
@@ -226,7 +232,14 @@ def compliance_example(body: ComplianceExampleIn):
         raise HTTPException(503, why)
     if settings.production and b.residency == "hosted" and not settings.allow_hosted_compliance:
         raise HTTPException(403, "Hosted compliance decisions are disabled.")
-    return run_example(b, compliance_graph, arize, settings.compliance_hash_key)
+    return run_example(
+        b,
+        compliance_graph,
+        arize,
+        settings.compliance_hash_key,
+        settings.compliance_min_confidence,
+        include_lab_labels=not settings.production,
+    )
 
 
 @app.get("/api/compliance/graph", dependencies=[Depends(read_guard)])
