@@ -121,12 +121,39 @@ def _decision(_, e):
 # ------------------------------------------------------------------------------ routes
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
-            "auth_required": settings.api_token is not None, "eval_enabled": settings.eval_enabled,
-            "llm_explainer": explainer.llm_available, "items": len(ITEMS),
-            "compliance": compliance_graph.counts(),
-            "arize": {"configured": arize.configured, "source": "live" if arize.configured else "sample",
-                      **arize.wiring()}}
+    base = {
+        "ok": True,
+        "version": VERSION,
+        "environment": settings.environment,
+        "auth_required": settings.api_token is not None,
+    }
+    if settings.production:
+        return base
+    return {
+        **base,
+        "graph": graph.counts(),
+        "backends": [b.status() for b in backends.values()],
+        "eval_enabled": settings.eval_enabled,
+        "llm_explainer": explainer.llm_available,
+        "items": len(ITEMS),
+        "compliance": compliance_graph.counts(),
+        "arize": {
+            "configured": arize.configured,
+            "source": "live" if arize.configured else "sample",
+            **arize.wiring(),
+        },
+        "compliance_hash_key_ephemeral": settings.compliance_hash_key_ephemeral,
+    }
+
+
+@app.get("/api/ready")
+def ready():
+    try:
+        graph.counts()
+        compliance_graph.counts()
+    except Exception:
+        return JSONResponse({"ok": False, "version": VERSION}, status_code=503)
+    return {"ok": True, "version": VERSION}
 
 
 @app.get("/api/catalogue")
@@ -173,26 +200,41 @@ def compliance_filter(body: ComplianceFilterIn):
     if not ok:
         raise HTTPException(503, why)
     try:
-        return filter_payload(b, body.payload.strip(), compliance_graph, arize)
+        if settings.production and b.residency == "hosted" and not settings.allow_hosted_compliance:
+            raise HTTPException(
+                403,
+                "Hosted compliance decisions are disabled. Set ALLOW_HOSTED_COMPLIANCE=true only after an explicit data-residency review.",
+            )
+        return filter_payload(
+            b,
+            body.payload.strip(),
+            compliance_graph,
+            arize,
+            settings.compliance_hash_key,
+        )
     except ValueError as e:
         raise HTTPException(422, str(e)) from None
 
 
 @app.post("/api/compliance/example", dependencies=[Depends(guard)])
 def compliance_example(body: ComplianceExampleIn):
+    if not settings.enable_demo_endpoints:
+        raise HTTPException(403, "The destructive compliance demo is disabled in this environment.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
         raise HTTPException(503, why)
-    return run_example(b, compliance_graph, arize)
+    if settings.production and b.residency == "hosted" and not settings.allow_hosted_compliance:
+        raise HTTPException(403, "Hosted compliance decisions are disabled.")
+    return run_example(b, compliance_graph, arize, settings.compliance_hash_key)
 
 
-@app.get("/api/compliance/graph")
+@app.get("/api/compliance/graph", dependencies=[Depends(read_guard)])
 def compliance_graph_view():
     return compliance_graph.snapshot()
 
 
-@app.get("/api/compliance/eval")
+@app.get("/api/compliance/eval", dependencies=[Depends(read_guard)])
 def compliance_eval():
     return arize.view()
 
@@ -203,12 +245,12 @@ def watts_strogatz_example():
     return watts_example()
 
 
-@app.get("/api/testset")
+@app.get("/api/testset", dependencies=[Depends(read_guard)])
 def testset():
     return {"tasks": TASKS, "items": ITEMS}
 
 
-@app.get("/api/results")
+@app.get("/api/results", dependencies=[Depends(read_guard)])
 def results():
     out = {}
     for f in sorted(Path(settings.results_dir).glob("*.json")):
@@ -271,7 +313,7 @@ def start_eval(body: EvalIn):
     return {k: v for k, v in job.items() if k != "stop"}
 
 
-@app.get("/api/eval/{jid}")
+@app.get("/api/eval/{jid}", dependencies=[Depends(read_guard)])
 def eval_status(jid: str):
     if jid not in _jobs:
         raise HTTPException(404, "No such run.")
