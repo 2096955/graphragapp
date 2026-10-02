@@ -15,6 +15,7 @@ Set the following values in the deployment secret and configuration system:
     TYPESAFE_API_KEY=<if Jev is enabled>
     EVAL_ENABLED=false
     ENABLE_DEMO_ENDPOINTS=false
+    ALLOW_HOSTED_COMPLIANCE=false
     ENABLE_DOCS=false
 
 The application refuses to start in production without API_TOKEN and a strong
@@ -22,8 +23,8 @@ COMPLIANCE_HASH_KEY.
 
 ## Runtime shape
 
-Use one application writer for the embedded Kuzu compliance database and mount
-/data on durable storage. Do not point several replicas at the same local Kuzu
+Run Uvicorn with one application worker for the embedded Kuzu compliance
+database and mount /data on durable storage. Do not point several replicas at the same local Kuzu
 path. To scale horizontally, move compliance state to a networked store or a
 single serialized writer service first.
 
@@ -39,7 +40,9 @@ identity layer.
 - interactive API docs
 
 Internal result, eval, and graph endpoints require the bearer token when
-production mode is enabled.
+production mode is enabled. Hosted compliance decisions are also default-deny:
+turn on ALLOW_HOSTED_COMPLIANCE only after an explicit processor, residency, and
+data-handling review because that backend receives the compliance payload.
 
 ## Release gate
 
