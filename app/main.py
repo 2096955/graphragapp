@@ -274,7 +274,7 @@ _run_lock = threading.Lock()
 @app.post("/api/eval", dependencies=[Depends(guard)])
 def start_eval(body: EvalIn):
     if not settings.eval_enabled:
-        raise HTTPException(403, "Benchmark runs are switched off. Set API_TOKEN (or EVAL_ENABLED=true) on the server.")
+        raise HTTPException(403, "Benchmark runs are switched off. Set EVAL_ENABLED=true explicitly on the server.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
