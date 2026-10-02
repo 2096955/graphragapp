@@ -172,6 +172,8 @@ def filter_payload(
     store: ComplianceGraph,
     exporter=None,
     hash_key: str | bytes | None = None,
+    min_confidence: float | None = None,
+    include_lab_labels: bool = True,
 ) -> dict[str, Any]:
     """Decide, write the graph, and optionally send a scrubbed Arize trace.
 
@@ -185,13 +187,19 @@ def filter_payload(
     found = classify(text, hash_key)
     try:
         result = decide_filter(backend, text, hash_key)
-        action = result.answers["filter"].top
+        proposed_action = result.answers["filter"].top
     except Exception as exc:
         result = fail_closed_result(backend, exc)
-        action = "block"
+        proposed_action = "block"
     confidence = result.answers["filter"].confidence
+    gated = (
+        min_confidence is not None
+        and confidence < min_confidence
+        and proposed_action != "block"
+    )
+    action = "block" if gated else proposed_action
     attempt_id = fingerprint(text, hash_key)
-    decision_id = uuid.uuid4().hex[:12]
+    decision_id = uuid.uuid4().hex
     at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     graph = store.record(
         attempt_id=attempt_id,
@@ -207,12 +215,14 @@ def filter_payload(
         model=result.model,
     )
     snap = store.snapshot(focus=found["pattern_id"])
-    correct = action == found["action"]
+    correct = action == found["action"] if include_lab_labels else None
     trace = {
         "id": attempt_id[:12],
         "name": "compliance.filter",
         "action": action,
-        "gold": found["action"],
+        "proposed_action": proposed_action,
+        "confidence_gated": gated,
+        "gold": found["action"] if include_lab_labels else None,
         "correct": correct,
         "confidence": confidence,
         "cost_usd": result.cost_usd,
@@ -234,6 +244,8 @@ def filter_payload(
     return {
         "decision": result.to_dict(),
         "action": action,
+        "proposed_action": proposed_action,
+        "confidence_gated": gated,
         "served_onward": served,
         "pattern": {
             "id": found["pattern_id"],
@@ -260,6 +272,8 @@ def run_example(
     store: ComplianceGraph,
     exporter=None,
     hash_key: str | bytes | None = None,
+    min_confidence: float | None = None,
+    include_lab_labels: bool = True,
 ) -> dict[str, Any]:
     """Reset the store and run the synthetic first payload plus repeat."""
     store.reset()
@@ -267,8 +281,12 @@ def run_example(
         reset = getattr(exporter, "reset", None)
         if callable(reset):
             reset()
-    first = filter_payload(backend, FIRST_PAYLOAD, store, exporter, hash_key)
-    repeat = filter_payload(backend, REPEAT_PAYLOAD, store, exporter, hash_key)
+    first = filter_payload(
+        backend, FIRST_PAYLOAD, store, exporter, hash_key, min_confidence, include_lab_labels
+    )
+    repeat = filter_payload(
+        backend, REPEAT_PAYLOAD, store, exporter, hash_key, min_confidence, include_lab_labels
+    )
     eval_view = exporter.view() if exporter is not None else None
     return {
         "title": "Compliance agent in front of another agent",
