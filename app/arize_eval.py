@@ -118,17 +118,30 @@ class ArizeEval:
             return {"decisions": 0, "filter_correct": None, "cost_usd": 0.0,
                     "note": "No filter traces yet. Run the compliance example."}
         n = len(traces)
-        right = sum(1 for t in traces if t.get("correct"))
+        labelled = [t for t in traces if t.get("correct") is not None]
+        right = sum(1 for t in labelled if t["correct"])
         cost = round(sum(float(t.get("cost_usd") or 0) for t in traces), 6)
         return {
             "decisions": n,
-            "filter_correct": round(right / n, 4),
+            "filter_correct": round(right / len(labelled), 4) if labelled else None,
             "cost_usd": cost,
             "note": (
                 "Live Arize export is on." if self.configured
                 else "Arize credentials are unset. Showing local traces plus the sample eval fixture. Catalogue mode costs $0."
             ),
         }
+
+    @staticmethod
+    def _attributes(trace: dict[str, Any]) -> list[dict[str, Any]]:
+        attrs = [
+            {"key": "filter.action", "value": {"stringValue": str(trace.get("action"))}},
+            {"key": "filter.cost_usd", "value": {"doubleValue": float(trace.get("cost_usd") or 0)}},
+            {"key": "filter.pattern_id", "value": {"stringValue": str(trace.get("pattern_id"))}},
+            {"key": "filter.backend", "value": {"stringValue": str(trace.get("backend"))}},
+        ]
+        if trace.get("correct") is not None:
+            attrs.append({"key": "filter.correct", "value": {"boolValue": bool(trace["correct"])}})
+        return attrs
 
     def _export(self, trace: dict[str, Any]) -> dict[str, Any]:
         """OTLP-ish JSON body. Never called unless both credentials are set."""
@@ -141,13 +154,7 @@ class ArizeEval:
                 "scopeSpans": [{
                     "spans": [{
                         "name": trace.get("name") or "compliance.filter",
-                        "attributes": [
-                            {"key": "filter.action", "value": {"stringValue": str(trace.get("action"))}},
-                            {"key": "filter.correct", "value": {"boolValue": bool(trace.get("correct"))}},
-                            {"key": "filter.cost_usd", "value": {"doubleValue": float(trace.get("cost_usd") or 0)}},
-                            {"key": "filter.pattern_id", "value": {"stringValue": str(trace.get("pattern_id"))}},
-                            {"key": "filter.backend", "value": {"stringValue": str(trace.get("backend"))}},
-                        ],
+                        "attributes": self._attributes(trace),
                     }],
                 }],
             }],
