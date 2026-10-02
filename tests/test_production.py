@@ -19,6 +19,7 @@ def _clear(monkeypatch):
         "API_TOKEN",
         "COMPLIANCE_HASH_KEY",
         "COMPLIANCE_DB_PATH",
+        "ENABLE_COMPLIANCE",
         "ENABLE_DOCS",
         "ENABLE_DEMO_ENDPOINTS",
         "EVAL_ENABLED",
@@ -40,6 +41,12 @@ def test_production_requires_strong_compliance_hash_key(monkeypatch):
     monkeypatch.setenv("APP_ENV", "production")
     monkeypatch.setenv("API_TOKEN", "service-token")
     monkeypatch.setenv("COMPLIANCE_HASH_KEY", "too-short")
+
+    # ENABLE_COMPLIANCE defaults off in production, so a short key is allowed.
+    settings = Settings.from_env()
+    assert not settings.compliance_enabled
+
+    monkeypatch.setenv("ENABLE_COMPLIANCE", "true")
     with pytest.raises(RuntimeError, match="COMPLIANCE_HASH_KEY"):
         Settings.from_env()
 
