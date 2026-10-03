@@ -3,7 +3,8 @@
 ## Production hardening
 
 - Added an explicit production profile. Startup now refuses to continue without
-  API_TOKEN and a random COMPLIANCE_HASH_KEY of at least 32 characters.
+  API_TOKEN. A random COMPLIANCE_HASH_KEY of at least 32 characters is required
+  only when ENABLE_COMPLIANCE=true (defaults off in production).
 - Replaced plain SHA-256 compliance identifiers with server-keyed HMAC-SHA256
   pseudonymous identifiers.
 - Made configured compliance Kuzu storage persistent across process restarts;

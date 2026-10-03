@@ -181,7 +181,8 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 | `APP_ENV` | `development` | Use `production` for the hardened runtime profile |
 | `BACKENDS` | `catalogue,laya,anyjev,jev,uniform` | Which backends to build |
 | `API_TOKEN` | none | Required in production; protects POSTs and internal read endpoints |
-| `COMPLIANCE_HASH_KEY` | none | Required in production; 32+ character server-side HMAC key |
+| `ENABLE_COMPLIANCE` | `true` in development, `false` in production | Compliance filter feature; defaults off in production |
+| `COMPLIANCE_HASH_KEY` | none | Required in production only when `ENABLE_COMPLIANCE=true`; 32+ character server-side HMAC key |
 | `COMPLIANCE_DB_PATH` | temporary | Persistent compliance graph path; production default is `data/compliance.kuzu` |
 | `ALLOW_HOSTED_COMPLIANCE` | `false` | Explicit opt-in before compliance payloads may go to a hosted backend |
 | `ENABLE_DEMO_ENDPOINTS` | `true` in development | Destructive worked-example reset; defaults off in production |
@@ -237,7 +238,9 @@ python -m scripts.build_page
 ## Production profile
 
 The Docker image now defaults to `APP_ENV=production`. Production startup fails
-closed unless `API_TOKEN` and a strong `COMPLIANCE_HASH_KEY` are supplied.
+closed unless `API_TOKEN` is supplied. A strong `COMPLIANCE_HASH_KEY` (32+
+characters) is required only when `ENABLE_COMPLIANCE=true`; that flag defaults
+off in production.
 Compliance identities are keyed HMAC-SHA256 values, the destructive demo and
 benchmark runner are off by default, and hosted compliance decisions require an
 explicit opt-in because the hosted backend receives the payload.

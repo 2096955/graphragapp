@@ -9,7 +9,7 @@ Set the following values in the deployment secret and configuration system:
 
     APP_ENV=production
     API_TOKEN=<secret bearer token>
-    COMPLIANCE_HASH_KEY=<random secret, at least 32 characters>
+    ENABLE_COMPLIANCE=false
     COMPLIANCE_DB_PATH=/data/compliance.kuzu
     BACKENDS=catalogue,jev
     TYPESAFE_API_KEY=<if Jev is enabled>
@@ -18,8 +18,10 @@ Set the following values in the deployment secret and configuration system:
     ALLOW_HOSTED_COMPLIANCE=false
     ENABLE_DOCS=false
 
-The application refuses to start in production without API_TOKEN and a strong
-COMPLIANCE_HASH_KEY.
+The application refuses to start in production without API_TOKEN.
+ENABLE_COMPLIANCE defaults off in production. When ENABLE_COMPLIANCE=true,
+also set COMPLIANCE_HASH_KEY to a random secret of at least 32 characters;
+startup fails if that key is missing or shorter than 32 characters.
 
 ## Runtime shape
 

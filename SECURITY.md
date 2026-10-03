@@ -13,7 +13,8 @@ Never commit environment files, API keys, bearer tokens, Arize credentials, or
 the compliance hashing key. Production must provide at least:
 
 - API_TOKEN
-- COMPLIANCE_HASH_KEY, generated randomly and at least 32 characters
+- COMPLIANCE_HASH_KEY, generated randomly and at least 32 characters, when
+  ENABLE_COMPLIANCE=true (that flag defaults off in production)
 
 Use the deployment platform's secret manager. Rotate any credential that has
 ever appeared in repository history or a terminal or chat transcript.
