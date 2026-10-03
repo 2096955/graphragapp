@@ -240,10 +240,10 @@ python -m scripts.build_page
 The Docker image now defaults to `APP_ENV=production`. Production startup fails
 closed unless `API_TOKEN` is supplied. A strong `COMPLIANCE_HASH_KEY` (32+
 characters) is required only when `ENABLE_COMPLIANCE=true`; that flag defaults
-off in production.
-Compliance identities are keyed HMAC-SHA256 values, the destructive demo and
-benchmark runner are off by default, and hosted compliance decisions require an
-explicit opt-in because the hosted backend receives the payload.
+off in production. Compliance identities are keyed HMAC-SHA256 values, the
+destructive demo and benchmark runner are off by default, and hosted compliance
+decisions require an explicit opt-in because the hosted backend receives the
+payload.
 
 See [PRODUCTION.md](PRODUCTION.md) for the release gate and [SECURITY.md](SECURITY.md)
 for the security boundary.
