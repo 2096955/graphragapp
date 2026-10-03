@@ -8,7 +8,6 @@ from __future__ import annotations
 import collections
 import json
 import threading
-import time
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -18,10 +17,17 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
 
 from . import domain as d
 from . import evaluation as ev
+from .api_models import (
+    CompareIn,
+    ComplianceExampleIn,
+    ComplianceFilterIn,
+    DecideIn,
+    EvalIn,
+    PipelineIn,
+)
 from .arize_eval import ArizeEval
 from .compliance import filter_payload, run_example
 from .compliance_graph import ComplianceGraph
@@ -31,14 +37,15 @@ from .decisions import BackendUnavailable, DecisionError, build_backends
 from .explain import Explainer
 from .graph import Graph
 from .pipeline import Pipeline
+from .security import RequestGuard
 from .testset import TASKS, build
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 ROOT = Path(__file__).resolve().parents[1]
 
 settings = Settings.from_env()
 graph = Graph()
-compliance_graph = ComplianceGraph()
+compliance_graph = ComplianceGraph(settings.compliance_db_path)
 arize = ArizeEval(settings.arize_space_id, settings.arize_api_key, settings.arize_project,
                   settings.arize_endpoint)
 backends = build_backends(settings)
@@ -62,33 +69,32 @@ async def lifespan(_app):
     yield
 
 
-app = FastAPI(title="GraphRAG decisions", version=VERSION, docs_url="/api/docs", openapi_url="/api/openapi.json",
-              lifespan=lifespan)
+app = FastAPI(
+    title="GraphRAG decisions",
+    version=VERSION,
+    docs_url="/api/docs" if settings.enable_docs else None,
+    openapi_url="/api/openapi.json" if settings.enable_docs else None,
+    lifespan=lifespan,
+)
 if settings.allowed_origins:
     app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins, allow_methods=["GET", "POST"],
                        allow_headers=["Authorization", "Content-Type"])
 
 
 # ------------------------------------------------------------------------------ guards
-_hits: dict[str, collections.deque] = collections.defaultdict(collections.deque)
-_hits_lock = threading.Lock()
+_request_guard = RequestGuard()
+# Backwards-compatible alias used by existing tests and useful for local diagnostics.
+_hits = _request_guard.hits
 
 
 def guard(request: Request) -> None:
-    """Bearer token (when API_TOKEN is set) and a per-client rate limit on every POST."""
-    if settings.api_token:
-        auth = request.headers.get("authorization", "")
-        if auth != f"Bearer {settings.api_token}":
-            raise HTTPException(401, "Missing or wrong token. Send Authorization: Bearer <API_TOKEN>.")
-    ip = request.client.host if request.client else "unknown"
-    now = time.monotonic()
-    with _hits_lock:
-        q = _hits[ip]
-        while q and now - q[0] > 60:
-            q.popleft()
-        if len(q) >= settings.rate_limit_per_minute:
-            raise HTTPException(429, "Too many requests. Wait a minute and try again.")
-        q.append(now)
+    """Authenticate and rate-limit state-changing requests."""
+    _request_guard.write(request, settings)
+
+
+def read_guard(request: Request) -> None:
+    """Authenticate internal read endpoints when an API token is configured."""
+    _request_guard.read(request, settings)
 
 
 def backend_or_404(name: str):
@@ -112,50 +118,42 @@ def _decision(_, e):
     return JSONResponse({"detail": str(e)}, status_code=422)
 
 
-# ------------------------------------------------------------------------------ models
-class DecideIn(BaseModel):
-    backend: str
-    state: Any
-    questions: dict[str, dict]
-
-
-class CompareIn(BaseModel):
-    backends: list[str] = Field(min_length=1, max_length=4)
-    state: Any
-    questions: dict[str, dict]
-
-
-class PipelineIn(BaseModel):
-    backend: str
-    request: str = Field(min_length=1, max_length=500)
-    preference: str | None = Field(default=None, max_length=300)
-    use_llm: bool = False
-
-
-class EvalIn(BaseModel):
-    backend: str
-    tasks: list[str] | None = None
-    limit: int = Field(default=0, ge=0, le=500)
-
-
-class ComplianceFilterIn(BaseModel):
-    backend: str = "catalogue"
-    payload: str = Field(min_length=1, max_length=2000)
-
-
-class ComplianceExampleIn(BaseModel):
-    backend: str = "catalogue"
-
-
 # ------------------------------------------------------------------------------ routes
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": VERSION, "graph": graph.counts(), "backends": [b.status() for b in backends.values()],
-            "auth_required": settings.api_token is not None, "eval_enabled": settings.eval_enabled,
-            "llm_explainer": explainer.llm_available, "items": len(ITEMS),
-            "compliance": compliance_graph.counts(),
-            "arize": {"configured": arize.configured, "source": "live" if arize.configured else "sample",
-                      **arize.wiring()}}
+    base = {
+        "ok": True,
+        "version": VERSION,
+        "environment": settings.environment,
+        "auth_required": settings.api_token is not None,
+    }
+    if settings.production:
+        return base
+    return {
+        **base,
+        "graph": graph.counts(),
+        "backends": [b.status() for b in backends.values()],
+        "eval_enabled": settings.eval_enabled,
+        "llm_explainer": explainer.llm_available,
+        "items": len(ITEMS),
+        "compliance": compliance_graph.counts(),
+        "arize": {
+            "configured": arize.configured,
+            "source": "live" if arize.configured else "sample",
+            **arize.wiring(),
+        },
+        "compliance_hash_key_ephemeral": settings.compliance_hash_key_ephemeral,
+    }
+
+
+@app.get("/api/ready")
+def ready():
+    try:
+        graph.counts()
+        compliance_graph.counts()
+    except Exception:
+        return JSONResponse({"ok": False, "version": VERSION}, status_code=503)
+    return {"ok": True, "version": VERSION}
 
 
 @app.get("/api/catalogue")
@@ -197,31 +195,59 @@ def run_pipeline(body: PipelineIn):
 
 @app.post("/api/compliance/filter", dependencies=[Depends(guard)])
 def compliance_filter(body: ComplianceFilterIn):
+    if not settings.compliance_enabled:
+        raise HTTPException(403, "Compliance filtering is disabled in this environment.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
         raise HTTPException(503, why)
     try:
-        return filter_payload(b, body.payload.strip(), compliance_graph, arize)
+        if settings.production and b.residency == "hosted" and not settings.allow_hosted_compliance:
+            raise HTTPException(
+                403,
+                "Hosted compliance decisions are disabled. Set ALLOW_HOSTED_COMPLIANCE=true only after an explicit data-residency review.",
+            )
+        return filter_payload(
+            b,
+            body.payload.strip(),
+            compliance_graph,
+            arize,
+            settings.compliance_hash_key,
+            settings.compliance_min_confidence,
+            include_lab_labels=not settings.production,
+        )
     except ValueError as e:
         raise HTTPException(422, str(e)) from None
 
 
 @app.post("/api/compliance/example", dependencies=[Depends(guard)])
 def compliance_example(body: ComplianceExampleIn):
+    if not settings.compliance_enabled:
+        raise HTTPException(403, "Compliance filtering is disabled in this environment.")
+    if not settings.enable_demo_endpoints:
+        raise HTTPException(403, "The destructive compliance demo is disabled in this environment.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
         raise HTTPException(503, why)
-    return run_example(b, compliance_graph, arize)
+    if settings.production and b.residency == "hosted" and not settings.allow_hosted_compliance:
+        raise HTTPException(403, "Hosted compliance decisions are disabled.")
+    return run_example(
+        b,
+        compliance_graph,
+        arize,
+        settings.compliance_hash_key,
+        settings.compliance_min_confidence,
+        include_lab_labels=not settings.production,
+    )
 
 
-@app.get("/api/compliance/graph")
+@app.get("/api/compliance/graph", dependencies=[Depends(read_guard)])
 def compliance_graph_view():
     return compliance_graph.snapshot()
 
 
-@app.get("/api/compliance/eval")
+@app.get("/api/compliance/eval", dependencies=[Depends(read_guard)])
 def compliance_eval():
     return arize.view()
 
@@ -232,12 +258,12 @@ def watts_strogatz_example():
     return watts_example()
 
 
-@app.get("/api/testset")
+@app.get("/api/testset", dependencies=[Depends(read_guard)])
 def testset():
     return {"tasks": TASKS, "items": ITEMS}
 
 
-@app.get("/api/results")
+@app.get("/api/results", dependencies=[Depends(read_guard)])
 def results():
     out = {}
     for f in sorted(Path(settings.results_dir).glob("*.json")):
@@ -261,7 +287,7 @@ _run_lock = threading.Lock()
 @app.post("/api/eval", dependencies=[Depends(guard)])
 def start_eval(body: EvalIn):
     if not settings.eval_enabled:
-        raise HTTPException(403, "Benchmark runs are switched off. Set API_TOKEN (or EVAL_ENABLED=true) on the server.")
+        raise HTTPException(403, "Benchmark runs are switched off. Set EVAL_ENABLED=true explicitly on the server.")
     b = backend_or_404(body.backend)
     ok, why = b.available()
     if not ok:
@@ -300,7 +326,7 @@ def start_eval(body: EvalIn):
     return {k: v for k, v in job.items() if k != "stop"}
 
 
-@app.get("/api/eval/{jid}")
+@app.get("/api/eval/{jid}", dependencies=[Depends(read_guard)])
 def eval_status(jid: str):
     if jid not in _jobs:
         raise HTTPException(404, "No such run.")

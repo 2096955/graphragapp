@@ -178,8 +178,16 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 
 | Variable | Default | Purpose |
 |---|---|---|
+| `APP_ENV` | `development` | Use `production` for the hardened runtime profile |
 | `BACKENDS` | `catalogue,laya,anyjev,jev,uniform` | Which backends to build |
-| `API_TOKEN` | none | Required bearer token on every POST; also switches on benchmark runs |
+| `API_TOKEN` | none | Required in production; protects POSTs and internal read endpoints |
+| `ENABLE_COMPLIANCE` | `true` in development, `false` in production | Compliance filter feature; defaults off in production |
+| `COMPLIANCE_HASH_KEY` | none | Required in production only when `ENABLE_COMPLIANCE=true`; 32+ character server-side HMAC key |
+| `COMPLIANCE_DB_PATH` | temporary | Persistent compliance graph path; production default is `data/compliance.kuzu` |
+| `ALLOW_HOSTED_COMPLIANCE` | `false` | Explicit opt-in before compliance payloads may go to a hosted backend |
+| `ENABLE_DEMO_ENDPOINTS` | `true` in development | Destructive worked-example reset; defaults off in production |
+| `ENABLE_DOCS` | `true` in development | Interactive API docs; defaults off in production |
+| `EVAL_ENABLED` | `false` | Explicit opt-in for benchmark runs that write files or spend hosted-model budget |
 | `ALLOWED_ORIGINS` | none | Browser origins allowed to call the API, if the page is hosted elsewhere |
 | `TYPESAFE_API_KEY` | none | Enables TypeSafe Jev. Stays on the server. Leave unset. |
 | `JEV_PRICE_PER_MTOK` | `0.042` | USD per million input tokens, for cost reporting. Check the current price |
@@ -198,7 +206,8 @@ Environment variables, all optional. `.env.example` lists every one with notes. 
 
 | Method | Path | What it does |
 |---|---|---|
-| GET | `/api/health` | Version, graph size, which backends are available and why not |
+| GET | `/api/health` | Liveness; production response intentionally exposes minimal metadata |
+| GET | `/api/ready` | Readiness check for the catalogue and compliance stores |
 | POST | `/api/decide` | `{backend, state, questions}` with questions in Jev's format |
 | POST | `/api/compare` | The same typed question on up to four **decision backends** |
 | POST | `/api/pipeline` | `{backend, request, preference}` through the whole pipeline |
@@ -226,12 +235,26 @@ python -m scripts.record_examples --backend laya --backend anyjev
 python -m scripts.build_page
 ```
 
+## Production profile
+
+The Docker image now defaults to `APP_ENV=production`. Production startup fails
+closed unless `API_TOKEN` is supplied. A strong `COMPLIANCE_HASH_KEY` (32+
+characters) is required only when `ENABLE_COMPLIANCE=true`; that flag defaults
+off in production. Compliance identities are keyed HMAC-SHA256 values, the
+destructive demo and benchmark runner are off by default, and hosted compliance
+decisions require an explicit opt-in because the hosted backend receives the
+payload.
+
+See [PRODUCTION.md](PRODUCTION.md) for the release gate and [SECURITY.md](SECURITY.md)
+for the security boundary.
+
 ## Hosting notes
 
-- **Set `API_TOKEN`** on anything others can reach. Without it, anyone who can reach the server can run the models and spend a Jev budget if a key is present.
-- Put the service behind HTTPS.
-- Run a single worker. Rate limits and benchmark jobs are kept in memory.
-- Kuzu upstream is archived at 0.11.3. The graph is rebuilt in a temporary directory at every start.
+- Put the service behind HTTPS and a trusted ingress/API gateway.
+- Run a single application worker while using the embedded writable Kuzu compliance store.
+- Mount the configured compliance database path on durable storage; an existing store is reopened rather than deleted.
+- Move authentication, distributed rate limiting, mutable graph state and benchmark jobs to shared infrastructure before scaling to multiple replicas.
+- Kuzu upstream is archived at 0.11.3; treat replacement/migration as an operational dependency decision.
 
 ## The test set
 

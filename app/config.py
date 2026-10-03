@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import secrets
 from dataclasses import dataclass
 
 
@@ -15,6 +16,7 @@ def _bool(v: str | None, default: bool) -> bool:
 
 @dataclass(frozen=True)
 class Settings:
+    environment: str
     backends: list[str]
     api_token: str | None
     allowed_origins: list[str]
@@ -35,6 +37,14 @@ class Settings:
     max_state_chars: int
     rate_limit_per_minute: int
     eval_enabled: bool
+    enable_docs: bool
+    enable_demo_endpoints: bool
+    compliance_enabled: bool
+    allow_hosted_compliance: bool
+    compliance_min_confidence: float | None
+    compliance_hash_key: str
+    compliance_hash_key_ephemeral: bool
+    compliance_db_path: str | None
     calibration_dir: str
     min_confidence: float
     arize_space_id: str | None
@@ -42,11 +52,47 @@ class Settings:
     arize_project: str
     arize_endpoint: str
 
+    @property
+    def production(self) -> bool:
+        return self.environment == "production"
+
     @classmethod
     def from_env(cls) -> "Settings":
         e = os.environ.get
+        environment = (e("APP_ENV", "development") or "development").strip().lower()
+        if environment not in {"development", "test", "production"}:
+            raise RuntimeError("APP_ENV must be development, test, or production.")
+
+        production = environment == "production"
         token = (e("API_TOKEN") or "").strip() or None
+        compliance_enabled = _bool(e("ENABLE_COMPLIANCE"), not production)
+        configured_hash_key = (e("COMPLIANCE_HASH_KEY") or "").strip() or None
+
+        if production and token is None:
+            raise RuntimeError("API_TOKEN is required when APP_ENV=production.")
+        if production and compliance_enabled and (
+            configured_hash_key is None or len(configured_hash_key) < 32
+        ):
+            raise RuntimeError(
+                "COMPLIANCE_HASH_KEY must be set to a random value of at least 32 characters "
+                "when ENABLE_COMPLIANCE=true in production."
+            )
+
+        hash_key = configured_hash_key or secrets.token_urlsafe(32)
+        compliance_path = (e("COMPLIANCE_DB_PATH") or "").strip() or (
+            "data/compliance.kuzu" if production else None
+        )
+        raw_compliance_confidence = (e("COMPLIANCE_MIN_CONFIDENCE") or "").strip()
+        compliance_min_confidence = (
+            float(raw_compliance_confidence)
+            if raw_compliance_confidence
+            else (0.95 if production else None)
+        )
+        if compliance_min_confidence is not None and not 0 <= compliance_min_confidence <= 1:
+            raise RuntimeError("COMPLIANCE_MIN_CONFIDENCE must be between 0 and 1.")
+
         return cls(
+            environment=environment,
             backends=_list(e("BACKENDS"), "catalogue,laya,anyjev,jev,uniform"),
             api_token=token,
             allowed_origins=_list(e("ALLOWED_ORIGINS"), ""),
@@ -66,8 +112,17 @@ class Settings:
             results_dir=e("RESULTS_DIR", "results"),
             max_state_chars=int(e("MAX_STATE_CHARS", "4000")),
             rate_limit_per_minute=int(e("RATE_LIMIT_PER_MINUTE", "120")),
-            # Benchmark runs are long and, with Jev, cost money: only with a token unless forced on.
-            eval_enabled=_bool(e("EVAL_ENABLED"), token is not None),
+            # Benchmark runs mutate result files and can spend hosted-model budget.
+            # They are opt-in in every environment, including when an API token is set.
+            eval_enabled=_bool(e("EVAL_ENABLED"), False),
+            enable_docs=_bool(e("ENABLE_DOCS"), not production),
+            enable_demo_endpoints=_bool(e("ENABLE_DEMO_ENDPOINTS"), not production),
+            compliance_enabled=compliance_enabled,
+            allow_hosted_compliance=_bool(e("ALLOW_HOSTED_COMPLIANCE"), False),
+            compliance_min_confidence=compliance_min_confidence,
+            compliance_hash_key=hash_key,
+            compliance_hash_key_ephemeral=configured_hash_key is None,
+            compliance_db_path=compliance_path,
             calibration_dir=e("CALIBRATION_DIR", "calibration"),
             min_confidence=float(e("MIN_CONFIDENCE", "0.8")),
             arize_space_id=(e("ARIZE_SPACE_ID") or e("ARIZE_SPACE_KEY") or "").strip() or None,

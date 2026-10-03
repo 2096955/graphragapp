@@ -31,7 +31,13 @@ SCHEMA = [
 
 
 class ComplianceGraph:
-    """Thread-safe Kuzu store. Rebuilt empty in a temp directory unless a path is given."""
+    """Thread-safe Kuzu store.
+
+    With no path the store is ephemeral and starts empty. With a path, an
+    existing database is reopened without being deleted; a new path is
+    initialised once. reset() is deliberately destructive and is used only by
+    the synthetic demo/test flow.
+    """
 
     def __init__(self, path: str | Path | None = None):
         self._tmp = None
@@ -42,54 +48,89 @@ class ComplianceGraph:
         self._lock = threading.Lock()
         self._db = None
         self._conn = None
-        self.reset()
+
+        is_new = not self.path.exists()
+        self._open(create_schema=is_new)
+
+    def _open(self, *, create_schema: bool) -> None:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self._db = kuzu.Database(str(self.path))
+        self._conn = kuzu.Connection(self._db)
+        if create_schema:
+            for ddl in SCHEMA:
+                self._conn.execute(ddl)
+            self._conn.execute(
+                "CREATE (:Agent {id: 'compliance', role: 'compliance', label: 'Legal and compliance agent'})"
+            )
+            self._conn.execute(
+                "CREATE (:Agent {id: 'downstream', role: 'downstream', label: 'Downstream research agent'})"
+            )
+            self._conn.execute(
+                "MATCH (a:Agent {id: 'compliance'}), (b:Agent {id: 'downstream'}) "
+                "CREATE (a)-[:SITS_IN_FRONT_OF]->(b)"
+            )
+        else:
+            # Fail startup rather than silently wiping or recreating an
+            # incompatible production store.
+            try:
+                for table in ("Agent", "Pattern", "Attempt", "Decision"):
+                    self._q(f"MATCH (n:{table}) RETURN count(n)")
+            except Exception as exc:
+                self._close_handles()
+                raise RuntimeError(
+                    f"Compliance database at {self.path} is incompatible or unreadable."
+                ) from exc
+
+    def _close_handles(self) -> None:
+        if self._conn is not None:
+            self._conn.close()
+            self._conn = None
+        if self._db is not None:
+            self._db.close()
+            self._db = None
 
     def close(self) -> None:
         with self._lock:
-            if self._conn is not None:
-                self._conn.close()
-                self._conn = None
-            if self._db is not None:
-                self._db.close()
-                self._db = None
+            self._close_handles()
             if self._tmp and Path(self._tmp).exists():
                 shutil.rmtree(self._tmp, ignore_errors=True)
 
     def reset(self) -> None:
+        """Destructively rebuild the store. Intended for the synthetic demo/tests."""
         with self._lock:
-            if self._conn is not None:
-                self._conn.close()
-            if self._db is not None:
-                self._db.close()
+            self._close_handles()
             if self.path.exists():
                 shutil.rmtree(self.path) if self.path.is_dir() else self.path.unlink()
-            self.path.parent.mkdir(parents=True, exist_ok=True)
-            self._db = kuzu.Database(str(self.path))
-            self._conn = kuzu.Connection(self._db)
-            for ddl in SCHEMA:
-                self._conn.execute(ddl)
-            self._conn.execute(
-                "CREATE (:Agent {id: 'compliance', role: 'compliance', label: 'Legal and compliance agent'})")
-            self._conn.execute(
-                "CREATE (:Agent {id: 'downstream', role: 'downstream', label: 'Downstream research agent'})")
-            self._conn.execute(
-                "MATCH (a:Agent {id: 'compliance'}), (b:Agent {id: 'downstream'}) "
-                "CREATE (a)-[:SITS_IN_FRONT_OF]->(b)")
+            self._open(create_schema=True)
 
     def _q(self, cypher: str, params: dict | None = None) -> list[tuple]:
+        if self._conn is None:
+            raise RuntimeError("Compliance graph is closed.")
         res = self._conn.execute(cypher, params or {})
         rows = []
         while res.has_next():
             rows.append(tuple(res.get_next()))
         return rows
 
-    def record(self, *, attempt_id: str, at: str, action: str, backend: str,
-               pattern_id: str, pattern_kind: str, pattern_label: str, decision_id: str,
-               confidence: float, cost_usd: float, model: str) -> dict:
+    def record(
+        self,
+        *,
+        attempt_id: str,
+        at: str,
+        action: str,
+        backend: str,
+        pattern_id: str,
+        pattern_kind: str,
+        pattern_label: str,
+        decision_id: str,
+        confidence: float,
+        cost_usd: float,
+        model: str,
+    ) -> dict:
         """Attach an attempt to a pattern. Same attempt_id is idempotent.
 
-        Stores the pattern identity, the decision, and the attempt count. Does not
-        store the raw payload.
+        Stores only pseudonymous identifiers, decisions, and attempt metadata;
+        it does not store the raw payload.
         """
         with self._lock:
             existing = self._q("MATCH (t:Attempt {id: $id}) RETURN t.id", {"id": attempt_id})
@@ -101,30 +142,38 @@ class ComplianceGraph:
                 attempts = int(found[0][0]) + 1
                 self._conn.execute(
                     "MATCH (p:Pattern {id: $id}) SET p.attempts = $n, p.last_action = $a",
-                    {"id": pattern_id, "n": attempts, "a": action})
+                    {"id": pattern_id, "n": attempts, "a": action},
+                )
             else:
                 attempts = 1
                 self._conn.execute(
                     "CREATE (:Pattern {id: $id, kind: $k, label: $l, attempts: 1, last_action: $a})",
-                    {"id": pattern_id, "k": pattern_kind, "l": pattern_label, "a": action})
+                    {"id": pattern_id, "k": pattern_kind, "l": pattern_label, "a": action},
+                )
                 self._conn.execute(
                     "MATCH (a:Agent {id: 'compliance'}), (p:Pattern {id: $p}) CREATE (a)-[:WATCHES]->(p)",
-                    {"p": pattern_id})
+                    {"p": pattern_id},
+                )
             self._conn.execute(
                 "CREATE (:Attempt {id: $id, at: $at, action: $a, backend: $b})",
-                {"id": attempt_id, "at": at, "a": action, "b": backend})
+                {"id": attempt_id, "at": at, "a": action, "b": backend},
+            )
             self._conn.execute(
                 "CREATE (:Decision {id: $id, action: $a, confidence: $c, cost_usd: $usd, model: $m})",
-                {"id": decision_id, "a": action, "c": confidence, "usd": cost_usd, "m": model})
+                {"id": decision_id, "a": action, "c": confidence, "usd": cost_usd, "m": model},
+            )
             self._conn.execute(
                 "MATCH (t:Attempt {id: $t}), (p:Pattern {id: $p}) CREATE (t)-[:MATCHES]->(p)",
-                {"t": attempt_id, "p": pattern_id})
+                {"t": attempt_id, "p": pattern_id},
+            )
             self._conn.execute(
                 "MATCH (t:Attempt {id: $t}), (d:Decision {id: $d}) CREATE (t)-[:DECIDED]->(d)",
-                {"t": attempt_id, "d": decision_id})
+                {"t": attempt_id, "d": decision_id},
+            )
             self._conn.execute(
                 "MATCH (d:Decision {id: $d}), (a:Agent {id: 'compliance'}) CREATE (d)-[:RECORDED_BY]->(a)",
-                {"d": decision_id})
+                {"d": decision_id},
+            )
         return {"pattern_id": pattern_id, "attempts": attempts, "repeated": attempts > 1}
 
     def counts(self) -> dict:
@@ -137,7 +186,7 @@ class ComplianceGraph:
             }
 
     def snapshot(self, focus: str | None = None) -> dict:
-        """Nodes and edges, plus a two-hop neighbourhood around the focused pattern."""
+        """Nodes and edges, plus an optional two-hop neighbourhood."""
         with self._lock:
             nodes = []
             for kind, q in (
@@ -151,12 +200,22 @@ class ComplianceGraph:
                     if kind == "Agent":
                         node.update(role=row[1], label=row[2])
                     elif kind == "Pattern":
-                        node.update(pattern_kind=row[1], label=row[2], attempts=int(row[3]), last_action=row[4])
+                        node.update(
+                            pattern_kind=row[1],
+                            label=row[2],
+                            attempts=int(row[3]),
+                            last_action=row[4],
+                        )
                     elif kind == "Attempt":
                         node.update(at=row[1], action=row[2], backend=row[3], label=row[2])
                     else:
-                        node.update(action=row[1], confidence=float(row[2]), cost_usd=float(row[3]),
-                                    model=row[4], label=row[1])
+                        node.update(
+                            action=row[1],
+                            confidence=float(row[2]),
+                            cost_usd=float(row[3]),
+                            model=row[4],
+                            label=row[1],
+                        )
                     nodes.append(node)
             edges = []
             for typ, q in (
@@ -169,15 +228,22 @@ class ComplianceGraph:
                 for src, dst in self._q(q):
                     edges.append({"source": src, "target": dst, "type": typ})
         hops = two_hop(nodes, edges, focus) if focus else []
-        return {"nodes": nodes, "edges": edges, "hops": hops, "focus": focus,
-                "note": ("Two hops from the matched pattern reach prior attempts, the filter "
-                         "decision, and the downstream agent. The Watts–Strogatz figures are a "
-                         "synthetic N=500 visual, not a measurement of this catalogue graph. "
-                         "Token-bounded retrieval is the design claim, not a measured p95.")}
+        return {
+            "nodes": nodes,
+            "edges": edges,
+            "hops": hops,
+            "focus": focus,
+            "note": (
+                "Two hops from the matched pattern reach nearby attempts and decisions in "
+                "this worked graph. The Watts–Strogatz figures are a synthetic N=500 visual, "
+                "not a measurement of this catalogue graph. Token-bounded retrieval is the "
+                "design claim, not a measured p95."
+            ),
+        }
 
 
 def two_hop(nodes: list[dict], edges: list[dict], start: str, hops: int = 2) -> list[dict]:
-    """Undirected expansion. Two hops is enough context on this small-world filter graph."""
+    """Expand an undirected neighbourhood up to the requested hop count."""
     by_id = {n["id"]: n for n in nodes}
     adj: dict[str, list[tuple[str, str]]] = {}
     for e in edges:
@@ -194,6 +260,13 @@ def two_hop(nodes: list[dict], edges: list[dict], start: str, hops: int = 2) -> 
                     continue
                 seen[other] = dist
                 nxt.append(other)
-                out.append({"id": other, "kind": by_id.get(other, {}).get("kind"), "via": typ, "hop": dist})
+                out.append(
+                    {
+                        "id": other,
+                        "kind": by_id.get(other, {}).get("kind"),
+                        "via": typ,
+                        "hop": dist,
+                    }
+                )
         frontier = nxt
     return out

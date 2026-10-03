@@ -1,7 +1,9 @@
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
-    HF_HOME=/cache/huggingface HF_HUB_DISABLE_PROGRESS_BARS=1 TRANSFORMERS_VERBOSITY=error
+    HF_HOME=/cache/huggingface HF_HUB_DISABLE_PROGRESS_BARS=1 TRANSFORMERS_VERBOSITY=error \
+    APP_ENV=production BACKENDS=catalogue COMPLIANCE_DB_PATH=/data/compliance.kuzu \
+    ENABLE_COMPLIANCE=false EVAL_ENABLED=false ENABLE_DEMO_ENDPOINTS=false ENABLE_DOCS=false
 
 WORKDIR /app
 COPY requirements.txt requirements-local.txt ./
@@ -10,8 +12,8 @@ COPY requirements.txt requirements-local.txt ./
 #   --build-arg TORCH_INDEX=https://download.pytorch.org/whl/cu126
 # and run with --gpus all -e DEVICE=cuda.
 ARG TORCH_INDEX=https://download.pytorch.org/whl/cpu
-# Set to false for an image with only the API and Jev (a few hundred MB instead of several GB).
-ARG LOCAL_MODELS=true
+# Production defaults to the catalogue backend only. Opt in to hosted/local models explicitly.
+ARG LOCAL_MODELS=false
 RUN pip install -r requirements.txt && \
     if [ "$LOCAL_MODELS" = "true" ]; then \
       pip install torch==2.14.0 --index-url "$TORCH_INDEX" && pip install -r requirements-local.txt; \
@@ -21,9 +23,9 @@ COPY app app
 COPY scripts scripts
 COPY web web
 COPY results results
-COPY LABELLING.md README.md ./
+COPY LABELLING.md README.md PRODUCTION.md SECURITY.md ./
 
-RUN useradd --create-home app && mkdir -p /cache && chown -R app /app /cache
+RUN useradd --create-home app && mkdir -p /cache /data && chown -R app /app /cache /data
 USER app
 
 EXPOSE 8000

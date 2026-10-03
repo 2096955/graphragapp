@@ -1,17 +1,19 @@
 """Compliance filter in front of a downstream agent.
 
-Jev (or Catalogue rules / Laya / AnyJev) answers one typed question: release, redact,
-or block. The knowledge graph records each decision. A repeated pattern updates the
-pattern node so circumvention is graph state, not a one-off score.
+Jev (or Catalogue rules / Laya / AnyJev) answers one typed question: release,
+redact, or block. The knowledge graph records each decision. A repeated pattern
+updates the pattern node so circumvention is graph state, not a one-off score.
 
-Kuzu stores a stable pattern identity (a hash), the decision, and the attempt
-count — never raw PII. Recording the same payload is idempotent. If the decision
-backend errors, the filter fails closed and blocks.
+The graph stores keyed HMAC identities, decisions, and attempt counts — never raw
+PII. Recording the same payload is idempotent. If the decision backend errors,
+the filter fails closed and blocks.
 """
 from __future__ import annotations
 
 import hashlib
+import hmac
 import re
+import secrets
 import uuid
 from datetime import datetime, timezone
 from typing import Any
@@ -66,23 +68,31 @@ PATTERN_LABELS = {
     "clean": "no PII",
 }
 
+# Development helpers such as classify() can be called without Settings. In that case
+# use a process-local random key. Production always injects COMPLIANCE_HASH_KEY.
+_EPHEMERAL_HASH_KEY = secrets.token_bytes(32)
 
-def fingerprint(value: str) -> str:
-    """Stable identity for a pattern key or payload. Never the raw value."""
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+def _key_bytes(hash_key: str | bytes | None) -> bytes:
+    if hash_key is None:
+        return _EPHEMERAL_HASH_KEY
+    return hash_key if isinstance(hash_key, bytes) else hash_key.encode("utf-8")
 
 
-def classify(payload: str) -> dict[str, Any]:
-    """Detect synthetic PII / circumvention. Used by Catalogue rules and as gold labels."""
+def fingerprint(value: str, hash_key: str | bytes | None = None) -> str:
+    """Pseudonymous keyed identity for a pattern key or payload."""
+    return hmac.new(_key_bytes(hash_key), value.encode("utf-8"), hashlib.sha256).hexdigest()
+
+
+def classify(payload: str, hash_key: str | bytes | None = None) -> dict[str, Any]:
+    """Detect synthetic PII/circumvention for the catalogue baseline and lab labels."""
     text = payload or ""
     emails = [m.group(0).lower() for m in EMAIL_RE.finditer(text)]
     ssns = [m.group(0) for m in SSN_RE.finditer(text)]
     circumvent = bool(CIRCUMVENT_RE.search(text))
     confidential = bool(CONFIDENTIAL_RE.search(text))
     pii = bool(emails or ssns)
-    if circumvent and (pii or confidential):
-        action = "block"
-    elif circumvent:
+    if circumvent:
         action = "block"
     elif pii or confidential:
         action = "redact"
@@ -105,7 +115,7 @@ def classify(payload: str) -> dict[str, Any]:
         "confidential": confidential,
         "emails": emails,
         "ssns": ssns,
-        "pattern_id": f"{kind}:{fingerprint(key)[:24]}",
+        "pattern_id": f"{kind}:{fingerprint(key, hash_key)[:24]}",
         "pattern_kind": kind,
         "pattern_label": PATTERN_LABELS[kind],
     }
@@ -116,66 +126,103 @@ def fail_closed_result(backend: Backend, error: Exception) -> DecisionResult:
     labels = list(FILTER["criteria"])
     probs = {k: float(k == "block") for k in labels}
     return DecisionResult(
-        backend.name, backend.model or backend.name,
-        {"filter": Answer("choice", probs)}, 0.0, None, 0.0,
+        backend.name,
+        backend.model or backend.name,
+        {"filter": Answer("choice", probs)},
+        0.0,
+        None,
+        0.0,
         getattr(backend, "residency", "local"),
         {"by": "fail-closed", "error": type(error).__name__},
     )
 
 
-def rule_result(payload: str) -> DecisionResult:
+def rule_result(payload: str, hash_key: str | bytes | None = None) -> DecisionResult:
     """Catalogue-mode decision: exact rules, no weights, no API calls."""
-    found = classify(payload)
+    found = classify(payload, hash_key)
     labels = list(FILTER["criteria"])
     probs = {k: float(k == found["action"]) for k in labels}
     answer = Answer("choice", probs)
     return DecisionResult(
-        "catalogue", "catalogue-rules-v1", {"filter": answer}, 0.0, None, 0.0, "local",
+        "catalogue",
+        "catalogue-rules-v1",
+        {"filter": answer},
+        0.0,
+        None,
+        0.0,
+        "local",
         {"by": "catalogue rules", "gold": found["action"]},
     )
 
 
-def decide_filter(backend: Backend, payload: str) -> DecisionResult:
+def decide_filter(
+    backend: Backend,
+    payload: str,
+    hash_key: str | bytes | None = None,
+) -> DecisionResult:
     state = {"kind": "compliance_payload", "payload": payload, "role": "compliance_agent"}
     if backend.name == "catalogue":
-        return rule_result(payload)
+        return rule_result(payload, hash_key)
     return backend.decide(state, {"filter": FILTER})
 
 
-def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
-                   exporter=None) -> dict[str, Any]:
-    """Decide, write the graph, and optionally send an Arize trace.
+def filter_payload(
+    backend: Backend,
+    payload: str,
+    store: ComplianceGraph,
+    exporter=None,
+    hash_key: str | bytes | None = None,
+    min_confidence: float | None = None,
+    include_lab_labels: bool = True,
+) -> dict[str, Any]:
+    """Decide, write the graph, and optionally send a scrubbed Arize trace.
 
-    The graph and Arize traces store a pattern identity, the decision, and the
-    attempt count. Raw PII is not persisted. A backend error blocks the payload.
+    Raw PII is not persisted in the graph or exported trace. A backend error
+    blocks the payload. The decision backend itself receives the supplied state,
+    so hosted backends require an explicit data-residency decision by the caller.
     """
     text = (payload or "").strip()
     if not text:
         raise ValueError("payload is empty")
-    found = classify(text)
+    found = classify(text, hash_key)
     try:
-        result = decide_filter(backend, text)
-        action = result.answers["filter"].top
+        result = decide_filter(backend, text, hash_key)
+        proposed_action = result.answers["filter"].top
     except Exception as exc:
         result = fail_closed_result(backend, exc)
-        action = "block"
+        proposed_action = "block"
     confidence = result.answers["filter"].confidence
-    attempt_id = fingerprint(text)
-    decision_id = uuid.uuid4().hex[:12]
+    gated = (
+        min_confidence is not None
+        and confidence < min_confidence
+        and proposed_action != "block"
+    )
+    action = "block" if gated else proposed_action
+    attempt_id = fingerprint(text, hash_key)
+    decision_id = uuid.uuid4().hex
     at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     graph = store.record(
-        attempt_id=attempt_id, at=at, action=action, backend=result.backend,
-        pattern_id=found["pattern_id"], pattern_kind=found["pattern_kind"],
-        pattern_label=found["pattern_label"], decision_id=decision_id,
-        confidence=confidence, cost_usd=result.cost_usd, model=result.model,
+        attempt_id=attempt_id,
+        at=at,
+        action=action,
+        backend=result.backend,
+        pattern_id=found["pattern_id"],
+        pattern_kind=found["pattern_kind"],
+        pattern_label=found["pattern_label"],
+        decision_id=decision_id,
+        confidence=confidence,
+        cost_usd=result.cost_usd,
+        model=result.model,
     )
     snap = store.snapshot(focus=found["pattern_id"])
-    correct = action == found["action"]
+    correct = action == found["action"] if include_lab_labels else None
     trace = {
         "id": attempt_id[:12],
         "name": "compliance.filter",
         "action": action,
-        "gold": found["action"],
+        "proposed_action": proposed_action,
+        "confidence_gated": gated,
+        "gold": found["action"] if include_lab_labels else None,
         "correct": correct,
         "confidence": confidence,
         "cost_usd": result.cost_usd,
@@ -191,11 +238,14 @@ def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
         eval_view = exporter.record(trace)
     served = None if action == "block" else (
         EMAIL_RE.sub("[redacted-email]", SSN_RE.sub("[redacted-ssn]", text))
-        if action == "redact" else text
+        if action == "redact"
+        else text
     )
     return {
         "decision": result.to_dict(),
         "action": action,
+        "proposed_action": proposed_action,
+        "confidence_gated": gated,
         "served_onward": served,
         "pattern": {
             "id": found["pattern_id"],
@@ -217,26 +267,35 @@ def filter_payload(backend: Backend, payload: str, store: ComplianceGraph,
     }
 
 
-def run_example(backend: Backend, store: ComplianceGraph, exporter=None) -> dict[str, Any]:
-    """Reset the store and run the first payload plus the repeated circumvention."""
+def run_example(
+    backend: Backend,
+    store: ComplianceGraph,
+    exporter=None,
+    hash_key: str | bytes | None = None,
+    min_confidence: float | None = None,
+    include_lab_labels: bool = True,
+) -> dict[str, Any]:
+    """Reset the store and run the synthetic first payload plus repeat."""
     store.reset()
     if exporter is not None:
         reset = getattr(exporter, "reset", None)
         if callable(reset):
             reset()
-    first = filter_payload(backend, FIRST_PAYLOAD, store, exporter)
-    repeat = filter_payload(backend, REPEAT_PAYLOAD, store, exporter)
-    eval_view = None
-    if exporter is not None:
-        eval_view = exporter.view()
+    first = filter_payload(
+        backend, FIRST_PAYLOAD, store, exporter, hash_key, min_confidence, include_lab_labels
+    )
+    repeat = filter_payload(
+        backend, REPEAT_PAYLOAD, store, exporter, hash_key, min_confidence, include_lab_labels
+    )
+    eval_view = exporter.view() if exporter is not None else None
     return {
         "title": "Compliance agent in front of another agent",
         "story": (
             "A legal and compliance agent sits in front of a research agent. Jev, or Catalogue "
             "rules when no key is set, decides release / redact / block. A backend error fails "
-            "closed and blocks. Kuzu stores a pattern identity, the decision, and the attempt "
-            "count — not raw PII. The same pattern identity is a repeat; the same payload is "
-            "idempotent. Arize is the eval and cost view."
+            "closed and blocks. Kuzu stores a keyed pattern identity, the decision, and the "
+            "attempt count — not raw PII. The same pattern identity is a repeat; the same "
+            "payload is idempotent. Arize is the eval and cost view."
         ),
         "watts_strogatz": (
             "The Watts–Strogatz figures are a synthetic N=500 visual, not a measurement of "

@@ -222,16 +222,19 @@ def test_api_watts_strogatz_needs_no_key():
         assert ev["otlp_http"].endswith("/v1/traces") and ev["otlp_grpc"].endswith("/v1")
 
 
-def test_env_example_has_empty_arize_keys():
+def test_env_example_has_empty_secrets_and_production_controls():
     text = (Path(__file__).resolve().parents[1] / ".env.example").read_text()
     assert "ARIZE_SPACE_ID=\n" in text
     assert "ARIZE_API_KEY=\n" in text
     assert "ARIZE_PROJECT_NAME=" in text
-    assert "graph-demo" in text
-    assert "AzureDev" in text
-    for line in text.splitlines():
-        if line.startswith("ARIZE_API_KEY="):
-            assert line.strip() == "ARIZE_API_KEY="
+    assert "API_TOKEN=\n" in text
+    assert "COMPLIANCE_HASH_KEY=\n" in text
+    assert "ALLOW_HOSTED_COMPLIANCE=false" in text
+    assert "EVAL_ENABLED=false" in text
+    for key in ("API_TOKEN", "COMPLIANCE_HASH_KEY", "ARIZE_API_KEY"):
+        for line in text.splitlines():
+            if line.startswith(f"{key}="):
+                assert line.strip() == f"{key}="
 
 
 def test_uniform_still_records_graph(store):
